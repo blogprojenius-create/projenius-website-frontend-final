@@ -1,0 +1,542 @@
+/* =========================================================
+   HOME HERO
+   ========================================================= */
+
+.home-hero {
+  position: relative;
+
+  width: 100%;
+  min-height: calc(100vh - 100px);
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  padding: 90px 8% 130px;
+
+  background-color: #111a2b;
+
+  background-image: url("/images/hero-background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  font-family: "Poppins", sans-serif;
+}
+
+
+/* =========================================================
+   DARK OVERLAY
+   ========================================================= */
+
+.home-hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(9, 18, 34, 0.96) 0%,
+      rgba(9, 18, 34, 0.88) 45%,
+      rgba(9, 18, 34, 0.78) 100%
+    );
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.home-hero-content {
+  position: relative;
+
+  z-index: 5;
+
+  width: 67%;
+
+  max-width: 1000px;
+}
+
+
+/* =========================================================
+   SMALL HEADING
+   ========================================================= */
+
+.hero-small-heading {
+  margin: 0 0 18px;
+
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 25px;
+
+  line-height: 1.4;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+   ========================================================= */
+
+.hero-heading {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family: "Segoe UI Black", "Segoe UI", sans-serif;
+
+  font-size: clamp(48px, 5.1vw, 78px);
+
+  line-height: 1.08;
+
+  letter-spacing: -2px;
+
+  font-weight: 900;
+}
+
+.hero-heading span {
+  color: #35CEFF;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.hero-description {
+  max-width: 900px;
+
+  margin: 25px 0 28px;
+
+  color: rgba(255, 255, 255, 0.76);
+
+  font-family: "Segoe UI", sans-serif;
+
+  font-size: 21px;
+
+  line-height: 1.7;
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.hero-explore-btn {
+  border: none;
+
+  padding: 14px 27px;
+
+  border-radius: 30px;
+
+  background: #35CEFF;
+
+  color: #06121e;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hero-explore-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 30px rgba(53, 206, 255, 0.35);
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+   ========================================================= */
+
+.hero-visual {
+  position: absolute;
+
+  z-index: 4;
+
+  right: 7%;
+
+  top: 50%;
+
+  width: 430px;
+  height: 500px;
+
+  transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   CIRCULAR IMAGES
+   ========================================================= */
+
+.hero-circle {
+  position: absolute;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+  border: 4px solid #35CEFF;
+
+  background: #172238;
+
+  box-shadow:
+    0 0 25px rgba(53, 206, 255, 0.22);
+}
+
+.hero-circle img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* Large circle */
+
+.hero-circle-large {
+  top: 20px;
+  right: 70px;
+
+  width: 140px;
+  height: 140px;
+
+  border-width: 4px;
+}
+
+
+/* Middle circle */
+
+.hero-circle-middle {
+  top: 190px;
+  right: 45px;
+
+  width: 115px;
+  height: 115px;
+
+  border: none;
+
+  box-shadow:
+    0 0 20px rgba(53, 206, 255, 0.12);
+}
+
+
+/* Small circle */
+
+.hero-circle-small {
+  top: 350px;
+  right: 70px;
+
+  width: 115px;
+  height: 115px;
+
+  border: none;
+
+  box-shadow:
+    0 0 20px rgba(53, 206, 255, 0.12);
+}
+
+
+/* =========================================================
+   DECORATIVE DOTS
+   ========================================================= */
+
+.hero-dot {
+  position: absolute;
+
+  z-index: 3;
+
+  display: block;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: #35CEFF;
+}
+
+.dot-1 {
+  top: 65px;
+  left: 12%;
+}
+
+.dot-2 {
+  top: 85px;
+  right: 28%;
+}
+
+.dot-3 {
+  bottom: 25%;
+  left: 8%;
+}
+
+.dot-4 {
+  bottom: 18%;
+  right: 17%;
+
+  width: 9px;
+  height: 9px;
+}
+
+
+/* =========================================================
+   BOTTOM ANGLED SHAPE
+   ========================================================= */
+
+.hero-bottom-shape {
+  position: absolute;
+
+  z-index: 6;
+
+  left: -5%;
+
+  bottom: -1px;
+
+  width: 110%;
+
+  height: 100px;
+
+  background: #ffffff;
+
+  clip-path: polygon(
+    0 25%,
+    8% 65%,
+    17% 0,
+    100% 72%,
+    100% 100%,
+    0 100%
+  );
+}
+
+.hero-bottom-shape::before {
+  content: "";
+
+  position: absolute;
+
+  top: -6px;
+  left: 0;
+
+  width: 100%;
+  height: 6px;
+
+  background: #35CEFF;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .home-hero {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
+  .home-hero-content {
+    width: 70%;
+  }
+
+  .hero-small-heading {
+    font-size: 21px;
+  }
+
+  .hero-heading {
+    font-size: clamp(44px, 5.5vw, 65px);
+  }
+
+  .hero-description {
+    font-size: 18px;
+  }
+
+  .hero-visual {
+    right: 3%;
+
+    transform:
+      translateY(-50%)
+      scale(0.85);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .home-hero {
+    min-height: auto;
+
+    padding: 70px 25px 150px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .home-hero-content {
+    width: 100%;
+
+    max-width: 100%;
+  }
+
+  .hero-small-heading {
+    font-size: 18px;
+
+    margin-bottom: 15px;
+  }
+
+  .hero-heading {
+    font-size: clamp(38px, 9vw, 52px);
+
+    letter-spacing: -1px;
+  }
+
+  .hero-description {
+    font-size: 17px;
+
+    line-height: 1.6;
+
+    margin-top: 20px;
+  }
+
+  .hero-explore-btn {
+    margin-top: 5px;
+  }
+
+  .hero-visual {
+    position: relative;
+
+    top: auto;
+    right: auto;
+
+    width: 100%;
+    height: 350px;
+
+    margin-top: 30px;
+
+    transform: none;
+  }
+
+  .hero-circle-large {
+    top: 15px;
+    right: 25%;
+
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero-circle-middle {
+    top: 155px;
+    right: 12%;
+
+    width: 95px;
+    height: 95px;
+  }
+
+  .hero-circle-small {
+    top: 255px;
+    right: 32%;
+
+    width: 95px;
+    height: 95px;
+  }
+
+  .hero-bottom-shape {
+    height: 75px;
+  }
+
+  .dot-1 {
+    top: 45px;
+    left: 10%;
+  }
+
+  .dot-2 {
+    top: 100px;
+    right: 10%;
+  }
+
+  .dot-3 {
+    bottom: 20%;
+    left: 7%;
+  }
+
+  .dot-4 {
+    bottom: 15%;
+    right: 10%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .home-hero {
+    padding: 55px 20px 125px;
+  }
+
+  .hero-small-heading {
+    font-size: 16px;
+  }
+
+  .hero-heading {
+    font-size: 37px;
+
+    line-height: 1.08;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  .hero-visual {
+    height: 310px;
+  }
+
+  .hero-circle-large {
+    width: 105px;
+    height: 105px;
+
+    right: 25%;
+  }
+
+  .hero-circle-middle {
+    width: 82px;
+    height: 82px;
+
+    right: 9%;
+  }
+
+  .hero-circle-small {
+    width: 82px;
+    height: 82px;
+
+    right: 30%;
+  }
+}

@@ -1,0 +1,694 @@
+/* =========================================================
+   PRODUCT SECTION
+========================================================= */
+
+.tabs-section {
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    width: 100%;
+    padding: 90px 6%;
+    background: #ffffff;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.product-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.product-heading {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+
+/* =========================================================
+   SUB HEADING
+========================================================= */
+
+.product-sub-heading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    margin-bottom: 18px;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    color: #159FE3;
+}
+
+
+.product-sub-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+
+    border-radius: 50%;
+
+    background: #159FE3;
+
+    box-shadow:
+        0 0 8px
+        rgba(21, 159, 227, 0.45);
+
+    animation:
+        productDotBlink
+        2.8s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes productDotBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(0.78);
+
+        box-shadow:
+            0 0 10px
+            rgba(21, 159, 227, 0.65);
+    }
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.product-title {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+    padding: 0;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: clamp(42px, 4.5vw, 58px);
+
+    font-weight: 900;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.6px;
+
+    color: #06142d;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   BLUE ACCENT
+========================================================= */
+
+.product-title-accent {
+    color: #159FE3;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   TITLE LINE
+========================================================= */
+
+.product-title-line {
+    width: 78px;
+    height: 5px;
+
+    margin: 18px auto 20px;
+
+    border-radius: 999px;
+
+    background: #159FE3;
+
+    transform-origin: center;
+
+    animation:
+        productTitleLineBlink
+        2.8s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes productTitleLineBlink {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scaleX(0.78);
+
+        box-shadow:
+            0 0 0
+            rgba(0, 170, 162, 0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleX(1);
+
+        box-shadow:
+            0 0 14px
+            rgba(21, 159, 227, 0.65);
+    }
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.product-heading-description {
+    width: 100%;
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    color: #667892;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    line-height: 1.7;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   PRODUCT TABS
+========================================================= */
+
+.tabs-header {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+
+    width: 100%;
+
+    margin: 0 auto 45px;
+
+    gap: 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TAB BUTTON
+========================================================= */
+
+.tab-btn {
+    position: relative;
+
+    flex: 1;
+
+    min-height: 58px;
+
+    padding: 14px 20px;
+
+    border: 1px solid #d9e2e8;
+
+    border-radius: 10px;
+
+    background: #f7f9fa;
+
+    color: #263746;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.35;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.tab-btn:hover {
+    border-color:
+        rgba(21, 159, 227, 0.55);
+
+    background:
+        rgba(21, 159, 227, 0.06);
+
+    color:
+        #159FE3;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   ACTIVE TAB
+========================================================= */
+
+.tab-btn.active {
+    border-color:
+        #159FE3;
+
+    background:
+        #159FE3;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 25px
+        rgba(21, 159, 227, 0.18);
+}
+
+
+/* =========================================================
+   PRODUCT CONTENT
+========================================================= */
+
+.tabs-content {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+
+    align-items: center;
+
+    gap: 55px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.tabs-image {
+    width: 100%;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #eef4f7;
+
+    box-shadow:
+        0 18px 45px
+        rgba(6, 20, 45, 0.10);
+}
+
+
+.tabs-image img {
+    display: block;
+
+    width: 100%;
+
+    height: 420px;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.6s ease;
+}
+
+
+.tabs-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   TEXT CONTENT
+========================================================= */
+
+.tabs-text {
+    width: 100%;
+}
+
+
+.tabs-text h2 {
+    margin: 0 0 16px;
+
+    color: #06142d;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.3px;
+}
+
+
+.tabs-text p {
+    margin: 0 0 26px;
+
+    color: #667892;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   EXPLORE BUTTON
+========================================================= */
+
+.explore-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    min-width: 165px;
+    min-height: 48px;
+
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background:
+        #159FE3;
+
+    color: #ffffff;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.explore-btn:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(21, 159, 227, 0.25);
+}
+
+
+.explore-arrow {
+    font-size: 18px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.explore-btn:hover .explore-arrow {
+    transform:
+        translateX(4px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .tabs-section {
+        padding: 75px 5%;
+    }
+
+    .product-title {
+        font-size: 44px;
+    }
+
+    .tabs-content {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+    .tabs-image img {
+        height: 380px;
+    }
+
+    .tabs-text {
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .tabs-section {
+        padding: 60px 18px;
+    }
+
+    .product-heading {
+        margin-bottom: 35px;
+    }
+
+    .product-sub-heading {
+        font-size: 13px;
+
+        margin-bottom: 15px;
+    }
+
+    .product-title {
+        font-size: 34px;
+
+        line-height: 1.18;
+
+        letter-spacing: -0.3px;
+    }
+
+    .product-title-line {
+        width: 68px;
+
+        height: 4px;
+
+        margin:
+            14px auto 16px;
+    }
+
+    .product-heading-description {
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+    .tabs-header {
+        flex-direction: column;
+
+        gap: 8px;
+
+        margin-bottom: 30px;
+    }
+
+    .tab-btn {
+        flex: none;
+
+        min-height: 52px;
+
+        padding: 12px 14px;
+
+        font-size: 13px;
+    }
+
+    .tabs-image img {
+        height: 280px;
+    }
+
+    .tabs-text h2 {
+        font-size: 27px;
+
+        line-height: 1.25;
+    }
+
+    .tabs-text p {
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+    .explore-btn {
+        min-width: 155px;
+
+        min-height: 46px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .tabs-section {
+        padding: 50px 14px;
+    }
+
+    .product-title {
+        font-size: 30px;
+    }
+
+    .product-heading-description {
+        font-size: 13px;
+    }
+
+    .tab-btn {
+        font-size: 12px;
+    }
+
+    .tabs-image img {
+        height: 240px;
+    }
+
+    .tabs-text h2 {
+        font-size: 23px;
+    }
+
+    .tabs-text p {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .product-sub-dot,
+    .product-title-line {
+        animation: none !important;
+    }
+
+    .tabs-image img,
+    .tab-btn,
+    .explore-btn,
+    .explore-arrow {
+        transition: none !important;
+    }
+}
+
+
+/* =========================================================
+   BOX SIZING
+========================================================= */
+
+.tabs-section,
+.product-container,
+.product-heading,
+.tabs-header,
+.tabs-content,
+.tabs-image,
+.tabs-text {
+    box-sizing: border-box;
+}
+
+.tabs-section * {
+    box-sizing: border-box;
+}

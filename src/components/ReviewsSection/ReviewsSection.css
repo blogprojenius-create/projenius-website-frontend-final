@@ -1,0 +1,755 @@
+/* =========================================================
+   REVIEWS SECTION
+========================================================= */
+
+.reviews-section {
+    position: relative;
+    width: 100%;
+    padding: 100px 30px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(0, 255, 242, 0.08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(0, 170, 162, 0.10),
+            transparent 30%
+        ),
+        #07142d;
+
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+/* =========================================================
+   GLOW
+========================================================= */
+
+.reviews-glow {
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    opacity: 0.14;
+
+    pointer-events: none;
+}
+
+.reviews-glow-one {
+    top: -120px;
+    left: -100px;
+
+    background: rgb(0, 255, 242);
+
+    animation: reviewGlowOne 8s ease-in-out infinite;
+}
+
+.reviews-glow-two {
+    right: -120px;
+    bottom: -120px;
+
+    background: rgb(0, 170, 162);
+
+    animation: reviewGlowTwo 9s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.reviews-container {
+    position: relative;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.reviews-header {
+    text-align: center;
+
+    margin-bottom: 55px;
+}
+
+
+.reviews-sub-heading {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 19px;
+
+    border: 1px solid rgba(0, 255, 242, 0.28);
+
+    border-radius: 999px;
+
+    color: rgb(0, 255, 242);
+
+    background: rgba(0, 255, 242, 0.05);
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 20px;
+}
+
+
+.reviews-sub-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: rgb(0, 255, 242);
+
+    box-shadow:
+        0 0 12px rgba(0, 255, 242, 0.8);
+
+    animation: reviewDotPulse 1.8s infinite;
+}
+
+
+.reviews-title {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family:
+        "Segoe UI Black",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: clamp(42px, 5vw, 64px);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    letter-spacing: -2px;
+}
+
+
+.reviews-title span {
+    color: rgb(0, 255, 242);
+
+    text-shadow:
+        0 0 25px rgba(0, 255, 242, 0.16);
+}
+
+
+.reviews-title-line {
+    width: 85px;
+    height: 4px;
+
+    margin: 22px auto;
+
+    border-radius: 20px;
+
+    background: rgba(0, 255, 242, 0.20);
+
+    overflow: hidden;
+}
+
+
+.reviews-title-line span {
+    display: block;
+
+    width: 45px;
+    height: 100%;
+
+    background: rgb(0, 255, 242);
+
+    animation: reviewLineMove 2.5s infinite;
+}
+
+
+.reviews-description {
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.reviews-content {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   CARD WRAPPER
+========================================================= */
+
+.review-card-wrapper {
+    position: relative;
+
+    width: 760px;
+
+    min-height: 365px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.review-card {
+    position: absolute;
+
+    inset: 0;
+
+    padding: 48px 65px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.07),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    border: 1px solid rgba(0, 255, 242, 0.14);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(15px);
+
+    opacity: 0;
+
+    transform:
+        translateX(60px)
+        scale(0.94);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.review-card.review-active {
+    opacity: 1;
+
+    transform:
+        translateX(0)
+        scale(1);
+
+    pointer-events: auto;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   QUOTE ICON
+========================================================= */
+
+.review-quote-icon {
+    position: absolute;
+
+    top: 25px;
+    right: 35px;
+
+    font-size: 65px;
+
+    line-height: 1;
+
+    color: rgba(0, 255, 242, 0.12);
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.review-stars {
+    display: flex;
+
+    gap: 5px;
+
+    margin-bottom: 20px;
+}
+
+
+.review-stars i {
+    color: rgb(0, 255, 242);
+
+    font-size: 16px;
+
+    filter:
+        drop-shadow(
+            0 0 5px rgba(0, 255, 242, 0.25)
+        );
+}
+
+
+/* =========================================================
+   REVIEW TEXT
+========================================================= */
+
+.review-text {
+    margin: 0 0 32px;
+
+    color: rgba(255, 255, 255, 0.86);
+
+    font-family: "Segoe UI", sans-serif;
+
+    font-size: 20px;
+
+    font-weight: 400;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   USER
+========================================================= */
+
+.review-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.review-user img {
+    width: 55px;
+    height: 55px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(0, 255, 242, 0.45);
+
+    box-shadow:
+        0 0 20px rgba(0, 255, 242, 0.12);
+}
+
+
+.review-user-info h3 {
+    margin: 0 0 3px;
+
+    color: #ffffff;
+
+    font-family:
+        "Segoe UI Black",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+
+.review-user-info span {
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 13px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.reviews-arrow {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: rgb(0, 255, 242);
+
+    background: rgba(0, 255, 242, 0.05);
+
+    border: 1px solid rgba(0, 255, 242, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.reviews-arrow i {
+    font-size: 18px;
+}
+
+
+.reviews-arrow:hover {
+    transform: scale(1.1);
+
+    background: rgba(0, 255, 242, 0.12);
+
+    box-shadow:
+        0 0 25px rgba(0, 255, 242, 0.14);
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.reviews-dots {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 30px;
+}
+
+
+.review-dot {
+    width: 8px;
+    height: 8px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    background: rgba(255, 255, 255, 0.25);
+
+    transition:
+        width 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.review-dot.active {
+    width: 28px;
+
+    border-radius: 999px;
+
+    background: rgb(0, 255, 242);
+
+    box-shadow:
+        0 0 10px rgba(0, 255, 242, 0.4);
+}
+
+
+/* =========================================================
+   TRUST
+========================================================= */
+
+.reviews-trust {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 40px;
+
+    margin-top: 55px;
+
+    padding-top: 30px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.reviews-trust-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.reviews-trust-item i {
+    color: rgb(0, 255, 242);
+
+    font-size: 17px;
+}
+
+
+.reviews-trust-item strong {
+    color: #ffffff;
+
+    font-family:
+        "Segoe UI Black",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 15px;
+}
+
+
+.reviews-trust-item span {
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 13px;
+}
+
+
+.reviews-trust-divider {
+    width: 1px;
+
+    height: 30px;
+
+    background: rgba(255, 255, 255, 0.10);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes reviewDotPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 0.65;
+    }
+}
+
+
+@keyframes reviewLineMove {
+
+    0% {
+        transform: translateX(-50px);
+    }
+
+    50% {
+        transform: translateX(85px);
+    }
+
+    100% {
+        transform: translateX(85px);
+    }
+}
+
+
+@keyframes reviewGlowOne {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(100px, 80px);
+    }
+}
+
+
+@keyframes reviewGlowTwo {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-80px, -60px);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .reviews-section {
+        padding: 80px 25px;
+    }
+
+    .review-card-wrapper {
+        width: 650px;
+    }
+
+    .review-card {
+        padding: 40px 45px;
+    }
+
+    .review-text {
+        font-size: 18px;
+    }
+
+    .reviews-trust {
+        gap: 25px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .reviews-section {
+        padding: 70px 16px;
+    }
+
+    .reviews-header {
+        margin-bottom: 35px;
+    }
+
+    .reviews-title {
+        font-size: 38px;
+
+        letter-spacing: -1px;
+    }
+
+    .reviews-description {
+        font-size: 15px;
+    }
+
+    .reviews-content {
+        gap: 8px;
+    }
+
+    .review-card-wrapper {
+        width: calc(100% - 60px);
+
+        min-height: 430px;
+    }
+
+    .review-card {
+        padding: 35px 25px;
+
+        border-radius: 23px;
+    }
+
+    .review-text {
+        font-size: 16px;
+
+        line-height: 1.7;
+    }
+
+    .review-quote-icon {
+        right: 20px;
+
+        font-size: 50px;
+    }
+
+    .reviews-arrow {
+        width: 42px;
+        height: 42px;
+    }
+
+    .reviews-trust {
+        flex-direction: column;
+
+        gap: 18px;
+
+        margin-top: 40px;
+    }
+
+    .reviews-trust-divider {
+        width: 60px;
+        height: 1px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .reviews-title {
+        font-size: 32px;
+    }
+
+    .reviews-sub-heading {
+        font-size: 11px;
+    }
+
+    .review-card-wrapper {
+        width: calc(100% - 45px);
+
+        min-height: 450px;
+    }
+
+    .review-card {
+        padding: 30px 20px;
+    }
+
+    .review-text {
+        font-size: 15px;
+    }
+
+    .review-user img {
+        width: 48px;
+        height: 48px;
+    }
+}

@@ -1,0 +1,884 @@
+/* =========================================================
+   TRAINING SECTION
+========================================================= */
+
+.training-section {
+    width: 100%;
+    padding: 60px 0 70px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    box-sizing: border-box;
+}
+
+.training-section *,
+.training-section *::before,
+.training-section *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.training-section .container {
+    width: min(1180px, calc(100% - 70px));
+
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.training-heading {
+    width: 100%;
+
+    margin: 0 auto 40px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   SUB HEADING
+========================================================= */
+
+.training-section .training-sub-heading {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 9px !important;
+
+    width: fit-content !important;
+
+    margin: 0 0 17px !important;
+
+    padding: 9px 19px !important;
+
+    border: 1px solid rgba(21, 159, 227, 0.35) !important;
+
+    border-radius: 999px !important;
+
+    background: rgba(21, 159, 227, 0.05) !important;
+
+    color: #159FE3 !important;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif !important;
+
+    font-size: 13px !important;
+
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: 1.1px !important;
+
+    text-transform: uppercase !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   SUB HEADING DOT
+========================================================= */
+
+.training-section .training-sub-dot {
+    width: 8px !important;
+    height: 8px !important;
+
+    min-width: 8px !important;
+    min-height: 8px !important;
+
+    flex: 0 0 8px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 50% !important;
+
+    background: #159FE3 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(21, 159, 227, 0.08),
+        0 0 12px rgba(21, 159, 227, 0.35) !important;
+
+    animation:
+        trainingDotPulse
+        2.5s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes trainingDotPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.55;
+        transform: scale(0.8);
+    }
+}
+
+
+/* =========================================================
+   MAIN TITLE
+========================================================= */
+
+.training-section .train-section-title {
+    position: relative;
+
+    display: inline-block;
+
+    margin: 0;
+
+    padding: 0 0 20px;
+
+    color: #0B1328;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: clamp(40px, 4.2vw, 58px);
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    letter-spacing: -1.8px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BLUE TITLE
+========================================================= */
+
+.training-section .training-title-accent {
+    color: #159FE3;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   TITLE LINE
+========================================================= */
+
+.training-section .train-section-title::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 92px;
+    height: 4px;
+
+    border-radius: 999px;
+
+    background: #159FE3;
+
+    transform:
+        translateX(-50%)
+        scaleX(0.8);
+
+    box-shadow:
+        0 0 12px rgba(21, 159, 227, 0.3);
+
+    animation:
+        trainingTitleLine
+        2.5s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes trainingTitleLine {
+
+    0%,
+    100% {
+        opacity: 0.5;
+
+        transform:
+            translateX(-50%)
+            scaleX(0.8);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            scaleX(1);
+    }
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.training-section .main {
+    width: 100%;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   IMAGE GRID
+========================================================= */
+
+.training-section .row {
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 20px;
+
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   COLUMNS
+========================================================= */
+
+.training-section .row > [class*="col-"] {
+    width: 100% !important;
+
+    max-width: none !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.training-section .training-link {
+    display: block;
+
+    width: 100%;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.training-section .training-card {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: #dcefff;
+
+    border: 0;
+
+    isolation: isolate;
+
+    box-shadow:
+        0 15px 38px rgba(11, 19, 40, 0.12);
+
+    transform: translateZ(0);
+
+    transition:
+        transform 0.4s
+        cubic-bezier(0.22, 1, 0.36, 1),
+
+        box-shadow 0.4s ease;
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.training-section
+.training-link:hover
+.training-card {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 23px 50px rgba(11, 19, 40, 0.18);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.training-section .training-card img {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: cover !important;
+
+    object-position: center !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+    z-index: 0;
+
+    transform: scale(1.001);
+
+    transition:
+        transform 0.8s
+        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   IMAGE HOVER
+========================================================= */
+
+.training-section
+.training-link:hover
+.training-card
+img {
+    transform: scale(1.07);
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.training-section .training-image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(11, 19, 40, 0.01) 10%,
+            rgba(11, 19, 40, 0.05) 40%,
+            rgba(11, 19, 40, 0.58) 100%
+        );
+}
+
+
+/* =========================================================
+   DESKTOP CARD SIZES
+
+   BIG:
+   390px
+
+   SMALL:
+   155px
+
+   GAP:
+   20px
+
+   TOTAL:
+   390 + 20 + 155 = 565px
+
+========================================================= */
+
+.training-section .big-card {
+    height: 390px;
+}
+
+
+.training-section .small-card {
+    height: 155px;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.training-section .training-content {
+    position: absolute;
+
+    left: 18px;
+    bottom: 18px;
+
+    z-index: 3;
+
+    min-width: 190px;
+
+    max-width: 78%;
+
+    padding: 11px 17px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255, 255, 255, 0.95);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.85);
+
+    border-left:
+        4px solid #159FE3;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.16);
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   CONTENT HOVER
+========================================================= */
+
+.training-section
+.training-link:hover
+.training-content {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 38px rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================================================
+   CONTENT LABEL
+========================================================= */
+
+.training-section .training-content span {
+    display: block;
+
+    margin: 0 0 4px;
+
+    color: #159FE3;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CONTENT TITLE
+========================================================= */
+
+.training-section .training-content h4 {
+    margin: 0;
+
+    color: #0B1328;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.2px;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .training-section {
+        padding-top: 65px;
+        padding-bottom: 75px;
+    }
+
+    .training-section .container {
+        width: min(1200px, calc(100% - 80px));
+    }
+
+    .training-section .row {
+        gap: 22px;
+    }
+
+    .training-section .row > [class*="col-"] {
+        gap: 22px;
+    }
+
+    .training-section .big-card {
+        height: 400px;
+    }
+
+    .training-section .small-card {
+        height: 158px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .training-section {
+        padding: 50px 0 60px;
+    }
+
+    .training-section .container {
+        width: calc(100% - 40px);
+    }
+
+    .training-heading {
+        margin-bottom: 32px;
+    }
+
+    .training-section .train-section-title {
+        font-size: 44px;
+
+        white-space: normal;
+    }
+
+    .training-section .row {
+        gap: 16px;
+    }
+
+    .training-section .row > [class*="col-"] {
+        gap: 16px;
+    }
+
+    .training-section .big-card {
+        height: 310px;
+    }
+
+    .training-section .small-card {
+        height: 120px;
+    }
+
+    .training-section .training-content {
+        left: 14px;
+        bottom: 14px;
+
+        min-width: 165px;
+
+        padding: 9px 13px;
+    }
+
+    .training-section .training-content h4 {
+        font-size: 17px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .training-section {
+        padding: 45px 0 55px;
+    }
+
+    .training-section .container {
+        width: calc(100% - 30px);
+    }
+
+    .training-heading {
+        margin-bottom: 27px;
+    }
+
+    .training-section .training-sub-heading {
+        padding: 8px 15px !important;
+
+        margin-bottom: 14px !important;
+
+        font-size: 11px !important;
+    }
+
+    .training-section .train-section-title {
+        width: 100%;
+
+        font-size:
+            clamp(28px, 7.5vw, 40px);
+
+        line-height: 1.15;
+
+        letter-spacing: -0.8px;
+
+        white-space: normal;
+
+        padding-bottom: 17px;
+    }
+
+    .training-section .train-section-title::after {
+        width: 75px;
+        height: 3px;
+    }
+
+
+    /* ONE COLUMN */
+
+    .training-section .row {
+        display: flex !important;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .training-section .row > [class*="col-"] {
+        width: 100% !important;
+
+        gap: 15px;
+    }
+
+
+    /* BIGGER MOBILE IMAGES */
+
+    .training-section
+    .big-card,
+    .training-section
+    .small-card {
+        height: 260px;
+    }
+
+
+    .training-section .training-content {
+        left: 12px;
+        bottom: 12px;
+
+        min-width: 155px;
+
+        max-width: 86%;
+
+        padding: 9px 12px;
+
+        border-left-width: 3px;
+    }
+
+    .training-section .training-content span {
+        font-size: 9px;
+    }
+
+    .training-section .training-content h4 {
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .training-section {
+        padding: 38px 0 48px;
+    }
+
+    .training-section .container {
+        width: calc(100% - 24px);
+    }
+
+    .training-section .train-section-title {
+        font-size:
+            clamp(24px, 7.2vw, 32px);
+
+        letter-spacing: -0.5px;
+    }
+
+    .training-section .row {
+        gap: 12px;
+    }
+
+    .training-section .row > [class*="col-"] {
+        gap: 12px;
+    }
+
+    .training-section
+    .big-card,
+    .training-section
+    .small-card {
+        height: 235px;
+    }
+
+    .training-section .training-content {
+        left: 10px;
+        bottom: 10px;
+
+        min-width: 140px;
+
+        padding: 8px 10px;
+    }
+
+    .training-section .training-content h4 {
+        font-size: 15px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .training-section {
+        padding: 32px 0 42px;
+    }
+
+    .training-section .container {
+        width: calc(100% - 20px);
+    }
+
+    .training-section .train-section-title {
+        font-size: 22px;
+
+        padding-bottom: 14px;
+    }
+
+    .training-section
+    .train-section-title::after {
+        width: 60px;
+        height: 3px;
+    }
+
+    .training-section
+    .big-card,
+    .training-section
+    .small-card {
+        height: 215px;
+    }
+
+    .training-section .training-content {
+        left: 8px;
+        bottom: 8px;
+
+        min-width: 130px;
+
+        padding: 7px 9px;
+    }
+
+    .training-section .training-content h4 {
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .training-section .training-sub-dot,
+    .training-section .train-section-title::after {
+        animation: none !important;
+    }
+
+    .training-section .training-card,
+    .training-section .training-card img,
+    .training-section .training-content {
+        transition: none !important;
+    }
+}

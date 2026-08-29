@@ -1,0 +1,915 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+/* =========================================================
+   PROJECT SECTION
+========================================================= */
+
+.project-section {
+  --blue: #159fe3;
+  --blue-dark: #078bd0;
+  --dark: #071122;
+  --text: #172033;
+  --muted: #687386;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 100px 0 90px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(21, 159, 227, 0.08),
+      transparent 40%
+    ),
+    #ffffff;
+
+  font-family: "Poppins", sans-serif;
+
+  overflow: hidden;
+}
+
+.project-section *,
+.project-section *::before,
+.project-section *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.project-container {
+  width: min(1500px, calc(100% - 60px));
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.project-header {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  margin-bottom: 55px;
+
+  opacity: 0;
+  transform: translateY(35px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.project-visible .project-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 12px 23px;
+
+  border: 1px solid rgba(21, 159, 227, 0.35);
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: var(--blue);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+
+  box-shadow:
+    0 10px 30px rgba(21, 159, 227, 0.08);
+}
+
+.project-badge-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--blue);
+
+  box-shadow:
+    0 0 0 5px rgba(21, 159, 227, 0.1);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.project-title {
+  margin: 24px 0 0;
+
+  color: #080d16;
+
+  font-size: clamp(40px, 4.5vw, 64px);
+
+  line-height: 1.1;
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+}
+
+.project-title span {
+  color: var(--blue);
+}
+
+/* =========================================================
+   TITLE LINE
+========================================================= */
+
+.project-title-line {
+  width: 88px;
+  height: 4px;
+
+  margin-top: 22px;
+
+  border-radius: 999px;
+
+  background: rgba(21, 159, 227, 0.15);
+
+  overflow: hidden;
+}
+
+.project-title-line span {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--blue);
+
+  transform: translateX(-100%);
+
+  transition:
+    transform 0.9s ease 0.4s;
+}
+
+.project-visible .project-title-line span {
+  transform: translateX(0);
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.project-description {
+  width: min(850px, 100%);
+
+  margin: 20px auto 0;
+
+  color: #687386;
+
+  font-size: 15px;
+
+  line-height: 1.8;
+
+  font-weight: 400;
+}
+
+/* =========================================================
+   SLIDER AREA
+========================================================= */
+
+.project-slider-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  height: 680px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.project-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1500px;
+}
+
+/* =========================================================
+   FULL CARD
+========================================================= */
+
+.project-card {
+  position: absolute;
+
+  width: 520px;
+  height: 610px;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(21, 159, 227, 0.14);
+
+  box-shadow:
+    0 25px 70px rgba(7, 17, 34, 0.14);
+
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.75s ease,
+    filter 0.75s ease,
+    box-shadow 0.75s ease;
+
+  will-change: transform;
+}
+
+/* =========================================================
+   CENTER CARD
+========================================================= */
+
+.project-card.active {
+  z-index: 10;
+
+  opacity: 1;
+
+  transform:
+    translateX(0)
+    scale(1);
+
+  filter: blur(0);
+
+  box-shadow:
+    0 35px 100px rgba(7, 17, 34, 0.22),
+    0 0 0 1px rgba(21, 159, 227, 0.1);
+}
+
+/* =========================================================
+   LEFT CARD
+========================================================= */
+
+.project-card.prev {
+  z-index: 5;
+
+  opacity: 0.55;
+
+  transform:
+    translateX(-520px)
+    scale(0.82);
+
+  filter: blur(0.3px);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.project-card.next {
+  z-index: 5;
+
+  opacity: 0.55;
+
+  transform:
+    translateX(520px)
+    scale(0.82);
+
+  filter: blur(0.3px);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HIDDEN CARDS
+========================================================= */
+
+.project-card.hidden {
+  z-index: 0;
+
+  opacity: 0;
+
+  transform:
+    translateX(0)
+    scale(0.6);
+
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.project-card-image {
+  position: relative;
+
+  width: 100%;
+  height: 350px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card.active:hover
+.project-card-image img {
+  transform: scale(1.06);
+}
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.project-image-gradient {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(7, 17, 34, 0.02) 10%,
+      rgba(7, 17, 34, 0.08) 45%,
+      rgba(7, 17, 34, 0.82) 100%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.project-number {
+  position: absolute;
+
+  top: 22px;
+  left: 22px;
+
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: var(--blue);
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.project-category {
+  position: absolute;
+
+  left: 25px;
+  bottom: 22px;
+
+  padding: 8px 15px;
+
+  border-radius: 999px;
+
+  background: var(--blue);
+
+  color: #ffffff;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.project-card-content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 30px 32px 30px;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.project-card-title {
+  margin: 0;
+
+  color: var(--dark);
+
+  font-size: 24px;
+
+  line-height: 1.3;
+
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.project-card-description {
+  margin: 15px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  line-height: 1.75;
+
+  font-weight: 400;
+}
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.project-card-bottom {
+  margin-top: auto;
+
+  padding-top: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.project-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #596579;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.project-stars {
+  display: flex;
+
+  align-items: center;
+
+  gap: 2px;
+}
+
+.project-stars span {
+  color: #d4dae2;
+
+  font-size: 15px;
+}
+
+.project-stars span.filled {
+  color: var(--blue);
+}
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.project-view-btn {
+  border: none;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 43px;
+
+  padding: 0 18px;
+
+  border-radius: 999px;
+
+  background: var(--blue);
+
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.project-view-btn span {
+  font-size: 16px;
+
+  transition:
+    transform 0.25s ease;
+}
+
+.project-view-btn:hover {
+  background: var(--blue-dark);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(21, 159, 227, 0.3);
+}
+
+.project-view-btn:hover span {
+  transform:
+    translate(2px, -2px);
+}
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.project-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  z-index: 20;
+
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(21, 159, 227, 0.25);
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: var(--blue);
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+
+  box-shadow:
+    0 12px 35px rgba(7, 17, 34, 0.12);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.project-arrow-left {
+  left: 20px;
+}
+
+.project-arrow-right {
+  right: 20px;
+}
+
+.project-arrow:hover {
+  background: var(--blue);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 15px 40px rgba(21, 159, 227, 0.25);
+}
+
+.project-arrow-left:hover {
+  transform:
+    translate(-3px, -50%);
+}
+
+.project-arrow-right:hover {
+  transform:
+    translate(3px, -50%);
+}
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.project-dots {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  margin-top: 10px;
+}
+
+.project-dot {
+  width: 8px;
+  height: 8px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background: #cbd5df;
+
+  cursor: pointer;
+
+  transition:
+    width 0.35s ease,
+    background 0.35s ease;
+}
+
+.project-dot.active {
+  width: 30px;
+
+  background: var(--blue);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .project-container {
+    width: calc(100% - 40px);
+  }
+
+  .project-card {
+    width: 480px;
+    height: 580px;
+  }
+
+  .project-card-image {
+    height: 330px;
+  }
+
+  .project-card.prev {
+    transform:
+      translateX(-410px)
+      scale(0.78);
+  }
+
+  .project-card.next {
+    transform:
+      translateX(410px)
+      scale(0.78);
+  }
+
+  .project-arrow-left {
+    left: 0;
+  }
+
+  .project-arrow-right {
+    right: 0;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .project-section {
+    min-height: auto;
+
+    padding: 75px 0 70px;
+  }
+
+  .project-container {
+    width: calc(100% - 30px);
+  }
+
+  .project-header {
+    margin-bottom: 30px;
+  }
+
+  .project-title {
+    font-size: 38px;
+
+    letter-spacing: -1.5px;
+  }
+
+  .project-description {
+    font-size: 13px;
+
+    line-height: 1.7;
+  }
+
+  .project-slider-wrapper {
+    height: 570px;
+  }
+
+  /* FULL MOBILE CARD */
+
+  .project-card {
+    width: min(390px, calc(100vw - 50px));
+
+    height: 540px;
+
+    border-radius: 26px;
+  }
+
+  .project-card-image {
+    height: 285px;
+  }
+
+  .project-card-content {
+    padding: 25px;
+  }
+
+  .project-card-title {
+    font-size: 20px;
+  }
+
+  .project-card-description {
+    font-size: 12px;
+  }
+
+  .project-card.prev {
+    opacity: 0;
+
+    transform:
+      translateX(-180px)
+      scale(0.78);
+  }
+
+  .project-card.next {
+    opacity: 0;
+
+    transform:
+      translateX(180px)
+      scale(0.78);
+  }
+
+  .project-arrow {
+    width: 45px;
+    height: 45px;
+
+    font-size: 17px;
+  }
+
+  .project-arrow-left {
+    left: 0;
+  }
+
+  .project-arrow-right {
+    right: 0;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .project-section {
+    padding: 60px 0;
+  }
+
+  .project-title {
+    font-size: 32px;
+  }
+
+  .project-slider-wrapper {
+    height: 510px;
+  }
+
+  .project-card {
+    width: calc(100vw - 45px);
+
+    height: 490px;
+
+    border-radius: 23px;
+  }
+
+  .project-card-image {
+    height: 250px;
+  }
+
+  .project-card-content {
+    padding: 20px;
+  }
+
+  .project-card-title {
+    font-size: 18px;
+  }
+
+  .project-card-description {
+    font-size: 11px;
+
+    line-height: 1.65;
+  }
+
+  .project-card-bottom {
+    padding-top: 15px;
+
+    gap: 10px;
+  }
+
+  .project-view-btn {
+    min-height: 38px;
+
+    padding: 0 13px;
+
+    font-size: 10px;
+  }
+
+  .project-arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
