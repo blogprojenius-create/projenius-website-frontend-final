@@ -339,6 +339,17 @@
     z-index: 3;
 }
 
+.svc-card-4 {
+    position: sticky;
+    top: 135px;
+    z-index: 4;
+}
+
+.svc-card-5 {
+    position: sticky;
+    top: 150px;
+    z-index: 5;
+}
 
 /* =========================================================
    IMAGE

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ServicesSection.css";
-// import "../index.css";
 
 export default function ServicesSection() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -24,11 +23,27 @@ export default function ServicesSection() {
                 "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
+        {
+            title: "Mobile App Development",
+            image:
+                "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
+            link: "/services",
+        },
+        {
+            title: "AI & IoT Solutions",
+            image:
+                "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+            link: "/services",
+        },
     ];
 
     const cardRefs = useRef([]);
 
     useEffect(() => {
+        /* ---------------------------------------------------------
+           PREVENT PARENT CONTAINERS FROM HIDING THE CARDS
+           --------------------------------------------------------- */
+
         let el = cardRefs.current[0];
 
         while (el && el !== document.body) {
@@ -49,6 +64,10 @@ export default function ServicesSection() {
             }
         }
 
+        /* ---------------------------------------------------------
+           CARD REVEAL OBSERVER
+           --------------------------------------------------------- */
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -63,25 +82,34 @@ export default function ServicesSection() {
         );
 
         cardRefs.current.forEach((card) => {
-            if (card) observer.observe(card);
+            if (card) {
+                observer.observe(card);
+            }
         });
+
+        /* ---------------------------------------------------------
+           ACTIVE CARD ON SCROLL
+           --------------------------------------------------------- */
 
         const handleScroll = () => {
             const scrollPos =
-                window.scrollY + window.innerHeight * 0.45;
+                window.scrollY +
+                window.innerHeight * 0.45;
 
             let currentActive = 0;
 
             cardRefs.current.forEach((card, index) => {
-                if (card) {
-                    const rect = card.getBoundingClientRect();
+                if (!card) return;
 
-                    const absoluteTop =
-                        window.scrollY + rect.top;
+                const rect =
+                    card.getBoundingClientRect();
 
-                    if (scrollPos >= absoluteTop) {
-                        currentActive = index;
-                    }
+                const absoluteTop =
+                    window.scrollY +
+                    rect.top;
+
+                if (scrollPos >= absoluteTop) {
+                    currentActive = index;
                 }
             });
 
@@ -95,6 +123,10 @@ export default function ServicesSection() {
         );
 
         handleScroll();
+
+        /* ---------------------------------------------------------
+           CLEANUP
+           --------------------------------------------------------- */
 
         return () => {
             observer.disconnect();
@@ -112,16 +144,17 @@ export default function ServicesSection() {
 
             <section className="svc-section">
 
+                {/* =================================================
+                    LEFT CONTENT
+                   ================================================= */}
+
                 <div className="svc-left">
 
                     <span
                         className="svc-sub"
                         id="sub-heading"
                     >
-                        <span
-                            className="svc-sub-dot"
-                            aria-hidden="true"
-                        />
+
                         Our Services
                     </span>
 
@@ -130,6 +163,7 @@ export default function ServicesSection() {
                         id="title"
                     >
                         Smart Solutions for{" "}
+
                         <span className="svc-title-accent">
                             Modern Digital Needs
                         </span>
@@ -141,9 +175,10 @@ export default function ServicesSection() {
                     />
 
                     <p className="svc-para">
-                        Innovative services in AI, IoT, web, mobile
-                        apps, design, training, and smart product
-                        development solutions.
+                        Innovative services in AI, IoT,
+                        web, mobile apps, design, training,
+                        and smart product development
+                        solutions.
                     </p>
 
                     <a
@@ -154,23 +189,30 @@ export default function ServicesSection() {
                             className="svc-btn-content"
                             key={activeIndex}
                         >
-                            Explore {services[activeIndex].title}
+                            Explore{" "}
+                            {services[activeIndex].title}
                         </span>
                     </a>
 
                 </div>
 
+
+                {/* =================================================
+                    RIGHT SERVICE CARDS
+                   ================================================= */}
+
                 <div className="svc-right">
 
                     {services.map((service, index) => (
                         <div
-                            key={index}
+                            key={service.title}
                             className={`svc-card svc-card-${index + 1}`}
-                            ref={(el) =>
-                                (cardRefs.current[index] = el)
-                            }
+                            ref={(el) => {
+                                cardRefs.current[index] = el;
+                            }}
                             data-index={index}
                         >
+
                             <img
                                 src={service.image}
                                 alt={service.title}

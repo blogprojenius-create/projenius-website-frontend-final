@@ -20,8 +20,8 @@ export default function Home() {
             <ProductSection />
             <TrainingSection />
             {/* <HomeTeamSection /> */}
-            <PricingSection />
-            <ContactSection />
+            {/* <PricingSection /> */}
+            {/* <ContactSection /> */}
             {/* <ReviewsSection /> */}
         </>
     );

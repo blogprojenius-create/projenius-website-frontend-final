@@ -1,58 +1,69 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ProjectSection.css";
 
+/* =========================================================
+   PROJECT DATA
+   ========================================================= */
+
+const projects = [
+  {
+    title: "Helminth Egg Detection Poster",
+    subtitle: "Medical Conference Poster",
+    description:
+      "Scientific poster on helminth egg detection in dog samples highlighting diagnosis and zoonotic risks worldwide.",
+    rating: 5,
+    image: "/images/project-image-1.webp",
+  },
+  {
+    title: "AI-Powered Water Health Monitoring",
+    subtitle: "Software",
+    description:
+      "Powerful monitoring platform designed to improve water quality analysis and real-time environmental tracking.",
+    rating: 4,
+    image: "/images/project-image-2.webp",
+  },
+  {
+    title: "Road Hazard Detection",
+    subtitle: "Software",
+    description:
+      "AI-based accident detection system with instant emergency GPS alerts and real-time response tracking.",
+    rating: 5,
+    image: "/images/project-image-3.webp",
+  },
+  {
+    title: "Smart Waste Management",
+    subtitle: "Software",
+    description:
+      "Smart waste segregation system using sensors for automatic wet and dry waste classification.",
+    rating: 4,
+    image: "/images/project-image-4.webp",
+  },
+  {
+    title: "Autonomous Follower Robot",
+    subtitle: "Hardware",
+    description:
+      "Intelligent follower robot with obstacle avoidance for smart logistics and automated material transportation.",
+    rating: 5,
+    image: "/images/project-image-5.webp",
+  },
+];
+
+
+/* =========================================================
+   PROJECT SECTION
+   ========================================================= */
+
 export default function ProjectSection() {
+  const sectionRef = useRef(null);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  const sectionRef = useRef(null);
 
-  const projects = [
-    {
-      title: "Helminth Egg Detection Poster",
-      subtitle: "Medical Conference Poster",
-      description:
-        "Scientific poster on helminth egg detection in dog samples highlighting diagnosis and zoonotic risks worldwide.",
-      rating: 5,
-      image: "/images/project-image-1.webp",
-    },
-    {
-      title: "AI-Powered Water Health Monitoring",
-      subtitle: "Software",
-      description:
-        "Powerful monitoring platform designed to improve water quality analysis and real-time environmental tracking.",
-      rating: 4,
-      image: "/images/project-image-2.webp",
-    },
-    {
-      title: "Road Hazard Detection",
-      subtitle: "Software",
-      description:
-        "AI-based accident detection system with instant emergency GPS alerts and real-time response tracking.",
-      rating: 5,
-      image: "/images/project-image-3.webp",
-    },
-    {
-      title: "Smart Waste Management",
-      subtitle: "Software",
-      description:
-        "Smart waste segregation system using sensors for automatic wet and dry waste classification.",
-      rating: 4,
-      image: "/images/project-image-4.webp",
-    },
-    {
-      title: "Autonomous Follower Robot",
-      subtitle: "Hardware",
-      description:
-        "Intelligent follower robot with obstacle avoidance for smart logistics and automated material transportation.",
-      rating: 5,
-      image: "/images/project-image-5.webp",
-    },
-  ];
+  /* =======================================================
+     SECTION SCROLL ANIMATION
+     ======================================================= */
 
-  /* ============================
-     SECTION REVEAL
-  ============================ */
   useEffect(() => {
     const section = sectionRef.current;
 
@@ -60,53 +71,76 @@ export default function ProjectSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.15,
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px",
       }
     );
 
     observer.observe(section);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
-  /* ============================
+
+  /* =======================================================
      AUTO SLIDER
-  ============================ */
+     ======================================================= */
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % projects.length);
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => {
+        return (current + 1) % projects.length;
+      });
     }, 4500);
 
-    return () => clearInterval(timer);
-  }, [projects.length]);
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, []);
 
-  /* ============================
-     PREVIOUS
-  ============================ */
+
+  /* =======================================================
+     PREVIOUS PROJECT
+     ======================================================= */
+
   const handlePrevious = () => {
-    setActiveIndex((prev) =>
-      prev === 0 ? projects.length - 1 : prev - 1
-    );
+    setActiveIndex((current) => {
+      return current === 0
+        ? projects.length - 1
+        : current - 1;
+    });
   };
 
-  /* ============================
-     NEXT
-  ============================ */
+
+  /* =======================================================
+     NEXT PROJECT
+     ======================================================= */
+
   const handleNext = () => {
-    setActiveIndex(
-      (prev) => (prev + 1) % projects.length
-    );
+    setActiveIndex((current) => {
+      return (current + 1) % projects.length;
+    });
   };
 
-  /* ============================
+
+  /* =======================================================
+     DOT NAVIGATION
+     ======================================================= */
+
+  const handleDotClick = (index) => {
+    setActiveIndex(index);
+  };
+
+
+  /* =======================================================
      CARD POSITION
-  ============================ */
+     ======================================================= */
+
   const getCardClass = (index) => {
     const total = projects.length;
 
@@ -131,6 +165,7 @@ export default function ProjectSection() {
     return "project-card hidden";
   };
 
+
   return (
     <section
       ref={sectionRef}
@@ -138,26 +173,34 @@ export default function ProjectSection() {
         isVisible ? "project-visible" : ""
       }`}
     >
+
       <div className="project-container">
 
-        {/* ============================
+
+        {/* ===================================================
             HEADER
-        ============================ */}
+        =================================================== */}
+
         <div className="project-header">
 
           <span className="project-badge">
-            <span className="project-badge-dot"></span>
             OUR PROJECTS
           </span>
+
 
           <h2 className="project-title">
             Work{" "}
             <span>Showcase</span>
           </h2>
 
-          <div className="project-title-line">
-            <span></span>
+
+          <div
+            className="project-title-line"
+            aria-hidden="true"
+          >
+            <span />
           </div>
+
 
           <p className="project-description">
             We create powerful digital experiences with
@@ -167,140 +210,244 @@ export default function ProjectSection() {
 
         </div>
 
-        {/* ============================
+
+        {/* ===================================================
             SLIDER
-        ============================ */}
+        =================================================== */}
+
         <div className="project-slider-wrapper">
 
-          {/* PREVIOUS */}
+
+          {/* =================================================
+              PREVIOUS BUTTON
+          ================================================= */}
+
           <button
             type="button"
             className="project-arrow project-arrow-left"
             onClick={handlePrevious}
             aria-label="Previous project"
           >
-            <span>←</span>
+            <span aria-hidden="true">
+              ←
+            </span>
           </button>
 
-          {/* CARDS */}
-          <div className="project-stage">
 
-            {projects.map((project, index) => (
-              <article
-                key={project.title}
-                className={getCardClass(index)}
-              >
+          {/* =================================================
+              PROJECT STAGE
+          ================================================= */}
 
-                {/* IMAGE */}
-                <div className="project-card-image">
+          <div
+            className="project-stage"
+            aria-live="polite"
+          >
 
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                  />
+            {projects.map(
+              (project, index) => (
 
-                  <div className="project-image-gradient"></div>
+                <article
+                  key={project.title}
+                  className={getCardClass(index)}
+                  aria-hidden={
+                    index !== activeIndex
+                  }
+                >
 
-                  <span className="project-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
 
-                  <span className="project-category">
-                    {project.subtitle}
-                  </span>
+                  {/* =========================================
+                      IMAGE
+                  ========================================= */}
 
-                </div>
+                  <div className="project-card-image">
 
-                {/* CONTENT */}
-                <div className="project-card-content">
-
-                  <h3 className="project-card-title">
-                    {project.title}
-                  </h3>
-
-                  <p className="project-card-description">
-                    {project.description}
-                  </p>
-
-                  <div className="project-card-bottom">
-
-                    <div className="project-rating">
-
-                      <div className="project-stars">
-                        {[...Array(5)].map((_, i) => (
-                          <span
-                            key={i}
-                            className={
-                              i < project.rating
-                                ? "filled"
-                                : ""
-                            }
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
-
-                      <span>
-                        {project.rating}.0
-                      </span>
-
-                    </div>
-
-                    <button
-                      type="button"
-                      className="project-view-btn"
-                      onClick={() =>
-                        setActiveIndex(index)
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading={
+                        index === activeIndex
+                          ? "eager"
+                          : "lazy"
                       }
+                      draggable="false"
+                    />
+
+
+                    <div
+                      className="project-image-gradient"
+                      aria-hidden="true"
+                    />
+
+
+                    {/* PROJECT NUMBER */}
+
+                    {/* <span
+                      className="project-number"
+                      aria-hidden="true"
                     >
-                      View Project
-                      <span>↗</span>
-                    </button>
+                      {String(index + 1).padStart(
+                        2,
+                        "0"
+                      )}
+                    </span> */}
+
+
+                    {/* PROJECT CATEGORY */}
+
+                    <span className="project-category">
+                      {project.subtitle}
+                    </span>
 
                   </div>
 
-                </div>
 
-              </article>
-            ))}
+                  {/* =========================================
+                      CONTENT
+                  ========================================= */}
+
+                  <div className="project-card-content">
+
+
+                    {/* TITLE */}
+
+                    <h3 className="project-card-title">
+                      {project.title}
+                    </h3>
+
+
+                    {/* DESCRIPTION */}
+
+                    <p className="project-card-description">
+                      {project.description}
+                    </p>
+
+
+                    {/* BOTTOM */}
+
+                    <div className="project-card-bottom">
+
+
+                      {/* RATING */}
+
+                      <div
+                        className="project-rating"
+                        aria-label={`Rating ${project.rating} out of 5`}
+                      >
+
+                        <div
+                          className="project-stars"
+                          aria-hidden="true"
+                        >
+
+                          {Array.from(
+                            { length: 5 },
+                            (_, starIndex) => (
+                              <span
+                                key={starIndex}
+                                className={
+                                  starIndex <
+                                  project.rating
+                                    ? "filled"
+                                    : ""
+                                }
+                              >
+                                ★
+                              </span>
+                            )
+                          )}
+
+                        </div>
+
+
+                        <span>
+                          {project.rating}.0
+                        </span>
+
+                      </div>
+
+
+                      {/* VIEW BUTTON */}
+
+                      {/* <button
+                        type="button"
+                        className="project-view-btn"
+                      >
+                        <span>
+                          View
+                        </span>
+
+                        <span aria-hidden="true">
+                          ↗
+                        </span>
+                      </button> */}
+
+                    </div>
+
+                  </div>
+
+                </article>
+              )
+            )}
 
           </div>
 
-          {/* NEXT */}
+
+          {/* =================================================
+              NEXT BUTTON
+          ================================================= */}
+
           <button
             type="button"
             className="project-arrow project-arrow-right"
             onClick={handleNext}
             aria-label="Next project"
           >
-            <span>→</span>
+            <span aria-hidden="true">
+              →
+            </span>
           </button>
 
         </div>
 
-        {/* ============================
-            DOTS
-        ============================ */}
-        <div className="project-dots">
 
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              className={
-                index === activeIndex
-                  ? "project-dot active"
-                  : "project-dot"
-              }
-              onClick={() => setActiveIndex(index)}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
+        {/* ===================================================
+            DOTS
+        =================================================== */}
+
+        <div
+          className="project-dots"
+          role="tablist"
+          aria-label="Project navigation"
+        >
+
+          {projects.map(
+            (project, index) => (
+
+              <button
+                key={project.title}
+                type="button"
+                role="tab"
+                className={`project-dot ${
+                  index === activeIndex
+                    ? "active"
+                    : ""
+                }`}
+                aria-label={`Go to ${project.title}`}
+                aria-selected={
+                  index === activeIndex
+                }
+                onClick={() =>
+                  handleDotClick(index)
+                }
+              />
+
+            )
+          )}
 
         </div>
 
       </div>
+
     </section>
   );
 }

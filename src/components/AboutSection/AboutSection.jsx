@@ -1,115 +1,138 @@
-import React, {
-    useEffect,
-    useRef,
-    useState
-} from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import "./AboutSection.css";
+
+/* =========================================================
+   ICONS
+   No external icon library required
+   ========================================================= */
+
+function CodeIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+        </svg>
+    );
+}
+
+function IoTIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <rect x="7" y="7" width="10" height="10" rx="2" />
+            <path d="M9 2v3M15 2v3M9 19v3M15 19v3" />
+            <path d="M2 9h3M2 15h3M19 9h3M19 15h3" />
+        </svg>
+    );
+}
+
+function TrainingIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M2 10l10-5 10 5-10 5-10-5z" />
+            <path d="M6 12.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-3.5" />
+            <path d="M22 10v6" />
+        </svg>
+    );
+}
+
+function ImpactIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <circle cx="12" cy="12" r="8" />
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 4v5M20 12h-5M12 20v-5M4 12h5" />
+        </svg>
+    );
+}
 
 
 /* =========================================================
    ANIMATED NUMBER
-   ONLY THIS ELEMENT ANIMATES
    ========================================================= */
 
-function AnimatedNumber({
-    end,
-    suffix = "",
-    start,
-    cycle
-}) {
+function AnimatedNumber({ end, suffix = "", start }) {
     const [count, setCount] = useState(0);
-
-    const animationRef =
-        useRef(null);
-
+    const animationRef = useRef(null);
 
     useEffect(() => {
-
         if (!start) {
             setCount(0);
             return;
         }
 
         let startTime = null;
-
-        const duration = 1600;
-
+        const duration = 1400;
 
         const animate = (currentTime) => {
-
             if (!startTime) {
                 startTime = currentTime;
             }
 
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
 
-            const elapsed =
-                currentTime - startTime;
-
-
-            const progress =
-                Math.min(
-                    elapsed / duration,
-                    1
-                );
-
-
-            const eased =
-                1 -
-                Math.pow(
-                    1 - progress,
-                    3
-                );
-
-
-            const value =
-                Math.floor(
-                    eased * end
-                );
-
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = Math.floor(eased * end);
 
             setCount(value);
 
-
             if (progress < 1) {
-
                 animationRef.current =
-                    requestAnimationFrame(
-                        animate
-                    );
-
+                    requestAnimationFrame(animate);
             } else {
-
                 setCount(end);
-
             }
         };
-
 
         animationRef.current =
-            requestAnimationFrame(
-                animate
-            );
-
+            requestAnimationFrame(animate);
 
         return () => {
-
-            if (
-                animationRef.current
-            ) {
-                cancelAnimationFrame(
-                    animationRef.current
-                );
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
             }
-
         };
-
-    }, [
-        end,
-        start,
-        cycle
-    ]);
-
+    }, [end, start]);
 
     return (
         <span>
@@ -121,151 +144,93 @@ function AnimatedNumber({
 
 
 /* =========================================================
+   FEATURE DATA
+   ========================================================= */
+
+const features = [
+    {
+        title: "Software & AI Solutions",
+        description: "Custom platforms powered by AI",
+        icon: <CodeIcon />,
+    },
+    {
+        title: "Smart IoT Products",
+        description: "Connected devices that scale",
+        icon: <IoTIcon />,
+    },
+    {
+        title: "Training & Mentorship",
+        description: "Hands-on workshops for teams",
+        icon: <TrainingIcon />,
+    },
+    {
+        title: "Real-World Impact",
+        description: "Technology that solves problems",
+        icon: <ImpactIcon />,
+    },
+];
+
+
+/* =========================================================
    ABOUT SECTION
    ========================================================= */
 
 export default function AboutSection() {
-
-    const sectionRef =
-        useRef(null);
-
-
-    const [visible, setVisible] =
-        useState(false);
-
-
-    /*
-       This value ONLY restarts
-       AnimatedNumber.
-
-       IMPORTANT:
-       It is NOT used as a key
-       anywhere in the JSX.
-    */
-    const [counterCycle, setCounterCycle] =
-        useState(0);
-
-
-    /* =====================================================
-       SECTION VISIBILITY
-       ===================================================== */
+    const sectionRef = useRef(null);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-
-        const section =
-            sectionRef.current;
-
+        const section = sectionRef.current;
 
         if (!section) {
             return;
         }
 
-
-        const observer =
-            new IntersectionObserver(
-                ([entry]) => {
-
-                    setVisible(
-                        entry.isIntersecting
-                    );
-
-                },
-                {
-                    threshold: 0.20
-                }
-            );
-
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setVisible(entry.isIntersecting);
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px",
+            }
+        );
 
         observer.observe(section);
 
-
-        return () => {
-            observer.disconnect();
-        };
-
+        return () => observer.disconnect();
     }, []);
 
-
-    /* =====================================================
-       NUMBER RESTART EVERY 5 SECONDS
-       ===================================================== */
-
-    useEffect(() => {
-
-        if (!visible) {
-            return;
-        }
-
-
-        const interval =
-            setInterval(() => {
-
-                setCounterCycle(
-                    previous =>
-                        previous + 1
-                );
-
-            }, 5000);
-
-
-        return () => {
-            clearInterval(interval);
-        };
-
-    }, [visible]);
-
-
     return (
-
         <section
             ref={sectionRef}
-            className={
-                `about-section ${
-                    visible
-                        ? "about-visible"
-                        : ""
-                }`
-            }
+            className={`about-section ${
+                visible ? "about-visible" : ""
+            }`}
         >
-
             {/* =================================================
                 HEADER
             ================================================= */}
 
             <div className="about-header">
-
                 <div className="about-tag">
-
-                    <span className="about-tag-dot"></span>
-
-                    <span>
-                        WHO WE ARE
-                    </span>
-
+                    <span>WHO WE ARE</span>
                 </div>
-
 
                 <h2 className="about-title">
-
                     Innovating Ideas Into{" "}
-
-                    <span>
-                        Smart 
-                        <br />Solutions
-                    </span>
-
+                    <span>Smart Solutions</span>
                 </h2>
 
-
                 <div className="about-title-line">
-                    <span></span>
+                    <span />
                 </div>
 
-
                 <p className="about-description">
-                    We blend technology, creativity, and deep industry expertise to build products that drive real business impact.
+                    We blend technology, creativity, and deep industry
+                    expertise to build products that drive real business
+                    impact.
                 </p>
-
             </div>
 
 
@@ -275,124 +240,81 @@ export default function AboutSection() {
 
             <div className="about-content">
 
-
                 {/* =================================================
                     LEFT
                 ================================================= */}
 
                 <div className="about-left">
-
                     <div className="about-image-wrapper">
-
 
                         {/* MAIN IMAGE */}
 
                         <div className="about-main-image">
-
                             <img
                                 src="/images/about-main-image.png"
                                 alt="Team working on innovation"
+                                loading="lazy"
                             />
-
                         </div>
 
 
                         {/* SECOND IMAGE */}
 
                         <div className="about-small-image">
-
                             <img
                                 src="/images/software-developement-training.png"
                                 alt="Software development training session"
+                                loading="lazy"
                             />
-
                         </div>
 
 
-                        {/* =================================================
-                            STATS BOX
-
-                            NO key HERE.
-
-                            Therefore the box remains
-                            mounted and fixed.
-
-                            ONLY AnimatedNumber gets
-                            the cycle value.
-                        ================================================= */}
+                        {/* STATS */}
 
                         <div className="about-stats">
-
-
-                            {/* STAT 1 */}
-
                             <div className="about-stat">
-
                                 <div className="about-stat-number">
-
                                     <AnimatedNumber
                                         end={2062}
                                         suffix="+"
                                         start={visible}
-                                        cycle={counterCycle}
                                     />
-
                                 </div>
 
                                 <div className="about-stat-label">
                                     SATISFIED CLIENTS
                                 </div>
-
                             </div>
 
-
-                            {/* STAT 2 */}
-
                             <div className="about-stat">
-
                                 <div className="about-stat-number">
-
                                     <AnimatedNumber
                                         end={141}
                                         suffix="+"
                                         start={visible}
-                                        cycle={counterCycle}
                                     />
-
                                 </div>
 
                                 <div className="about-stat-label">
                                     PROJECTS DELIVERED
                                 </div>
-
                             </div>
 
-
-                            {/* STAT 3 */}
-
                             <div className="about-stat">
-
                                 <div className="about-stat-number">
-
                                     <AnimatedNumber
                                         end={5}
                                         suffix="+"
                                         start={visible}
-                                        cycle={counterCycle}
                                     />
-
                                 </div>
 
                                 <div className="about-stat-label">
                                     YEARS OF EXCELLENCE
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
 
 
@@ -402,124 +324,44 @@ export default function AboutSection() {
 
                 <div className="about-right">
 
-
                     {/* VIDEO */}
 
                     <div className="about-video-wrapper">
-
                         <iframe
                             src="https://www.youtube.com/embed/1adzVmNh078"
                             title="Projenius Introduction"
+                            loading="lazy"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
-                        ></iframe>
-
+                        />
                     </div>
 
 
                     {/* FEATURE CARDS */}
 
                     <div className="about-features">
+                        {features.map((feature, index) => (
+                            <div
+                                className="about-feature-card"
+                                key={feature.title}
+                                style={{
+                                    "--card-delay": `${0.15 + index * 0.08}s`,
+                                }}
+                            >
+                                <div className="about-feature-icon">
+                                    {feature.icon}
+                                </div>
 
-
-                        {/* CARD 1 */}
-
-                        <div className="about-feature-card">
-
-                            <div className="about-feature-icon">
-                                &lt;/&gt;
+                                <div className="about-feature-content">
+                                    <h3>{feature.title}</h3>
+                                    <p>{feature.description}</p>
+                                </div>
                             </div>
-
-                            <div className="about-feature-content">
-
-                                <h3>
-                                    Software &amp; AI Solutions
-                                </h3>
-
-                                <p>
-                                    Custom platforms powered by AI
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        {/* CARD 2 */}
-
-                        <div className="about-feature-card">
-
-                            <div className="about-feature-icon">
-                                ♙
-                            </div>
-
-                            <div className="about-feature-content">
-
-                                <h3>
-                                    Smart IoT Products
-                                </h3>
-
-                                <p>
-                                    Connected devices that scale
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        {/* CARD 3 */}
-
-                        <div className="about-feature-card">
-
-                            <div className="about-feature-icon">
-                                ◈
-                            </div>
-
-                            <div className="about-feature-content">
-
-                                <h3>
-                                    Training &amp; Mentorship
-                                </h3>
-
-                                <p>
-                                    Hands-on workshops for teams
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        {/* CARD 4 */}
-
-                        <div className="about-feature-card">
-
-                            <div className="about-feature-icon">
-                                ↗
-                            </div>
-
-                            <div className="about-feature-content">
-
-                                <h3>
-                                    Real-World Impact
-                                </h3>
-
-                                <p>
-                                    Technology that solves problems
-                                </p>
-
-                            </div>
-
-                        </div>
-
+                        ))}
                     </div>
-
                 </div>
-
             </div>
-
         </section>
     );
 }

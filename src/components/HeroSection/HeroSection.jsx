@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from "react";
 import "./HeroSection.css";
 
+/* =========================================================
+   HERO SLIDES
+   ========================================================= */
+
 const slides = [
     {
         bg: "/images/projenius-banner.webp",
         thumb: "/images/projenius-banner.webp",
-        buttonText: "Explore Courses",
     },
     {
         bg: "/images/projenius-banner-1.webp",
         thumb: "/images/projenius-banner-1.webp",
-        buttonText: "Explore IoT",
     },
     {
-        bg: "/images/projenius-banner-2.webp",
-        thumb: "/images/projenius-banner-2.webp",
-        buttonText: "Explore Web Design",
+        bg: "/images/projenius-banner.webp",
+        thumb: "/images/projenius-banner.webp",
     },
     {
-        bg: "/images/projenius-banner-3.webp",
-        thumb: "/images/projenius-banner-3.webp",
-        buttonText: "Explore Workshops",
+        bg: "/images/projenius-banner-1.webp",
+        thumb: "/images/projenius-banner-1.webp",
     },
     {
-        bg: "/images/projenius-banner-4.webp",
-        thumb: "/images/projenius-banner-4.webp",
-        buttonText: "Explore Software",
+        bg: "/images/projenius-banner.webp",
+        thumb: "/images/projenius-banner.webp",
+    },
+    {
+        bg: "/images/projenius-banner-1.webp",
+        thumb: "/images/projenius-banner-1.webp",
     },
 ];
+
+
+/* =========================================================
+   PARTICLES
+   ========================================================= */
 
 const PARTICLES = [
     {
@@ -74,6 +82,11 @@ const PARTICLES = [
     },
 ];
 
+
+/* =========================================================
+   MOBILE DOT INDICATORS
+   ========================================================= */
+
 function DotIndicators({ total, active, onDotClick }) {
     return (
         <div className="hero-dot-indicators">
@@ -92,9 +105,19 @@ function DotIndicators({ total, active, onDotClick }) {
     );
 }
 
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
 export default function HeroSection() {
     const [activeSlide, setActiveSlide] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+
+
+    /* =====================================================
+       RESPONSIVE CHECK
+       ===================================================== */
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 991px)");
@@ -112,53 +135,93 @@ export default function HeroSection() {
         };
     }, []);
 
+
+    /* =====================================================
+       PRELOAD ALL 6 IMAGES
+       ===================================================== */
+
     useEffect(() => {
         slides.forEach((slide) => {
-            const bg = new Image();
-            bg.src = slide.bg;
+            const backgroundImage = new Image();
+            backgroundImage.src = slide.bg;
 
-            const thumb = new Image();
-            thumb.src = slide.thumb;
+            const thumbnailImage = new Image();
+            thumbnailImage.src = slide.thumb;
         });
     }, []);
 
+
+    /* =====================================================
+       CONTINUOUS AUTO ROTATION
+       ===================================================== */
+
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveSlide((prev) =>
-                prev === slides.length - 1 ? 0 : prev + 1
-            );
+            setActiveSlide((previousSlide) => {
+                return (previousSlide + 1) % slides.length;
+            });
         }, 3800);
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
+
+
+    /* =====================================================
+       MANUAL SLIDE CHANGE
+       ===================================================== */
 
     const handleSlideChange = (index) => {
         setActiveSlide(index);
     };
 
+
+    /* =====================================================
+       CIRCULAR SLIDE INDEX
+       ===================================================== */
+
     const getSlideIndex = (position) => {
         return (activeSlide + position) % slides.length;
     };
+
 
     const activeImage = slides[getSlideIndex(0)];
     const secondImage = slides[getSlideIndex(1)];
     const thirdImage = slides[getSlideIndex(2)];
 
+
+    /* =====================================================
+       JSX
+       ===================================================== */
+
     return (
         <section className="hero-wrapper">
-            {/* Background image */}
+
+            {/* =============================================
+                BACKGROUND IMAGE
+                ============================================= */}
+
             <div
                 key={activeSlide}
                 className="hero-background"
                 style={{
-                    backgroundImage: `url(${slides[activeSlide].bg})`,
+                    backgroundImage: `url(${activeImage.bg})`,
                 }}
             />
 
-            {/* Dark overlay */}
+
+            {/* =============================================
+                DARK OVERLAY
+                ============================================= */}
+
             <div className="hero-overlay" />
 
-            {/* Decorative particles */}
+
+            {/* =============================================
+                DECORATIVE PARTICLES
+                ============================================= */}
+
             <div className="hero-particles">
                 {PARTICLES.map((particle, index) => (
                     <span
@@ -176,11 +239,21 @@ export default function HeroSection() {
                 ))}
             </div>
 
-            {/* Main hero */}
+
+            {/* =============================================
+                MAIN HERO CONTENT
+                ============================================= */}
+
             <div className="hero-inner">
+
                 <div className="hero-content">
-                    {/* Left content */}
+
+                    {/* =====================================
+                        LEFT CONTENT
+                        ===================================== */}
+
                     <div className="hero-text">
+
                         <h3
                             className="subheading"
                             data-aos="fade-up"
@@ -189,22 +262,28 @@ export default function HeroSection() {
                             Technology
                         </h3>
 
+
+                        {/* MAIN HEADING */}
+
                         <h1
                             className="heading"
                             data-aos="fade-up"
                             data-aos-delay="100"
                         >
-                            <span className="hero-heading-line">
+                            <span className="hero-heading-line hero-heading-line-1">
                                 Building{" "}
                                 <span className="smart-solutions">
                                     Smart Solutions
                                 </span>
                             </span>
 
-                            <span className="hero-heading-line">
+                            <span className="hero-heading-line hero-heading-line-2">
                                 with AI, IoT &amp; Innovation
                             </span>
                         </h1>
+
+
+                        {/* DESCRIPTION */}
 
                         <p
                             className="description"
@@ -216,18 +295,10 @@ export default function HeroSection() {
                             Software Development, and Product Engineering.
                         </p>
 
-                        <div
-                            className="hero-buttons"
-                            data-aos="fade-up"
-                            data-aos-delay="300"
-                        >
-                            <a
-                                href="#"
-                                className="hero-main-btn"
-                            >
-                                {slides[activeSlide].buttonText}
-                            </a>
-                        </div>
+
+                        {/* =================================
+                            NO TEXT BUTTON
+                            ================================= */}
 
                         {isMobile && (
                             <DotIndicators
@@ -236,12 +307,22 @@ export default function HeroSection() {
                                 onDotClick={handleSlideChange}
                             />
                         )}
+
                     </div>
 
-                    {/* Right visual */}
+
+                    {/* =====================================
+                        RIGHT SIDE — IMAGE ROTATION
+                        ===================================== */}
+
                     <div className="hero-visual">
+
                         <div className="thumb-wrapper">
-                            {/* Active circle */}
+
+                            {/* =================================
+                                ACTIVE IMAGE
+                                ================================= */}
+
                             <button
                                 type="button"
                                 className="thumb-slot thumb-slot-main"
@@ -250,16 +331,20 @@ export default function HeroSection() {
                                         getSlideIndex(1)
                                     )
                                 }
-                                aria-label="Next slide"
+                                aria-label="Show next image"
                             >
                                 <img
                                     src={activeImage.thumb}
-                                    alt="Technology"
+                                    alt="Projenius technology"
                                     draggable="false"
                                 />
                             </button>
 
-                            {/* Second circle */}
+
+                            {/* =================================
+                                SECOND IMAGE
+                                ================================= */}
+
                             <button
                                 type="button"
                                 className="thumb-slot thumb-slot-second"
@@ -268,16 +353,20 @@ export default function HeroSection() {
                                         getSlideIndex(1)
                                     )
                                 }
-                                aria-label="Next slide"
+                                aria-label="Show next image"
                             >
                                 <img
                                     src={secondImage.thumb}
-                                    alt="Technology"
+                                    alt="Projenius technology"
                                     draggable="false"
                                 />
                             </button>
 
-                            {/* Third circle */}
+
+                            {/* =================================
+                                THIRD IMAGE
+                                ================================= */}
+
                             <button
                                 type="button"
                                 className="thumb-slot thumb-slot-third"
@@ -286,24 +375,33 @@ export default function HeroSection() {
                                         getSlideIndex(2)
                                     )
                                 }
-                                aria-label="Next slide"
+                                aria-label="Show next image"
                             >
                                 <img
                                     src={thirdImage.thumb}
-                                    alt="Technology"
+                                    alt="Projenius technology"
                                     draggable="false"
                                 />
                             </button>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
 
-            {/* Existing bottom zig-zag */}
+
+            {/* =============================================
+                BOTTOM ZIG-ZAG
+                ============================================= */}
+
             <div className="hero-zigzag">
                 <div className="hero-zigzag-cyan" />
                 <div className="hero-zigzag-white" />
             </div>
+
         </section>
     );
 }

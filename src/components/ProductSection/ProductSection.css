@@ -1,153 +1,183 @@
 /* =========================================================
-   PRODUCT SECTION
-========================================================= */
+   PROJENIUS - PRODUCT SECTION
+   Hover Cards / Responsive / Optimized
+   ========================================================= */
+
+
+/* =========================================================
+   BOX SIZING
+   ========================================================= */
+
+.tabs-section,
+.tabs-section *,
+.tabs-section *::before,
+.tabs-section *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN SECTION
+   ========================================================= */
 
 .tabs-section {
+    position: relative;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 25px 6% 25px;
+
+    background: #ffffff;
+
     font-family:
         "Poppins",
         "Segoe UI",
         Arial,
         sans-serif;
 
-    width: 100%;
-    padding: 90px 6%;
-    background: #ffffff;
     overflow: hidden;
-    box-sizing: border-box;
-}
-
-.product-container {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    box-sizing: border-box;
 }
 
 
 /* =========================================================
-   SECTION HEADER
-========================================================= */
+   CONTAINER
+   ========================================================= */
+
+.product-container {
+    width: 100%;
+
+    max-width: 1280px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .product-heading {
     width: 100%;
+
+    margin: 0 auto 25px;
+
     text-align: center;
-    margin-bottom: 45px;
+
+    opacity: 0;
+
+    transform: translateY(16px);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* =========================================================
+   HEADER ANIMATION
+   ========================================================= */
+
+.product-visible .product-heading {
+    opacity: 1;
+
+    transform: translateY(0);
 }
 
 
 /* =========================================================
    SUB HEADING
-========================================================= */
+   ========================================================= */
 
 .product-sub-heading {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
-    gap: 9px;
 
-    margin-bottom: 18px;
+    margin: 0 0 8px;
 
-    font-family:
-        "Poppins",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    padding: 8px 16px;
+
+    border:
+        1px solid
+        rgba(
+            21,
+            159,
+            227,
+            0.25
+        );
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            21,
+            159,
+            227,
+            0.06
+        );
+
+    color: #159FE3;
 
     font-size: 15px;
+
     font-weight: 700;
 
     letter-spacing: 1px;
+
     line-height: 1;
 
     text-transform: uppercase;
 
-    color: #159FE3;
-}
-
-
-.product-sub-dot {
-    width: 8px;
-    height: 8px;
-    min-width: 8px;
-
-    border-radius: 50%;
-
-    background: #159FE3;
-
     box-shadow:
-        0 0 8px
-        rgba(21, 159, 227, 0.45);
-
-    animation:
-        productDotBlink
-        2.8s
-        ease-in-out
-        infinite;
-}
-
-
-@keyframes productDotBlink {
-
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.45;
-        transform: scale(0.78);
-
-        box-shadow:
-            0 0 10px
-            rgba(21, 159, 227, 0.65);
-    }
+        0 6px 18px
+        rgba(
+            21,
+            159,
+            227,
+            0.06
+        );
 }
 
 
 /* =========================================================
-   MAIN HEADING
-========================================================= */
+   MAIN TITLE
+   ========================================================= */
 
 .product-title {
-    width: 100%;
-    max-width: 900px;
+    margin: 5px 0 0;
 
-    margin: 0 auto;
-    padding: 0;
+    color: #080d16;
 
-    font-family:
-        "Poppins",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    font-size:
+        clamp(
+            40px,
+            4.5vw,
+            64px
+        );
 
-    font-size: clamp(42px, 4.5vw, 58px);
+    line-height: 1.02;
 
-    font-weight: 900;
+    font-weight: 800;
 
-    line-height: 1.15;
-
-    letter-spacing: -0.6px;
-
-    color: #06142d;
-
-    text-align: center;
+    letter-spacing: -2px;
 }
 
 
 /* =========================================================
    BLUE ACCENT
-========================================================= */
+   ========================================================= */
 
 .product-title-accent {
     color: #159FE3;
-
-    font-family:
-        "Poppins",
-        "Segoe UI",
-        Arial,
-        sans-serif;
 
     font-weight: 900;
 }
@@ -155,111 +185,149 @@
 
 /* =========================================================
    TITLE LINE
-========================================================= */
+   ========================================================= */
 
 .product-title-line {
     width: 78px;
+
     height: 5px;
 
-    margin: 18px auto 20px;
+    margin: 7px auto 5px;
 
     border-radius: 999px;
 
     background: #159FE3;
 
-    transform-origin: center;
+    opacity: 0;
 
-    animation:
-        productTitleLineBlink
-        2.8s
-        ease-in-out
-        infinite;
+    transform: scaleX(0.5);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
 }
 
 
-@keyframes productTitleLineBlink {
+.product-title-line span {
+    display: block;
 
-    0%,
-    100% {
-        opacity: 0.5;
-        transform: scaleX(0.78);
+    width: 100%;
 
-        box-shadow:
-            0 0 0
-            rgba(0, 170, 162, 0);
-    }
+    height: 100%;
 
-    50% {
-        opacity: 1;
-        transform: scaleX(1);
+    border-radius: inherit;
 
-        box-shadow:
-            0 0 14px
-            rgba(21, 159, 227, 0.65);
-    }
+    background: #159FE3;
+}
+
+
+.product-visible .product-title-line {
+    opacity: 1;
+
+    transform: scaleX(1);
 }
 
 
 /* =========================================================
-   DESCRIPTION
-========================================================= */
+   HEADING DESCRIPTION
+   ========================================================= */
 
 .product-heading-description {
-    width: 100%;
-    max-width: 680px;
+    width: min(
+        850px,
+        100%
+    );
 
-    margin: 0 auto;
+    margin: 3px auto 0;
 
-    color: #667892;
+    color: #687386;
 
-    font-family:
-        "Poppins",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    font-size: 18px;
 
-    font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
 
-    line-height: 1.7;
+    line-height: 1.5;
 
     text-align: center;
 }
 
 
 /* =========================================================
-   PRODUCT TABS
-========================================================= */
+   PRODUCT HOVER CARDS CONTAINER
+   ========================================================= */
 
 .tabs-header {
     display: flex;
+
     align-items: stretch;
+
     justify-content: center;
 
     width: 100%;
 
-    margin: 0 auto 45px;
+    margin: 0 auto 25px;
 
-    gap: 12px;
+    gap: 10px;
 
-    box-sizing: border-box;
+    opacity: 0;
+
+    transform: translateY(15px);
+
+    transition:
+        opacity 0.7s ease 0.1s,
+        transform 0.7s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
 }
 
 
 /* =========================================================
-   TAB BUTTON
-========================================================= */
+   TABS ANIMATION
+   ========================================================= */
+
+.product-visible .tabs-header {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+   ========================================================= */
 
 .tab-btn {
     position: relative;
 
     flex: 1;
 
+    min-width: 0;
+
     min-height: 58px;
 
-    padding: 14px 20px;
+    padding: 12px 40px 12px 16px;
 
-    border: 1px solid #d9e2e8;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border:
+        1px solid
+        #d9e2e8;
 
     border-radius: 10px;
 
@@ -277,58 +345,218 @@
 
     font-weight: 600;
 
-    line-height: 1.35;
+    line-height: 1.25;
 
     text-align: center;
 
     cursor: pointer;
 
+    overflow: hidden;
+
     transition:
         background 0.3s ease,
         color 0.3s ease,
         border-color 0.3s ease,
-        transform 0.3s ease,
+        transform 0.3s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
         box-shadow 0.3s ease;
 }
 
 
+/* =========================================================
+   CARD HOVER
+   ========================================================= */
+
 .tab-btn:hover {
     border-color:
-        rgba(21, 159, 227, 0.55);
+        rgba(
+            21,
+            159,
+            227,
+            0.55
+        );
 
     background:
-        rgba(21, 159, 227, 0.06);
+        rgba(
+            21,
+            159,
+            227,
+            0.06
+        );
 
-    color:
-        #159FE3;
+    color: #159FE3;
 
     transform:
-        translateY(-2px);
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 28px
+        rgba(
+            21,
+            159,
+            227,
+            0.12
+        );
 }
 
 
 /* =========================================================
-   ACTIVE TAB
-========================================================= */
+   ACTIVE CARD
+   ========================================================= */
 
 .tab-btn.active {
-    border-color:
-        #159FE3;
+    border-color: #159FE3;
 
-    background:
-        #159FE3;
+    background: #159FE3;
 
     color: #ffffff;
 
+    transform:
+        translateY(-2px);
+
     box-shadow:
-        0 8px 25px
-        rgba(21, 159, 227, 0.18);
+        0 10px 28px
+        rgba(
+            21,
+            159,
+            227,
+            0.22
+        );
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.tab-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+
+    height: 30px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background:
+        rgba(
+            21,
+            159,
+            227,
+            0.1
+        );
+
+    color: #159FE3;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+
+/* =========================================================
+   ICON HOVER
+   ========================================================= */
+
+.tab-btn:hover .tab-icon {
+    transform:
+        scale(1.08)
+        rotate(-3deg);
+
+    background: #159FE3;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ACTIVE ICON
+   ========================================================= */
+
+.tab-btn.active .tab-icon {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.tab-label {
+    display: block;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   HOVER ARROW
+   ========================================================= */
+
+.tab-hover-arrow {
+    position: absolute;
+
+    right: 15px;
+
+    top: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    transform:
+        translate(
+            -8px,
+            -50%
+        );
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.tab-btn:hover .tab-hover-arrow,
+.tab-btn.active .tab-hover-arrow {
+    opacity: 1;
+
+    transform:
+        translate(
+            0,
+            -50%
+        );
 }
 
 
 /* =========================================================
    PRODUCT CONTENT
-========================================================= */
+   ========================================================= */
 
 .tabs-content {
     display: grid;
@@ -339,19 +567,30 @@
 
     align-items: center;
 
-    gap: 55px;
+    gap: 35px;
 
     width: 100%;
 
-    box-sizing: border-box;
+    animation:
+        productContentReveal
+        0.55s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        )
+        both;
 }
 
 
 /* =========================================================
-   IMAGE
-========================================================= */
+   PRODUCT IMAGE
+   ========================================================= */
 
 .tabs-image {
+    position: relative;
+
     width: 100%;
 
     overflow: hidden;
@@ -362,9 +601,30 @@
 
     box-shadow:
         0 18px 45px
-        rgba(6, 20, 45, 0.10);
+        rgba(
+            6,
+            20,
+            45,
+            0.10
+        );
+
+    cursor: pointer;
+
+    transition:
+        transform 0.45s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        box-shadow 0.45s ease;
 }
 
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
 
 .tabs-image img {
     display: block;
@@ -376,26 +636,153 @@
     object-fit: cover;
 
     transition:
-        transform 0.6s ease;
+        transform 0.8s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* =========================================================
+   IMAGE HOVER
+   ========================================================= */
+
+.tabs-image:hover {
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 25px 55px
+        rgba(
+            6,
+            20,
+            45,
+            0.16
+        );
 }
 
 
 .tabs-image:hover img {
-    transform: scale(1.04);
+    transform:
+        scale(1.05);
+}
+
+
+/* =========================================================
+   IMAGE SHINE
+   ========================================================= */
+
+.product-image-shine {
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 70%;
+
+    height: 100%;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(
+                255,
+                255,
+                255,
+                0.20
+            ),
+            transparent
+        );
+
+    transform:
+        skewX(-18deg);
+
+    transition:
+        left 0.8s ease;
+}
+
+
+.tabs-image:hover
+.product-image-shine {
+    left: 140%;
 }
 
 
 /* =========================================================
    TEXT CONTENT
-========================================================= */
+   ========================================================= */
 
 .tabs-text {
     width: 100%;
+
+    opacity: 0;
+
+    transform:
+        translateX(25px);
+
+    animation:
+        productTextReveal
+        0.6s
+        0.12s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        )
+        forwards;
 }
 
 
+/* =========================================================
+   PRODUCT LABEL
+   ========================================================= */
+
+.product-content-label {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 9px;
+
+    padding: 6px 11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            21,
+            159,
+            227,
+            0.08
+        );
+
+    color: #159FE3;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PRODUCT TITLE
+   ========================================================= */
+
 .tabs-text h2 {
-    margin: 0 0 16px;
+    margin: 0 0 12px;
 
     color: #06142d;
 
@@ -409,14 +796,18 @@
 
     font-weight: 900;
 
-    line-height: 1.2;
+    line-height: 1.1;
 
     letter-spacing: -0.3px;
 }
 
 
+/* =========================================================
+   PRODUCT DESCRIPTION
+   ========================================================= */
+
 .tabs-text p {
-    margin: 0 0 26px;
+    margin: 0 0 20px;
 
     color: #667892;
 
@@ -430,13 +821,13 @@
 
     font-weight: 400;
 
-    line-height: 1.7;
+    line-height: 1.5;
 }
 
 
 /* =========================================================
    EXPLORE BUTTON
-========================================================= */
+   ========================================================= */
 
 .explore-btn {
     display: inline-flex;
@@ -447,6 +838,7 @@
     gap: 12px;
 
     min-width: 165px;
+
     min-height: 48px;
 
     padding: 12px 22px;
@@ -455,8 +847,7 @@
 
     border-radius: 999px;
 
-    background:
-        #159FE3;
+    background: #159FE3;
 
     color: #ffffff;
 
@@ -474,7 +865,8 @@
 
     transition:
         transform 0.3s ease,
-        box-shadow 0.3s ease;
+        box-shadow 0.3s ease,
+        background 0.3s ease;
 }
 
 
@@ -482,83 +874,211 @@
     transform:
         translateY(-3px);
 
+    background:
+        #078bd0;
+
     box-shadow:
         0 10px 25px
-        rgba(21, 159, 227, 0.25);
+        rgba(
+            21,
+            159,
+            227,
+            0.25
+        );
 }
 
 
+/* =========================================================
+   EXPLORE ARROW
+   ========================================================= */
+
 .explore-arrow {
     font-size: 18px;
+
+    line-height: 1;
 
     transition:
         transform 0.3s ease;
 }
 
 
-.explore-btn:hover .explore-arrow {
+.explore-btn:hover
+.explore-arrow {
     transform:
         translateX(4px);
 }
 
 
 /* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes productContentReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes productTextReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .tabs-section {
+        padding:
+            22px 5% 22px;
+    }
+
+
+    .tabs-content {
+        gap: 28px;
+    }
+
+
+    .tabs-image img {
+        height: 390px;
+    }
+
+
+    .tabs-text h2 {
+        font-size: 31px;
+    }
+
+
+    .tab-btn {
+        padding:
+            12px 34px 12px 14px;
+
+        font-size: 13px;
+    }
+
+
+    .tab-hover-arrow {
+        right: 11px;
+    }
+}
+
+
+/* =========================================================
    TABLET
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 900px) {
 
     .tabs-section {
-        padding: 75px 5%;
+        padding:
+            20px 5% 20px;
     }
 
-    .product-title {
-        font-size: 44px;
+
+    .product-heading {
+        margin-bottom: 22px;
     }
+
+
+    .tabs-header {
+        margin-bottom: 22px;
+    }
+
 
     .tabs-content {
         grid-template-columns: 1fr;
 
-        gap: 35px;
+        gap: 25px;
     }
+
 
     .tabs-image img {
         height: 380px;
     }
 
+
     .tabs-text {
         text-align: center;
+    }
+
+
+    .product-content-label {
+        margin-left: auto;
+
+        margin-right: auto;
+    }
+
+
+    .explore-btn {
+        margin-left: auto;
+
+        margin-right: auto;
     }
 }
 
 
 /* =========================================================
    MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 600px) {
 
     .tabs-section {
-        padding: 60px 18px;
+        padding:
+            18px 18px 18px;
     }
 
+
     .product-heading {
-        margin-bottom: 35px;
+        margin-bottom: 18px;
     }
+
 
     .product-sub-heading {
         font-size: 13px;
 
-        margin-bottom: 15px;
+        margin-bottom: 6px;
+
+        padding:
+            7px 14px;
     }
+
 
     .product-title {
         font-size: 34px;
 
-        line-height: 1.18;
+        line-height: 1.05;
 
         letter-spacing: -0.3px;
     }
+
 
     .product-title-line {
         width: 68px;
@@ -566,48 +1086,88 @@
         height: 4px;
 
         margin:
-            14px auto 16px;
+            6px auto 4px;
     }
+
 
     .product-heading-description {
         font-size: 14px;
 
-        line-height: 1.6;
+        line-height: 1.5;
     }
+
+
+    /* =====================================================
+       MOBILE PRODUCT CARDS
+       ===================================================== */
 
     .tabs-header {
         flex-direction: column;
 
-        gap: 8px;
+        gap: 7px;
 
-        margin-bottom: 30px;
+        margin-bottom: 18px;
     }
+
 
     .tab-btn {
         flex: none;
 
+        width: 100%;
+
         min-height: 52px;
 
-        padding: 12px 14px;
+        padding:
+            10px 42px 10px 14px;
 
         font-size: 13px;
+
+        border-radius: 10px;
     }
+
+
+    .tab-icon {
+        width: 28px;
+
+        height: 28px;
+    }
+
+
+    .tab-hover-arrow {
+        right: 14px;
+    }
+
+
+    .tabs-content {
+        gap: 22px;
+    }
+
+
+    .tabs-image {
+        border-radius: 16px;
+    }
+
 
     .tabs-image img {
         height: 280px;
     }
 
+
     .tabs-text h2 {
         font-size: 27px;
 
-        line-height: 1.25;
+        line-height: 1.12;
     }
+
 
     .tabs-text p {
         font-size: 14px;
 
-        line-height: 1.6;
+        line-height: 1.5;
+
+        margin-bottom: 18px;
     }
+
 
     .explore-btn {
         min-width: 155px;
@@ -621,33 +1181,42 @@
 
 /* =========================================================
    SMALL MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 380px) {
 
     .tabs-section {
-        padding: 50px 14px;
+        padding:
+            16px 14px 16px;
     }
+
 
     .product-title {
         font-size: 30px;
     }
 
+
     .product-heading-description {
         font-size: 13px;
     }
 
+
     .tab-btn {
         font-size: 12px;
+
+        min-height: 50px;
     }
+
 
     .tabs-image img {
         height: 240px;
     }
 
+
     .tabs-text h2 {
         font-size: 23px;
     }
+
 
     .tabs-text p {
         font-size: 13px;
@@ -656,39 +1225,79 @@
 
 
 /* =========================================================
-   REDUCED MOTION
-========================================================= */
+   TOUCH DEVICES
+   ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (hover: none) {
 
-    .product-sub-dot,
-    .product-title-line {
-        animation: none !important;
+    .tab-btn:hover {
+        transform: none;
+
+        box-shadow: none;
     }
 
-    .tabs-image img,
-    .tab-btn,
-    .explore-btn,
-    .explore-arrow {
-        transition: none !important;
+
+    .tabs-image:hover {
+        transform: none;
+
+        box-shadow:
+            0 18px 45px
+            rgba(
+                6,
+                20,
+                45,
+                0.10
+            );
+    }
+
+
+    .tabs-image:hover img {
+        transform: none;
+    }
+
+
+    .product-image-shine {
+        display: none;
     }
 }
 
 
 /* =========================================================
-   BOX SIZING
-========================================================= */
+   REDUCED MOTION
+   ========================================================= */
 
-.tabs-section,
-.product-container,
-.product-heading,
-.tabs-header,
-.tabs-content,
-.tabs-image,
-.tabs-text {
-    box-sizing: border-box;
-}
+@media (prefers-reduced-motion: reduce) {
 
-.tabs-section * {
-    box-sizing: border-box;
+    .product-heading,
+    .product-title-line,
+    .tabs-header,
+    .tabs-content,
+    .tabs-text,
+    .tab-btn,
+    .tab-icon,
+    .tabs-image,
+    .tabs-image img,
+    .explore-btn,
+    .explore-arrow {
+        animation: none !important;
+
+        transition: none !important;
+    }
+
+
+    .product-heading,
+    .tabs-header,
+    .tabs-text {
+        opacity: 1;
+
+        transform: none;
+    }
+
+
+    .product-title-line {
+        opacity: 1;
+
+        transform:
+            scaleX(1);
+    }
 }
