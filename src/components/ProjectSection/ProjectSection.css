@@ -738,13 +738,13 @@ span {
    NUMBER HOVER
    ========================================================= */
 
-.project-card.active:hover
+/* .project-card.active:hover
 .project-number {
   transform:
     scale(1.08)
     rotate(5deg);
 }
- */
+  */
 
 /* =========================================================
    CATEGORY
