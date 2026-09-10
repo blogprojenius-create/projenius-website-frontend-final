@@ -1,0 +1,876 @@
+/* =========================================================
+   DEVELOPMENT SERVICES HERO
+   ========================================================= */
+
+@import url(
+    "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+);
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+.development-hero,
+.development-hero * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN HERO
+   ========================================================= */
+
+.development-hero {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+
+    min-height: 600px;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: #091120;
+
+    font-family: "Poppins", sans-serif;
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE
+   ========================================================= */
+
+.development-hero-background {
+    position: absolute;
+
+    inset: -3%;
+
+    width: 106%;
+    height: 106%;
+
+    z-index: -10;
+
+    background-image: url("/images/projenius-banner.webp");
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    transform: scale(1.02);
+
+    animation:
+        developmentBackgroundZoom
+        18s
+        ease-in-out
+        infinite alternate;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   BACKGROUND ZOOM
+   ========================================================= */
+
+@keyframes developmentBackgroundZoom {
+
+    0% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   DARK OVERLAY
+   ========================================================= */
+
+.development-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -9;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4, 16, 31, 0.94) 0%,
+            rgba(6, 25, 43, 0.82) 45%,
+            rgba(5, 24, 41, 0.78) 100%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CYAN LIGHTING
+   ========================================================= */
+
+.development-hero-glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(20px);
+
+    z-index: -7;
+
+    animation:
+        developmentGlow
+        7s
+        ease-in-out
+        infinite alternate;
+}
+
+
+.development-hero-glow-one {
+    width: 520px;
+    height: 520px;
+
+    top: 5%;
+    right: -150px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(53, 206, 255, 0.16) 0%,
+            rgba(53, 206, 255, 0.06) 35%,
+            transparent 70%
+        );
+}
+
+
+.development-hero-glow-two {
+    width: 420px;
+    height: 420px;
+
+    bottom: -180px;
+    left: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(53, 206, 255, 0.12) 0%,
+            rgba(53, 206, 255, 0.04) 40%,
+            transparent 72%
+        );
+
+    animation-delay: 2s;
+}
+
+
+@keyframes developmentGlow {
+
+    0% {
+        opacity: 0.55;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, -20px, 0) scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   SUBTLE TECH GRID
+   ========================================================= */
+
+.development-hero-grid {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -6;
+
+    background-image:
+        linear-gradient(
+            rgba(53, 206, 255, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(53, 206, 255, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(0, 0, 0, 0.8) 35%,
+            transparent 100%
+        );
+
+    opacity: 0.55;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   PARTICLES
+   ========================================================= */
+
+.development-hero-particles {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: -4;
+
+    pointer-events: none;
+}
+
+
+.development-particle {
+    position: absolute;
+
+    display: block;
+
+    border-radius: 50%;
+
+    background: #35CEFF;
+
+    box-shadow:
+        0 0 8px rgba(53, 206, 255, 0.45),
+        0 0 18px rgba(53, 206, 255, 0.25);
+
+    opacity: 0.35;
+
+    animation:
+        developmentParticleFloat
+        ease-in-out
+        infinite;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+
+@keyframes developmentParticleFloat {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0, 0, 0);
+
+        opacity: 0.25;
+    }
+
+    50% {
+        transform:
+            translate3d(0, -22px, 0);
+
+        opacity: 0.85;
+    }
+}
+
+
+/* =========================================================
+   CONTENT WRAPPER
+   ========================================================= */
+
+.development-hero-content {
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        80px
+        30px
+        70px;
+}
+
+
+/* =========================================================
+   TEXT CONTAINER
+   ========================================================= */
+
+.development-hero-text {
+    position: relative;
+
+    width: 100%;
+    max-width: 1100px;
+
+    text-align: center;
+
+    transform: translateY(10px);
+
+    opacity: 0;
+}
+
+
+/* =========================================================
+   LOADED ANIMATION
+   ========================================================= */
+
+.development-hero-loaded .development-hero-text {
+    animation:
+        developmentTextReveal
+        1s
+        cubic-bezier(.22, 1, .36, 1)
+        0.15s
+        forwards;
+}
+
+
+@keyframes developmentTextReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translate3d(0, 35px, 0)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MAIN TITLE
+   ========================================================= */
+
+.development-hero-title {
+    position: relative;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(
+        48px,
+        5vw,
+        72px
+    );
+
+    line-height: 1.08;
+
+    font-weight: 800;
+
+    letter-spacing: -2.5px;
+
+    text-align: center;
+
+    text-wrap: balance;
+
+    text-shadow:
+        0 4px 25px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   CYAN LINE UNDER TITLE
+   ========================================================= */
+
+.development-hero-title::after {
+    content: "";
+
+    display: block;
+
+    width: 0;
+    height: 3px;
+
+    margin:
+        22px
+        auto
+        0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #35CEFF,
+            #63DBFF,
+            #35CEFF,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px rgba(53, 206, 255, 0.55);
+
+    transition:
+        width 1s
+        cubic-bezier(.22, 1, .36, 1);
+}
+
+
+.development-hero-loaded .development-hero-title::after {
+    width: 130px;
+
+    transition-delay: 0.7s;
+}
+
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+.development-hero-subtitle {
+    margin:
+        18px
+        auto
+        0;
+
+    max-width: 850px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    font-weight: 400;
+
+    letter-spacing: 0;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(12px);
+}
+
+
+.development-hero-loaded .development-hero-subtitle {
+    animation:
+        developmentSubtitleReveal
+        0.8s
+        cubic-bezier(.22, 1, .36, 1)
+        0.65s
+        forwards;
+}
+
+
+@keyframes developmentSubtitleReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translate3d(0, 12px, 0);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translate3d(0, 0, 0);
+    }
+}
+
+
+/* =========================================================
+   BOTTOM CYAN GLOW
+   ========================================================= */
+
+.development-hero-bottom-glow {
+    position: absolute;
+
+    left: 50%;
+    bottom: -120px;
+
+    width: 700px;
+    height: 240px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(53, 206, 255, 0.16) 0%,
+            rgba(53, 206, 255, 0.06) 35%,
+            transparent 70%
+        );
+
+    filter: blur(15px);
+
+    z-index: -3;
+
+    pointer-events: none;
+
+    animation:
+        bottomGlowPulse
+        5s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes bottomGlowPulse {
+
+    from {
+        opacity: 0.55;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   SCROLL INDICATOR
+   ========================================================= */
+
+.development-scroll-indicator {
+    position: absolute;
+
+    left: 50%;
+    bottom: 28px;
+
+    z-index: 10;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    transform:
+        translateX(-50%);
+
+    opacity: 0;
+
+    animation:
+        developmentScrollReveal
+        0.8s
+        ease
+        1.3s
+        forwards;
+}
+
+
+.development-scroll-line {
+    position: relative;
+
+    width: 1px;
+    height: 34px;
+
+    overflow: hidden;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.22
+        );
+}
+
+
+.development-scroll-line::after {
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+    left: 0;
+
+    width: 1px;
+    height: 60%;
+
+    background: #35CEFF;
+
+    box-shadow:
+        0 0 8px rgba(53, 206, 255, 0.7);
+
+    animation:
+        scrollLineMove
+        1.8s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes scrollLineMove {
+
+    0% {
+        top: -70%;
+    }
+
+    100% {
+        top: 120%;
+    }
+}
+
+
+.development-scroll-text {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.48
+        );
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+}
+
+
+@keyframes developmentScrollReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translate3d(-50%, 10px, 0);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translate3d(-50%, 0, 0);
+    }
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+    .development-hero-title {
+        font-size: 72px;
+    }
+
+    .development-hero-subtitle {
+        font-size: 22px;
+    }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .development-hero-title {
+        font-size: 60px;
+
+        letter-spacing: -2px;
+    }
+
+    .development-hero-subtitle {
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .development-hero {
+        min-height: 550px;
+    }
+
+    .development-hero-content {
+        padding:
+            70px
+            28px
+            60px;
+    }
+
+    .development-hero-title {
+        font-size: clamp(
+            42px,
+            8vw,
+            58px
+        );
+
+        letter-spacing: -1.8px;
+    }
+
+    .development-hero-subtitle {
+        max-width: 650px;
+
+        font-size: 17px;
+
+        line-height: 1.65;
+    }
+
+    .development-scroll-indicator {
+        bottom: 20px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .development-hero {
+        min-height: 520px;
+    }
+
+    .development-hero-background {
+        background-position: 58% center;
+    }
+
+    .development-hero-overlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(4, 16, 31, 0.88) 0%,
+                rgba(6, 25, 43, 0.84) 50%,
+                rgba(4, 16, 31, 0.94) 100%
+            );
+    }
+
+    .development-hero-content {
+        padding:
+            70px
+            20px
+            60px;
+    }
+
+    .development-hero-title {
+        font-size: clamp(
+            36px,
+            10vw,
+            48px
+        );
+
+        line-height: 1.12;
+
+        letter-spacing: -1.3px;
+    }
+
+    .development-hero-title::after {
+        margin-top: 18px;
+    }
+
+    .development-hero-subtitle {
+        margin-top: 16px;
+
+        font-size: 15px;
+
+        line-height: 1.65;
+
+        max-width: 360px;
+    }
+
+    .development-hero-grid {
+        background-size: 50px 50px;
+
+        opacity: 0.3;
+    }
+
+    .development-scroll-indicator {
+        display: none;
+    }
+
+    .development-hero-glow-one {
+        width: 350px;
+        height: 350px;
+
+        right: -180px;
+    }
+
+    .development-hero-glow-two {
+        width: 300px;
+        height: 300px;
+
+        left: -160px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .development-hero-background,
+    .development-hero-glow,
+    .development-particle,
+    .development-hero-bottom-glow,
+    .development-scroll-line::after {
+        animation: none;
+    }
+
+    .development-hero-text,
+    .development-hero-subtitle,
+    .development-scroll-indicator {
+        opacity: 1;
+
+        transform: none;
+    }
+
+    .development-hero-title::after {
+        width: 130px;
+    }
+}

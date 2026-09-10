@@ -12,7 +12,7 @@ const navLinks = [
     label: "Services",
     to: "/services",
     dropdown: [
-      { to: "/services", label: "Development" },
+      { to: "/services/development", label: "Development" },
       { to: "/courses", label: "Courses" },
       { to: "/internship", label: "Internship" },
       { to: "/career-guidance", label: "Career Guidance" },

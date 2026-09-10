@@ -5,14 +5,12 @@ import {
     Navigate,
 } from "react-router-dom";
 
-
 /* =========================================================
    LAYOUT
 ========================================================= */
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-
 
 /* =========================================================
    PAGES
@@ -29,6 +27,8 @@ import NewsDetailsPage from "./pages/NewsDetailsPage";
 import StandardPage from "./pages/StandardPages";
 import Contact from "./pages/Contact";
 
+/* DEVELOPMENT */
+import Development from "./pages/Development";
 
 /* =========================================================
    GLOBAL STYLES
@@ -36,42 +36,29 @@ import Contact from "./pages/Contact";
 
 import "./styles/site.css";
 
-
 export default function App() {
     return (
         <BrowserRouter>
 
-            {/* =================================================
-                NAVBAR
-            ================================================= */}
-
+            {/* NAVBAR */}
             <Navbar />
 
-
-            {/* =================================================
-                ROUTES
-            ================================================= */}
-
+            {/* ROUTES */}
             <Routes>
 
                 {/* HOME */}
-
                 <Route
                     path="/"
                     element={<Home />}
                 />
 
-
                 {/* ABOUT */}
-
                 <Route
                     path="/about"
                     element={<About />}
                 />
 
-
                 {/* COURSES */}
-
                 <Route
                     path="/courses"
                     element={<Courses />}
@@ -82,9 +69,7 @@ export default function App() {
                     element={<CourseDetailsPage />}
                 />
 
-
                 {/* NEWS & INSIGHTS */}
-
                 <Route
                     path="/blog"
                     element={<NewsInsights />}
@@ -100,17 +85,27 @@ export default function App() {
                     element={<NewsDetailsPage />}
                 />
 
-
                 {/* =================================================
-                    STANDARD PAGES
+                    SERVICES
                 ================================================= */}
 
+                {/* DEVELOPMENT */}
+                <Route
+                    path="/services/development"
+                    element={<Development />}
+                />
+
+                {/* Optional Services landing page */}
                 <Route
                     path="/services"
                     element={
                         <StandardPage type="services" />
                     }
                 />
+
+                {/* =================================================
+                    OTHER PAGES
+                ================================================= */}
 
                 <Route
                     path="/workshop"
@@ -136,36 +131,24 @@ export default function App() {
                 <Route
                     path="/career-guidance"
                     element={
-                        <StandardPage
-                            type="career-guidance"
-                        />
+                        <StandardPage type="career-guidance" />
                     }
                 />
 
                 <Route
                     path="/join-our-team"
                     element={
-                        <StandardPage
-                            type="join-our-team"
-                        />
+                        <StandardPage type="join-our-team" />
                     }
                 />
 
-
-                {/* =================================================
-                    CONTACT PAGE
-                ================================================= */}
-
+                {/* CONTACT */}
                 <Route
                     path="/contact"
                     element={<Contact />}
                 />
 
-
-                {/* =================================================
-                    FALLBACK
-                ================================================= */}
-
+                {/* FALLBACK */}
                 <Route
                     path="*"
                     element={
@@ -178,11 +161,7 @@ export default function App() {
 
             </Routes>
 
-
-            {/* =================================================
-                FOOTER
-            ================================================= */}
-
+            {/* FOOTER */}
             <Footer />
 
         </BrowserRouter>
