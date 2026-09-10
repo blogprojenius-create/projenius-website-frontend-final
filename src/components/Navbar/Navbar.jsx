@@ -179,13 +179,11 @@ export default function Navbar() {
 
   return (
     <header
-      className={`glass-header ${
-        scrolled ? "scrolled" : ""
-      } ${
-        showHeader
+      className={`glass-header ${scrolled ? "scrolled" : ""
+        } ${showHeader
           ? "header-visible"
           : "header-hidden"
-      }`}
+        }`}
       onClick={handleNavbarInteraction}
     >
 
@@ -201,13 +199,17 @@ export default function Navbar() {
           to="/"
           className="glass-logo"
           aria-label="ProJenius Home"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = "/";
+          }}
         >
           <span
             className="glass-logo-mark"
             aria-hidden="true"
           >
             <img
-              src="/images/pj-logo.jpeg"
+              src="/images/pj_logo.jpeg"
               alt="ProJenius"
               className="logo-icon-crop"
             />
@@ -222,7 +224,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-
         {/* DESKTOP NAVIGATION */}
 
         <nav
@@ -233,11 +234,10 @@ export default function Navbar() {
             link.dropdown ? (
               <div
                 key={link.label}
-                className={`glass-nav-item has-dropdown ${
-                  isActive(link)
+                className={`glass-nav-item has-dropdown ${isActive(link)
                     ? "active"
                     : ""
-                }`}
+                  }`}
                 onMouseEnter={() =>
                   setServicesOpen(true)
                 }
@@ -296,12 +296,11 @@ export default function Navbar() {
                           <Link
                             key={item.to}
                             to={item.to}
-                            className={`glass-dropdown-item ${
-                              location.pathname ===
-                              item.to
+                            className={`glass-dropdown-item ${location.pathname ===
+                                item.to
                                 ? "active"
                                 : ""
-                            }`}
+                              }`}
                             onClick={() => {
                               setServicesOpen(false);
                               clearHideTimer();
@@ -319,11 +318,10 @@ export default function Navbar() {
             ) : (
               <div
                 key={link.to}
-                className={`glass-nav-item ${
-                  isActive(link)
+                className={`glass-nav-item ${isActive(link)
                     ? "active"
                     : ""
-                }`}
+                  }`}
               >
                 <Link
                   to={link.to}
@@ -406,11 +404,10 @@ export default function Navbar() {
                     className="glass-mobile-group"
                   >
                     <button
-                      className={`glass-mobile-link glass-mobile-toggle ${
-                        servicesOpen
+                      className={`glass-mobile-link glass-mobile-toggle ${servicesOpen
                           ? "open"
                           : ""
-                      }`}
+                        }`}
                       type="button"
                       onClick={() => {
                         clearHideTimer();
@@ -460,12 +457,11 @@ export default function Navbar() {
                               <Link
                                 key={item.to}
                                 to={item.to}
-                                className={`glass-mobile-link sub ${
-                                  location.pathname ===
-                                  item.to
+                                className={`glass-mobile-link sub ${location.pathname ===
+                                    item.to
                                     ? "active"
                                     : ""
-                                }`}
+                                  }`}
                                 onClick={() => {
                                   setMenuOpen(
                                     false
@@ -491,11 +487,10 @@ export default function Navbar() {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`glass-mobile-link ${
-                      isActive(link)
+                    className={`glass-mobile-link ${isActive(link)
                         ? "active"
                         : ""
-                    }`}
+                      }`}
                     onClick={() => {
                       setMenuOpen(false);
                       clearHideTimer();

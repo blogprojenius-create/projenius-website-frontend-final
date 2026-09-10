@@ -208,27 +208,6 @@
 }
 
 
-@keyframes trainingTitleLine {
-
-    0%,
-    100% {
-        opacity: 0.55;
-
-        transform:
-            translateX(-50%)
-            scaleX(0.75);
-    }
-
-    50% {
-        opacity: 1;
-
-        transform:
-            translateX(-50%)
-            scaleX(1);
-    }
-}
-
-
 /* =========================================================
    MAIN
 ========================================================= */

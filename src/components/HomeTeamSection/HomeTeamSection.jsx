@@ -1,270 +1,257 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./HomeTeamSection.css";
 
-const teamMembers = [
-  {
-    image: "/images/team-member-1.webp",
-    name: "Karthick Ganesh",
-    position: "Founder & CEO",
-    bio: "A passionate leader focused on empowering the next generation of innovators with a strong vision for academic and practical excellence.",
-    socials: ["facebook", "twitter-x", "linkedin", "instagram"],
-  },
-  {
-    image: "/images/team-member-2.webp",
-    name: "Harshini",
-    position: "CTO & Co-Founder",
-    bio: "A visionary mentor promoting entrepreneurship and innovation, supporting students from exploration to impactful execution.",
-    socials: ["facebook", "twitter-x", "linkedin", "instagram"],
-  },
-];
-
 const stats = [
   {
-    value: 5,
-    suffix: "+",
-    label: "YEARS OF EXCELLENCE",
+    value: 156,
+    suffix: "K",
+    label: "PROJECT COMPLETE",
   },
   {
-    value: 141,
-    suffix: "+",
-    label: "PROJECTS DELIVERED",
+    value: 556,
+    suffix: "K",
+    label: "CLIENTS SATISFACTION",
   },
   {
-    value: 2062,
-    suffix: "+",
-    label: "HAPPY CLIENTS",
+    value: 234,
+    suffix: "K",
+    label: "ENVATO MARKET",
+  },
+  {
+    value: 348,
+    suffix: "K",
+    label: "MOBILE APPS",
   },
 ];
 
-export default function TeamSection() {
+export default function ContactSection() {
   const sectionRef = useRef(null);
-
   const [visible, setVisible] = useState(false);
-  const [counts, setCounts] = useState(stats.map(() => 0));
+  const [counts, setCounts] = useState(
+    stats.map(() => 0)
+  );
 
-  /* ==========================================
-     SECTION ANIMATION
-  ========================================== */
+  const hasAnimated = useRef(false);
+
+  /* =====================================================
+     SECTION REVEAL + COUNTER
+  ===================================================== */
 
   useEffect(() => {
     const section = sectionRef.current;
 
     if (!section) return;
 
+    let animationFrame = null;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect();
+
+          /* Cancel any previous animation */
+          if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+          }
+
+          /* Reset numbers */
+          setCounts(stats.map(() => 0));
+
+          const duration = 5000;
+          const startTime = performance.now();
+
+          const animateCounters = (currentTime) => {
+            const elapsed =
+              currentTime - startTime;
+
+            const progress = Math.min(
+              elapsed / duration,
+              1
+            );
+
+            /* Smooth continuous movement */
+            const easedProgress =
+              1 - Math.pow(1 - progress, 3);
+
+            setCounts(
+              stats.map((stat) =>
+                Math.floor(
+                  stat.value *
+                  easedProgress
+                )
+              )
+            );
+
+            if (progress < 1) {
+              animationFrame =
+                requestAnimationFrame(
+                  animateCounters
+                );
+            } else {
+              /* Make sure final values are exact */
+              setCounts(
+                stats.map(
+                  (stat) => stat.value
+                )
+              );
+            }
+          };
+
+          animationFrame =
+            requestAnimationFrame(
+              animateCounters
+            );
+        } else {
+          /*
+           * Section left viewport.
+           * Cancel current animation so that
+           * the next entry starts from zero.
+           */
+          if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+          }
+
+          setVisible(false);
         }
       },
       {
-        threshold: 0.2,
+        threshold: 0.15,
       }
     );
 
     observer.observe(section);
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
 
-  /* ==========================================
-     RUNNING NUMBERS
-  ========================================== */
-
-  useEffect(() => {
-    if (!visible) return;
-
-    const duration = 1800;
-    const startTime = performance.now();
-
-    const animateNumbers = (currentTime) => {
-      const progress = Math.min(
-        (currentTime - startTime) / duration,
-        1
-      );
-
-      // smooth animation
-      const easedProgress =
-        1 - Math.pow(1 - progress, 3);
-
-      setCounts(
-        stats.map((stat) =>
-          Math.floor(stat.value * easedProgress)
-        )
-      );
-
-      if (progress < 1) {
-        requestAnimationFrame(animateNumbers);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
       }
     };
+  }, []);
 
-    requestAnimationFrame(animateNumbers);
-  }, [visible]);
+  /* =====================================================
+     WHATSAPP
+  ===================================================== */
+
+  const openWhatsApp = () => {
+    window.open(
+      "https://wa.me/918925450473?text=Hi%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20ProJenius.",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
 
   return (
     <section
       ref={sectionRef}
-      className={`team-section ${
-        visible ? "team-visible" : ""
-      }`}
+      className={`contact-hero-section ${visible ? "contact-visible" : ""
+        }`}
     >
-      {/* Background image / glow */}
-      <div className="team-background"></div>
+      <div className="contact-hero-container">
 
-      <div className="team-overlay"></div>
+        {/* =================================================
+                    HEADER
+                ================================================= */}
 
-      <div className="team-container">
+        <div className="contact-hero-heading">
 
-        {/* ==========================================
-            HEADER
-        ========================================== */}
-
-        <div className="team-section-header">
-
-          <span className="team-section-badge">
-            <span className="team-badge-dot"></span>
-            OUR TEAM MEMBERS
+          <span className="contact-hero-label">
+            LET'S GET STARTED
           </span>
 
-          <h2 className="team-section-title">
-            Meet the{" "}
-            <span className="team-title-highlight">
-              Creative Minds
-            </span>
+          <h2 className="contact-hero-title">
+            Want to{" "}
+            <span>Work Together</span>
           </h2>
 
-          <div className="team-title-line"></div>
-
-          <p className="team-section-desc">
-            The leadership team behind Projenius combines
-            product thinking, engineering depth, and practical
-            execution to turn ideas into meaningful impact.
-          </p>
+          <div
+            className="contact-hero-line"
+            aria-hidden="true"
+          >
+            <span />
+          </div>
 
         </div>
 
-        {/* ==========================================
-            TEAM CARDS
-        ========================================== */}
 
-        <div className="team-grid">
+        {/* =================================================
+                    SHOWCASE CARD
+                ================================================= */}
 
-          {teamMembers.map((member, index) => (
-            <article
-              className={`team-card team-card-${index + 1}`}
-              key={member.name}
+        <div className="contact-showcase-card">
+
+          <img
+            src="/images/projenius-banner-4.webp"
+            alt="ProJenius team working together"
+            className="contact-showcase-image"
+            loading="lazy"
+          />
+
+          <div
+            className="contact-showcase-overlay"
+            aria-hidden="true"
+          />
+
+          <div className="contact-showcase-content">
+
+            <h3>
+              Build A Creative
+              <br />
+              Showcase Website.
+            </h3>
+
+            <button
+              type="button"
+              className="contact-talk-btn"
+              onClick={openWhatsApp}
+            >
+              <span>Let's Talk</span>
+              <span aria-hidden="true">
+                →
+              </span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        {/* =================================================
+                    STATS
+                ================================================= */}
+
+        <div className="contact-stats">
+
+          {stats.map((stat, index) => (
+            <React.Fragment
+              key={stat.label}
             >
 
-              {/* IMAGE */}
+              <div className="contact-stat">
 
-              <div className="team-card-photo">
+                <strong>
+                  {counts[index]}
+                  {stat.suffix}
+                </strong>
 
-                <img
-                  src={member.image}
-                  alt={member.name}
-                />
-
-                <div className="team-photo-overlay"></div>
-
-                <div className="team-card-number">
-                  0{index + 1}
-                </div>
-
-                {/* SOCIALS */}
-
-                <div className="team-card-socials">
-
-                  {member.socials.map((platform) => (
-                    <a
-                      href="#"
-                      key={platform}
-                      aria-label={`${member.name} ${platform}`}
-                    >
-                      <i
-                        className={`bi bi-${platform}`}
-                      ></i>
-                    </a>
-                  ))}
-
-                </div>
-
-              </div>
-
-              {/* CONTENT */}
-
-              <div className="team-card-body">
-
-                <div className="team-member-info">
-
-                  <h3 className="team-member-name">
-                    {member.name}
-                  </h3>
-
-                  <span className="team-member-role">
-                    {member.position}
-                  </span>
-
-                  <p className="team-member-bio">
-                    {member.bio}
-                  </p>
-
-                </div>
-
-                <span className="team-card-arrow">
-                  ↗
+                <span>
+                  {stat.label}
                 </span>
 
               </div>
 
-            </article>
+              {index <
+                stats.length - 1 && (
+                  <div
+                    className="contact-stat-divider"
+                    aria-hidden="true"
+                  />
+                )}
+
+            </React.Fragment>
           ))}
-
-        </div>
-
-        {/* ==========================================
-            BOTTOM STATS
-        ========================================== */}
-
-        <div className="team-bottom">
-
-          <div className="team-bottom-heading">
-
-            <span>
-              BUILT BY PEOPLE
-            </span>
-
-            <h3>
-              One team.
-              <strong> One vision.</strong>
-            </h3>
-
-          </div>
-
-          <div className="team-stats">
-
-            {stats.map((stat, index) => (
-              <div
-                className="team-stat"
-                key={stat.label}
-                style={{
-                  transitionDelay: `${index * 150}ms`,
-                }}
-              >
-
-                <div className="team-stat-number">
-                  {counts[index]}
-                  {stat.suffix}
-                </div>
-
-                <div className="team-stat-label">
-                  {stat.label}
-                </div>
-
-              </div>
-            ))}
-
-          </div>
 
         </div>
 

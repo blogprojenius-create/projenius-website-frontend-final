@@ -1301,3 +1301,60 @@
             scaleX(1);
     }
 }
+
+/* =========================================================
+   OPTIMIZED PRODUCT REVEAL / THEME CARD
+========================================================= */
+.tabs-content {
+  position: relative;
+  padding: 18px;
+  border: 1px solid rgba(21,159,227,.13);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(21,159,227,.055), rgba(99,219,255,.025));
+  box-shadow: 0 22px 55px rgba(6,20,45,.10);
+  overflow: visible;
+}
+
+.tabs-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(53,206,255,.08), transparent 42%, rgba(21,159,227,.05));
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tabs-image,
+.tabs-text { position: relative; z-index: 1; }
+
+.tabs-image {
+  animation: productImageIn .75s cubic-bezier(.22,1,.36,1) both;
+}
+
+.tabs-text {
+  animation: productTextIn .75s cubic-bezier(.22,1,.36,1) .08s both;
+}
+
+@keyframes productImageIn {
+  from { opacity: 0; transform: translateX(-45px) rotateY(-8deg); }
+  to { opacity: 1; transform: translateX(0) rotateY(0); }
+}
+
+@keyframes productTextIn {
+  from { opacity: 0; transform: translateX(45px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Product option cards get a subtle theme glow */
+.tab-btn.active {
+  box-shadow: 0 12px 32px rgba(21,159,227,.24), inset 0 0 0 1px rgba(255,255,255,.10);
+}
+
+@media (max-width: 767px) {
+  .tabs-content { padding: 12px; border-radius: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-image, .tabs-text { animation: none !important; opacity: 1; transform: none; }
+}

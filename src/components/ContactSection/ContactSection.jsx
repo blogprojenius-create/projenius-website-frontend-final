@@ -49,7 +49,6 @@ export default function ContactSection() {
                     ================================= */}
 
                     <div className="contact-cta-label">
-                        <span className="contact-label-dot"></span>
                         LET'S GET STARTED
                     </div>
 
