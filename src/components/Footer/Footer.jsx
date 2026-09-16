@@ -1,28 +1,46 @@
 import React from "react";
 import "./Footer.css";
 
+// =========================================================
+// GOOGLE REVIEWS LINK
+// =========================================================
+
 const GOOGLE_REVIEWS_URL =
-  "https://www.google.com/maps/place/?q=place_id:ChIJszvxyLXPADsRmPO6NNv0RcI";
+  "https://g.page/r/CZjzujTb9EXCEBM/review";
+
+
+// =========================================================
+// FOOTER
+// =========================================================
 
 const Footer = () => {
+
+  // =======================================================
+  // NEWSLETTER
+  // =======================================================
+
   const handleNewsletter = (e) => {
     e.preventDefault();
+
     alert("Thank you for subscribing!");
+
+    e.target.reset();
   };
+
 
   return (
     <footer className="pro-footer">
 
-      {/* =====================================================
+      {/* =================================================
           TOP BAR
-      ===================================================== */}
+      ================================================= */}
 
       <div className="footer-top">
+
         <div className="footer-top-inner">
 
           {/* COMPANY */}
 
-          {/* <div className="footer-call"> */}
           <div className="footer-call-content">
 
             <div className="footer-logo">
@@ -40,9 +58,7 @@ const Footer = () => {
             </div>
 
             <h3>
-              Innovation Technology Private
-              <br />
-              Limited
+              Innovation Technology Private Limited
             </h3>
 
           </div>
@@ -57,31 +73,36 @@ const Footer = () => {
             </div>
 
             <form onSubmit={handleNewsletter}>
+
               <input
                 type="email"
                 placeholder="Your email address"
                 aria-label="Your email address"
+                autoComplete="email"
                 required
               />
 
               <button type="submit">
                 Subscribe
               </button>
+
             </form>
 
           </div>
 
         </div>
+
       </div>
 
 
-      {/* =====================================================
+      {/* =================================================
           MAIN FOOTER
-      ===================================================== */}
+      ================================================= */}
 
       <div className="footer-main">
 
         <div className="footer-grid">
+
 
           {/* =================================================
               COMPANY
@@ -98,9 +119,11 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="View ProJenius Google Reviews"
             >
+
               <span className="google-review-icon">
                 G
               </span>
+
 
               <span className="google-review-content">
 
@@ -108,8 +131,12 @@ const Footer = () => {
                   Google Reviews
                 </span>
 
+
                 <span className="google-review-meta">
-                  <strong>4.8</strong>
+
+                  <strong>
+                    4.8
+                  </strong>
 
                   <span className="google-stars">
                     ★★★★★
@@ -118,9 +145,11 @@ const Footer = () => {
                   <span className="google-review-count">
                     58 Reviews
                   </span>
+
                 </span>
 
               </span>
+
 
               <span
                 className="google-review-arrow"
@@ -128,10 +157,11 @@ const Footer = () => {
               >
                 ↗
               </span>
+
             </a>
 
 
-            {/* COMPANY DESCRIPTION */}
+            {/* DESCRIPTION */}
 
             <p>
               Improve efficiency and provide a better
@@ -141,16 +171,17 @@ const Footer = () => {
             </p>
 
 
-            {/* SOCIAL ICONS */}
+            {/* SOCIAL LINKS */}
 
             <div className="footer-socials">
 
               <a
-                href="mailto:teamprojenius2025@gmail.com"
+                href="mailto:teamprojenius@gmail.com"
                 aria-label="Email ProJenius"
               >
                 <i className="bi bi-envelope-fill"></i>
               </a>
+
 
               <a
                 href="https://wa.me/918925450473"
@@ -161,8 +192,9 @@ const Footer = () => {
                 <i className="bi bi-whatsapp"></i>
               </a>
 
+
               <a
-                href="https://www.instagram.com/"
+                href="https://www.instagram.com/projenius_?stkn=OXEwaXF4Z3g4d3Zw"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -170,8 +202,9 @@ const Footer = () => {
                 <i className="bi bi-instagram"></i>
               </a>
 
+
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/company/projenius/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -179,8 +212,9 @@ const Footer = () => {
                 <i className="bi bi-linkedin"></i>
               </a>
 
+
               <a
-                href="https://www.facebook.com/"
+                href="https://www.facebook.com/share/1DMJDDqupb/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -204,6 +238,7 @@ const Footer = () => {
             </h3>
 
             <div className="footer-heading-line"></div>
+
 
             <ul className="footer-links">
 
@@ -229,7 +264,7 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="/internship">
+                <a href="/services/internship">
                   <span>›</span>
                   Internship
                 </a>
@@ -273,6 +308,7 @@ const Footer = () => {
 
             <div className="footer-heading-line"></div>
 
+
             <div className="footer-contact-item">
 
               <div className="footer-contact-icon">
@@ -301,7 +337,7 @@ const Footer = () => {
               </div>
 
               <a href="mailto:teamprojenius2025@gmail.com">
-                teamprojenius2025@gmail.com
+                teamprojenius@gmail.com
               </a>
 
             </div>
@@ -334,6 +370,7 @@ const Footer = () => {
 
             <div className="footer-heading-line"></div>
 
+
             <div className="footer-map">
 
               <iframe
@@ -342,6 +379,7 @@ const Footer = () => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
+
 
               <a
                 className="map-label"
@@ -354,9 +392,11 @@ const Footer = () => {
 
             </div>
 
+
             <p className="footer-location">
               HQ: Velmurugan Nagar, Madurai
             </p>
+
 
             <a
               className="direction-btn"
@@ -365,7 +405,11 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               Get Directions
-              <span>→</span>
+
+              <span>
+                →
+              </span>
+
             </a>
 
           </div>
@@ -373,9 +417,9 @@ const Footer = () => {
         </div>
 
 
-        {/* =====================================================
+        {/* =================================================
             BOTTOM
-        ===================================================== */}
+        ================================================= */}
 
         <div className="footer-bottom">
 
@@ -383,6 +427,7 @@ const Footer = () => {
             © Copyright 2026 ProJenius Innovation Technology
             Private Limited. All rights reserved.
           </p>
+
 
           <div className="footer-bottom-links">
 
@@ -403,5 +448,6 @@ const Footer = () => {
     </footer>
   );
 };
+
 
 export default Footer;

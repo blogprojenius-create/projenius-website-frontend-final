@@ -27,8 +27,12 @@ import NewsDetailsPage from "./pages/NewsDetailsPage";
 import StandardPage from "./pages/StandardPages";
 import Contact from "./pages/Contact";
 
-/* DEVELOPMENT */
+/* =========================================================
+   SERVICE PAGES
+========================================================= */
+
 import Development from "./pages/Development";
+import Internship from "./pages/Internship";
 
 /* =========================================================
    GLOBAL STYLES
@@ -40,25 +44,40 @@ export default function App() {
     return (
         <BrowserRouter>
 
-            {/* NAVBAR */}
+            {/* =================================================
+                NAVBAR
+            ================================================= */}
+
             <Navbar />
 
-            {/* ROUTES */}
+            {/* =================================================
+                ROUTES
+            ================================================= */}
+
             <Routes>
 
-                {/* HOME */}
+                {/* =================================================
+                    HOME
+                ================================================= */}
+
                 <Route
                     path="/"
                     element={<Home />}
                 />
 
-                {/* ABOUT */}
+                {/* =================================================
+                    ABOUT
+                ================================================= */}
+
                 <Route
                     path="/about"
                     element={<About />}
                 />
 
-                {/* COURSES */}
+                {/* =================================================
+                    COURSES
+                ================================================= */}
+
                 <Route
                     path="/courses"
                     element={<Courses />}
@@ -69,7 +88,10 @@ export default function App() {
                     element={<CourseDetailsPage />}
                 />
 
-                {/* NEWS & INSIGHTS */}
+                {/* =================================================
+                    NEWS & INSIGHTS
+                ================================================= */}
+
                 <Route
                     path="/blog"
                     element={<NewsInsights />}
@@ -90,12 +112,21 @@ export default function App() {
                 ================================================= */}
 
                 {/* DEVELOPMENT */}
+
                 <Route
                     path="/services/development"
                     element={<Development />}
                 />
 
-                {/* Optional Services landing page */}
+                {/* INTERNSHIP */}
+
+                <Route
+                    path="/services/internship"
+                    element={<Internship />}
+                />
+
+                {/* SERVICES LANDING */}
+
                 <Route
                     path="/services"
                     element={
@@ -115,13 +146,6 @@ export default function App() {
                 />
 
                 <Route
-                    path="/internship"
-                    element={
-                        <StandardPage type="internship" />
-                    }
-                />
-
-                <Route
                     path="/startup"
                     element={
                         <StandardPage type="startup" />
@@ -129,7 +153,7 @@ export default function App() {
                 />
 
                 <Route
-                    path="/career-guidance"
+                    path="/services/career-guidance"
                     element={
                         <StandardPage type="career-guidance" />
                     }
@@ -142,13 +166,19 @@ export default function App() {
                     }
                 />
 
-                {/* CONTACT */}
+                {/* =================================================
+                    CONTACT
+                ================================================= */}
+
                 <Route
                     path="/contact"
                     element={<Contact />}
                 />
 
-                {/* FALLBACK */}
+                {/* =================================================
+                    FALLBACK
+                ================================================= */}
+
                 <Route
                     path="*"
                     element={
@@ -161,7 +191,10 @@ export default function App() {
 
             </Routes>
 
-            {/* FOOTER */}
+            {/* =================================================
+                FOOTER
+            ================================================= */}
+
             <Footer />
 
         </BrowserRouter>

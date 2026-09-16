@@ -14,8 +14,8 @@ const navLinks = [
     dropdown: [
       { to: "/services/development", label: "Development" },
       { to: "/courses", label: "Courses" },
-      { to: "/internship", label: "Internship" },
-      { to: "/career-guidance", label: "Career Guidance" },
+      { to: "/services/internship", label: "Internship" },
+      { to: "/services/career-guidance", label: "Career Guidance" },
     ],
   },
 
