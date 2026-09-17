@@ -11,7 +11,6 @@ import "aos/dist/aos.css";
 
 import "../assets/css/Contact.css";
 
-
 export default function Contact() {
 
     /* =========================================================
@@ -45,6 +44,19 @@ export default function Contact() {
     };
 
 
+    /* =========================================================
+       CUSTOM VALIDATION
+    ========================================================= */
+
+    const handleInvalid = (event, message) => {
+        event.target.setCustomValidity(message);
+    };
+
+    const handleInput = (event) => {
+        event.target.setCustomValidity("");
+    };
+
+
     return (
         <main className="contact-page">
 
@@ -57,7 +69,6 @@ export default function Contact() {
                 <div className="contact-container">
 
                     <div className="contact-layout">
-
 
                         {/* =================================================
                             LEFT CONTACT PANEL
@@ -74,13 +85,11 @@ export default function Contact() {
 
 
                             <h1 className="contact-title">
-
                                 Let's Build Something{" "}
 
                                 <span>
                                     Great Together
                                 </span>
-
                             </h1>
 
 
@@ -90,11 +99,9 @@ export default function Contact() {
 
 
                             <p className="contact-description">
-
                                 Have an idea, project, or business challenge?
                                 Let's turn your vision into a powerful digital
                                 experience with the right technology and strategy.
-
                             </p>
 
 
@@ -103,7 +110,6 @@ export default function Contact() {
                             ================================================= */}
 
                             <div className="contact-details">
-
 
                                 {/* PHONE */}
 
@@ -252,7 +258,6 @@ export default function Contact() {
                                 onSubmit={handleSubmit}
                             >
 
-
                                 {/* =================================================
                                     NAME + EMAIL
                                 ================================================= */}
@@ -262,7 +267,7 @@ export default function Contact() {
                                     <div className="contact-field">
 
                                         <label htmlFor="name">
-                                            Full Name
+                                            Name
                                         </label>
 
                                         <input
@@ -271,6 +276,13 @@ export default function Contact() {
                                             type="text"
                                             placeholder="Your full name"
                                             required
+                                            onInvalid={(event) =>
+                                                handleInvalid(
+                                                    event,
+                                                    "Please enter your name"
+                                                )
+                                            }
+                                            onInput={handleInput}
                                         />
 
                                     </div>
@@ -288,6 +300,13 @@ export default function Contact() {
                                             type="email"
                                             placeholder="your@email.com"
                                             required
+                                            onInvalid={(event) =>
+                                                handleInvalid(
+                                                    event,
+                                                    "Please enter your email id"
+                                                )
+                                            }
+                                            onInput={handleInput}
                                         />
 
                                     </div>
@@ -310,6 +329,14 @@ export default function Contact() {
                                         name="phone"
                                         type="tel"
                                         placeholder="+91 98765 43210"
+                                        required
+                                        onInvalid={(event) =>
+                                            handleInvalid(
+                                                event,
+                                                "Please enter your phone number"
+                                            )
+                                        }
+                                        onInput={handleInput}
                                     />
 
                                 </div>
@@ -330,6 +357,13 @@ export default function Contact() {
                                         name="service"
                                         defaultValue=""
                                         required
+                                        onInvalid={(event) =>
+                                            handleInvalid(
+                                                event,
+                                                "Please enter your service interest"
+                                            )
+                                        }
+                                        onInput={handleInput}
                                     >
 
                                         <option
@@ -388,6 +422,13 @@ export default function Contact() {
                                         rows="5"
                                         placeholder="Briefly describe your project..."
                                         required
+                                        onInvalid={(event) =>
+                                            handleInvalid(
+                                                event,
+                                                "Please enter your project details"
+                                            )
+                                        }
+                                        onInput={handleInput}
                                     ></textarea>
 
                                 </div>
