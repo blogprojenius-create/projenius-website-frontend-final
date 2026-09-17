@@ -48,7 +48,6 @@ import JoinOurTeam from "./pages/JoinOurTeam";
 ========================================================= */
 
 import "./styles/site.css";
-import "./styles/scroll-fix.css";
 
 export default function App() {
     return (
