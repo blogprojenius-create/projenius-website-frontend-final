@@ -1,0 +1,39 @@
+/* =========================================================
+   PROJENIUS — DOCUMENT SCROLL FIX
+   No design/layout/typography changes.
+   ========================================================= */
+
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+  background: #090d13;
+}
+
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Keep the application in normal document flow. */
+#root > * {
+  min-height: 0;
+}
+
+/* Footer is the document's final visual boundary. */
+.pro-footer {
+  margin-bottom: 0;
+}

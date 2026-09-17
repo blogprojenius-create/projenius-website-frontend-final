@@ -149,7 +149,7 @@ export default function Contact() {
                                         </span>
 
                                         <strong>
-                                            teamprojenius2025@gmail.com
+                                            teamprojenius@gmail.com
                                         </strong>
 
                                     </div>

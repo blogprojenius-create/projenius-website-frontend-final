@@ -42,7 +42,9 @@ body {
    ========================================================= */
 
 .hero-wrapper {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 0;
 
     width: 100%;
     max-width: 100%;
@@ -52,7 +54,6 @@ body {
     height: 100dvh;
 
     min-height: 0;
-    max-height: 100dvh;
 
     margin: 0;
     padding: 0;
@@ -985,13 +986,6 @@ body {
    ========================================================= */
 
 @media (max-width: 991px) {
-
-    .hero-wrapper {
-        height: 100vh;
-        height: 100svh;
-        height: 100dvh;
-    }
-
     .hero-inner {
         height: 100%;
 

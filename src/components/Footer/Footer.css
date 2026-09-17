@@ -3,6 +3,7 @@
 ========================================================= */
 
 .pro-footer {
+  position: relative;
   width: 100%;
 
   background: #090d13;
