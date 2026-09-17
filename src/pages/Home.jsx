@@ -6,6 +6,7 @@ import ProductSection from "../components/ProductSection/ProductSection";
 import TrainingSection from "../components/TrainingSection/TrainingSection";
 import HomeTeamSection from "../components/HomeTeamSection/HomeTeamSection";
 import ProjectSection from "../components/ProjectSection/ProjectSection";
+import ContactSection from "../components/ContactSection/ContactSection";
 
 export default function Home() {
     return (
@@ -17,6 +18,7 @@ export default function Home() {
             <TrainingSection />
             <HomeTeamSection />
             <ProjectSection />
+            <ContactSection />
         </>
     );
 }
