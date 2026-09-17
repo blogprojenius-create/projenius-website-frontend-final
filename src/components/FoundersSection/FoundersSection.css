@@ -1,0 +1,291 @@
+/* --- Corrected Combined CSS for both Founders and Leadership Sections --- */
+
+/* --- Variables --- */
+:root {
+  --primary-blue: #0056b3;
+  --light-blue: #007bff;
+  --text-dark: #333;
+  --text-light: #f8f9fa;
+  --section-bg-light: #f8f9fa;
+  --tag-bg: #e0e7ff;
+  --tag-text: #0056b3;
+  --card-bg: white;
+  --role-color: #666;
+  --dot-color: #007bff;
+}
+
+/* --- Founders Section Styles --- */
+.founders-section {
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 50px;
+  background-color: var(--section-bg-light);
+}
+
+.founders-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.section-tag {
+  display: inline-block;
+  background-color: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* --- Leadership Section Styles --- */
+.leadership-section-container {
+  padding: 4rem 1rem;
+  background-color: #f7f9fc;
+  color: #333;
+  text-align: center;
+}
+
+.academic-leadership {
+  margin-bottom: 4rem;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.leader-card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.incubation-managers {
+  margin-top: 2rem;
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.manager-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* Added style for the two-tone title effect */
+.section h2 .title-highlight {
+  color: var(--light-blue);
+}
+
+
+/* --- Unified Card & Element Styles --- */
+.founder-card,
+.leader-card,
+.manager-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 550px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.founder-card:hover,
+.leader-card:hover,
+.manager-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 20px rgba(255, 119, 0, 0.701);
+}
+
+.founder-text-content,
+.leader-info,
+.manager-info {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.founder-image-wrapper,
+.leader-image,
+.manager-image {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 4px solid var(--light-blue);
+}
+
+.founder-image-wrapper img,
+.leader-image img,
+.manager-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.founder-image-wrapper .founder-dot,
+.leader-image::after,
+.manager-image::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--dot-color);
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.founder-name,
+.leader-info h3,
+.manager-info h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.founder-role,
+.leader-info .role,
+.manager-info .role {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--role-color);
+  background-color: var(--tag-bg);
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.founder-bio,
+.leader-info .description,
+.manager-info .description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+/* --- Unified Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .founder-card,
+  .leader-card,
+  .manager-card {
+    max-width: 500px;
+    padding: 25px;
+  }
+  
+  .founder-name,
+  .leader-info h3,
+  .manager-info h3 {
+    font-size: 1.6rem;
+  }
+  
+  .founder-text-content,
+  .leader-info,
+  .manager-info {
+    margin-right: 15px;
+  }
+  
+  .founder-image-wrapper,
+  .leader-image,
+  .manager-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .founders-section,
+  .leadership-section-container {
+    padding: 50px 15px;
+  }
+  
+  .section-title,
+  .section h2 {
+    font-size: 2rem;
+  }
+
+  .founder-card,
+  .leader-card,
+  .manager-card {
+    flex-direction: column;
+    text-align: center;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    gap: 1rem;
+  }
+
+  .founder-text-content,
+  .leader-info,
+  .manager-info {
+    margin-right: 0;
+    order: 2;
+    text-align: center;
+  }
+  
+  .founder-image-wrapper,
+  .leader-image,
+  .manager-image {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 15px;
+    order: 1;
+  }
+  
+  .founder-name,
+  .leader-info h3,
+  .manager-info h3 {
+    font-size: 1.4rem;
+  }
+
+  .founder-role,
+  .leader-info .role,
+  .manager-info .role {
+    font-size: 0.85rem;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+  }
+  
+  .founder-bio,
+  .leader-info .description,
+  .manager-info .description {
+    font-size: 0.9rem;
+  }
+}

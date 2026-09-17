@@ -7,8 +7,7 @@ import ReviewsSection from "../components/ReviewsSection/ReviewsSection";
 import Magazine from "../components/Magazine/Magazine";
 import EcosystemSection from "../components/EcosystemSection/EcosystemSection";
 import OurJourney from "../components/OurJourney/OurJourney";
-
-
+import FoundersSection from "../components/FoundersSection/FoundersSection";    
 export default function About() {
     return (
         <>
@@ -26,6 +25,7 @@ export default function About() {
 
             <OurJourney />
             <AboutTeamSection />
+            <FoundersSection />
             <EcosystemSection />
             <Magazine />
             <ReviewsSection />
