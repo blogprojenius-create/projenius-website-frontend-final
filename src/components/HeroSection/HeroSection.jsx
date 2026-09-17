@@ -290,7 +290,7 @@ export default function HeroSection() {
                             data-aos="fade-up"
                             data-aos-delay="200"
                         >
-                            Projenius is a technology-driven startup focused
+                            ProJenius is a technology-driven startup focused
                             on building innovative solutions in AI, IoT,
                             Software Development, and Product Engineering.
                         </p>

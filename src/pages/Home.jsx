@@ -7,10 +7,6 @@ import TrainingSection from "../components/TrainingSection/TrainingSection";
 import HomeTeamSection from "../components/HomeTeamSection/HomeTeamSection";
 import ProjectSection from "../components/ProjectSection/ProjectSection";
 
-import PricingSection from "../components/PriceTableSection/PriceTableSection";
-import ContactSection from "../components/ContactSection/ContactSection";
-import ReviewsSection from "../components/ReviewsSection/ReviewsSection";
-
 export default function Home() {
     return (
         <>
@@ -21,9 +17,6 @@ export default function Home() {
             <TrainingSection />
             <HomeTeamSection />
             <ProjectSection />
-            {/* <PricingSection /> */}
-            {/* <ContactSection /> */}
-            {/* <ReviewsSection /> */}
         </>
     );
 }

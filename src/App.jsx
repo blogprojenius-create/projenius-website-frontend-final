@@ -18,6 +18,7 @@ import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
+
 import Courses from "./pages/Courses";
 import NewsInsights from "./pages/NewsInsights";
 
@@ -33,7 +34,15 @@ import Contact from "./pages/Contact";
 
 import Development from "./pages/Development";
 import Internship from "./pages/Internship";
+import CareerGuidance from "./pages/CareerGuidance";
 
+/* =========================================================
+   OTHER PAGES
+========================================================= */
+
+import Workshop from "./pages/Workshop";
+import Startup from "./pages/Startup";
+import JoinOurTeam from "./pages/JoinOurTeam";
 /* =========================================================
    GLOBAL STYLES
 ========================================================= */
@@ -124,6 +133,12 @@ export default function App() {
                     path="/services/internship"
                     element={<Internship />}
                 />
+                {/* CAREER GUIDANCE */}
+
+                <Route
+                    path="/services/career-guidance"
+                    element={<CareerGuidance />}
+                />
 
                 {/* SERVICES LANDING */}
 
@@ -141,28 +156,21 @@ export default function App() {
                 <Route
                     path="/workshop"
                     element={
-                        <StandardPage type="workshop" />
+                        <Workshop />
                     }
                 />
 
                 <Route
                     path="/startup"
                     element={
-                        <StandardPage type="startup" />
-                    }
-                />
-
-                <Route
-                    path="/services/career-guidance"
-                    element={
-                        <StandardPage type="career-guidance" />
+                        <Startup />
                     }
                 />
 
                 <Route
                     path="/join-our-team"
                     element={
-                        <StandardPage type="join-our-team" />
+                        <JoinOurTeam />
                     }
                 />
 
