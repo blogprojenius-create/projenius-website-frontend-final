@@ -42,7 +42,7 @@
 
     box-sizing: border-box;
 
-    background: #147da8;
+    background: #1179A8;
 
     border-radius: 42px;
 
@@ -148,7 +148,7 @@
 
     max-width: 900px;
 
-    color: #ffffff;
+    color: #FFFFFF;
 
     font-size: clamp(30px, 3.2vw, 48px);
 
@@ -440,9 +440,9 @@
 .contact-cta-primary {
     min-width: 205px;
 
-    background: #35CEFF;
+    background: #FFD21F;
 
-    color: #06182f;
+    color: #101010;
 
     box-shadow:
         0 10px 25px rgba(53, 206, 255, 0.22);
@@ -452,7 +452,7 @@
 .contact-cta-primary:hover {
     transform: translateY(-3px);
 
-    background: #54d7ff;
+    background: #ffcc00;
 
     box-shadow:
         0 14px 30px rgba(53, 206, 255, 0.32);

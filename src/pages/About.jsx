@@ -1,13 +1,12 @@
 import React from "react";
 
-import AboutTeamSection from "../components/AboutTeamSection/AboutTeamSection";
 import CommonHero from "../components/CommonHero/CommonHero";
 import ContactSection from "../components/ContactSection/ContactSection";
-import ReviewsSection from "../components/ReviewsSection/ReviewsSection";
 import Magazine from "../components/Magazine/Magazine";
 import EcosystemSection from "../components/EcosystemSection/EcosystemSection";
 import OurJourney from "../components/OurJourney/OurJourney";
 import FoundersSection from "../components/FoundersSection/FoundersSection";    
+import TestimonialSection from "../components/TestimonialSection/TestimonialSection";
 export default function About() {
     return (
         <>
@@ -24,11 +23,10 @@ export default function About() {
             />
 
             <OurJourney />
-            <AboutTeamSection />
             <FoundersSection />
             <EcosystemSection />
             <Magazine />
-            <ReviewsSection />
+            <TestimonialSection />
             <ContactSection />
         </>
     );

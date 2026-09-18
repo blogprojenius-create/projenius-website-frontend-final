@@ -137,10 +137,6 @@ const Magazine = () => {
         {/* TEXT */}
         <div className="magazine-copy-col">
           <span className="mag-sub-label">
-            <span
-              className="magazine-badge-dot"
-              aria-hidden="true"
-            />
             MAGAZINE
           </span>
 
