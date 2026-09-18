@@ -48,9 +48,9 @@ export default function ContactSection() {
                         TOP LABEL
                     ================================= */}
 
-                    <div className="contact-cta-label">
+                    {/* <div className="contact-cta-label">
                         LET'S GET STARTED
-                    </div>
+                    </div> */}
 
 
                     {/* ================================
@@ -58,8 +58,7 @@ export default function ContactSection() {
                     ================================= */}
 
                     <h2 className="contact-cta-title">
-                        Let's Build Something{" "}
-                        <span>Great Together</span>
+                        Let's Build Something Great Together
                     </h2>
 
 

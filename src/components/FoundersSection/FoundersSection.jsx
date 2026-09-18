@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./FoundersSection.css";
 
 /* =========================================================
-   INLINE SOCIAL ICONS
-   No lucide-react dependency required
+   SOCIAL ICONS
 ========================================================= */
 
 function FacebookIcon() {
@@ -40,32 +39,99 @@ function InstagramIcon() {
   );
 }
 
-/* =========================================================
-   SOCIAL ICONS
-========================================================= */
-
 function SocialIcons() {
   return (
-    <div className="founder-social-icons" aria-label="Social media links">
-
-      <span className="founder-social-icon" aria-label="Facebook">
+    <div
+      className="founder-social-icons"
+      aria-label="Social media links"
+    >
+      <span
+        className="founder-social-icon"
+        aria-label="Facebook"
+      >
         <FacebookIcon />
       </span>
 
-      <span className="founder-social-icon" aria-label="X">
+      <span
+        className="founder-social-icon"
+        aria-label="X"
+      >
         <XIcon />
       </span>
 
-      <span className="founder-social-icon" aria-label="LinkedIn">
+      <span
+        className="founder-social-icon"
+        aria-label="LinkedIn"
+      >
         <LinkedinIcon />
       </span>
 
-      <span className="founder-social-icon" aria-label="Instagram">
+      <span
+        className="founder-social-icon"
+        aria-label="Instagram"
+      >
         <InstagramIcon />
       </span>
-
     </div>
   );
+}
+
+/* =========================================================
+   REVEAL ANIMATION HOOK
+
+   Animation now replays every time the element
+   enters the viewport.
+
+   IMPORTANT:
+   We intentionally DO NOT use observer.unobserve()
+   because the animation needs to work again whenever
+   the user comes back to this page/section.
+========================================================= */
+
+function useReveal(className = "is-visible") {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) return;
+
+    /* Prevent animation problems if IntersectionObserver
+       is unavailable in the browser. */
+    if (!("IntersectionObserver" in window)) {
+      element.classList.add(className);
+
+      return () => {
+        element.classList.remove(className);
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          /* ENTER VIEW */
+          element.classList.add(className);
+        } else {
+          /* LEAVE VIEW
+             Remove the class so the animation can
+             start again the next time it enters. */
+          element.classList.remove(className);
+        }
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      element.classList.remove(className);
+    };
+  }, [className]);
+
+  return ref;
 }
 
 /* =========================================================
@@ -78,30 +144,9 @@ function FounderCard({
   bio,
   image,
   imageAlt,
+  animationClass = "founder-card-visible",
 }) {
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-
-    if (!card) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          card.classList.add("founder-card-visible");
-          observer.unobserve(card);
-        }
-      },
-      {
-        threshold: 0.15,
-      }
-    );
-
-    observer.observe(card);
-
-    return () => observer.disconnect();
-  }, []);
+  const cardRef = useReveal(animationClass);
 
   return (
     <article
@@ -109,12 +154,9 @@ function FounderCard({
       className="founder-card"
     >
 
-      {/* =====================================================
-          TEXT CONTENT
-      ===================================================== */}
+      {/* TEXT CONTENT */}
 
       <div className="founder-text-content">
-
         <h3 className="founder-name">
           {name}
         </h3>
@@ -126,17 +168,12 @@ function FounderCard({
         <p className="founder-bio">
           {bio}
         </p>
-
       </div>
 
-
-      {/* =====================================================
-          IMAGE AREA
-      ===================================================== */}
+      {/* IMAGE */}
 
       <div className="founder-image-wrapper">
 
-        {/* Diagonal blue/teal shape */}
         <div className="founder-image-shape" />
 
         <img
@@ -146,7 +183,8 @@ function FounderCard({
           loading="lazy"
         />
 
-        {/* Social icons appear only on hover */}
+        {/* SHOWS ONLY ON CARD HOVER */}
+
         <SocialIcons />
 
       </div>
@@ -155,41 +193,20 @@ function FounderCard({
   );
 }
 
-
 /* =========================================================
    ACADEMIC LEADER CARD
 ========================================================= */
 
 function LeaderCard() {
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-
-    if (!card) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          card.classList.add("leader-card-visible");
-          observer.unobserve(card);
-        }
-      },
-      {
-        threshold: 0.15,
-      }
-    );
-
-    observer.observe(card);
-
-    return () => observer.disconnect();
-  }, []);
+  const cardRef = useReveal("leader-card-visible");
 
   return (
-    <div
+    <article
       ref={cardRef}
       className="leader-card"
     >
+
+      {/* TEXT */}
 
       <div className="leader-info">
 
@@ -209,30 +226,29 @@ function LeaderCard() {
 
       </div>
 
+      {/* IMAGE */}
 
       <div className="leader-image">
 
         <div className="leader-image-shape" />
 
         <img
-          src="/images/founder1.png"
+          src="/images/team-member-1.webp"
           alt="Dr. D. Vasudevan"
           loading="lazy"
         />
 
       </div>
 
-    </div>
+    </article>
   );
 }
-
 
 /* =========================================================
    MAIN COMPONENT
 ========================================================= */
 
 export default function CombinedLeadershipPage() {
-
   return (
     <div className="founders-leadership-page">
 
@@ -247,7 +263,10 @@ export default function CombinedLeadershipPage() {
         </div>
 
         <h2 className="section-title">
-          Meet Our <span className="founders-highlight">Founders</span>
+          Meet Our{" "}
+          <span className="founders-highlight">
+            Founders
+          </span>
         </h2>
 
         <p className="section-description">
@@ -255,30 +274,29 @@ export default function CombinedLeadershipPage() {
           of innovators and entrepreneurs.
         </p>
 
-
         <div className="founders-cards-container">
 
           <FounderCard
             name="Karthick Ganesh"
             role="Founder & CEO"
             bio="A passionate leader focused on empowering the next generation of innovators with a strong vision for academic and practical excellence."
-            image="images/team-member-1.webp"
+            image="/images/team-member-1.webp"
             imageAlt="Karthick Ganesh"
+            animationClass="founder-card-visible"
           />
-
 
           <FounderCard
             name="Harshini"
             role="CTO & Co-Founder"
             bio="A visionary mentor promoting entrepreneurship and innovation, supporting students from exploration to impactful execution."
-            image="images/team-member-2.webp"
+            image="/images/team-member-2.webp"
             imageAlt="Harshini"
+            animationClass="founder-card-visible"
           />
 
         </div>
 
       </section>
-
 
       {/* =====================================================
           ACADEMIC LEADERSHIP

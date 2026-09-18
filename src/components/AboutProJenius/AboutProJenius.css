@@ -1,0 +1,1004 @@
+/* =========================================================
+   ABOUT PROJENIUS
+========================================================= */
+
+.about-projenius-section {
+    position: relative;
+    width: 100%;
+    min-height: 760px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(0, 174, 255, 0.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 174, 255, 0.045) 1px,
+            transparent 1px
+        ),
+        #010711;
+
+    background-size: 78px 78px;
+
+    color: #ffffff;
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.about-projenius-section::before {
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    right: 8%;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(0, 174, 255, 0.08) 0%,
+        rgba(0, 174, 255, 0.035) 32%,
+        transparent 70%
+    );
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.about-projenius-container {
+    position: relative;
+
+    width: min(1400px, 92%);
+
+    min-height: 760px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(480px, 0.9fr)
+        minmax(600px, 1.1fr);
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.about-projenius-content {
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 650px;
+
+    padding: 40px 0;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.about-projenius-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    color: #00aaf2;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MAIN TITLE
+========================================================= */
+
+.about-projenius-title {
+    margin: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    font-family: "Segoe UI Black", "Segoe UI", sans-serif;
+
+    font-size: clamp(58px, 5.4vw, 88px);
+
+    font-weight: 900;
+
+    line-height: 0.98;
+
+    letter-spacing: -3px;
+}
+
+
+/* =========================================================
+   TITLE COLORS
+========================================================= */
+
+.about-projenius-title-white {
+    color: #f4f7fb;
+}
+
+.about-projenius-title-blue {
+    color: #08aef5;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.about-projenius-description {
+    max-width: 590px;
+
+    margin: 36px 0 0;
+
+    font-family: "Segoe UI", sans-serif;
+
+    font-size: 19px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+
+    color: #aebbc9;
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+.about-projenius-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 42px;
+}
+
+
+/* =========================================================
+   COMMON BUTTON
+========================================================= */
+
+.about-projenius-primary-btn,
+.about-projenius-secondary-btn {
+    min-height: 54px;
+
+    padding: 0 27px;
+
+    border-radius: 13px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    font-family: "Segoe UI", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.about-projenius-primary-btn {
+    background: #08aef5;
+
+    color: #001214;
+
+    border: 1px solid #08aef5;
+
+    /* box-shadow:
+        0 8px 28px rgba(0, 224, 211, 0.18); */
+}
+
+
+.about-projenius-primary-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 174, 245, 0.08)
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.about-projenius-secondary-btn {
+    background: rgba(255, 255, 255, 0.025);
+
+    color: #edf4fa;
+
+    border: 1px solid rgba(76, 151, 195, 0.28);
+}
+
+
+.about-projenius-secondary-btn:hover {
+    transform: translateY(-3px);
+
+    background: rgba(0, 174, 245, 0.08);
+
+    border-color: rgba(0, 174, 245, 0.5);
+
+    box-shadow:
+        0 10px 30px rgba(0, 174, 245, 0.08);
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+========================================================= */
+
+.about-projenius-visual {
+    position: relative;
+
+    width: 100%;
+    height: 650px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   ORBIT
+========================================================= */
+
+.about-projenius-orbit {
+    position: relative;
+
+    width: min(620px, 100%);
+
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   ORBIT RINGS
+========================================================= */
+
+.about-projenius-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.about-projenius-ring-outer {
+    width: 84%;
+    height: 84%;
+
+    border: 1px solid rgba(55, 115, 150, 0.16);
+}
+
+
+.about-projenius-ring-middle {
+    width: 60%;
+    height: 60%;
+
+    border: 1px solid rgba(0, 174, 245, 0.18);
+
+    box-shadow:
+        0 0 35px rgba(0, 174, 245, 0.04);
+}
+
+
+/* .about-projenius-ring-inner {
+    width: 46%;
+    height: 46%;
+
+    border: 1px solid rgba(0, 174, 245, 0.28);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 174, 245, 0.08),
+            rgba(0, 174, 245, 0.025) 55%,
+            transparent 75%
+        );
+} */
+
+
+/* =========================================================
+   CENTER GLOW
+========================================================= */
+
+.about-projenius-center-glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(0, 174, 245, 0.14) 0%,
+        rgba(0, 174, 245, 0.05) 35%,
+        transparent 72%
+    );
+
+    filter: blur(5px);
+}
+
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.about-projenius-center {
+    position: relative;
+
+    width: 190px;
+    height: 190px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 5;
+
+    border: 1px solid rgba(0, 174, 245, 0.38);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(7, 30, 48, 0.9),
+            rgba(2, 12, 22, 0.88)
+        );
+
+    box-shadow:
+        0 0 30px rgba(0, 174, 245, 0.12),
+        inset 0 0 30px rgba(0, 174, 245, 0.05);
+}
+
+
+/* =========================================================
+   CENTER ICON
+========================================================= */
+
+.about-projenius-center-icon {
+    position: absolute;
+
+    top: 22px;
+
+    color: #08aef5;
+
+    opacity: 0.95;
+}
+
+
+/* =========================================================
+   LOGO CIRCLE
+========================================================= */
+
+.about-projenius-logo-circle {
+    width: 112px;
+    height: 112px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 2px solid #08aef5;
+
+    box-shadow:
+        0 0 22px rgba(0, 174, 245, 0.18);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.about-projenius-logo {
+    width: 82%;
+    height: 82%;
+
+    display: block;
+
+    object-fit: contain;
+
+    object-position: center;
+
+    transform: scale(0.92);
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+}
+
+
+/* =========================================================
+   ORBIT LABELS
+========================================================= */
+
+.about-projenius-orbit-label {
+    position: absolute;
+
+    z-index: 10;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 110px;
+
+    min-height: 46px;
+
+    padding: 0 18px;
+
+    border-radius: 17px;
+
+    border: 1px solid rgba(38, 109, 148, 0.32);
+
+    background:
+        rgba(2, 12, 22, 0.76);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    color: #9dafbd;
+
+    white-space: nowrap;
+
+    box-shadow:
+        inset 0 0 15px rgba(0, 174, 245, 0.015);
+
+    transition:
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.about-projenius-orbit-label:hover {
+    color: #dff7ff;
+
+    border-color: rgba(0, 174, 245, 0.6);
+
+    box-shadow:
+        0 0 20px rgba(0, 174, 245, 0.08);
+}
+
+
+/* =========================================================
+   LABEL POSITIONS
+========================================================= */
+/* =========================================================
+   ABOUT PROJENIUS
+   PERFECT CIRCULAR 8-POINT ORBIT
+========================================================= */
+
+.about-projenius-orbit-top,
+.about-projenius-orbit-top-right,
+.about-projenius-orbit-right-top,
+.about-projenius-orbit-right,
+.about-projenius-orbit-right-bottom,
+.about-projenius-orbit-bottom,
+.about-projenius-orbit-bottom-left,
+.about-projenius-orbit-left {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    right: auto;
+    bottom: auto;
+
+    z-index: 5;
+
+    transform-origin: center;
+}
+
+
+/* =========================================================
+   1. INDUSTRY
+   12 O'CLOCK
+========================================================= */
+
+.about-projenius-orbit-top {
+    transform:
+        translate(-50%, -50%)
+        translate(0, -250px);
+}
+
+
+/* =========================================================
+   2. LEARNING
+   1:30
+========================================================= */
+
+.about-projenius-orbit-top-right {
+    transform:
+        translate(-50%, -50%)
+        translate(177px, -177px);
+}
+
+
+/* =========================================================
+   3. TECHNOLOGY
+   3 O'CLOCK
+========================================================= */
+
+.about-projenius-orbit-right-top {
+    transform:
+        translate(-50%, -50%)
+        translate(250px, 0);
+}
+
+
+/* =========================================================
+   4. R&D
+   4:30
+========================================================= */
+
+.about-projenius-orbit-right {
+    transform:
+        translate(-50%, -50%)
+        translate(177px, 177px);
+}
+
+
+/* =========================================================
+   5. STARTUPS
+   6 O'CLOCK
+========================================================= */
+
+.about-projenius-orbit-right-bottom {
+    transform:
+        translate(-50%, -50%)
+        translate(0, 250px);
+}
+
+
+/* =========================================================
+   6. ACADEMIA
+   7:30
+========================================================= */
+
+.about-projenius-orbit-bottom {
+    transform:
+        translate(-50%, -50%)
+        translate(-177px, 177px);
+}
+
+
+/* =========================================================
+   7. PRODUCTS
+   9 O'CLOCK
+========================================================= */
+
+.about-projenius-orbit-bottom-left {
+    transform:
+        translate(-50%, -50%)
+        translate(-250px, 0);
+}
+
+
+/* =========================================================
+   8. INNOVATION
+   10:30
+========================================================= */
+
+.about-projenius-orbit-left {
+    transform:
+        translate(-50%, -50%)
+        translate(-177px, -177px);
+}
+/* .about-projenius-orbit-top {
+    top: 1%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+.about-projenius-orbit-top-right {
+    top: 15%;
+
+    right: 0;
+}
+
+
+.about-projenius-orbit-right-top {
+    top: 25%;
+
+    right: -1%;
+}
+
+
+.about-projenius-orbit-right {
+    top: 50%;
+
+    right: -4%;
+
+    transform: translateY(-50%);
+}
+
+
+.about-projenius-orbit-right-bottom {
+    bottom: 15%;
+
+    right: 2%;
+}
+
+
+.about-projenius-orbit-bottom {
+    bottom: 1%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+.about-projenius-orbit-bottom-left {
+    bottom: 15%;
+
+    left: 2%;
+}
+
+
+.about-projenius-orbit-left {
+    top: 50%;
+
+    left: -4%;
+
+    transform: translateY(-50%);
+} */
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .about-projenius-container {
+        grid-template-columns:
+            minmax(420px, 0.85fr)
+            minmax(500px, 1fr);
+
+        width: 94%;
+    }
+
+    .about-projenius-title {
+        font-size: clamp(54px, 6vw, 76px);
+    }
+
+    .about-projenius-orbit {
+        width: 560px;
+    }
+
+    .about-projenius-orbit-right {
+        right: 0;
+    }
+
+    .about-projenius-orbit-left {
+        left: 0;
+    }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .about-projenius-section {
+        min-height: auto;
+    }
+
+    .about-projenius-container {
+        min-height: auto;
+
+        grid-template-columns: 1fr;
+
+        padding: 100px 0 80px;
+    }
+
+    .about-projenius-content {
+        max-width: 720px;
+        margin: 0 auto;
+
+        text-align: center;
+    }
+
+    .about-projenius-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about-projenius-actions {
+        justify-content: center;
+    }
+
+    .about-projenius-visual {
+        height: 620px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .about-projenius-container {
+        width: 92%;
+
+        padding: 80px 0 50px;
+    }
+
+    .about-projenius-eyebrow {
+        margin-bottom: 22px;
+
+        font-size: 11px;
+
+        letter-spacing: 3px;
+    }
+
+    .about-projenius-title {
+        font-size: clamp(44px, 12vw, 62px);
+
+        line-height: 1;
+
+        letter-spacing: -2px;
+    }
+
+    .about-projenius-description {
+        margin-top: 28px;
+
+        font-size: 16px;
+
+        line-height: 1.7;
+    }
+
+    .about-projenius-actions {
+        margin-top: 32px;
+
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .about-projenius-primary-btn,
+    .about-projenius-secondary-btn {
+        width: min(100%, 260px);
+    }
+
+    .about-projenius-visual {
+        height: 500px;
+    }
+
+    .about-projenius-orbit {
+        width: 470px;
+
+        max-width: 115%;
+    }
+
+    .about-projenius-center {
+        width: 145px;
+        height: 145px;
+    }
+
+    .about-projenius-logo-circle {
+        width: 88px;
+        height: 88px;
+    }
+
+    .about-projenius-center-icon {
+        top: 15px;
+
+        width: 19px;
+        height: 19px;
+    }
+
+    .about-projenius-orbit-label {
+        min-width: auto;
+
+        min-height: 38px;
+
+        padding: 0 12px;
+
+        font-size: 9px;
+
+        letter-spacing: 1px;
+    }
+
+    .about-projenius-orbit-top {
+        top: 2%;
+    }
+
+    .about-projenius-orbit-top-right {
+        top: 13%;
+        right: 0;
+    }
+
+    .about-projenius-orbit-right-top {
+        top: 35%;
+        right: -2%;
+    }
+
+    .about-projenius-orbit-right {
+        right: -4%;
+    }
+
+    .about-projenius-orbit-right-bottom {
+        bottom: 13%;
+        right: 0;
+    }
+
+    .about-projenius-orbit-bottom {
+        bottom: 2%;
+    }
+
+    .about-projenius-orbit-bottom-left {
+        bottom: 13%;
+        left: 0;
+    }
+
+    .about-projenius-orbit-left {
+        left: -3%;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .about-projenius-container {
+        padding-top: 65px;
+    }
+
+    .about-projenius-title {
+        font-size: 42px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .about-projenius-description {
+        font-size: 15px;
+    }
+
+    .about-projenius-visual {
+        height: 410px;
+    }
+
+    .about-projenius-orbit {
+        width: 390px;
+    }
+
+    .about-projenius-center {
+        width: 120px;
+        height: 120px;
+    }
+
+    .about-projenius-logo-circle {
+        width: 73px;
+        height: 73px;
+    }
+
+    .about-projenius-orbit-label {
+        min-height: 32px;
+
+        padding: 0 9px;
+
+        font-size: 7.5px;
+
+        letter-spacing: 0.8px;
+
+        border-radius: 12px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-projenius-primary-btn,
+    .about-projenius-secondary-btn,
+    .about-projenius-orbit-label {
+        transition: none;
+    }
+}

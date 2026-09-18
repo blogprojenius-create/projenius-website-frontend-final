@@ -209,7 +209,7 @@
 
     background: #ffffff;
 
-    border: 1px solid rgba(21, 153, 210, 0.10);
+    border: 3px solid rgb(17, 183, 243);
 
     border-radius: 24px;
 
@@ -218,7 +218,7 @@
     box-sizing: border-box;
 
     box-shadow:
-        0 18px 50px rgba(15, 23, 42, 0.08);
+        0 18px 50px rgb(17, 152, 242);
 
     animation: testiCardIn 0.7s ease both;
 }

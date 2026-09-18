@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 
+/* =========================================================
+   RESET / BOX SIZING
+========================================================= */
+
 .magazine-sec-main-wrapper,
 .magazine-sec-main-wrapper *,
 .magazine-sec-main-wrapper *::before,
@@ -7,73 +11,121 @@
   box-sizing: border-box;
 }
 
+/* =========================================================
+   MAIN SECTION
+========================================================= */
+
 .magazine-sec-main-wrapper {
   width: 100%;
   min-height: 545px;
-  padding: 38px 28px 34px;
   margin: 0;
+  padding: 38px 24px 34px;
+
   overflow: hidden;
+
   background:
-    radial-gradient(circle at 82% 20%, rgba(53, 206, 255, 0.12), transparent 34%),
-    radial-gradient(circle at 8% 88%, rgba(21, 153, 214, 0.06), transparent 30%),
-    #fff;
+    radial-gradient(
+      circle at 82% 20%,
+      rgba(53, 206, 255, 0.12),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 8% 88%,
+      rgba(21, 153, 214, 0.06),
+      transparent 30%
+    ),
+    #ffffff;
+
   color: #080d16;
   font-family: "Poppins", sans-serif;
 }
 
+/* =========================================================
+   MAIN CONTENT
+   REDUCED WIDTH
+========================================================= */
+
 .magazine-viewer-container {
   width: 100%;
-  max-width: 1320px;
+  max-width: 1120px;
   min-height: 473px;
+
   margin: 0 auto;
+
   display: grid;
-  grid-template-columns: minmax(430px, 1.15fr) minmax(220px, 0.58fr) minmax(250px, 0.62fr);
+
+  grid-template-columns:
+    minmax(390px, 1.2fr)
+    minmax(170px, 0.48fr)
+    minmax(230px, 0.58fr);
+
   align-items: center;
-  column-gap: 20px;
+
+  column-gap: 16px;
 }
+
+/* =========================================================
+   TEXT COLUMN
+========================================================= */
 
 .magazine-copy-col {
   width: 100%;
-  max-width: 560px;
+  max-width: 500px;
+
   align-self: center;
+
   padding: 0;
 }
+
+/* =========================================================
+   LABEL
+========================================================= */
 
 .mag-sub-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+
   margin: 0 0 16px;
   padding: 8px 16px;
+
   border: 1px solid rgba(21, 153, 214, 0.45);
   border-radius: 999px;
+
   background: rgba(53, 206, 255, 0.05);
+
   color: #1599d6;
+
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
+
   letter-spacing: 1px;
 }
 
-.magazine-badge-dot {
-  width: 8px;
-  height: 8px;
-  min-width: 8px;
-  border-radius: 50%;
-  background: #1599d6;
-  box-shadow: 0 0 0 4px rgba(21, 153, 214, 0.1);
-}
+/* =========================================================
+   HEADING
+========================================================= */
 
 .mag-heading {
   width: 100%;
   max-width: 500px;
+
   margin: 0;
+
   color: #080d16;
-  font-family: "Segoe UI Black", "Segoe UI", sans-serif;
-  font-size: clamp(48px, 4.45vw, 64px);
+
+  font-family:
+    "Segoe UI Black",
+    "Segoe UI",
+    sans-serif;
+
+  font-size: clamp(44px, 4.2vw, 60px);
   font-weight: 900;
-  line-height: 1.01;
-  letter-spacing: -2.4px;
+
+  line-height: 1.02;
+
+  letter-spacing: -2.2px;
 }
 
 .magazine-heading-highlight {
@@ -81,28 +133,49 @@
   -webkit-text-fill-color: #1599d6;
 }
 
+/* =========================================================
+   HEADING LINE
+========================================================= */
+
 .magazine-heading-line {
   width: 76px;
   height: 5px;
+
   margin: 10px 0 12px;
+
   border-radius: 999px;
+
   background: #159fe3;
 }
 
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
 .mag-desc {
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
+
   margin: 0 0 18px;
+
   color: #687386;
+
   font-size: 15px;
   font-weight: 500;
+
   line-height: 1.55;
 }
+
+/* =========================================================
+   TAGS
+========================================================= */
 
 .mag-panel-tags {
   display: flex;
   flex-wrap: wrap;
+
   gap: 9px;
+
   margin: 0 0 20px;
 }
 
@@ -110,123 +183,220 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 8px 17px;
+
+  min-height: 36px;
+
+  padding: 8px 15px;
+
   border: 1px solid rgba(21, 153, 214, 0.32);
   border-radius: 999px;
-  background: #fff;
+
+  background: #ffffff;
+
   color: #080d16;
-  font-size: 13px;
+
+  font-size: 12px;
   font-weight: 700;
+
   line-height: 1;
 }
+
+/* =========================================================
+   DOWNLOAD BUTTON
+========================================================= */
 
 .magazine-download-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   gap: 9px;
-  min-height: 50px;
-  padding: 13px 22px;
+
+  min-height: 48px;
+
+  padding: 12px 20px;
+
   border: 0;
   border-radius: 8px;
+
   background: #1599d6;
-  color: #fff;
-  font-size: 15px;
+  color: #ffffff;
+
+  font-size: 14px;
   font-weight: 700;
+
   line-height: 1;
+
   text-decoration: none;
+
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.magazine-download-btn:hover,
-.magazine-download-btn:focus-visible {
-  background: #1599d6;
-  color: #fff;
+.magazine-download-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(21, 153, 214, 0.22);
 }
+
+.magazine-download-btn:focus-visible {
+  outline: 2px solid #1599d6;
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   MASCOT COLUMN
+========================================================= */
 
 .magazine-mascot-col {
   min-width: 0;
-  min-height: 340px;
+  min-height: 320px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   align-self: center;
+
   padding: 0;
 }
 
+/* =========================================================
+   MASCOT
+========================================================= */
+
 .mag-mascot-inner {
   position: relative;
+
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+
   transform: none;
   opacity: 1;
 }
 
 .mag-mascot-img {
   display: block;
-  width: clamp(170px, 15vw, 220px);
+
+  width: clamp(150px, 14vw, 195px);
+
   height: auto;
-  filter: drop-shadow(0 18px 30px rgba(8, 15, 29, 0.16));
+
+  filter:
+    drop-shadow(
+      0 18px 30px rgba(8, 15, 29, 0.16)
+    );
 }
+
+/* =========================================================
+   MASCOT BUBBLE
+========================================================= */
 
 .mag-mascot-bubble {
   position: absolute;
+
   left: 50%;
   top: 3%;
+
   transform: translate(-50%, -100%);
+
   white-space: nowrap;
-  padding: 10px 18px;
+
+  padding: 10px 17px;
+
   border-radius: 20px;
-  background: #fff;
+
+  background: #ffffff;
   color: #080d16;
-  font-size: 13px;
+
+  font-size: 12px;
   font-weight: 700;
+
   line-height: 1;
-  box-shadow: 0 10px 28px rgba(8, 15, 29, 0.12);
+
+  box-shadow:
+    0 10px 28px rgba(8, 15, 29, 0.12);
+
   pointer-events: none;
 }
 
 .mag-mascot-bubble::after {
   content: "";
+
   position: absolute;
+
   left: 50%;
   top: 100%;
+
   transform: translateX(-50%);
+
   border: 8px solid transparent;
-  border-top-color: #fff;
+
+  border-top-color: #ffffff;
 }
+
+/* =========================================================
+   BOOK AREA
+========================================================= */
 
 .magazine-sec-book-area {
   min-width: 0;
+
   display: flex;
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
-  gap: 18px;
+
+  gap: 16px;
+
   padding: 0;
 }
+
+/* =========================================================
+   BOOK SHADOW
+========================================================= */
 
 .magazine-sec-book-shadow {
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 20px 38px rgba(8, 15, 29, 0.18));
+
+  filter:
+    drop-shadow(
+      0 20px 38px rgba(8, 15, 29, 0.18)
+    );
 }
+
+/* =========================================================
+   FLIP BOOK
+========================================================= */
 
 .magazine-sec-flip-book,
 .magazine-sec-flip-book .stf__parent,
 .magazine-sec-flip-book .stf__wrapper,
 .magazine-sec-flip-book .stf__block {
   overflow: visible !important;
+
   background: transparent;
 }
 
+/* =========================================================
+   PDF PAGE
+========================================================= */
+
 .magazine-sec-page-wrap {
   overflow: hidden;
-  background: #fff;
+
+  background: #ffffff;
+
   line-height: 0;
 }
 
@@ -237,28 +407,45 @@
 
 .magazine-sec-page-wrap .react-pdf__Page__canvas {
   display: block !important;
+
   width: 100% !important;
   height: 100% !important;
+
   object-fit: cover;
 }
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
 
 .magazine-page-placeholder {
   width: 100%;
   height: 100%;
+
   background: #f8fbff;
 }
+
+/* =========================================================
+   PDF STATUS
+========================================================= */
 
 .magazine-pdf-status {
   width: 180px;
   height: 255px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding: 20px;
+
   border-radius: 6px;
+
   background: #f8fbff;
   color: #687386;
+
   font-size: 13px;
+
   text-align: center;
 }
 
@@ -266,98 +453,162 @@
   color: #b42318;
 }
 
+/* =========================================================
+   CONTROLS
+========================================================= */
+
 .magazine-controls-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
-  min-height: 58px;
-  padding: 7px 24px;
+
+  gap: 20px;
+
+  min-height: 56px;
+
+  padding: 7px 22px;
+
   border-radius: 999px;
+
   background: rgba(241, 245, 249, 0.88);
-  box-shadow: 0 8px 22px rgba(8, 15, 29, 0.07);
+
+  box-shadow:
+    0 8px 22px rgba(8, 15, 29, 0.07);
 }
 
+/* =========================================================
+   NAV BUTTON
+========================================================= */
+
 .magazine-nav-button {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   padding: 0 0 3px;
+
   border: 2px solid #080d16;
   border-radius: 50%;
-  background: #fff;
+
+  background: #ffffff;
   color: #080d16;
+
   font-family: "Segoe UI", sans-serif;
-  font-size: 28px;
+
+  font-size: 27px;
   font-weight: 800;
+
   line-height: 1;
+
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.magazine-nav-button:hover,
-.magazine-nav-button:focus-visible {
+.magazine-nav-button:hover {
   background: #080d16;
-  color: #fff;
+  color: #ffffff;
+
+  transform: scale(1.05);
 }
+
+.magazine-nav-button:focus-visible {
+  outline: 2px solid #1599d6;
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   PAGE NUMBER
+========================================================= */
 
 .magazine-page-number {
-  min-width: 72px;
+  min-width: 70px;
+
   color: #080d16;
+
   font-family: "Segoe UI", sans-serif;
-  font-size: 18px;
+
+  font-size: 17px;
   font-weight: 800;
+
   line-height: 1;
+
   text-align: center;
 }
 
-/* Tablet */
+/* =========================================================
+   TABLET
+========================================================= */
+
 @media (max-width: 1100px) {
   .magazine-sec-main-wrapper {
     padding: 34px 22px 36px;
   }
 
   .magazine-viewer-container {
-    grid-template-columns: minmax(350px, 1.1fr) minmax(180px, 0.6fr) minmax(220px, 0.62fr);
+    max-width: 980px;
+
+    grid-template-columns:
+      minmax(330px, 1.1fr)
+      minmax(160px, 0.5fr)
+      minmax(210px, 0.6fr);
+
     column-gap: 12px;
   }
 
   .mag-heading {
-    font-size: clamp(42px, 5vw, 56px);
+    font-size: clamp(40px, 5vw, 54px);
   }
 
   .mag-mascot-img {
-    width: 180px;
+    width: 170px;
   }
 }
 
-/* Small tablet */
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
 @media (max-width: 900px) {
   .magazine-sec-main-wrapper {
     min-height: auto;
+
     padding: 40px 24px;
   }
 
   .magazine-viewer-container {
+    max-width: 760px;
+
     grid-template-columns: 1fr 1fr;
+
     grid-template-areas:
       "copy copy"
       "mascot book";
-    gap: 28px 22px;
+
+    gap: 28px 20px;
+
     min-height: 0;
+
     align-items: center;
   }
 
   .magazine-copy-col {
     grid-area: copy;
-    max-width: 700px;
+
+    max-width: 680px;
   }
 
   .magazine-mascot-col {
     grid-area: mascot;
-    min-height: 300px;
+
+    min-height: 290px;
   }
 
   .magazine-sec-book-area {
@@ -365,19 +616,28 @@
   }
 }
 
-/* Mobile */
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 767px) {
   .magazine-sec-main-wrapper {
     padding: 32px 18px 38px;
   }
 
   .magazine-viewer-container {
+    width: 100%;
+    max-width: 520px;
+
     grid-template-columns: 1fr;
+
     grid-template-areas:
       "copy"
       "mascot"
       "book";
+
     gap: 26px;
+
     text-align: center;
   }
 
@@ -392,8 +652,10 @@
 
   .mag-heading {
     max-width: 100%;
+
     font-size: 38px;
     line-height: 1.04;
+
     letter-spacing: -1.4px;
   }
 
@@ -403,8 +665,10 @@
 
   .mag-desc {
     max-width: 520px;
+
     margin-left: auto;
     margin-right: auto;
+
     font-size: 14px;
   }
 
@@ -427,7 +691,9 @@
 
   .mag-mascot-bubble {
     top: 2%;
+
     font-size: 12px;
+
     padding: 9px 15px;
   }
 
@@ -437,7 +703,9 @@
 
   .magazine-controls-pill {
     gap: 16px;
+
     min-height: 54px;
+
     padding: 7px 18px;
   }
 
@@ -445,16 +713,21 @@
     width: 38px;
     height: 38px;
     min-width: 38px;
+
     font-size: 25px;
   }
 
   .magazine-page-number {
     min-width: 68px;
+
     font-size: 16px;
   }
 }
 
-/* Small mobile */
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
 @media (max-width: 420px) {
   .magazine-sec-main-wrapper {
     padding: 28px 14px 34px;
@@ -474,13 +747,17 @@
 
   .mag-panel-tags span {
     min-height: 34px;
+
     padding: 7px 13px;
+
     font-size: 12px;
   }
 
   .magazine-download-btn {
     min-height: 46px;
+
     padding: 12px 18px;
+
     font-size: 14px;
   }
 }

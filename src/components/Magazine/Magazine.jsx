@@ -16,6 +16,10 @@ const PAGE_HEIGHT = Math.round(PAGE_WIDTH * 1.414);
 const MOBILE_PAGE_WIDTH = 155;
 const MOBILE_PAGE_HEIGHT = Math.round(MOBILE_PAGE_WIDTH * 1.414);
 
+/* =========================================================
+   MAGAZINE PAGE
+========================================================= */
+
 const MagazinePageItem = forwardRef(
   ({ pageNumber, activePage, width, height }, ref) => {
     const shouldRender =
@@ -48,6 +52,10 @@ const MagazinePageItem = forwardRef(
 
 MagazinePageItem.displayName = "MagazinePageItem";
 
+/* =========================================================
+   MAGAZINE
+========================================================= */
+
 const Magazine = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(0);
@@ -56,23 +64,38 @@ const Magazine = () => {
   const flipBookRef = useRef(null);
   const audioRef = useRef(null);
 
+  /* =======================================================
+     MOBILE DETECTION
+  ======================================================= */
+
   useEffect(() => {
-    const query = window.matchMedia("(max-width: 767px)");
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
 
-    const updateSize = () => setIsMobile(query.matches);
+    const updateMobileState = () => {
+      setIsMobile(mediaQuery.matches);
+    };
 
-    updateSize();
+    updateMobileState();
 
-    query.addEventListener("change", updateSize);
+    mediaQuery.addEventListener("change", updateMobileState);
 
     return () => {
-      query.removeEventListener("change", updateSize);
+      mediaQuery.removeEventListener(
+        "change",
+        updateMobileState
+      );
     };
   }, []);
 
+  /* =======================================================
+     FLIP SOUND
+  ======================================================= */
+
   useEffect(() => {
     const audio = new Audio(flipSoundFile);
+
     audio.preload = "auto";
+
     audioRef.current = audio;
 
     return () => {
@@ -80,6 +103,10 @@ const Magazine = () => {
       audioRef.current = null;
     };
   }, []);
+
+  /* =======================================================
+     PAGE SIZE
+  ======================================================= */
 
   const pageSize = useMemo(
     () => ({
@@ -89,6 +116,10 @@ const Magazine = () => {
     [isMobile]
   );
 
+  /* =======================================================
+     PLAY PAGE FLIP SOUND
+  ======================================================= */
+
   const playFlip = () => {
     const audio = audioRef.current;
 
@@ -96,16 +127,24 @@ const Magazine = () => {
 
     audio.currentTime = 0;
 
-    const promise = audio.play();
+    const playPromise = audio.play();
 
-    if (promise?.catch) {
-      promise.catch(() => {});
+    if (playPromise?.catch) {
+      playPromise.catch(() => {});
     }
   };
+
+  /* =======================================================
+     PAGE FLIP
+  ======================================================= */
 
   const handleFlip = (event) => {
     setActivePage(event.data);
   };
+
+  /* =======================================================
+     PDF LOAD
+  ======================================================= */
 
   const handleDocumentLoad = ({ numPages }) => {
     setTotalPages(numPages);
@@ -113,29 +152,51 @@ const Magazine = () => {
   };
 
   const handleDocumentError = (error) => {
-    console.error("Magazine PDF failed to load:", error);
+    console.error(
+      "Magazine PDF failed to load:",
+      error
+    );
   };
 
-  const goPrev = () => {
-    if (!flipBookRef.current || !totalPages) return;
+  /* =======================================================
+     NAVIGATION
+  ======================================================= */
 
-    flipBookRef.current.pageFlip().flipPrev();
+  const goPrev = () => {
+    const book = flipBookRef.current;
+
+    if (!book || !totalPages) return;
+
+    book.pageFlip().flipPrev();
     playFlip();
   };
 
   const goNext = () => {
-    if (!flipBookRef.current || !totalPages) return;
+    const book = flipBookRef.current;
 
-    flipBookRef.current.pageFlip().flipNext();
+    if (!book || !totalPages) return;
+
+    book.pageFlip().flipNext();
     playFlip();
   };
 
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
   return (
-    <section className="magazine-sec-main-wrapper">
+    <section
+      className="magazine-sec-main-wrapper"
+      aria-label="Projenius Magazine"
+    >
       <div className="magazine-viewer-container">
 
-        {/* TEXT */}
+        {/* =================================================
+            TEXT CONTENT
+        ================================================= */}
+
         <div className="magazine-copy-col">
+
           <span className="mag-sub-label">
             MAGAZINE
           </span>
@@ -171,17 +232,29 @@ const Magazine = () => {
             download
             className="magazine-download-btn"
           >
-            <Download size={18} strokeWidth={2.2} />
-            <span>Download Magazine</span>
+            <Download
+              size={18}
+              strokeWidth={2.2}
+              aria-hidden="true"
+            />
+
+            <span>
+              Download Magazine
+            </span>
           </a>
+
         </div>
 
-        {/* MASCOT — STATIC, NO ANIMATION */}
+        {/* =================================================
+            MASCOT
+        ================================================= */}
+
         <div
           className="magazine-mascot-col"
           aria-hidden="true"
         >
           <div className="mag-mascot-inner">
+
             <div className="mag-mascot-bubble">
               Open the magazine
             </div>
@@ -193,12 +266,18 @@ const Magazine = () => {
               loading="eager"
               decoding="async"
             />
+
           </div>
         </div>
 
-        {/* MAGAZINE */}
+        {/* =================================================
+            MAGAZINE BOOK
+        ================================================= */}
+
         <div className="magazine-sec-book-area">
+
           <div className="magazine-sec-book-shadow">
+
             <Document
               file={magazineFile}
               onLoadSuccess={handleDocumentLoad}
@@ -249,9 +328,15 @@ const Magazine = () => {
                 </HTMLFlipBook>
               )}
             </Document>
+
           </div>
 
+          {/* =================================================
+              CONTROLS
+          ================================================= */}
+
           <div className="magazine-controls-pill">
+
             <button
               type="button"
               className="magazine-nav-button"
@@ -262,7 +347,8 @@ const Magazine = () => {
             </button>
 
             <span className="magazine-page-number">
-              {totalPages ? activePage + 1 : 0} / {totalPages || 0}
+              {totalPages ? activePage + 1 : 0} /{" "}
+              {totalPages || 0}
             </span>
 
             <button
@@ -273,7 +359,9 @@ const Magazine = () => {
             >
               ›
             </button>
+
           </div>
+
         </div>
       </div>
     </section>

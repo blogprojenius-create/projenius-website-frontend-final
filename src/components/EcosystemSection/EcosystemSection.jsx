@@ -12,117 +12,329 @@ import {
 } from "lucide-react";
 import "./EcosystemSection.css";
 
+/* =========================================================
+   ECOSYSTEM DATA
+========================================================= */
+
 const ecosystemItems = [
-  { id: "innovation", title: "Innovation", Icon: Lightbulb, position: "innovation" },
-  { id: "software", title: "Software Development", Icon: Code2, position: "software" },
-  { id: "iot", title: "IoT & Embedded Systems", Icon: Wifi, position: "iot" },
-  { id: "academia", title: "Academia", Icon: BookOpen, position: "academia" },
-  { id: "product", title: "Product Development", Icon: Boxes, position: "product" },
-  { id: "patent", title: "Patent Support", Icon: ShieldCheck, position: "patent" },
-  { id: "fabrication", title: "3D Design & Fabrication", Icon: Cpu, position: "fabrication" },
-  { id: "startup", title: "Startup Support", Icon: Rocket, position: "startup" },
-  { id: "training", title: "Workshops & Training", Icon: GraduationCap, position: "training" },
+  {
+    id: "innovation",
+    title: "Innovation",
+    description:
+      "Turning ideas into practical solutions through creativity, research, and technology.",
+    Icon: Lightbulb,
+    position: "innovation",
+  },
+  {
+    id: "software",
+    title: "Software Development",
+    description:
+      "Building scalable, reliable, and user-focused software applications.",
+    Icon: Code2,
+    position: "software",
+  },
+  {
+    id: "iot",
+    title: "IoT & Embedded Systems",
+    description:
+      "Developing connected devices and intelligent embedded technology solutions.",
+    Icon: Wifi,
+    position: "iot",
+  },
+  {
+    id: "academia",
+    title: "Academia",
+    description:
+      "Supporting students, researchers, and institutions with technical innovation.",
+    Icon: BookOpen,
+    position: "academia",
+  },
+  {
+    id: "product",
+    title: "Product Development",
+    description:
+      "Transforming concepts into functional, market-ready products.",
+    Icon: Boxes,
+    position: "product",
+  },
+  {
+    id: "patent",
+    title: "Patent Support",
+    description:
+      "Helping innovators protect and strengthen their intellectual property.",
+    Icon: ShieldCheck,
+    position: "patent",
+  },
+  {
+    id: "fabrication",
+    title: "3D Design & Fabrication",
+    description:
+      "Creating accurate 3D designs, prototypes, and fabrication solutions.",
+    Icon: Cpu,
+    position: "fabrication",
+  },
+  {
+    id: "startup",
+    title: "Startup Support",
+    description:
+      "Helping startups move from an early concept toward a stronger product and business.",
+    Icon: Rocket,
+    position: "startup",
+  },
+  {
+    id: "training",
+    title: "Workshops & Training",
+    description:
+      "Providing practical technical training, workshops, and skill development.",
+    Icon: GraduationCap,
+    position: "training",
+  },
 ];
 
-function EcosystemNode({ item }) {
-  const { Icon } = item;
+/* =========================================================
+   NETWORK CONFIGURATION
 
-  return (
-    <div className={`eco-node eco-node-${item.position}`}>
-      <div className="eco-node-card">
-        <Icon className="eco-node-icon" size={28} strokeWidth={2} aria-hidden="true" />
-      </div>
-      <span className="eco-node-label">{item.title}</span>
-    </div>
-  );
-}
+   Center:
+   500 / 300
 
-function NetworkLine({ x2, y2, index }) {
+   Radius:
+   260
+
+   9 points distributed evenly around the center.
+   This keeps every line exactly the same length.
+========================================================= */
+
+const CENTER_X = 500;
+const CENTER_Y = 300;
+const NETWORK_RADIUS = 260;
+
+const networkNodes = ecosystemItems.map((item, index) => {
+  const angle = -90 + index * 40;
+  const radians = (angle * Math.PI) / 180;
+
+  return {
+    ...item,
+    index: index + 1,
+    x2: CENTER_X + NETWORK_RADIUS * Math.cos(radians),
+    y2: CENTER_Y + NETWORK_RADIUS * Math.sin(radians),
+    duration: 3.8,
+    delay: index * 0.35,
+  };
+});
+
+/* =========================================================
+   NETWORK LINE
+========================================================= */
+
+function NetworkLine({ x2, y2 }) {
   return (
     <line
-      className={`eco-network-line eco-network-line-${index}`}
-      x1="500"
-      y1="300"
+      className="eco-network-line"
+      x1={CENTER_X}
+      y1={CENTER_Y}
       x2={x2}
       y2={y2}
     />
   );
 }
 
-function MovingDot({ cx, cy, index }) {
+/* =========================================================
+   MOVING DOT
+========================================================= */
+
+function MovingDot({ x2, y2, index, duration, delay }) {
+  const pathId = `eco-motion-path-${index}`;
+
   return (
-    <circle
-      className={`eco-moving-dot eco-moving-dot-${index}`}
-      cx={cx}
-      cy={cy}
-      r="3.5"
-    />
+    <g
+      className="eco-moving-dot-group"
+      aria-hidden="true"
+    >
+      <path
+        id={pathId}
+        d={`M ${CENTER_X} ${CENTER_Y} L ${x2} ${y2}`}
+        fill="none"
+        stroke="none"
+      />
+
+      <circle
+        className="eco-moving-dot"
+        r="5"
+      >
+        <animateMotion
+          dur={`${duration}s`}
+          begin={`${delay}s`}
+          repeatCount="indefinite"
+        >
+          <mpath href={`#${pathId}`} />
+        </animateMotion>
+      </circle>
+    </g>
   );
 }
 
+/* =========================================================
+   ECOSYSTEM NODE
+========================================================= */
+
+function EcosystemNode({ item }) {
+  const { Icon } = item;
+
+  return (
+    <article
+      className={`eco-node eco-node-${item.position}`}
+      tabIndex="0"
+    >
+      {/* CARD */}
+
+      <div className="eco-node-card">
+        <Icon
+          className="eco-node-icon"
+          size={30}
+          strokeWidth={2}
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* TITLE */}
+
+      <span className="eco-node-label">
+        {item.title}
+      </span>
+
+      {/* HOVER DESCRIPTION */}
+
+      <div className="eco-node-description">
+        <strong>{item.title}</strong>
+
+        <p>{item.description}</p>
+      </div>
+    </article>
+  );
+}
+
+/* =========================================================
+   MAIN COMPONENT
+========================================================= */
+
 export default function EcosystemSection() {
   return (
-    <section className="ecosystem-section" aria-labelledby="ecosystem-title">
+    <section
+      className="ecosystem-section"
+      aria-labelledby="ecosystem-title"
+    >
       <div className="ecosystem-container">
-        <div className="ecosystem-heading">
-          <span className="ecosystem-eyebrow">OUR ECOSYSTEM</span>
+
+        {/* =====================================================
+            HEADING
+        ===================================================== */}
+
+        <header className="ecosystem-heading">
+
+          <span className="ecosystem-eyebrow">
+            OUR ECOSYSTEM
+          </span>
 
           <h2 id="ecosystem-title">
-            A Connected <span>Innovation Network</span>
+            <span className="ecosystem-heading-white">
+              A Connected
+            </span>{" "}
+            <span className="ecosystem-heading-blue">
+              Innovation Network
+            </span>
           </h2>
 
-          <p>
-            Every part of our ecosystem works together — technology, product, and people
-            <br className="ecosystem-desktop-break" />
-            connected by a shared drive to innovate.
+          <p className="ecosystem-heading-description">
+            Every part of our ecosystem works together — technology,
+            product, and people connected by a shared drive to innovate.
           </p>
-        </div>
+
+        </header>
+
+        {/* =====================================================
+            NETWORK
+        ===================================================== */}
 
         <div className="ecosystem-network">
+
+          {/* ===================================================
+              SVG NETWORK
+          =================================================== */}
+
           <svg
             className="ecosystem-lines"
-            viewBox="0 0 1000 620"
-            preserveAspectRatio="none"
+            viewBox="0 0 1000 600"
+            preserveAspectRatio="xMidYMid meet"
             aria-hidden="true"
           >
-            <NetworkLine x2="335" y2="125" index="1" />
-            <NetworkLine x2="500" y2="72" index="2" />
-            <NetworkLine x2="665" y2="120" index="3" />
-            <NetworkLine x2="150" y2="265" index="4" />
-            <NetworkLine x2="850" y2="265" index="5" />
-            <NetworkLine x2="150" y2="505" index="6" />
-            <NetworkLine x2="850" y2="505" index="7" />
-            <NetworkLine x2="410" y2="590" index="8" />
-            <NetworkLine x2="590" y2="590" index="9" />
 
-            <MovingDot cx="410" cy="205" index="1" />
-            <MovingDot cx="500" cy="150" index="2" />
-            <MovingDot cx="590" cy="205" index="3" />
-            <MovingDot cx="340" cy="285" index="4" />
-            <MovingDot cx="660" cy="285" index="5" />
-            <MovingDot cx="275" cy="440" index="6" />
-            <MovingDot cx="725" cy="440" index="7" />
-            <MovingDot cx="455" cy="450" index="8" />
-            <MovingDot cx="545" cy="450" index="9" />
+            {/* NETWORK LINES */}
+
+            {networkNodes.map((node) => (
+              <NetworkLine
+                key={`line-${node.index}`}
+                x2={node.x2}
+                y2={node.y2}
+              />
+            ))}
+
+            {/* MOVING DOTS */}
+
+            {networkNodes.map((node) => (
+              <MovingDot
+                key={`dot-${node.index}`}
+                x2={node.x2}
+                y2={node.y2}
+                index={node.index}
+                duration={node.duration}
+                delay={node.delay}
+              />
+            ))}
+
           </svg>
 
-          <div className="ecosystem-core" aria-label="Projenius ecosystem">
-            <div className="ecosystem-core-ring">
-              <div className="ecosystem-core-circle">
-                <Cpu
-                  className="ecosystem-core-icon"
-                  size={48}
-                  strokeWidth={1.8}
-                  aria-hidden="true"
-                />
+          {/* ===================================================
+              CENTER CORE
+          =================================================== */}
+
+          <div
+            className="ecosystem-core"
+            aria-label="Projenius ecosystem"
+          >
+            <div className="ecosystem-core-glow">
+
+              <div className="ecosystem-core-ring">
+
+                <div className="ecosystem-core-circle">
+
+                  <img
+                    src="/images/logo.png"
+                    alt="Projenius"
+                    className="ecosystem-company-logo"
+                    loading="eager"
+                    decoding="async"
+                  />
+
+                </div>
+
               </div>
+
             </div>
           </div>
 
-          {ecosystemItems.map((item) => (
-            <EcosystemNode key={item.id} item={item} />
+          {/* ===================================================
+              ECOSYSTEM NODES
+          =================================================== */}
+
+          {networkNodes.map((item) => (
+            <EcosystemNode
+              key={item.id}
+              item={item}
+            />
           ))}
+
         </div>
+
       </div>
     </section>
   );
