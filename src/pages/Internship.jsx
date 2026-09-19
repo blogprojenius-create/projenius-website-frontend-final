@@ -1,7 +1,11 @@
-import InternshipHero from "../components/InternshipHero/InternshipHero";
 import InternshipAbout from "../components/InternshipAbout/InternshipAbout";
 import InternshipTech from "../components/InternshipTech/InternshipTech";
 import CommonHero from "../components/CommonHero/CommonHero";
+import InterYoutube from "../components/InterYoutube/InterYoutube";
+import InternshipDomain from "../components/InternshipDomain/InternshipDomain";
+import SuccessStories from "../components/SuccessStories/SuccessStories";
+import InternshipCTA from "../components/InternshipCTA/InternshipCTA";
+import InternshipBenefits from "../components/InternshipBenefits/InternshipBenefits";
 export default function Internship() {
     return (
         <main className="internship-page">
@@ -16,9 +20,13 @@ export default function Internship() {
 
                 description="Gain practical experience by working on real projects while developing the technical and professional skills required by industry."
             />
-            <InternshipHero />
             <InternshipAbout />
+            <InterYoutube />
+            <InternshipDomain />
             <InternshipTech />
+            <InternshipBenefits />
+            <SuccessStories />
+            <InternshipCTA />
         </main>
     );
 }

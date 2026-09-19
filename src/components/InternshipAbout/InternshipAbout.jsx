@@ -1,100 +1,75 @@
 import React, { useEffect, useRef, useState } from "react";
+import {
+    CalendarDays,
+    Monitor,
+    GraduationCap,
+    UsersRound,
+    ArrowRight,
+    Download,
+} from "lucide-react";
 import "./InternshipAbout.css";
 
 /* =========================================================
-   ICONS
+   INTERNSHIP INFORMATION
 ========================================================= */
 
-function DurationIcon() {
-    return (
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="8.5" />
-            <path d="M12 7v5l3.2 2" />
-        </svg>
-    );
-}
-
-function ModeIcon() {
-    return (
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="13" rx="2" />
-            <path d="M8 21h8" />
-            <path d="M12 17v4" />
-        </svg>
-    );
-}
-
-function TypeIcon() {
-    return (
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="4" y="3" width="16" height="18" rx="2" />
-            <path d="M8 8h8" />
-            <path d="M8 12h8" />
-            <path d="M8 16h5" />
-        </svg>
-    );
-}
-
-function EligibilityIcon() {
-    return (
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="8" r="3.5" />
-            <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
-        </svg>
-    );
-}
-
-/* =========================================================
-   DATA
-========================================================= */
-
-const internshipInfo = [
+const internshipDetails = [
     {
+        id: "duration",
         title: "Duration",
-        description: "1 Month, 3 Months, 6 Months",
-        icon: <DurationIcon />,
+        value: "1 Month, 3 Months, 6 Months",
+        icon: CalendarDays,
     },
     {
+        id: "mode",
         title: "Mode",
-        description: "Online, Offline, Hybrid",
-        icon: <ModeIcon />,
+        value: "Online, Offline, Hybrid",
+        icon: Monitor,
     },
     {
+        id: "type",
         title: "Type",
-        description: "Guided Internship Program",
-        icon: <TypeIcon />,
+        value: "Guided Internship Program",
+        icon: GraduationCap,
     },
     {
+        id: "eligibility",
         title: "Eligibility",
-        description: "Students, freshers, and career switchers",
-        icon: <EligibilityIcon />,
+        value: "Students, freshers, and career switchers",
+        icon: UsersRound,
     },
 ];
+
 
 /* =========================================================
    COMPONENT
 ========================================================= */
 
-export default function InternshipAbout() {
+const InternshipAbout = () => {
     const sectionRef = useRef(null);
-    const [visible, setVisible] = useState(false);
+    const [animationKey, setAnimationKey] = useState(0);
+
+    /* =======================================================
+       REPLAY ANIMATION EVERY TIME SECTION ENTERS VIEW
+    ======================================================= */
 
     useEffect(() => {
+        const section = sectionRef.current;
+
+        if (!section) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    setVisible(true);
-                    observer.disconnect();
+                    setAnimationKey((previous) => previous + 1);
                 }
             },
             {
-                threshold: 0.15,
+                threshold: 0.2,
             }
         );
 
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
+        observer.observe(section);
 
         return () => observer.disconnect();
     }, []);
@@ -102,9 +77,8 @@ export default function InternshipAbout() {
     return (
         <section
             ref={sectionRef}
-            className={`internship-about ${
-                visible ? "internship-about-visible" : ""
-            }`}
+            className="internship-about-section"
+            aria-labelledby="internship-about-title"
         >
             <div className="internship-about-container">
 
@@ -114,73 +88,108 @@ export default function InternshipAbout() {
 
                 <div className="internship-about-content">
 
-                    <div className="internship-about-tag">
+                    <span className="internship-about-label">
                         ABOUT THE INTERNSHIP
-                    </div>
+                    </span>
 
-                    <h2 className="internship-about-title">
-                        Practical Training
+                    <h2
+                        id="internship-about-title"
+                        className="internship-about-title"
+                    >
+                        Practical
                         <br />
-                        <span>Built Around Real Work</span>
+                        Training
+                        <br />
+                        <span>Built Around</span>
+                        <br />
+                        <span>Real Work</span>
                     </h2>
 
-                    <div className="internship-about-line" />
-
                     <p className="internship-about-description">
-                        Gain hands-on experience through structured training,
-                        mentor support, live projects, and career preparation
-                        designed for students and freshers entering the tech
-                        industry.
+                        Gain hands-on experience through structured
+                        training, mentor support, live projects, and
+                        career preparation designed for students and
+                        freshers entering the tech industry.
                     </p>
 
-                    <div className="internship-about-buttons">
+                    {/* =================================================
+                        CTA BUTTONS
+                    ================================================= */}
 
-                        <button
-                            type="button"
+                    <div className="internship-about-actions">
+
+                        <a
+                            href="#contact"
                             className="internship-primary-button"
                         >
-                            Start Your Journey
-                            <span>→</span>
-                        </button>
+                            <span>Start Your Journey</span>
 
-                        <button
-                            type="button"
+                            <ArrowRight
+                                size={19}
+                                strokeWidth={2.4}
+                                aria-hidden="true"
+                            />
+                        </a>
+
+                        <a
+                            href="/files/internship-syllabus.pdf"
                             className="internship-secondary-button"
+                            download
                         >
-                            Download Syllabus
-                            <span>↓</span>
-                        </button>
+                            <span>Download Syllabus</span>
+
+                            <Download
+                                size={17}
+                                strokeWidth={2}
+                                aria-hidden="true"
+                            />
+                        </a>
 
                     </div>
                 </div>
 
+
                 {/* =================================================
-                    RIGHT INFORMATION
+                    RIGHT INFORMATION CARDS
                 ================================================= */}
 
-                <div className="internship-about-info">
+                <div
+                    key={animationKey}
+                    className="internship-about-cards"
+                >
+                    {internshipDetails.map(
+                        ({ id, title, value, icon: Icon }, index) => (
+                            <article
+                                key={id}
+                                className="internship-about-card"
+                                style={{
+                                    "--internship-card-delay":
+                                        `${index * 0.15}s`,
+                                }}
+                            >
 
-                    {internshipInfo.map((item, index) => (
-                        <article
-                            className="internship-info-card"
-                            key={item.title}
-                            style={{
-                                "--card-delay": `${0.15 + index * 0.1}s`,
-                            }}
-                        >
-                            <div className="internship-info-icon">
-                                {item.icon}
-                            </div>
+                                <div className="internship-about-icon">
+                                    <Icon
+                                        size={25}
+                                        strokeWidth={2.1}
+                                        aria-hidden="true"
+                                    />
+                                </div>
 
-                            <div className="internship-info-content">
-                                <h3>{item.title}</h3>
-                                <p>{item.description}</p>
-                            </div>
-                        </article>
-                    ))}
+                                <div className="internship-about-card-content">
+                                    <h3>{title}</h3>
 
+                                    <p>{value}</p>
+                                </div>
+
+                            </article>
+                        )
+                    )}
                 </div>
+
             </div>
         </section>
     );
-}
+};
+
+export default InternshipAbout;

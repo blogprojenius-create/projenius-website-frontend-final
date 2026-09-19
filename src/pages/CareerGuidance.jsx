@@ -1,4 +1,7 @@
+import BookCall from "../components/BookCall/BookCall";
 import CommonHero from "../components/CommonHero/CommonHero";
+import GuidanceProcess from "../components/GuidanceProcess/GuidanceProcess";
+import TargetAudience from "../components/TargetAudience/TargetAudience";
 export default function CareerGuidance() {
     return (
         <main className="development-page">
@@ -15,7 +18,9 @@ export default function CareerGuidance() {
 
                 description="Get practical guidance, skill recommendations and career preparation to move confidently toward your technology career."
             />
-
+            <BookCall />
+            <GuidanceProcess />
+            <TargetAudience />
         </main>
     );
 }

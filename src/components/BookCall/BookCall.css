@@ -1,0 +1,912 @@
+/* =========================================================
+   BOOK CALL SECTION
+========================================================= */
+
+.book-call-section {
+  width: 100%;
+  padding: 80px 5%;
+
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(225, 239, 255, 0.65),
+      transparent 35%
+    ),
+    #f4f7fb;
+
+  overflow: hidden;
+}
+
+.book-call-container {
+  width: 100%;
+  max-width: 1190px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(450px, 0.95fr);
+
+  gap: 70px;
+
+  align-items: center;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.book-call-content {
+  max-width: 610px;
+}
+
+.book-call-content h1 {
+  margin: 0 0 24px;
+
+  color: #111827;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: clamp(
+    38px,
+    4vw,
+    55px
+  );
+
+  font-weight: 800;
+
+  line-height: 1.08;
+
+  letter-spacing: -2px;
+}
+
+.book-call-trust {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 22px;
+
+  color: #667085;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.book-call-trust svg {
+  color: #1677ff;
+}
+
+.book-call-description {
+  margin: 0 0 28px;
+
+  color: #697586;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 17px;
+
+  line-height: 1.8;
+}
+
+.book-call-content h3 {
+  margin: 0 0 18px;
+
+  color: #252b35;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 17px;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.book-call-features {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 13px;
+}
+
+.book-call-feature {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  color: #3f4857;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+.book-call-feature svg {
+  flex-shrink: 0;
+
+  width: 18px;
+  height: 18px;
+
+  margin-top: 4px;
+
+  color: #1677ff;
+
+  fill: #1677ff;
+
+  stroke: #ffffff;
+}
+
+/* =========================================================
+   INFO PILLS
+========================================================= */
+
+.book-call-pills {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-top: 28px;
+}
+
+.book-call-pill {
+  min-height: 43px;
+
+  padding: 0 15px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  color: #475569;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 13px;
+
+  box-shadow:
+    0 3px 12px
+    rgba(15, 23, 42, 0.04);
+}
+
+.book-call-pill-wide {
+  padding-right: 17px;
+}
+
+.book-call-pill svg {
+  width: 17px;
+  height: 17px;
+
+  color: #159ee4;
+}
+
+/* =========================================================
+   BOOKING CARD
+========================================================= */
+
+.book-call-card {
+  width: 100%;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 22px 55px
+    rgba(30, 41, 59, 0.12),
+
+    0 4px 15px
+    rgba(30, 41, 59, 0.05);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.book-call-card-header {
+  padding: 24px 27px;
+
+  background: #f1f5f9;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.book-call-card-header h2 {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 24px;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   CARD BODY
+========================================================= */
+
+.book-call-card-body {
+  padding: 44px 32px 25px;
+}
+
+/* =========================================================
+   CALENDAR ICON
+========================================================= */
+
+.book-call-calendar-icon {
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #c8d4e3;
+}
+
+.book-call-card-body > h3 {
+  margin: 0 0 8px;
+
+  text-align: center;
+
+  color: #202733;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 20px;
+
+  font-weight: 800;
+}
+
+.book-call-subtitle {
+  margin: 0 auto 28px;
+
+  text-align: center;
+
+  color: #8b95a4;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   DATE SELECTOR
+========================================================= */
+
+.book-call-dates {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 8px;
+
+  margin-bottom: 23px;
+}
+
+.book-call-date {
+  min-height: 67px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1px solid transparent;
+
+  border-radius: 13px;
+
+  background: transparent;
+
+  color: #64748b;
+
+  font-family: "Poppins", sans-serif;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.book-call-date span {
+  margin-bottom: 5px;
+
+  font-size: 12px;
+
+  font-weight: 500;
+}
+
+.book-call-date strong {
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+.book-call-date:hover {
+  background: #f2f7ff;
+
+  color: #168fdf;
+}
+
+.book-call-date-active {
+  background: #159fdd;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 15px
+    rgba(21, 159, 221, 0.2);
+}
+
+.book-call-date-active:hover {
+  background: #159fdd;
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   TIME BUTTONS
+========================================================= */
+
+.book-call-times {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.book-call-time {
+  min-height: 46px;
+
+  border: 1px solid #d8e1eb;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #526174;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.book-call-time:hover:not(:disabled) {
+  border-color: #159fdd;
+
+  color: #159fdd;
+
+  transform: translateY(-1px);
+}
+
+.book-call-time-active {
+  border-color: #159fdd;
+
+  background: #159fdd;
+
+  color: #ffffff;
+}
+
+.book-call-time-active:hover {
+  background: #159fdd;
+
+  color: #ffffff;
+}
+
+.book-call-time-disabled {
+  background: #f1f3f5;
+
+  border-color: #e3e7eb;
+
+  color: #b3bac4;
+
+  cursor: not-allowed;
+
+  text-decoration: line-through;
+}
+
+/* =========================================================
+   SELECTION MESSAGE
+========================================================= */
+
+.book-call-selection-message {
+  margin: 4px 0 18px;
+
+  text-align: center;
+
+  color: #98a2b3;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 12px;
+}
+
+.book-call-selected {
+  min-height: 38px;
+
+  margin: 5px 0 17px;
+
+  padding: 0 13px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: 9px;
+
+  background: #eef9f5;
+
+  color: #26966f;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 12px;
+}
+
+.book-call-selected svg {
+  color: #27a879;
+}
+
+/* =========================================================
+   QUOTE
+========================================================= */
+
+.book-call-quote {
+  margin: 5px 0 23px;
+
+  padding: 16px 17px;
+
+  border-left: 4px solid #ffab18;
+
+  border-radius:
+    0 12px 12px 0;
+
+  background: #f7f9fb;
+}
+
+.book-call-quote p {
+  margin: 0 0 6px;
+
+  color: #647184;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 13px;
+
+  font-style: italic;
+
+  line-height: 1.6;
+}
+
+.book-call-quote strong {
+  color: #687588;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   BOOK BUTTON
+========================================================= */
+
+.book-call-button {
+  width: 100%;
+
+  min-height: 56px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: #159fdd;
+
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 12px
+    rgba(21, 159, 221, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ENABLED */
+
+.book-call-button:not(:disabled) {
+  background: #159fdd;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.book-call-button:not(:disabled):hover {
+  background: #078fc9;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 20px
+    rgba(21, 159, 221, 0.25);
+}
+
+/* DISABLED */
+
+.book-call-button:disabled {
+  background: #b8c3ce;
+
+  color: #ffffff;
+
+  cursor: not-allowed;
+
+  opacity: 1;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+/* =========================================================
+   TERMS CHECKBOX
+========================================================= */
+
+.book-call-terms-box {
+  margin-top: 16px;
+}
+
+.book-call-terms-check {
+  position: relative;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  cursor: pointer;
+
+  font-family: "Poppins", sans-serif;
+}
+
+/* Hide native checkbox */
+
+.book-call-terms-check input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+/* Custom checkbox */
+
+.book-call-custom-check {
+  width: 18px;
+  height: 18px;
+
+  min-width: 18px;
+
+  margin-top: 1px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1.5px solid #cbd5e1;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Check mark */
+
+.book-call-custom-check::after {
+  content: "";
+
+  width: 8px;
+  height: 4px;
+
+  border-left:
+    2px solid #ffffff;
+
+  border-bottom:
+    2px solid #ffffff;
+
+  transform:
+    rotate(-45deg)
+    scale(0);
+
+  transition:
+    transform 0.15s ease;
+}
+
+/* Checked */
+
+.book-call-terms-check
+  input:checked
+  + .book-call-custom-check {
+  background: #159fdd;
+
+  border-color: #159fdd;
+}
+
+.book-call-terms-check
+  input:checked
+  + .book-call-custom-check::after {
+  transform:
+    rotate(-45deg)
+    scale(1);
+}
+
+/* Hover */
+
+.book-call-terms-check:hover
+  .book-call-custom-check {
+  border-color: #159fdd;
+}
+
+/* =========================================================
+   TERMS TEXT
+========================================================= */
+
+.book-call-terms-text {
+  color: #8993a1;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+.book-call-terms-text button {
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #159fdd;
+
+  font-family: inherit;
+
+  font-size: inherit;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.book-call-terms-text button:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .book-call-container {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+
+    max-width: 720px;
+  }
+
+  .book-call-content {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .book-call-section {
+    padding: 60px 18px;
+  }
+
+  .book-call-content h1 {
+    font-size: 38px;
+
+    letter-spacing: -1.4px;
+  }
+
+  .book-call-description {
+    font-size: 15px;
+
+    line-height: 1.7;
+  }
+
+  .book-call-card-header {
+    padding: 20px;
+  }
+
+  .book-call-card-header h2 {
+    font-size: 21px;
+  }
+
+  .book-call-card-body {
+    padding: 35px 20px 22px;
+  }
+
+  .book-call-dates {
+    gap: 4px;
+  }
+
+  .book-call-date {
+    min-height: 61px;
+  }
+
+  .book-call-date span {
+    font-size: 10px;
+  }
+
+  .book-call-date strong {
+    font-size: 14px;
+  }
+
+  .book-call-times {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .book-call-pills {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .book-call-pill {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+  .book-call-terms-text {
+    font-size: 10.5px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .book-call-content h1 {
+    font-size: 33px;
+  }
+
+  .book-call-feature {
+    font-size: 14px;
+  }
+
+  .book-call-card-body {
+    padding-left: 15px;
+
+    padding-right: 15px;
+  }
+
+  .book-call-date {
+    min-height: 57px;
+  }
+
+  .book-call-date span {
+    font-size: 9px;
+  }
+
+  .book-call-date strong {
+    font-size: 13px;
+  }
+
+  .book-call-time {
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .book-call-date,
+  .book-call-time,
+  .book-call-button,
+  .book-call-custom-check {
+    transition: none;
+  }
+}

@@ -8,6 +8,7 @@ import OurJourney from "../components/OurJourney/OurJourney";
 import FoundersSection from "../components/FoundersSection/FoundersSection";    
 import TestimonialSection from "../components/TestimonialSection/TestimonialSection";
 import AboutProJenius from "../components/AboutProJenius/AboutProJenius";
+import Achievements from "../components/Achievements/Achievements";
 export default function About() {
     return (
         <>
@@ -26,6 +27,7 @@ export default function About() {
             <OurJourney />
             <FoundersSection />
             <AboutProJenius />
+            <Achievements />
             <EcosystemSection />
             <Magazine />
             <TestimonialSection />
