@@ -1,0 +1,67 @@
+/* =====================================================================
+   DevelopmentWhy.css  (all classes start with pjdev-why)
+   ===================================================================== */
+.pjdev-why {
+  position: relative;
+  padding: clamp(76px, 10vw, 140px) 0;
+  overflow-x: clip;
+  scroll-margin-top: calc(var(--pjdev-header-h) + var(--pjdev-subnav-h) + 12px);
+}
+.pjdev-why__wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+.pjdev-why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 64px; align-items: start; }
+
+.pjdev-why__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+  padding: 30px 26px;
+  overflow: hidden;
+  border-radius: var(--pjdev-r-lg);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--pjdev-ease), transform 0.8s var(--pjdev-ease);
+}
+.pjdev-why__grid--in .pjdev-why__card { opacity: 1; transform: none; }
+.pjdev-why__card:nth-child(2) { margin-top: 44px; transition-delay: 0.08s; }
+.pjdev-why__card:nth-child(3) { transition-delay: 0.16s; }
+.pjdev-why__card:nth-child(4) { margin-top: 44px; transition-delay: 0.24s; }
+.pjdev-why__grid--in .pjdev-why__card:hover { transform: translateY(-6px); transition-delay: 0s; }
+
+.pjdev-why__card .pjdevico { width: 34px; height: 34px; margin-bottom: 64px; }
+.pjdev-why__num { font-family: var(--pjdev-font-display); font-size: 0.95rem; font-weight: 700; letter-spacing: 0.06em; }
+.pjdev-why__title { margin-top: 6px; font-size: 1.5rem; line-height: 1.08; font-weight: 700; }
+.pjdev-why__text { margin-top: 12px; font-size: 0.98rem; line-height: 1.55; }
+.pjdev-why__deco { position: absolute; right: -30px; top: -30px; width: 150px; height: 150px; pointer-events: none; }
+
+.pjdev-why__card--1 { background: #0A1633; color: #EAF0FF; }
+.pjdev-why__card--1 .pjdev-why__text { color: #9AA9CB; }
+.pjdev-why__card--1 .pjdev-why__num, .pjdev-why__card--1 .pjdevico { color: #3DD9EE; }
+.pjdev-why__card--1 .pjdev-why__deco { color: #3DD9EE; opacity: 0.35; }
+
+.pjdev-why__card--2 { background: linear-gradient(155deg, #1D5CFF, #0F3FD1); color: #fff; }
+.pjdev-why__card--2 .pjdev-why__text { color: rgba(255, 255, 255, 0.82); }
+.pjdev-why__card--2 .pjdev-why__num { color: #B7F4FF; }
+.pjdev-why__card--2 .pjdev-why__deco { color: #fff; opacity: 0.28; }
+
+.pjdev-why__card--3 { background: var(--pjdev-card); border: 1px solid var(--pjdev-line-strong); color: var(--pjdev-ink); }
+.pjdev-why__card--3 .pjdev-why__text { color: var(--pjdev-muted); }
+.pjdev-why__card--3 .pjdev-why__num, .pjdev-why__card--3 .pjdevico { color: var(--pjdev-blue); }
+
+.pjdev-why__card--4 { background: linear-gradient(180deg, rgba(18, 201, 224, 0.16), rgba(29, 92, 255, 0.06)); border: 1px solid rgba(18, 201, 224, 0.4); color: var(--pjdev-ink); }
+.pjdev-why__card--4 .pjdev-why__text { color: var(--pjdev-muted); }
+.pjdev-why__card--4 .pjdev-why__num, .pjdev-why__card--4 .pjdevico { color: var(--pjdev-blue); }
+
+@media (max-width: 1100px) {
+  .pjdev-why__grid { grid-template-columns: repeat(2, 1fr); }
+  .pjdev-why__card:nth-child(2), .pjdev-why__card:nth-child(4) { margin-top: 34px; }
+}
+@media (max-width: 720px) {
+  .pjdev-why__grid { grid-template-columns: 1fr; }
+  .pjdev-why__card, .pjdev-why__card:nth-child(2), .pjdev-why__card:nth-child(4) { margin-top: 0; min-height: 0; }
+  .pjdev-why__card .pjdevico { margin-bottom: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pjdev-why__card { opacity: 1; transform: none; transition: none; }
+}

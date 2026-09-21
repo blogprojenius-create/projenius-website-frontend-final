@@ -32,7 +32,7 @@ import Contact from "./pages/Contact";
    SERVICE PAGES
 ========================================================= */
 
-import Development from "./pages/Development";
+import DevelopmentPage from "./pages/DevelopmentPage";
 import Internship from "./pages/Internship";
 import CareerGuidance from "./pages/CareerGuidance";
 
@@ -47,7 +47,7 @@ import JoinOurTeam from "./pages/JoinOurTeam";
    GLOBAL STYLES
 ========================================================= */
 
-import "./styles/site.css";
+// import "./styles/site.css";
 
 export default function App() {
     return (
@@ -124,7 +124,7 @@ export default function App() {
 
                 <Route
                     path="/services/development"
-                    element={<Development />}
+                    element={<DevelopmentPage />}
                 />
 
                 {/* INTERNSHIP */}

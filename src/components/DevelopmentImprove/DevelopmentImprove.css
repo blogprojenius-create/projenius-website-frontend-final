@@ -1,0 +1,106 @@
+/* =====================================================================
+   DevelopmentImprove.css  (all classes start with pjdev-improve)
+   ===================================================================== */
+.pjdev-improve {
+  position: relative;
+  padding: clamp(76px, 10vw, 140px) 0;
+  overflow-x: clip;
+  scroll-margin-top: calc(var(--pjdev-header-h) + var(--pjdev-subnav-h) + 12px);
+}
+.pjdev-improve__wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+.pjdev-improve__block { max-width: 1040px; margin: 56px auto 0; }
+.pjdev-improve__defs { position: absolute; width: 0; height: 0; }
+
+.pjdev-improve__compare {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--pjdev-line);
+  border-radius: var(--pjdev-r-lg);
+  box-shadow: 0 40px 80px -50px rgba(10, 22, 51, 0.5);
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* the improved layer is clipped by the SVG clip path defined in the JSX */
+.pjdev-improve__compare .pjdevmock__after { clip-path: url(#pjdev-improve-clip); }
+
+.pjdev-improve__tag {
+  position: absolute;
+  top: 14px;
+  z-index: 4;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  pointer-events: none;
+}
+.pjdev-improve__tag--l { left: 14px; background: rgba(10, 22, 51, 0.75); }
+.pjdev-improve__tag--r { right: 14px; background: #1D5CFF; }
+
+.pjdev-improve__range {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.pjdev-improve__handle { position: absolute; inset: 0; z-index: 5; pointer-events: none; overflow: visible; }
+.pjdev-improve__handle-line { stroke: #fff; stroke-width: 2; }
+.pjdev-improve__handle-knob { fill: #1D5CFF; stroke: #fff; stroke-width: 4; filter: drop-shadow(0 8px 12px rgba(10, 22, 51, 0.45)); }
+.pjdev-improve__handle-arrows { fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pjdev-improve__range:focus-visible ~ .pjdev-improve__handle .pjdev-improve__handle-knob { stroke: #12C9E0; }
+
+/* the four steps follow the handle */
+.pjdev-improve__steps { display: grid; grid-template-columns: repeat(4, 1fr); margin: 34px 0 0; padding: 0; }
+.pjdev-improve__step { position: relative; padding: 34px 16px 0 0; opacity: 0.55; transition: opacity 0.3s; }
+.pjdev-improve__step::before { content: ""; position: absolute; left: 0; top: 6px; width: 100%; height: 2px; background: var(--pjdev-line-strong); }
+.pjdev-improve__step::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--pjdev-surface);
+  border: 2px solid var(--pjdev-line-strong);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.pjdev-improve__step b { display: block; font-family: var(--pjdev-font-display); font-size: 1.05rem; font-weight: 700; }
+.pjdev-improve__step span { display: block; margin-top: 4px; font-size: 0.9rem; line-height: 1.45; color: var(--pjdev-muted); }
+.pjdev-improve__step--past { opacity: 0.85; }
+.pjdev-improve__step--past::before,
+.pjdev-improve__step--on::before { background: var(--pjdev-grad); }
+.pjdev-improve__step--past::after { border-color: #1D5CFF; }
+.pjdev-improve__step--on { opacity: 1; }
+.pjdev-improve__step--on::after { background: #1D5CFF; border-color: #1D5CFF; box-shadow: 0 0 0 6px rgba(29, 92, 255, 0.18); }
+
+.pjdev-improve__areas-title { margin-top: 38px; font-size: 0.95rem; font-weight: 600; }
+.pjdev-improve__areas { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; padding: 0; }
+.pjdev-improve__areas li {
+  padding: 9px 16px;
+  border: 1px solid var(--pjdev-line-strong);
+  border-radius: 999px;
+  background: var(--pjdev-card);
+  font-size: 0.93rem;
+  font-weight: 500;
+  transition: transform 0.3s var(--pjdev-ease), border-color 0.3s, color 0.3s;
+}
+.pjdev-improve__areas li:hover { transform: translateY(-2px); border-color: var(--pjdev-blue); color: var(--pjdev-blue); }
+
+@media (max-width: 720px) {
+  .pjdev-improve__steps { grid-template-columns: 1fr; gap: 6px; }
+  .pjdev-improve__step { padding: 0 0 18px 38px; }
+  .pjdev-improve__step::before { left: 6px; top: 20px; width: 2px; height: calc(100% - 14px); }
+  .pjdev-improve__step::after { top: 3px; }
+  .pjdev-improve__step:last-child::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pjdev-improve__step, .pjdev-improve__areas li { transition: none; }
+}

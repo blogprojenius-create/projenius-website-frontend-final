@@ -1,0 +1,1321 @@
+/* =====================================================================
+   DEVELOPMENT APPROACH
+   Fully scoped to .pjdev-approach
+===================================================================== */
+
+.pjdev-approach {
+  --approach-bg: #050b1e;
+  --approach-card: #10172f;
+  --approach-card-active: #091842;
+
+  --approach-white: #eaf0ff;
+  --approach-white-soft: #dce6f7;
+
+  --approach-muted: #91a7cb;
+  --approach-muted-soft: #788cad;
+
+  --approach-blue: #6b9bfe;
+  --approach-blue-bright: #4f91ff;
+
+  --approach-cyan: #35d9ee;
+
+  --approach-border: #1d315a;
+  --approach-border-soft: #18294a;
+  --approach-border-active: #416fc5;
+
+  position: relative;
+
+  width: 100%;
+
+  padding:
+    clamp(76px, 10vw, 140px)
+    0;
+
+  overflow-x: clip;
+
+  background:
+    var(--approach-bg);
+
+  color:
+    var(--approach-white);
+
+  scroll-margin-top:
+    calc(
+      var(--pjdev-header-h, 0px) +
+      var(--pjdev-subnav-h, 0px) +
+      12px
+    );
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   SOFT BLUE BACKGROUND GLOW
+========================================================= */
+
+.pjdev-approach::before {
+  content: "";
+
+  position: absolute;
+
+  left: -12%;
+  top: -18%;
+
+  width: 72%;
+  height: 90%;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 35% 42%,
+      rgba(45, 88, 230, 0.17),
+      rgba(35, 65, 165, 0.06) 48%,
+      transparent 73%
+    );
+
+  z-index: -1;
+}
+
+/* =========================================================
+   SUBTLE GRID
+========================================================= */
+
+.pjdev-approach::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -2;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(70, 101, 150, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(70, 101, 150, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    56px 56px;
+}
+
+/* =========================================================
+   WRAPPER
+========================================================= */
+
+.pjdev-approach__wrap {
+  position: relative;
+
+  z-index: 2;
+
+  width:
+    min(
+      1240px,
+      calc(100% - 80px)
+    );
+
+  margin: 0 auto;
+}
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.pjdev-approach__rv {
+  opacity: 0;
+
+  transform:
+    translateY(18px);
+
+  transition:
+    opacity 0.8s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    transform 0.8s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+}
+
+.pjdev-approach__rv--d1 {
+  transition-delay:
+    0.08s;
+}
+
+.pjdev-approach__rv--d2 {
+  transition-delay:
+    0.16s;
+}
+
+.pjdev-approach__rv--d3 {
+  transition-delay:
+    0.24s;
+}
+
+.pjdev-approach--in
+  .pjdev-approach__rv {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.pjdev-approach__title {
+  margin:
+    22px 0 0;
+
+  color:
+    #9aabce;
+
+  font-family:
+    var(
+      --pjdev-font-display,
+      "Poppins",
+      sans-serif
+    );
+
+  font-size:
+    clamp(
+      1.5rem,
+      2.6vw,
+      2.3rem
+    );
+
+  font-weight:
+    600;
+
+  line-height:
+    1.12;
+
+  letter-spacing:
+    -0.025em;
+}
+
+/* =========================================================
+   GRADIENT CLAIM
+========================================================= */
+
+.pjdev-approach__claim {
+  margin:
+    14px 0 26px;
+
+  font-family:
+    var(
+      --pjdev-font-display,
+      "Poppins",
+      sans-serif
+    );
+
+  font-size:
+    clamp(
+      3rem,
+      5.2vw,
+      5rem
+    );
+
+  font-weight:
+    800;
+
+  line-height:
+    0.98;
+
+  letter-spacing:
+    -0.04em;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6a9bff 0%,
+      #55aff8 45%,
+      #4ec5f4 75%,
+      #38d8ec 100%
+    );
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+  color:
+    transparent;
+}
+
+@keyframes pjdevApproachGradient {
+  from {
+    background-position:
+      0 50%;
+  }
+
+  to {
+    background-position:
+      100% 50%;
+  }
+}
+
+/* =========================================================
+   LEAD
+========================================================= */
+
+.pjdev-approach__lead {
+  max-width:
+    62ch;
+
+  margin:
+    0;
+
+  color:
+    var(--approach-muted);
+
+  font-size:
+    clamp(
+      1rem,
+      1.3vw,
+      1.18rem
+    );
+
+  line-height:
+    1.65;
+}
+
+/* =========================================================
+   BLOCKS
+========================================================= */
+
+.pjdev-approach__blocks {
+  display:
+    flex;
+
+  gap:
+    14px;
+
+  min-height:
+    340px;
+
+  margin-top:
+    64px;
+}
+
+/* =========================================================
+   BLOCK
+========================================================= */
+
+.pjdev-approach__block {
+  flex:
+    1 1 0;
+
+  min-width:
+    0;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  overflow:
+    hidden;
+
+  border:
+    1px solid
+    var(--approach-border);
+
+  border-radius:
+    11px;
+
+  background:
+    var(--approach-card);
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(
+      255,
+      255,
+      255,
+      0.02
+    );
+
+  transition:
+    flex-grow 0.6s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    border-color 0.3s ease,
+    background 0.35s ease,
+    box-shadow 0.3s ease;
+}
+
+/* =========================================================
+   ACTIVE BLOCK
+========================================================= */
+
+.pjdev-approach__block--active {
+  flex-grow:
+    2.4;
+
+  border-color:
+    var(--approach-border-active);
+
+  background:
+    linear-gradient(
+      145deg,
+      #102351 0%,
+      #091842 60%,
+      #081735 100%
+    );
+
+  box-shadow:
+    0 14px 38px
+    rgba(
+      12,
+      39,
+      94,
+      0.16
+    );
+}
+
+/* =========================================================
+   INACTIVE HOVER
+========================================================= */
+
+.pjdev-approach__block:not(
+    .pjdev-approach__block--active
+  ):hover {
+  border-color:
+    #2a4877;
+
+  background:
+    #121b37;
+}
+
+/* =========================================================
+   BLOCK HEADER
+========================================================= */
+
+.pjdev-approach__block-head {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    flex-start;
+
+  gap:
+    10px;
+
+  width:
+    100%;
+
+  min-height:
+    170px;
+
+  padding:
+    26px;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  color:
+    var(--approach-white);
+
+  text-align:
+    left;
+
+  cursor:
+    pointer;
+}
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.pjdev-approach__block-num {
+  color:
+    var(--approach-cyan);
+
+  font-family:
+    var(
+      --pjdev-font-display,
+      "Poppins",
+      sans-serif
+    );
+
+  font-size:
+    0.9rem;
+
+  font-weight:
+    700;
+}
+
+/* =========================================================
+   BLOCK TITLE
+========================================================= */
+
+.pjdev-approach__block-title {
+  color:
+    var(--approach-white);
+
+  font-family:
+    var(
+      --pjdev-font-display,
+      "Poppins",
+      sans-serif
+    );
+
+  font-size:
+    1.45rem;
+
+  font-weight:
+    700;
+
+  line-height:
+    1.12;
+
+  letter-spacing:
+    -0.02em;
+}
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.pjdev-approach__block-q {
+  color:
+    var(--approach-muted-soft);
+
+  font-size:
+    0.92rem;
+
+  line-height:
+    1.48;
+}
+
+.pjdev-approach__block--active
+  .pjdev-approach__block-q {
+  color:
+    var(--approach-white-soft);
+}
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.pjdev-approach__panel {
+  display:
+    grid;
+
+  grid-template-rows:
+    0fr;
+
+  opacity:
+    0;
+
+  transition:
+    grid-template-rows 0.55s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    opacity 0.4s ease;
+}
+
+.pjdev-approach__block--active
+  .pjdev-approach__panel {
+  grid-template-rows:
+    1fr;
+
+  opacity:
+    1;
+}
+
+/* =========================================================
+   POINTS
+========================================================= */
+
+.pjdev-approach__points {
+  min-height:
+    0;
+
+  overflow:
+    hidden;
+
+  margin:
+    0;
+
+  padding:
+    0 26px;
+
+  list-style:
+    none;
+}
+
+.pjdev-approach__points::after {
+  content:
+    "";
+
+  display:
+    block;
+
+  height:
+    22px;
+}
+
+/* =========================================================
+   POINT
+========================================================= */
+
+.pjdev-approach__points li {
+  position:
+    relative;
+
+  padding:
+    12px 0 12px 22px;
+
+  border-top:
+    1px solid
+    var(--approach-border-soft);
+
+  color:
+    #8da1c4;
+
+  font-size:
+    0.92rem;
+
+  line-height:
+    1.45;
+}
+
+.pjdev-approach__points li::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  left:
+    0;
+
+  top:
+    1.35em;
+
+  width:
+    7px;
+
+  height:
+    7px;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--approach-cyan);
+
+  box-shadow:
+    0 0 6px
+    rgba(
+      53,
+      217,
+      238,
+      0.4
+    );
+}
+
+/* =========================================================
+   BOTTOM BAND
+========================================================= */
+
+.pjdev-approach__band {
+  position:
+    relative;
+
+  width:
+    100%;
+
+  margin-top:
+    60px;
+
+  padding:
+    35px 50px 42px;
+
+  border:
+    1px solid
+    #1d315a;
+
+  border-radius:
+    15px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101a35 0%,
+      #081128 100%
+    );
+
+  box-shadow:
+    0 14px 35px
+    rgba(
+      0,
+      0,
+      0,
+      0.14
+    );
+}
+
+/* =========================================================
+   BAND CAPTION
+========================================================= */
+
+.pjdev-approach__band-caption {
+  margin:
+    0 0 34px;
+
+  color:
+    #91a7cb;
+
+  font-size:
+    0.94rem;
+
+  line-height:
+    1.55;
+}
+
+/* =========================================================
+   FLOW WRAPPER
+========================================================= */
+
+.pjdev-approach__flow {
+  position:
+    relative;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  width:
+    100%;
+
+  min-height:
+    105px;
+}
+
+/* =========================================================
+   BASE LINE
+========================================================= */
+
+.pjdev-approach__flow-line {
+  position:
+    absolute;
+
+  left:
+    0;
+
+  right:
+    0;
+
+  top:
+    15px;
+
+  height:
+    2px;
+
+  z-index:
+    0;
+
+  background:
+    #29446e;
+
+  border-radius:
+    999px;
+}
+
+/* =========================================================
+   BLUE PROGRESS LINE
+========================================================= */
+
+.pjdev-approach__flow-progress {
+  display:
+    block;
+
+  height:
+    100%;
+
+  border-radius:
+    999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #5f9bff,
+      #20d3e9
+    );
+
+  box-shadow:
+    0 0 5px
+    rgba(
+      56,
+      155,
+      255,
+      0.35
+    );
+
+  transition:
+    width 0.45s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+}
+
+/* =========================================================
+   FLOW STEP
+========================================================= */
+
+.pjdev-approach__flow-step {
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    flex-start;
+
+  width:
+    100%;
+
+  padding:
+    0 18px 0 0;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  color:
+    var(--approach-white);
+
+  text-align:
+    left;
+
+  cursor:
+    pointer;
+}
+
+/* =========================================================
+   CENTER THE NODE OVER LINE
+========================================================= */
+
+.pjdev-approach__flow-step
+  .pjdev-approach__flow-node {
+  position:
+    relative;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    18px;
+
+  height:
+    18px;
+
+  margin-bottom:
+    18px;
+
+  border:
+    2px solid
+    #5f9bff;
+
+  border-radius:
+    50%;
+
+  background:
+    #081128;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.pjdev-approach__flow-node span {
+  width:
+    0;
+
+  height:
+    0;
+
+  border-radius:
+    50%;
+
+  background:
+    #68a0ff;
+
+  transition:
+    width 0.25s ease,
+    height 0.25s ease;
+}
+
+/* =========================================================
+   ACTIVE NODE
+========================================================= */
+
+.pjdev-approach__flow-step--active
+  .pjdev-approach__flow-node {
+  width:
+    21px;
+
+  height:
+    21px;
+
+  margin-top:
+    -1px;
+
+  margin-bottom:
+    17px;
+
+  border:
+    0;
+
+  background:
+    #70a0ff;
+
+  box-shadow:
+    0 0 0 6px
+    rgba(
+      72,
+      129,
+      245,
+      0.15
+    ),
+    0 0 14px
+    rgba(
+      72,
+      129,
+      245,
+      0.28
+    );
+}
+
+.pjdev-approach__flow-step--active
+  .pjdev-approach__flow-node span {
+  width:
+    9px;
+
+  height:
+    9px;
+
+  background:
+    #9ec2ff;
+}
+
+/* =========================================================
+   FLOW TITLE
+========================================================= */
+
+.pjdev-approach__flow-title {
+  display:
+    block;
+
+  color:
+    #eaf0ff;
+
+  font-family:
+    var(
+      --pjdev-font-display,
+      "Poppins",
+      sans-serif
+    );
+
+  font-size:
+    1.45rem;
+
+  font-weight:
+    700;
+
+  line-height:
+    1.15;
+
+  letter-spacing:
+    -0.02em;
+
+  transition:
+    color 0.25s ease;
+}
+
+/* =========================================================
+   ACTIVE TITLE
+========================================================= */
+
+.pjdev-approach__flow-step--active
+  .pjdev-approach__flow-title {
+  color:
+    #67a2ff;
+}
+
+/* =========================================================
+   FLOW SUBTITLE
+========================================================= */
+
+.pjdev-approach__flow-sub {
+  display:
+    block;
+
+  margin-top:
+    5px;
+
+  color:
+    #8ea3c7;
+
+  font-size:
+    0.94rem;
+
+  line-height:
+    1.4;
+}
+
+/* =========================================================
+   FLOW HOVER
+========================================================= */
+
+.pjdev-approach__flow-step:hover
+  .pjdev-approach__flow-node {
+  transform:
+    scale(1.08);
+
+  border-color:
+    #7ab2ff;
+}
+
+.pjdev-approach__flow-step:hover
+  .pjdev-approach__flow-title {
+  color:
+    #6da6ff;
+}
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.pjdev-approach__flow-step:focus-visible {
+  outline:
+    2px solid
+    #5f9dff;
+
+  outline-offset:
+    5px;
+
+  border-radius:
+    6px;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+  .pjdev-approach__wrap {
+    width:
+      min(
+        920px,
+        calc(100% - 48px)
+      );
+  }
+
+  .pjdev-approach__claim {
+    font-size:
+      clamp(
+        3rem,
+        8vw,
+        5.5rem
+      );
+  }
+
+  .pjdev-approach__band {
+    padding:
+      32px;
+  }
+
+  .pjdev-approach__flow-title {
+    font-size:
+      1.2rem;
+  }
+
+  .pjdev-approach__flow-sub {
+    font-size:
+      0.84rem;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+  .pjdev-approach__blocks {
+    flex-direction:
+      column;
+
+    min-height:
+      0;
+
+    margin-top:
+      44px;
+  }
+
+  .pjdev-approach__block {
+    flex:
+      none;
+  }
+
+  .pjdev-approach__block--active {
+    flex-grow:
+      0;
+  }
+
+  .pjdev-approach__flow {
+    grid-template-columns:
+      1fr;
+  }
+
+  .pjdev-approach__flow-line {
+    left:
+      8px;
+
+    right:
+      auto;
+
+    top:
+      0;
+
+    bottom:
+      0;
+
+    width:
+      2px;
+
+    height:
+      auto;
+  }
+
+  .pjdev-approach__flow-progress {
+    width:
+      100% !important;
+
+    height:
+      0;
+
+    transition:
+      height 0.45s ease;
+  }
+
+  .pjdev-approach__flow-step {
+    min-height:
+      86px;
+
+    padding:
+      0 0 0 38px;
+  }
+
+  .pjdev-approach__flow-step
+    .pjdev-approach__flow-node {
+    position:
+      absolute;
+
+    left:
+      0;
+
+    top:
+      0;
+
+    margin:
+      0;
+  }
+
+  .pjdev-approach__flow-step--active
+    .pjdev-approach__flow-node {
+    margin:
+      0;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .pjdev-approach {
+    padding:
+      70px
+      0;
+  }
+
+  .pjdev-approach__wrap {
+    width:
+      calc(100% - 28px);
+  }
+
+  .pjdev-approach__title {
+    font-size:
+      1.55rem;
+  }
+
+  .pjdev-approach__claim {
+    font-size:
+      clamp(
+        2.6rem,
+        12vw,
+        4rem
+      );
+  }
+
+  .pjdev-approach__lead {
+    font-size:
+      0.95rem;
+  }
+
+  .pjdev-approach__band {
+    margin-top:
+      52px;
+
+    padding:
+      25px 21px 30px;
+  }
+
+  .pjdev-approach__band-caption {
+    margin-bottom:
+      30px;
+
+    font-size:
+      0.85rem;
+  }
+
+  .pjdev-approach__flow-title {
+    font-size:
+      1.12rem;
+  }
+
+  .pjdev-approach__flow-sub {
+    font-size:
+      0.8rem;
+  }
+}
+
+/* =========================================================
+   EXTRA SMALL
+========================================================= */
+
+@media (max-width: 430px) {
+  .pjdev-approach__wrap {
+    width:
+      calc(100% - 20px);
+  }
+
+  .pjdev-approach__claim {
+    font-size:
+      2.55rem;
+  }
+
+  .pjdev-approach__block-head {
+    min-height:
+      138px;
+
+    padding:
+      20px;
+  }
+
+  .pjdev-approach__points {
+    padding:
+      0 20px;
+  }
+
+  .pjdev-approach__band {
+    padding:
+      22px 18px 28px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pjdev-approach__rv {
+    opacity:
+      1;
+
+    transform:
+      none;
+
+    transition:
+      none;
+  }
+
+  .pjdev-approach__claim {
+    animation:
+      none;
+  }
+
+  .pjdev-approach__block,
+  .pjdev-approach__panel,
+  .pjdev-approach__flow-progress {
+    transition:
+      none;
+  }
+}

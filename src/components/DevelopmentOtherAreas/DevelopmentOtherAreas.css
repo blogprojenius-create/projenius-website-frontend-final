@@ -1,0 +1,20 @@
+/* =====================================================================
+   DevelopmentOtherAreas.css  (all classes start with pjdev-areas)
+   Keeps the three ProJenius business areas clearly separate.
+   ===================================================================== */
+.pjdev-areas { padding: 48px 0 56px; border-top: 1px solid var(--pjdev-dline); }
+.pjdev-areas__wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+.pjdev-areas__card {
+  display: block;
+  padding: 22px 24px;
+  border: 1px solid var(--pjdev-dline);
+  border-radius: var(--pjdev-r-md);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s var(--pjdev-ease);
+}
+.pjdev-areas__card:hover { border-color: var(--pjdev-dline-strong); background: rgba(255, 255, 255, 0.03); transform: translateY(-2px); }
+.pjdev-areas__name { display: block; font-family: var(--pjdev-font-display); font-size: 1.1rem; font-weight: 700; }
+.pjdev-areas__text { display: block; margin-top: 6px; font-size: 0.92rem; color: var(--pjdev-dmuted); }
+.pjdev-areas__more { display: block; margin-top: 10px; font-size: 0.88rem; font-style: normal; font-weight: 600; color: var(--pjdev-dcyan); }
+@media (max-width: 720px) {
+  .pjdev-areas__wrap { grid-template-columns: 1fr; }
+}

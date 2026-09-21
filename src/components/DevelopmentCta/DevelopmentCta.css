@@ -1,0 +1,61 @@
+/* =====================================================================
+   DevelopmentCta.css  (all classes start with pjdev-cta)
+   ===================================================================== */
+.pjdev-cta {
+  position: relative;
+  padding: clamp(88px, 12vw, 170px) 0 clamp(72px, 9vw, 120px);
+  overflow-x: clip;
+  text-align: center;
+  scroll-margin-top: calc(var(--pjdev-header-h) + var(--pjdev-subnav-h) + 12px);
+}
+.pjdev-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--pjdev-dline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pjdev-dline) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.45;
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, #000, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 40%, #000, transparent 75%);
+  pointer-events: none;
+}
+.pjdev-cta::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  width: 80%;
+  height: 70%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(29, 92, 255, 0.28), transparent);
+  pointer-events: none;
+}
+.pjdev-cta__wrap { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+.pjdev-cta__title {
+  max-width: 16ch;
+  margin-inline: auto;
+  font-size: clamp(2.3rem, 5.6vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variation-settings: "wdth" 84;
+}
+.pjdev-cta__lead { max-width: 60ch; margin: 26px auto 0; font-size: clamp(1.02rem, 1.3vw, 1.2rem); color: var(--pjdev-muted); }
+.pjdev-cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 36px; }
+.pjdev-cta__flow { margin-top: clamp(56px, 7vw, 96px); }
+.pjdev-cta__final { margin-top: 56px; font-family: var(--pjdev-font-display); font-size: clamp(1.25rem, 2.4vw, 1.9rem); font-weight: 600; line-height: 1.3; color: var(--pjdev-ink); }
+.pjdev-cta__final-accent { display: block; background: var(--pjdev-grad-d); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.pjdev-cta__rv { opacity: 0; transform: translateY(18px); transition: opacity 0.8s var(--pjdev-ease), transform 0.8s var(--pjdev-ease); }
+.pjdev-cta__rv--d1 { transition-delay: 0.1s; }
+.pjdev-cta__rv--d2 { transition-delay: 0.2s; }
+.pjdev-cta--in .pjdev-cta__rv { opacity: 1; transform: none; }
+
+@media (max-width: 720px) {
+  .pjdev-cta__actions .pjdevbtn { flex: 1 1 auto; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pjdev-cta__rv { opacity: 1; transform: none; transition: none; }
+}

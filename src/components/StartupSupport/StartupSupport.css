@@ -1,0 +1,1097 @@
+/* =========================================================
+   STARTUP SUPPORT
+========================================================= */
+
+.startupSupport {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+
+  position: relative;
+
+  width: 100%;
+  min-height: 700px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 76% 48%,
+      rgba(8, 73, 115, 0.22),
+      transparent 38%
+    ),
+    #030914;
+
+  color: #fff;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.startupSupport__grid {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(80, 120, 160, 0.065) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(80, 120, 160, 0.065) 1px,
+      transparent 1px
+    );
+
+  background-size: 43px 43px;
+
+  z-index: -4;
+}
+
+
+/* =========================================================
+   CURSOR BLUE GLOW
+========================================================= */
+
+.startupSupport__cursorGlow {
+  position: absolute;
+
+  left: var(--mouse-x);
+  top: var(--mouse-y);
+
+  width: 430px;
+  height: 430px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(28, 182, 240, 0.12),
+      rgba(28, 182, 240, 0.035) 38%,
+      transparent 72%
+    );
+
+  filter: blur(12px);
+
+  pointer-events: none;
+
+  z-index: -2;
+
+  transition:
+    left 0.08s linear,
+    top 0.08s linear;
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT
+========================================================= */
+
+.startupSupport__ambient {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(110px);
+
+  pointer-events: none;
+
+  z-index: -3;
+}
+
+
+.startupSupport__ambient--one {
+  width: 400px;
+  height: 400px;
+
+  right: 5%;
+  top: 20%;
+
+  background:
+    rgba(0, 123, 220, 0.09);
+}
+
+
+.startupSupport__ambient--two {
+  width: 300px;
+  height: 300px;
+
+  right: 25%;
+  bottom: -15%;
+
+  background:
+    rgba(0, 210, 255, 0.06);
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.startupSupport__container {
+  position: relative;
+
+  width: 100%;
+  max-width: 1500px;
+
+  min-height: 700px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    52% 48%;
+
+  padding:
+    0 18px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.startupSupport__content {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding:
+    45px 20px 45px 0;
+
+  animation:
+    startupContentReveal
+    0.8s
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
+    both;
+}
+
+
+@keyframes startupContentReveal {
+
+  from {
+    opacity: 0;
+    transform:
+      translateX(-35px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0);
+  }
+
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.startupSupport__eyebrow {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
+
+  color: #6ea8df;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 2.8px;
+}
+
+
+.startupSupport__eyebrow span {
+  width: 27px;
+  height: 2px;
+
+  background:
+    #6aa8e6;
+
+  box-shadow:
+    0 0 10px
+    rgba(75, 166, 238, 0.6);
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.startupSupport__heading {
+  margin: 0;
+
+  max-width: 650px;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size:
+    clamp(
+      45px,
+      4.7vw,
+      68px
+    );
+
+  font-weight: 700;
+
+  line-height: 1.02;
+
+  letter-spacing:
+    -3px;
+
+  color:
+    #f3f6fd;
+}
+
+
+.startupSupport__heading span {
+  display: block;
+
+  background:
+    linear-gradient(
+      90deg,
+      #70a8f2 0%,
+      #40b9ed 50%,
+      #31d1e9 100%
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.startupSupport__description {
+  max-width: 620px;
+
+  margin:
+    28px 0 32px;
+
+  color:
+    #9eafc5;
+
+  font-family:
+    "Segoe UI",
+    sans-serif;
+
+  font-size:
+    16px;
+
+  line-height:
+    1.7;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.startupSupport__buttons {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+.startupSupport__primary,
+.startupSupport__secondary {
+  height: 50px;
+
+  padding:
+    0 22px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 13px;
+
+  border-radius:
+    7px;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size:
+    14px;
+
+  font-weight:
+    500;
+
+  cursor:
+    pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+.startupSupport__primary {
+  border: 0;
+
+  background:
+    linear-gradient(
+      100deg,
+      #63a8f3,
+      #29cfe7
+    );
+
+  color:
+    #03121b;
+
+  box-shadow:
+    0 8px 25px
+    rgba(34, 182, 235, 0.14);
+}
+
+
+.startupSupport__primary:hover {
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 13px 32px
+    rgba(34, 182, 235, 0.3);
+}
+
+
+.startupSupport__primary span {
+  font-size:
+    18px;
+
+  transition:
+    transform 0.25s ease;
+}
+
+
+.startupSupport__primary:hover span {
+  transform:
+    translateX(4px);
+}
+
+
+.startupSupport__secondary {
+  border:
+    1px solid
+    rgba(87, 131, 172, 0.42);
+
+  background:
+    rgba(3, 13, 27, 0.65);
+
+  color:
+    #d3ddeb;
+}
+
+
+.startupSupport__secondary:hover {
+  transform:
+    translateY(-3px);
+
+  border-color:
+    rgba(46, 194, 237, 0.7);
+
+  box-shadow:
+    0 10px 30px
+    rgba(26, 180, 230, 0.13);
+}
+
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.startupSupport__hint {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top:
+    30px;
+
+  color:
+    #657b98;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size:
+    11px;
+
+  letter-spacing:
+    0.1px;
+}
+
+
+.startupSupport__hint > span {
+  width: 8px;
+  height: 8px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background:
+    #2acbe8;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(42, 203, 232, 0.08),
+    0 0 15px
+    rgba(42, 203, 232, 0.7);
+
+  animation:
+    hintPulse
+    2.5s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes hintPulse {
+
+  0%,
+  100% {
+    transform:
+      scale(1);
+  }
+
+  50% {
+    transform:
+      scale(1.25);
+  }
+
+}
+
+
+/* =========================================================
+   ROUTE PANEL
+========================================================= */
+
+.startupSupport__route {
+  position: relative;
+
+  width: 100%;
+
+  height: 700px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   TICKS
+========================================================= */
+
+.startupSupport__ticks {
+  position: absolute;
+
+  left: 0;
+
+  top: 0;
+
+  width: 20px;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content:
+    space-around;
+
+  z-index: 3;
+}
+
+
+.startupSupport__ticks span {
+  width: 9px;
+  height: 1px;
+
+  background:
+    rgba(89, 134, 173, 0.35);
+}
+
+
+.startupSupport__ticks span:nth-child(3n) {
+  width: 15px;
+}
+
+
+/* =========================================================
+   SVG
+
+   IMPORTANT:
+   fixed aspect ratio keeps the reference geometry intact
+========================================================= */
+
+.startupSupport__svg {
+  width:
+    min(
+      547px,
+      100%
+    );
+
+  height:
+    606px;
+
+  display:
+    block;
+
+  overflow:
+    visible;
+
+  flex-shrink:
+    0;
+}
+
+
+/* =========================================================
+   IDEA ORBIT
+========================================================= */
+
+.startupSupport__ideaOrbit {
+  fill:
+    none;
+
+  stroke:
+    rgba(67, 130, 182, 0.18);
+
+  stroke-width:
+    1;
+}
+
+
+.startupSupport__ideaOrbit--outer {
+  stroke:
+    rgba(67, 130, 182, 0.09);
+
+  stroke-dasharray:
+    2 7;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  animation:
+    ideaOrbitRotate
+    28s
+    linear
+    infinite;
+}
+
+
+@keyframes ideaOrbitRotate {
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+/* =========================================================
+   NODE HALOS
+========================================================= */
+
+.startupSupport__halo {
+  fill:
+    none;
+
+  stroke:
+    rgba(39, 177, 224, 0.16);
+
+  stroke-width:
+    1;
+}
+
+
+.startupSupport__halo--outer {
+  stroke:
+    rgba(39, 177, 224, 0.07);
+
+  stroke-dasharray:
+    2 7;
+}
+
+
+/* =========================================================
+   ROUTE GLOW
+========================================================= */
+
+.startupSupport__routeGlow {
+  fill:
+    none;
+
+  stroke:
+    rgba(39, 196, 242, 0.32);
+
+  stroke-width:
+    9px;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+
+  filter:
+    blur(5px);
+}
+
+
+/* =========================================================
+   MAIN ROUTE
+========================================================= */
+
+.startupSupport__routeLine {
+  fill:
+    none;
+
+  stroke:
+    #35c9f1;
+
+  stroke-width:
+    2.5px;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+
+  stroke-dasharray:
+    9 5;
+
+  filter:
+    drop-shadow(
+      0 0 4px
+      rgba(38, 201, 241, 0.95)
+    )
+    drop-shadow(
+      0 0 10px
+      rgba(30, 165, 225, 0.45)
+    );
+
+  animation:
+    routeDash
+    3s
+    linear
+    infinite;
+}
+
+
+@keyframes routeDash {
+
+  from {
+    stroke-dashoffset:
+      0;
+  }
+
+  to {
+    stroke-dashoffset:
+      -28;
+  }
+
+}
+
+
+/* =========================================================
+   TRAVELLING WHITE DOT
+========================================================= */
+
+.startupSupport__travelDot {
+  fill:
+    #ffffff;
+
+  opacity:
+    0.95;
+
+  filter:
+    drop-shadow(
+      0 0 4px
+      #ffffff
+    )
+    drop-shadow(
+      0 0 9px
+      #32d0f2
+    );
+}
+
+
+/* =========================================================
+   SVG NODE
+========================================================= */
+
+.startupSupport__node {
+  fill:
+    #061321;
+
+  stroke:
+    #31c8ef;
+
+  stroke-width:
+    1.5;
+}
+
+
+.startupSupport__nodeDot {
+  fill:
+    #37cfea;
+
+  filter:
+    url(#startupNodeGlow);
+}
+
+
+/* =========================================================
+   SVG TITLES
+========================================================= */
+
+.startupSupport__title {
+  fill:
+    #e7edf7;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size:
+    14px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    2px;
+
+  paint-order:
+    stroke;
+
+  stroke:
+    transparent;
+
+  transition:
+    fill 0.25s ease;
+}
+
+
+.startupSupport__title--right {
+  text-anchor:
+    start;
+}
+
+
+/* =========================================================
+   SVG DESCRIPTIONS
+========================================================= */
+
+.startupSupport__description {
+  fill:
+    #8495ad;
+
+  font-family:
+    "Segoe UI",
+    sans-serif;
+
+  font-size:
+    12px;
+
+  font-weight:
+    400;
+}
+
+
+.startupSupport__description--right {
+  text-anchor:
+    start;
+}
+
+
+/* =========================================================
+   STAGE HOVER
+========================================================= */
+
+.startupSupport__stage {
+  cursor:
+    pointer;
+
+  transition:
+    filter 0.25s ease;
+}
+
+
+.startupSupport__stage:hover {
+  filter:
+    drop-shadow(
+      0 0 9px
+      rgba(43, 207, 243, 0.55)
+    );
+}
+
+
+.startupSupport__stage:hover .startupSupport__node {
+  stroke:
+    #64e0fb;
+
+  filter:
+    drop-shadow(
+      0 0 9px
+      rgba(39, 206, 245, 0.8)
+    );
+}
+
+
+.startupSupport__stage:hover .startupSupport__title {
+  fill:
+    #58d9f5;
+}
+
+
+/* =========================================================
+   VERTICAL TEXT
+========================================================= */
+
+.startupSupport__verticalText {
+  fill:
+    #64758d;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size:
+    9px;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    2px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .startupSupport__container {
+    grid-template-columns:
+      51% 49%;
+  }
+
+  .startupSupport__heading {
+    font-size:
+      clamp(
+        42px,
+        5vw,
+        58px
+      );
+  }
+
+  .startupSupport__description {
+    font-size:
+      15px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .startupSupport__container {
+    display:
+      flex;
+
+    flex-direction:
+      column;
+
+    padding:
+      60px 20px 40px;
+  }
+
+  .startupSupport__content {
+    padding:
+      0 0 55px;
+  }
+
+  .startupSupport__route {
+    height:
+      606px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+
+  .startupSupport {
+    min-height:
+      auto;
+  }
+
+  .startupSupport__container {
+    padding:
+      50px 15px 35px;
+  }
+
+  .startupSupport__heading {
+    font-size:
+      clamp(
+        37px,
+        10vw,
+        50px
+      );
+
+    letter-spacing:
+      -2px;
+  }
+
+  .startupSupport__description {
+    font-size:
+      14px;
+
+    line-height:
+      1.65;
+  }
+
+  .startupSupport__buttons {
+    flex-direction:
+      column;
+
+    width:
+      100%;
+  }
+
+  .startupSupport__primary,
+  .startupSupport__secondary {
+    width:
+      100%;
+  }
+
+  .startupSupport__route {
+    height:
+      606px;
+  }
+
+  .startupSupport__svg {
+    width:
+      547px;
+
+    max-width:
+      none;
+
+    transform:
+      scale(
+        calc(
+          (100vw - 30px) / 547
+        )
+      );
+
+    transform-origin:
+      center top;
+  }
+
+  .startupSupport__ticks {
+    display:
+      none;
+  }
+
+  .startupSupport__verticalText {
+    display:
+      none;
+  }
+
+  .startupSupport__cursorGlow {
+    display:
+      none;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .startupSupport__routeLine,
+  .startupSupport__ideaOrbit--outer,
+  .startupSupport__travelDot,
+  .startupSupport__hint > span {
+    animation:
+      none !important;
+  }
+
+}
