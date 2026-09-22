@@ -1,0 +1,54 @@
+/* HomepageMagazineIntro.css */
+
+.hpmag-intro__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 22px;
+  font: 600 0.74rem/1 var(--hpmag-font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hpmag-link);
+}
+.hpmag-intro__eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 1.5px;
+  background: currentColor;
+}
+
+.hpmag-intro__headline {
+  margin: 0;
+  font-family: var(--hpmag-font-display);
+  font-weight: 800;
+  font-size: clamp(2.45rem, 4.4vw, 3.9rem);
+  line-height: 1;
+  letter-spacing: -0.042em;
+  color: var(--hpmag-ink);
+}
+.hpmag-intro__headline span {
+  display: block;
+}
+
+.hpmag-intro__rule {
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin: 26px 0 22px;
+  border-radius: 4px;
+  background: var(--hpmag-brand);
+}
+
+.hpmag-intro__lede {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--hpmag-muted);
+}
+
+@media (max-width: 900px) {
+  .hpmag-intro__headline { font-size: clamp(2.3rem, 9.4vw, 3.1rem); }
+  .hpmag-intro__rule { margin: 20px 0 18px; }
+  .hpmag-intro__lede { font-size: 0.98rem; }
+}

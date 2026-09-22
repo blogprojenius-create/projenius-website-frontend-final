@@ -1,3 +1,582 @@
-import { useEffect, useState } from 'react'; import { Link, useParams } from 'react-router-dom'; import { ArrowLeft, CalendarDays, MapPin, PlayCircle } from 'lucide-react'; import { getNews, getNewsItem, mediaUrl } from '../services/contentApi'; import { contentTypeLabel, displayCategory, formatDate, ErrorState, normalizeContentType } from '../components/ContentUI'; import './DynamicPages.css'; export default function NewsDetailsPage() { const { id } = useParams(); const [x, setX] = useState(), [e, setE] = useState(''), [l, setL] = useState(true); useEffect(() => { document.title = x?.seoTitle || x?.title || 'News & Insights | ProJenius'; let m = document.querySelector('meta[name=description]'); if (m) m.setAttribute('content', x?.metaDescription || x?.description || 'News & Insights from ProJenius.'); (async () => { try { let a; try { a = await getNewsItem(id) } catch { const all = await getNews('?limit=100'); a = all.find(v => String(v._id) === String(id) || v.slug === id) } if (!a) throw Error('Content not found.'); setX(a) } catch (v) { setE(v.message) } finally { setL(false) } })() }, [id]); if (l) return <main className="detail-page"><div className="container"><div className="detail-loading" /></div></main>; if (e) return <main className="detail-page"><div className="container"><ErrorState message={e} /><Link className="back-link" to="/blog"><ArrowLeft /> Back to News & Insights</Link></div></main>; const gallery = Array.isArray(x.galleryImages) ? x.galleryImages : []; return <main className="article-page"><div className="container"><Link className="back-link" to="/blog"><ArrowLeft /> Back to News & Insights</Link><article><header className="article-header"><span className="eyebrow">{contentTypeLabel(x.contentType)} · {displayCategory(x)}</span><h1>{x.title}</h1><p className="article-lead">{x.description}</p><div className="article-byline"><span>{x.author?.name || x.authorName || 'ProJenius Team'}</span>{x.eventDate && <span><CalendarDays />{formatDate(x.eventDate)}</span>}{x.venue && <span><MapPin />{x.venue}</span>}</div></header>{x.thumbnailUrl && <img className="article-cover" src={mediaUrl(x.thumbnailUrl)} alt={x.title} />} {normalizeContentType(x.contentType) === 'technology-video' && (x.youtubeUrl || x.videoUrl || x.videoFileUrl) && <div className="video-embed">{(x.youtubeUrl || x.videoUrl) ? <iframe src={embed(x.youtubeUrl || x.videoUrl)} title={x.title} allowFullScreen /> : <video src={mediaUrl(x.videoFileUrl)} controls playsInline preload="metadata" />}</div>}<div className="article-layout"><div className="article-body" dangerouslySetInnerHTML={{ __html: safeHtml(x.content || '<p>Content coming soon.</p>') }} />{normalizeContentType(x.contentType) === 'event' && <aside className="event-card"><span className="eyebrow">Event Details</span>{x.eventDate && <p><CalendarDays /><b>Date</b><span>{formatDate(x.eventDate)}</span></p>}{x.venue && <p><MapPin /><b>Venue</b><span>{x.venue}</span></p>}{x.eventType && <p><PlayCircle /><b>Event Type</b><span>{x.eventType}</span></p>}{x.eventStatus && <p><b>Status</b><span>{x.eventStatus}</span></p>}{x.registrationLink && <a href={x.registrationLink} target="_blank" rel="noreferrer">Register / Learn More</a>}</aside>}</div>{gallery.length > 1 && <div className="article-gallery">{gallery.map((s, i) => <img key={i} src={mediaUrl(s)} alt={`${x.title} ${i + 1}`} />)}</div>}</article></div></main> } function embed(v) { try { const u = new URL(v); if (u.hostname.includes('youtube.com')) { const id = u.searchParams.get('v'); return id ? `https://www.youtube.com/embed/${id}` : v } if (u.hostname === 'youtu.be') return `https://www.youtube.com/embed${u.pathname}`; return v } catch { return v } }
+import { useEffect, useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  Clock3,
+  UserRound,
+  Tag,
+  Sparkles,
+  Play,
+  Newspaper,
+} from "lucide-react";
 
-function safeHtml(html) { const doc = new DOMParser().parseFromString(String(html), 'text/html'); doc.querySelectorAll('script,style,object,embed').forEach(n => n.remove()); doc.querySelectorAll('*').forEach(n => { [...n.attributes].forEach(a => { if (/^on/i.test(a.name)) n.removeAttribute(a.name) }); if (n.tagName === 'IFRAME') { const src = n.getAttribute('src') || ''; if (!/^https:\/\/(www\.)?(youtube\.com|youtube-nocookie\.com)\//i.test(src)) n.remove() } }); return doc.body.innerHTML }
+import {
+  getNewsItem,
+  mediaUrl,
+} from "../services/contentApi";
+
+import { ErrorState } from "../components/ContentUI";
+
+import "./NewsDetails.css";
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function formatDate(value) {
+  if (!value) return "Recently";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function getAuthor(item) {
+  if (typeof item?.author === "string") {
+    return item.author;
+  }
+
+  return (
+    item?.author?.name ||
+    item?.createdBy?.name ||
+    "ProJenius Team"
+  );
+}
+
+function getTags(item) {
+  if (!Array.isArray(item?.tags)) {
+    return [];
+  }
+
+  return item.tags.filter(Boolean);
+}
+
+function getContent(item) {
+  return (
+    item?.content ||
+    item?.body ||
+    item?.description ||
+    item?.excerpt ||
+    ""
+  );
+}
+
+function getType(item) {
+  return (
+    item?.type ||
+    item?.contentType ||
+    "Article"
+  );
+}
+
+function getCategory(item) {
+  return (
+    item?.category ||
+    item?.categoryName ||
+    "News & Insights"
+  );
+}
+
+/* =========================================================
+   YOUTUBE HELPER
+========================================================= */
+
+function getYouTubeEmbed(url) {
+  if (!url) return "";
+
+  try {
+    const parsed = new URL(url);
+
+    if (
+      parsed.hostname.includes("youtube.com") ||
+      parsed.hostname.includes("youtu.be")
+    ) {
+      if (parsed.hostname.includes("youtu.be")) {
+        return `https://www.youtube.com/embed/${parsed.pathname.slice(
+          1
+        )}`;
+      }
+
+      const videoId = parsed.searchParams.get("v");
+
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+
+      if (parsed.pathname.includes("/embed/")) {
+        return url;
+      }
+    }
+  } catch {
+    return "";
+  }
+
+  return "";
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+export default function NewsDetailsPage() {
+  const { id } = useParams();
+
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  /* =======================================================
+     LOAD
+  ======================================================= */
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadNews() {
+      try {
+        setLoading(true);
+        setError("");
+
+        if (!id) {
+          throw new Error(
+            "News article identifier is missing."
+          );
+        }
+
+        const data = await getNewsItem(id);
+
+        if (!cancelled) {
+          setItem(data);
+
+          if (data?.title) {
+            document.title = `${data.title} | ProJenius`;
+          }
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(
+            err?.message ||
+              "Unable to load this article."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadNews();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  /* =======================================================
+     DATA
+  ======================================================= */
+
+  const tags = useMemo(
+    () => getTags(item),
+    [item]
+  );
+
+  const articleContent = getContent(item);
+
+  const author = getAuthor(item);
+  const type = getType(item);
+  const category = getCategory(item);
+
+  const videoUrl =
+    item?.videoUrl ||
+    item?.youtubeUrl ||
+    item?.video ||
+    "";
+
+  const youtubeEmbed = getYouTubeEmbed(videoUrl);
+
+  /* =======================================================
+     LOADING
+  ======================================================= */
+
+  if (loading) {
+    return (
+      <main className="news-details-page">
+        <div className="news-details-container">
+          <div className="news-details-loading">
+
+            <div className="news-loading-card">
+              <div className="news-loading-image" />
+              <div className="news-loading-line" />
+              <div className="news-loading-line news-loading-short" />
+              <div className="news-loading-line news-loading-small" />
+            </div>
+
+            <div className="news-loading-content">
+              <div className="news-loading-line news-loading-category" />
+              <div className="news-loading-line news-loading-title" />
+              <div className="news-loading-line" />
+              <div className="news-loading-line news-loading-medium" />
+            </div>
+
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  /* =======================================================
+     ERROR
+  ======================================================= */
+
+  if (error || !item) {
+    return (
+      <main className="news-details-page">
+        <div className="news-details-container">
+
+          <div className="news-details-error">
+            <ErrorState
+              message={
+                error ||
+                "News article not found."
+              }
+            />
+
+            <Link
+              to="/news-insights"
+              className="news-details-back"
+            >
+              <ArrowLeft size={18} />
+              Back to News & Insights
+            </Link>
+          </div>
+
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="news-details-page">
+      <div className="news-details-container">
+
+        {/* =================================================
+            BACK
+        ================================================= */}
+
+        <Link
+          to="/news-insights"
+          className="news-details-back"
+        >
+          <ArrowLeft size={18} />
+          Back to News & Insights
+        </Link>
+
+        <div className="news-details-layout">
+
+          {/* =================================================
+              LEFT STICKY CARD
+          ================================================= */}
+
+          <aside className="news-details-sidebar">
+            <div className="news-details-card">
+
+              {/* IMAGE */}
+              <div className="news-details-card-image">
+
+                {item.image ? (
+                  <img
+                    src={mediaUrl(item.image)}
+                    alt={item.title}
+                  />
+                ) : (
+                  <div className="news-details-placeholder">
+                    <Newspaper size={38} />
+                    <span>ProJenius</span>
+                  </div>
+                )}
+
+                <span className="news-details-card-badge">
+                  <Sparkles size={12} />
+                  {type}
+                </span>
+
+              </div>
+
+              {/* INFORMATION */}
+              <div className="news-details-card-body">
+
+                <div className="news-details-card-category">
+                  <Tag size={14} />
+                  {category}
+                </div>
+
+                {/* DATE */}
+                <div className="news-card-info">
+
+                  <div className="news-card-info-item">
+                    <span>
+                      <CalendarDays size={16} />
+                    </span>
+
+                    <div>
+                      <small>Published</small>
+                      <strong>
+                        {formatDate(
+                          item.publishedAt ||
+                            item.createdAt ||
+                            item.date
+                        )}
+                      </strong>
+                    </div>
+                  </div>
+
+                  {/* READ TIME */}
+                  {(item.readTime ||
+                    item.readingTime) && (
+                    <div className="news-card-info-item">
+                      <span>
+                        <Clock3 size={16} />
+                      </span>
+
+                      <div>
+                        <small>Read Time</small>
+                        <strong>
+                          {item.readTime ||
+                            item.readingTime}
+                        </strong>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* AUTHOR */}
+                  <div className="news-card-info-item">
+                    <span>
+                      <UserRound size={16} />
+                    </span>
+
+                    <div>
+                      <small>Author</small>
+                      <strong>{author}</strong>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* SHARE / ACTION */}
+                <a
+                  href="#news-content"
+                  className="news-details-card-button"
+                >
+                  <span>
+                    Read Article
+                  </span>
+
+                  <ArrowRight size={17} />
+                </a>
+
+              </div>
+
+            </div>
+          </aside>
+
+          {/* =================================================
+              RIGHT ARTICLE
+          ================================================= */}
+
+          <article
+            className="news-details-main"
+            id="news-content"
+          >
+
+            {/* HEADER */}
+            <header className="news-details-header">
+
+              <div className="news-details-pills">
+
+                <span className="news-pill news-pill-blue">
+                  <Tag size={13} />
+                  {category}
+                </span>
+
+                <span className="news-pill news-pill-purple">
+                  <Sparkles size={13} />
+                  {type}
+                </span>
+
+              </div>
+
+              <h1>{item.title}</h1>
+
+              {(item.excerpt ||
+                item.description) && (
+                <p className="news-details-lead">
+                  {item.excerpt ||
+                    item.description}
+                </p>
+              )}
+
+              <div className="news-details-meta">
+
+                <div>
+                  <CalendarDays size={16} />
+                  {formatDate(
+                    item.publishedAt ||
+                      item.createdAt ||
+                      item.date
+                  )}
+                </div>
+
+                <div>
+                  <UserRound size={16} />
+                  {author}
+                </div>
+
+                {(item.readTime ||
+                  item.readingTime) && (
+                  <div>
+                    <Clock3 size={16} />
+                    {item.readTime ||
+                      item.readingTime}
+                  </div>
+                )}
+
+              </div>
+
+            </header>
+
+            {/* =================================================
+                FEATURE IMAGE
+            ================================================= */}
+
+            {item.image && (
+              <div className="news-details-main-image">
+                <img
+                  src={mediaUrl(item.image)}
+                  alt={item.title}
+                />
+              </div>
+            )}
+
+            {/* =================================================
+                VIDEO
+            ================================================= */}
+
+            {youtubeEmbed && (
+              <section className="news-video-section">
+                <div className="news-section-label">
+                  <Play size={14} />
+                  Watch
+                </div>
+
+                <div className="news-video-wrapper">
+                  <iframe
+                    src={youtubeEmbed}
+                    title={item.title}
+                    loading="lazy"
+                    allow="
+                      accelerometer;
+                      autoplay;
+                      clipboard-write;
+                      encrypted-media;
+                      gyroscope;
+                      picture-in-picture;
+                      web-share
+                    "
+                    allowFullScreen
+                  />
+                </div>
+              </section>
+            )}
+
+            {/* =================================================
+                CONTENT
+            ================================================= */}
+
+            <section className="news-article-content">
+
+              <div className="news-section-label">
+                <Newspaper size={14} />
+                News & Insights
+              </div>
+
+              <div
+                className="news-rich-content"
+                dangerouslySetInnerHTML={{
+                  __html: articleContent,
+                }}
+              />
+
+            </section>
+
+            {/* =================================================
+                TAGS
+            ================================================= */}
+
+            {tags.length > 0 && (
+              <section className="news-tags-section">
+
+                <span className="news-section-label">
+                  <Tag size={14} />
+                  Topics
+                </span>
+
+                <div className="news-tags">
+                  {tags.map(
+                    (tag, index) => (
+                      <span
+                        key={`${tag}-${index}`}
+                      >
+                        {tag}
+                      </span>
+                    )
+                  )}
+                </div>
+
+              </section>
+            )}
+
+            {/* =================================================
+                BOTTOM CTA
+            ================================================= */}
+
+            <div className="news-details-bottom">
+
+              <div>
+                <span>
+                  Keep exploring
+                </span>
+
+                <h2>
+                  Discover more from ProJenius
+                </h2>
+              </div>
+
+              <Link
+                to="/news-insights"
+                className="news-details-bottom-button"
+              >
+                More Insights
+                <ArrowRight size={17} />
+              </Link>
+
+            </div>
+
+          </article>
+
+        </div>
+      </div>
+    </main>
+  );
+}

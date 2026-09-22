@@ -2,13 +2,14 @@ import React from "react";
 
 import CommonHero from "../components/CommonHero/CommonHero";
 import ContactSection from "../components/ContactSection/ContactSection";
-import Magazine from "../components/Magazine/Magazine";
+// import Magazine from "../components/Magazine/Magazine";
 import EcosystemSection from "../components/EcosystemSection/EcosystemSection";
 import OurJourney from "../components/OurJourney/OurJourney";
 import FoundersSection from "../components/FoundersSection/FoundersSection";    
 import TestimonialSection from "../components/TestimonialSection/TestimonialSection";
 import AboutProJenius from "../components/AboutProJenius/AboutProJenius";
 import Achievements from "../components/Achievements/Achievements";
+import HomepageMagazine from "../components/Magazine/HomepageMagazine";
 export default function About() {
     return (
         <>
@@ -29,7 +30,8 @@ export default function About() {
             <AboutProJenius />
             <Achievements />
             <EcosystemSection />
-            <Magazine />
+            {/* <Magazine /> */}
+            <HomepageMagazine  />
             <TestimonialSection />
             <ContactSection />
         </>

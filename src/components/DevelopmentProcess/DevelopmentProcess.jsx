@@ -1,136 +1,497 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./DevelopmentProcess.css";
 
 import DevelopmentSectionHead from "../DevelopmentSectionHead/DevelopmentSectionHead";
 import DevelopmentIcon from "../DevelopmentIcon/DevelopmentIcon";
+
+/* =========================================================
+   PROCESS DATA
+========================================================= */
+
 const STAGES = [
-  { n: '01', title: 'Discover', verb: 'Understand', note: 'before anything is built', chips: ['Business', 'Users', 'Goals', 'Requirements', 'Existing systems'] },
-  { n: '02', title: 'Plan', verb: 'Define', note: 'what gets built and why', chips: ['Scope', 'Priorities', 'Features', 'User journeys', 'Solution direction'] },
-  { n: '03', title: 'Design', verb: 'Create', note: 'the experience first', chips: ['User flows', 'Wireframes', 'UI', 'Prototypes', 'Experience structure'] },
-  { n: '04', title: 'Develop', verb: 'Build', note: 'the right solution', chips: ['Website', 'Application', 'SaaS', 'AI solution', 'Automation', 'Digital platform'] },
-  { n: '05', title: 'Integrate', verb: 'Connect', note: 'everything it depends on', chips: ['APIs', 'Data', 'AI services', 'External systems', 'Required infrastructure'] },
-  { n: '06', title: 'Test', verb: 'Validate', note: 'it works for real people', chips: ['Functionality', 'Responsiveness', 'Usability', 'Performance', 'Security'] },
-  { n: '07', title: 'Deploy', verb: 'Launch', note: 'to real users', text: 'Prepare the solution for real users and launch.' },
-  { n: '08', title: 'Support', verb: 'Improve', note: 'and evolve', text: 'Maintain, monitor, improve and evolve the solution.' },
+  {
+    n: "01",
+    title: "Discover",
+    verb: "Understand",
+    note: "before anything is built",
+    chips: [
+      "Business",
+      "Users",
+      "Goals",
+      "Requirements",
+      "Existing systems",
+    ],
+  },
+  {
+    n: "02",
+    title: "Plan",
+    verb: "Define",
+    note: "what gets built and why",
+    chips: [
+      "Scope",
+      "Priorities",
+      "Features",
+      "User journeys",
+      "Solution direction",
+    ],
+  },
+  {
+    n: "03",
+    title: "Design",
+    verb: "Create",
+    note: "the experience first",
+    chips: [
+      "User flows",
+      "Wireframes",
+      "UI",
+      "Prototypes",
+      "Experience structure",
+    ],
+  },
+  {
+    n: "04",
+    title: "Develop",
+    verb: "Build",
+    note: "the right solution",
+    chips: [
+      "Website",
+      "Application",
+      "SaaS",
+      "AI solution",
+      "Automation",
+      "Digital platform",
+    ],
+  },
+  {
+    n: "05",
+    title: "Integrate",
+    verb: "Connect",
+    note: "everything it depends on",
+    chips: [
+      "APIs",
+      "Data",
+      "AI services",
+      "External systems",
+      "Required infrastructure",
+    ],
+  },
+  {
+    n: "06",
+    title: "Test",
+    verb: "Validate",
+    note: "it works for real people",
+    chips: [
+      "Functionality",
+      "Responsiveness",
+      "Usability",
+      "Performance",
+      "Security",
+    ],
+  },
+  {
+    n: "07",
+    title: "Deploy",
+    verb: "Launch",
+    note: "to real users",
+    text: "Prepare the solution for real users and launch.",
+  },
+  {
+    n: "08",
+    title: "Support",
+    verb: "Improve",
+    note: "and evolve",
+    text: "Maintain, monitor, improve and evolve the solution.",
+  },
 ];
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const clamp = (value, min, max) =>
+  Math.min(max, Math.max(min, value));
+
+/* =========================================================
+   COMPONENT
+========================================================= */
 
 export default function DevelopmentProcess() {
   const railRef = useRef(null);
   const fillRef = useRef(null);
-  const stageRefs = useRef([]);
-  const [act, setAct] = useState(-1); // index of the stage the journey line has reached
+  const frameRef = useRef(null);
 
-  useEffect(() => {
-    let ticking = false;
-    let last = -2;
+  const [active, setActive] = useState(0);
 
-    const update = () => {
-      ticking = false;
-      const rail = railRef.current;
-      if (!rail) return;
-      const rect = rail.getBoundingClientRect();
-      const centre = window.innerHeight * 0.5;
-      const length = Math.max(0, Math.min(rect.height, centre - rect.top));
-      const progress = rect.height ? length / rect.height : 0;
-      // the journey line is an SVG <line>: progress is an attribute, not an inline style
-      if (fillRef.current) fillRef.current.setAttribute('stroke-dashoffset', String(1 - progress));
+  /* =======================================================
+     SCROLL CALCULATION
+  ======================================================= */
 
-      let reached = -1;
-      stageRefs.current.forEach((el, i) => {
-        if (el && length >= el.offsetTop + 14) reached = i;
-      });
-      if (reached !== last) {
-        last = reached;
-        setAct(reached);
-      }
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(update);
-      }
-    };
+  const updateFromScroll = useCallback(() => {
+    frameRef.current = null;
 
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
+    const rail = railRef.current;
+
+    if (!rail) {
+      return;
+    }
+
+    const rect =
+      rail.getBoundingClientRect();
+
+    const viewportCenter =
+      window.innerHeight * 0.5;
+
+    /*
+     * Distance from the top of the process rail
+     * to the center of the viewport.
+     */
+    const distance =
+      viewportCenter - rect.top;
+
+    /*
+     * Convert that distance into 0 → 1 progress.
+     */
+    const progress = clamp(
+      distance / rect.height,
+      0,
+      1
+    );
+
+    /* =====================================================
+       BLUE RAIL
+    ===================================================== */
+
+    if (fillRef.current) {
+      fillRef.current.setAttribute(
+        "stroke-dashoffset",
+        String(1 - progress)
+      );
+    }
+
+    /* =====================================================
+       LEFT NUMBER / CONTENT
+       
+       Divide the complete process into 8 equal
+       scroll zones.
+    ===================================================== */
+
+    const stageSize =
+      1 / STAGES.length;
+
+    let nextStage = Math.floor(
+      progress / stageSize
+    );
+
+    /*
+     * Keep the value inside 0 → 7.
+     */
+    nextStage = clamp(
+      nextStage,
+      0,
+      STAGES.length - 1
+    );
+
+    setActive((current) =>
+      current === nextStage
+        ? current
+        : nextStage
+    );
   }, []);
 
-  const current = Math.max(0, act);
+  /* =======================================================
+     REQUEST FRAME
+  ======================================================= */
+
+  const requestUpdate = useCallback(() => {
+    if (frameRef.current !== null) {
+      return;
+    }
+
+    frameRef.current =
+      window.requestAnimationFrame(
+        updateFromScroll
+      );
+  }, [updateFromScroll]);
+
+  /* =======================================================
+     SCROLL LISTENER
+  ======================================================= */
+
+  useEffect(() => {
+    requestUpdate();
+
+    const handleScroll = () => {
+      requestUpdate();
+    };
+
+    const handleResize = () => {
+      requestUpdate();
+    };
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+
+      if (
+        frameRef.current !== null
+      ) {
+        window.cancelAnimationFrame(
+          frameRef.current
+        );
+
+        frameRef.current = null;
+      }
+    };
+  }, [requestUpdate]);
+
+  const currentStage =
+    STAGES[active];
 
   return (
-    <section id="pjdev-process" className="pjdev-process pjdev-theme-dark" aria-labelledby="pjdev-process-title">
+    <section
+      id="pjdev-process"
+      className="pjdev-process pjdev-theme-dark"
+      aria-labelledby="pjdev-process-title"
+    >
       <div className="pjdev-process__wrap">
+
+        {/* =================================================
+            SECTION HEADER
+        ================================================= */}
+
         <DevelopmentSectionHead
           id="pjdev-process-title"
           title="How We Turn a Requirement Into Reality."
           text="A structured journey from the first conversation to a working digital product."
         />
 
+        {/* =================================================
+            PROCESS LAYOUT
+        ================================================= */}
+
         <div className="pjdev-process__layout">
-          <aside className="pjdev-process__side" aria-hidden="true">
-            <div key={current} className="pjdev-process__num">{STAGES[current].n}</div>
-            <div className="pjdev-process__word">{STAGES[current].title}</div>
-            <div className="pjdev-process__count">Stage {current + 1} of {STAGES.length}</div>
+
+          {/* ===============================================
+              LEFT STICKY CONTENT
+          =============================================== */}
+
+          <aside
+            className="pjdev-process__side"
+            aria-live="polite"
+          >
+
+            {/* BIG NUMBER */}
+
+            <div
+              key={currentStage.n}
+              className="pjdev-process__num"
+            >
+              {currentStage.n}
+            </div>
+
+            {/* STAGE TITLE */}
+
+            <div
+              key={`word-${currentStage.n}`}
+              className="pjdev-process__word"
+            >
+              {currentStage.title}
+            </div>
+
+            {/* STAGE COUNT */}
+
+            <div className="pjdev-process__count">
+              Stage {active + 1} of{" "}
+              {STAGES.length}
+            </div>
+
+            {/* PROGRESS TICKS */}
+
             <div className="pjdev-process__ticks">
-              {STAGES.map((s, i) => (
-                <i
-                  key={s.n}
-                  className={`pjdev-process__tick${i <= current ? ' pjdev-process__tick--on' : ''}${i === current ? ' pjdev-process__tick--cur' : ''}`}
-                />
-              ))}
+              {STAGES.map(
+                (stage, index) => (
+                  <i
+                    key={stage.n}
+                    className={[
+                      "pjdev-process__tick",
+                      index <= active
+                        ? "pjdev-process__tick--on"
+                        : "",
+                      index === active
+                        ? "pjdev-process__tick--cur"
+                        : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  />
+                )
+              )}
             </div>
           </aside>
 
-          <div ref={railRef} className="pjdev-process__rail">
-            <svg className="pjdev-process__railsvg" width="4" aria-hidden="true" focusable="false">
-              <line className="pjdev-process__railtrack" x1="2" y1="0" x2="2" y2="100%" />
+          {/* ===============================================
+              RIGHT-SIDE PROCESS
+          =============================================== */}
+
+          <div
+            ref={railRef}
+            className="pjdev-process__rail"
+          >
+
+            {/* =============================================
+                PROCESS LINE
+            ============================================= */}
+
+            <svg
+              className="pjdev-process__railsvg"
+              width="4"
+              aria-hidden="true"
+              focusable="false"
+            >
+              {/* Background line */}
+
+              <line
+                className="pjdev-process__railtrack"
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100%"
+              />
+
+              {/* Scroll-progress line */}
+
               <line
                 ref={fillRef}
                 className="pjdev-process__railfill"
-                x1="2" y1="0" x2="2" y2="100%"
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100%"
                 pathLength="1"
                 strokeDasharray="1"
                 strokeDashoffset="1"
               />
             </svg>
 
+            {/* =============================================
+                STAGES
+            ============================================= */}
+
             <ol className="pjdev-process__stages">
-              {STAGES.map((stage, i) => {
-                const state = i === act ? ' pjdev-process__stage--active' : i < act ? ' pjdev-process__stage--done' : i === act + 1 ? ' pjdev-process__stage--next' : '';
-                return (
-                  <li
-                    key={stage.n}
-                    ref={(el) => { stageRefs.current[i] = el; }}
-                    className={`pjdev-process__stage${state}`}
-                  >
-                    <span className="pjdev-process__stage-n">{stage.n}</span>
-                    <h3 className="pjdev-process__stage-title">{stage.title}</h3>
-                    <span className="pjdev-process__stage-verb"><b>{stage.verb}</b> {stage.note}</span>
-                    <div className="pjdev-process__stage-body">
-                      {stage.chips ? (
-                        <ul className="pjdev-process__chips">
-                          {stage.chips.map((chip) => <li key={chip}>{chip}</li>)}
-                        </ul>
-                      ) : (
-                        <p>{stage.text}</p>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
+
+              {STAGES.map(
+                (stage, index) => {
+
+                  let state = "";
+
+                  if (
+                    index === active
+                  ) {
+                    state =
+                      " pjdev-process__stage--active";
+                  } else if (
+                    index < active
+                  ) {
+                    state =
+                      " pjdev-process__stage--done";
+                  } else if (
+                    index === active + 1
+                  ) {
+                    state =
+                      " pjdev-process__stage--next";
+                  }
+
+                  return (
+                    <li
+                      key={stage.n}
+                      className={`pjdev-process__stage${state}`}
+                    >
+
+                      {/* STAGE NUMBER */}
+
+                      <span className="pjdev-process__stage-n">
+                        {stage.n}
+                      </span>
+
+                      {/* STAGE TITLE */}
+
+                      <h3 className="pjdev-process__stage-title">
+                        {stage.title}
+                      </h3>
+
+                      {/* STAGE DESCRIPTION */}
+
+                      <span className="pjdev-process__stage-verb">
+                        <b>
+                          {stage.verb}
+                        </b>{" "}
+                        {stage.note}
+                      </span>
+
+                      {/* STAGE DETAILS */}
+
+                      <div className="pjdev-process__stage-body">
+
+                        {stage.chips ? (
+                          <ul className="pjdev-process__chips">
+                            {stage.chips.map(
+                              (chip) => (
+                                <li key={chip}>
+                                  {chip}
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        ) : (
+                          <p>
+                            {stage.text}
+                          </p>
+                        )}
+
+                      </div>
+                    </li>
+                  );
+                }
+              )}
+
             </ol>
           </div>
         </div>
 
+        {/* =================================================
+            LOOP MESSAGE
+        ================================================= */}
+
         <p className="pjdev-process__loop">
           <DevelopmentIcon name="loop" />
-          And then the journey continues: new requirements, new opportunities, new growth.
+
+          <span>
+            And then the journey continues:
+            new requirements, new opportunities,
+            new growth.
+          </span>
         </p>
+
       </div>
     </section>
   );

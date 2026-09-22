@@ -1,0 +1,30 @@
+/* HomepageMagazineMeta.css */
+
+.hpmag-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 600 0.66rem/1 var(--hpmag-font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--hpmag-muted);
+  opacity: 0;
+  transition: opacity 0.7s ease 0.2s;
+}
+.hpmag--in .hpmag-meta {
+  opacity: 1;
+}
+.hpmag-meta__item {
+  padding-inline: 14px;
+}
+.hpmag-meta__item + .hpmag-meta__item {
+  border-left: 1px solid var(--hpmag-line-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hpmag-meta { opacity: 1; transition: none; }
+}

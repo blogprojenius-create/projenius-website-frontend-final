@@ -1,7 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./DevelopmentApproach.css";
 
 import DevelopmentEyebrow from "../DevelopmentEyebrow/DevelopmentEyebrow";
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const AUTO_HOVER_DELAY = 5000;
 
 /* =========================================================
    SCROLL REVEAL
@@ -14,7 +20,9 @@ function usePjdevInView(threshold = 0.15) {
   useEffect(() => {
     const element = ref.current;
 
-    if (!element) return undefined;
+    if (!element) {
+      return undefined;
+    }
 
     if (typeof IntersectionObserver === "undefined") {
       setInView(true);
@@ -126,14 +134,94 @@ export default function DevelopmentApproach() {
   const [active, setActive] = useState(0);
   const [ref, inView] = usePjdevInView(0.1);
 
+  const autoHoverRef = useRef(null);
+  const userHoverRef = useRef(false);
+
   /* =======================================================
-     DESKTOP HOVER
+     MOVE TO NEXT CARD
   ======================================================= */
 
-  const handleHover = (index, event) => {
+  const activateNext = useCallback(() => {
+    setActive((current) => {
+      return (current + 1) % BLOCKS.length;
+    });
+  }, []);
+
+  /* =======================================================
+     AUTO HOVER
+     
+     Every 5 seconds the next card becomes active.
+  ======================================================= */
+
+  useEffect(() => {
+    if (!inView) {
+      return undefined;
+    }
+
+    autoHoverRef.current =
+      window.setInterval(() => {
+        /*
+         * Do not fight the user's mouse interaction.
+         */
+        if (userHoverRef.current) {
+          return;
+        }
+
+        activateNext();
+      }, AUTO_HOVER_DELAY);
+
+    return () => {
+      if (autoHoverRef.current !== null) {
+        window.clearInterval(
+          autoHoverRef.current
+        );
+
+        autoHoverRef.current = null;
+      }
+    };
+  }, [inView, activateNext]);
+
+  /* =======================================================
+     MANUAL HOVER
+  ======================================================= */
+
+  const handleCardEnter = (index, event) => {
     if (
       event.pointerType === "mouse" &&
-      window.matchMedia("(min-width: 901px)").matches
+      window.matchMedia(
+        "(min-width: 901px)"
+      ).matches
+    ) {
+      userHoverRef.current = true;
+      setActive(index);
+    }
+  };
+
+  /* =======================================================
+     MOUSE LEAVE
+  ======================================================= */
+
+  const handleCardLeave = () => {
+    userHoverRef.current = false;
+  };
+
+  /* =======================================================
+     CLICK
+  ======================================================= */
+
+  const handleCardClick = (index) => {
+    setActive(index);
+  };
+
+  /* =======================================================
+     FLOW CLICK / HOVER
+  ======================================================= */
+
+  const handleFlowHover = (index) => {
+    if (
+      window.matchMedia(
+        "(min-width: 901px)"
+      ).matches
     ) {
       setActive(index);
     }
@@ -144,7 +232,9 @@ export default function DevelopmentApproach() {
       id="pjdev-approach"
       ref={ref}
       className={`pjdev-approach pjdev-theme-dark${
-        inView ? " pjdev-approach--in" : ""
+        inView
+          ? " pjdev-approach--in"
+          : ""
       }`}
       aria-labelledby="pjdev-approach-title"
     >
@@ -200,13 +290,14 @@ export default function DevelopmentApproach() {
             pjdev-approach__rv--d3
           "
         >
-          Before choosing a platform, architecture or development
-          approach, we understand what you are trying to achieve,
-          who you are building for and what constraints matter.
+          Before choosing a platform, architecture or
+          development approach, we understand what you
+          are trying to achieve, who you are building for
+          and what constraints matter.
         </p>
 
         {/* =================================================
-            APPROACH BLOCKS
+            APPROACH CARDS
         ================================================= */}
 
         <div
@@ -215,9 +306,11 @@ export default function DevelopmentApproach() {
             pjdev-approach__rv
             pjdev-approach__rv--d3
           "
+          onPointerLeave={handleCardLeave}
         >
           {BLOCKS.map((block, index) => {
-            const isActive = active === index;
+            const isActive =
+              active === index;
 
             return (
               <article
@@ -228,7 +321,10 @@ export default function DevelopmentApproach() {
                     : ""
                 }`}
                 onPointerEnter={(event) =>
-                  handleHover(index, event)
+                  handleCardEnter(
+                    index,
+                    event
+                  )
                 }
               >
                 <button
@@ -236,7 +332,9 @@ export default function DevelopmentApproach() {
                   className="pjdev-approach__block-head"
                   aria-expanded={isActive}
                   aria-controls={`pjdev-approach-panel-${index}`}
-                  onClick={() => setActive(index)}
+                  onClick={() =>
+                    handleCardClick(index)
+                  }
                 >
                   <span className="pjdev-approach__block-num">
                     {block.num}
@@ -256,11 +354,13 @@ export default function DevelopmentApproach() {
                   className="pjdev-approach__panel"
                 >
                   <ul className="pjdev-approach__points">
-                    {block.points.map((point) => (
-                      <li key={point}>
-                        {point}
-                      </li>
-                    ))}
+                    {block.points.map(
+                      (point) => (
+                        <li key={point}>
+                          {point}
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
               </article>
@@ -270,14 +370,13 @@ export default function DevelopmentApproach() {
 
         {/* =================================================
             REQUIREMENT → RIGHT SOLUTION
-            SELF CONTAINED
         ================================================= */}
 
         <div className="pjdev-approach__band">
 
           <p className="pjdev-approach__band-caption">
-            Every project moves along the same path, from what you
-            asked for to what you actually need.
+            Every project moves along the same path,
+            from what you asked for to what you actually need.
           </p>
 
           <div
@@ -285,7 +384,9 @@ export default function DevelopmentApproach() {
             aria-label="From requirement to the right solution"
           >
 
-            {/* CONNECTING LINE */}
+            {/* =================================================
+                CONNECTING LINE
+            ================================================= */}
 
             <div
               className="pjdev-approach__flow-line"
@@ -303,11 +404,13 @@ export default function DevelopmentApproach() {
               />
             </div>
 
-            {/* FLOW STEPS */}
+            {/* =================================================
+                FLOW STEPS
+            ================================================= */}
 
             {FLOW.map((item, index) => {
               const isActive =
-                index === active;
+                active === index;
 
               return (
                 <button
@@ -322,7 +425,7 @@ export default function DevelopmentApproach() {
                     setActive(index)
                   }
                   onMouseEnter={() =>
-                    setActive(index)
+                    handleFlowHover(index)
                   }
                 >
                   {/* NODE */}

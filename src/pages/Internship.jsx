@@ -1,7 +1,7 @@
 import InternshipAbout from "../components/InternshipAbout/InternshipAbout";
 import InternshipTech from "../components/InternshipTech/InternshipTech";
 import CommonHero from "../components/CommonHero/CommonHero";
-import InterYoutube from "../components/InterYoutube/InterYoutube";
+import InternYoutube from "../components/InternYoutube/InternYoutube";
 import InternshipDomain from "../components/InternshipDomain/InternshipDomain";
 import SuccessStories from "../components/SuccessStories/SuccessStories";
 import InternshipCTA from "../components/InternshipCTA/InternshipCTA";
@@ -21,7 +21,7 @@ export default function Internship() {
                 description="Gain practical experience by working on real projects while developing the technical and professional skills required by industry."
             />
             <InternshipAbout />
-            <InterYoutube />
+            <InternYoutube />
             <InternshipDomain />
             <InternshipTech />
             <InternshipBenefits />

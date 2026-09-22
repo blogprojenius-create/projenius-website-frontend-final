@@ -1,0 +1,134 @@
+/* HomepageMagazinePager.css */
+
+.hpmag-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 30px);
+  margin-top: 14px;
+  opacity: 0;
+  transition: opacity 0.7s ease 1.35s; /* navigation appears last */
+}
+.hpmag--in .hpmag-pager {
+  opacity: 1;
+}
+
+.hpmag-pager__btn {
+  width: 46px;
+  height: 46px;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1.5px solid var(--hpmag-line-strong);
+  background: var(--hpmag-surface);
+  color: var(--hpmag-ink);
+  transition: border-color 0.2s, color 0.2s, transform 0.2s, opacity 0.2s;
+}
+.hpmag-pager__btn svg {
+  width: 19px;
+  height: 19px;
+}
+.hpmag-pager__btn:hover {
+  border-color: var(--hpmag-brand);
+  color: var(--hpmag-link);
+}
+.hpmag-pager__btn:active {
+  transform: scale(0.94);
+}
+.hpmag-pager__btn[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.hpmag-pager__count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 104px;
+}
+.hpmag-pager__label {
+  font: 600 0.6rem/1 var(--hpmag-font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hpmag-muted);
+}
+.hpmag-pager__num {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font: 700 1.55rem/1 var(--hpmag-font-display);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.hpmag-pager__num i {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--hpmag-muted);
+}
+.hpmag-pager__total {
+  font-weight: 500;
+  color: var(--hpmag-muted);
+}
+
+/* thin progress line */
+.hpmag-pager__progress {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: min(260px, 70%);
+  height: 2px;
+  margin-top: -6px;
+  border: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--hpmag-line);
+  color: var(--hpmag-brand);
+  opacity: 0;
+  transition: opacity 0.7s ease 1.35s;
+}
+.hpmag--in .hpmag-pager__progress {
+  opacity: 1;
+}
+.hpmag-pager__progress::-webkit-progress-bar {
+  background: var(--hpmag-line);
+}
+.hpmag-pager__progress::-webkit-progress-value {
+  background: var(--hpmag-brand);
+  transition: width 0.5s var(--hpmag-ease-out);
+}
+.hpmag-pager__progress::-moz-progress-bar {
+  background: var(--hpmag-brand);
+}
+
+.hpmag-pager__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .hpmag-pager__btn {
+    width: 50px;
+    height: 50px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hpmag-pager,
+  .hpmag-pager__progress {
+    opacity: 1;
+    transition: none;
+  }
+  .hpmag-pager__progress::-webkit-progress-value { transition: none; }
+}

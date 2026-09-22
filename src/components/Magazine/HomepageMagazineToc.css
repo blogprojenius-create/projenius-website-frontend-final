@@ -1,0 +1,96 @@
+/* HomepageMagazineToc.css */
+
+.hpmag-toc {
+  margin-top: clamp(28px, 3.4vw, 44px);
+  padding-top: 20px;
+  border-top: 1px solid var(--hpmag-line);
+}
+
+.hpmag-toc__label {
+  margin: 0 0 6px;
+  font: 600 0.68rem/1 var(--hpmag-font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--hpmag-muted);
+}
+
+/* scrolls sideways (inside itself) if many sections are added later */
+.hpmag-toc__scroller {
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: -4px -8px;
+  padding: 4px 8px;
+}
+.hpmag-toc__scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.hpmag-toc__list {
+  display: inline-flex;
+  gap: clamp(20px, 3vw, 34px);
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--hpmag-line);
+}
+.hpmag-toc__item {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hpmag-toc__btn {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8rem 0 0.85rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font: 500 0.95rem/1.2 var(--hpmag-font-body);
+  color: var(--hpmag-muted);
+  transition: color 0.2s;
+}
+/* invisible bold copy reserves width so the layout never jumps when weight changes */
+.hpmag-toc__btn::after {
+  content: attr(data-label);
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  font-weight: 600;
+}
+/* animated active indicator */
+.hpmag-toc__btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--hpmag-brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s var(--hpmag-ease-out);
+}
+.hpmag-toc__btn:hover {
+  color: var(--hpmag-ink);
+}
+.hpmag-toc__btn[aria-current="true"] {
+  color: var(--hpmag-ink);
+  font-weight: 600;
+}
+.hpmag-toc__btn[aria-current="true"]::before {
+  transform: scaleX(1);
+}
+
+@media (max-width: 900px) {
+  .hpmag-toc { margin-top: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hpmag-toc__btn::before { transition: none; }
+}

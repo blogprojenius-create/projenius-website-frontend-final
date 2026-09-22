@@ -1,113 +1,223 @@
-// src/services/contentApi.js
-
-// Website content always comes from the shared ProJenius admin backend.
-//
-// Keep the explicit localhost fallback so the site does not accidentally
-// request /api/* from the Vite server when the env file is missing/stale.
-
-const API_URL = (
+const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  import.meta.env.VITE_BACKEND_API_URL ||
-  "http://localhost:5000"
-).replace(/\/$/, "");
+  "http://localhost:5000";
 
 /* =========================================================
-   COMMON REQUEST
-   ========================================================= */
+   RESPONSE
+========================================================= */
 
-async function request(path) {
-  const response = await fetch(`${API_URL}${path}`, {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+async function parseApiResponse(
+  response
+) {
+  const type =
+    response.headers.get(
+      "content-type"
+    ) || "";
 
-  const text = await response.text();
+  if (
+    type.includes(
+      "application/json"
+    )
+  ) {
+    const data =
+      await response.json();
 
-  let data = {};
+    if (!response.ok) {
+      throw new Error(
+        data?.error ||
+          data?.message ||
+          "Request failed."
+      );
+    }
 
-  try {
-    data = text ? JSON.parse(text) : {};
-  } catch {
-    throw new Error(
-      "Invalid response from ProJenius backend."
-    );
+    return data;
   }
 
-  if (!response.ok) {
-    throw new Error(
-      data.error ||
-      data.message ||
-      `Request failed (${response.status})`
-    );
-  }
+  const text =
+    await response.text();
 
-  return data;
+  throw new Error(
+    text ||
+      `Server returned ${response.status}.`
+  );
 }
 
 /* =========================================================
-   RESPONSE HELPER
-   ========================================================= */
+   MEDIA
+========================================================= */
 
-const unwrap = (data, keys) =>
-  Array.isArray(data)
-    ? data
-    : keys
-        .map((key) => data?.[key])
-        .find(Array.isArray) || [];
+export function mediaUrl(
+  value
+) {
+  if (!value) return "";
 
-/* =========================================================
-   COURSES
-   ========================================================= */
-
-export const getCourses = async (query = "") => {
-  return unwrap(
-    await request(`/api/courses${query}`),
-    ["items", "courses"]
-  );
-};
-
-export const getCourse = async (id) => {
-  return request(
-    `/api/courses/${encodeURIComponent(id)}`
-  );
-};
-
-/* =========================================================
-   NEWS / BLOGS
-   ========================================================= */
-
-export const getNews = async (query = "") => {
-  return unwrap(
-    await request(`/api/blogs${query}`),
-    ["items", "blogs", "contents"]
-  );
-};
-
-export const getNewsItem = async (id) => {
-  return request(
-    `/api/blogs/${encodeURIComponent(id)}`
-  );
-};
-
-/* =========================================================
-   MEDIA URL
-   ========================================================= */
-
-export const mediaUrl = (value) => {
-  if (!value) {
-    return "";
-  }
-
-  // Already a complete URL or browser-generated URL
-  if (/^(data:|blob:|https?:\/\/)/i.test(value)) {
+  if (
+    value.startsWith(
+      "data:"
+    ) ||
+    value.startsWith(
+      "http://"
+    ) ||
+    value.startsWith(
+      "https://"
+    ) ||
+    value.startsWith(
+      "blob:"
+    )
+  ) {
     return value;
   }
 
-  // Backend-relative path
-  if (value.startsWith("/")) {
-    return `${API_URL}${value}`;
+  return `${API_BASE_URL}${
+    value.startsWith("/")
+      ? ""
+      : "/"
+  }${value}`;
+}
+
+/* =========================================================
+   COURSES
+========================================================= */
+
+export async function getCourses(
+  query = ""
+) {
+  const response =
+    await fetch(
+      `${API_BASE_URL}/api/courses${query}`,
+      {
+        method: "GET",
+        headers: {
+          Accept:
+            "application/json",
+        },
+      }
+    );
+
+  return parseApiResponse(
+    response
+  );
+}
+
+export async function getCourse(
+  identifier
+) {
+  if (!identifier) {
+    throw new Error(
+      "Course identifier is missing."
+    );
   }
 
-  return value;
-};
+  const response =
+    await fetch(
+      `${API_BASE_URL}/api/courses/${encodeURIComponent(
+        identifier
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          Accept:
+            "application/json",
+        },
+      }
+    );
+
+  return parseApiResponse(
+    response
+  );
+}
+
+/* =========================================================
+   NEWS & INSIGHTS
+========================================================= */
+
+export async function getNews(
+  query = ""
+) {
+  const finalQuery = query
+    ? query.startsWith("?")
+      ? query
+      : `?${query}`
+    : "?limit=50";
+
+  const response =
+    await fetch(
+      `${API_BASE_URL}/api/news${finalQuery}`,
+      {
+        method: "GET",
+        headers: {
+          Accept:
+            "application/json",
+        },
+      }
+    );
+
+  const data =
+    await parseApiResponse(
+      response
+    );
+
+  /*
+   * Backend response:
+   *
+   * {
+   *   items: [],
+   *   page: 1,
+   *   total: 0,
+   *   totalPages: 1
+   * }
+   */
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  if (
+    Array.isArray(
+      data?.items
+    )
+  ) {
+    return data.items;
+  }
+
+  return [];
+}
+
+/* =========================================================
+   NEWS DETAILS
+========================================================= */
+
+export async function getNewsItem(
+  identifier
+) {
+  if (!identifier) {
+    throw new Error(
+      "News identifier is missing."
+    );
+  }
+
+  const response =
+    await fetch(
+      `${API_BASE_URL}/api/news/${encodeURIComponent(
+        identifier
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          Accept:
+            "application/json",
+        },
+      }
+    );
+
+  return parseApiResponse(
+    response
+  );
+}
+
+/* =========================================================
+   COMPATIBILITY
+========================================================= */
+
+export const getNewsBySlug =
+  getNewsItem;

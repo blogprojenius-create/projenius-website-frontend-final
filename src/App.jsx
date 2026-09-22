@@ -26,7 +26,6 @@ import CourseDetailsPage from "./pages/CourseDetailsPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 
 import StandardPage from "./pages/StandardPages";
-import Contact from "./pages/Contact";
 
 /* =========================================================
    SERVICE PAGES
@@ -43,11 +42,11 @@ import CareerGuidance from "./pages/CareerGuidance";
 import Workshop from "./pages/Workshop";
 import Startup from "./pages/Startup";
 import JoinOurTeam from "./pages/JoinOurTeam";
-/* =========================================================
-   GLOBAL STYLES
-========================================================= */
+import ContactPage from "./pages/ContactPage";
 
-// import "./styles/site.css";
+/* =========================================================
+   APP
+========================================================= */
 
 export default function App() {
     return (
@@ -92,8 +91,12 @@ export default function App() {
                     element={<Courses />}
                 />
 
+                {/* IMPORTANT:
+                    CourseDetailsPage uses useParams().slug
+                */}
+
                 <Route
-                    path="/courses/:id"
+                    path="/courses/:slug"
                     element={<CourseDetailsPage />}
                 />
 
@@ -120,27 +123,20 @@ export default function App() {
                     SERVICES
                 ================================================= */}
 
-                {/* DEVELOPMENT */}
-
                 <Route
                     path="/services/development"
                     element={<DevelopmentPage />}
                 />
 
-                {/* INTERNSHIP */}
-
                 <Route
                     path="/services/internship"
                     element={<Internship />}
                 />
-                {/* CAREER GUIDANCE */}
 
                 <Route
                     path="/services/career-guidance"
                     element={<CareerGuidance />}
                 />
-
-                {/* SERVICES LANDING */}
 
                 <Route
                     path="/services"
@@ -155,23 +151,17 @@ export default function App() {
 
                 <Route
                     path="/workshop"
-                    element={
-                        <Workshop />
-                    }
+                    element={<Workshop />}
                 />
 
                 <Route
                     path="/startup"
-                    element={
-                        <Startup />
-                    }
+                    element={<Startup />}
                 />
 
                 <Route
                     path="/join-our-team"
-                    element={
-                        <JoinOurTeam />
-                    }
+                    element={<JoinOurTeam />}
                 />
 
                 {/* =================================================
@@ -180,7 +170,7 @@ export default function App() {
 
                 <Route
                     path="/contact"
-                    element={<Contact />}
+                    element={<ContactPage />}
                 />
 
                 {/* =================================================

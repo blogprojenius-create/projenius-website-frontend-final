@@ -263,11 +263,7 @@
   position: sticky;
 
   top:
-    calc(
-      var(--pjdev-header-h, 0px) +
-      var(--pjdev-subnav-h, 0px) +
-      40px
-    );
+    120px;
 
   align-self:
     start;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./InterYoutube.css";
+import "./InternYoutube.css";
 
-const InterYoutube = () => {
+const InternYoutube = () => {
     const sectionRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
@@ -85,4 +85,4 @@ const InterYoutube = () => {
     );
 };
 
-export default InterYoutube;
+export default InternYoutube;

@@ -1,0 +1,208 @@
+/* HomepageMagazineBook.css */
+
+.hpmag-book {
+  position: relative;
+  width: var(--hpmag-bw);
+  touch-action: pan-y;
+}
+
+/* scroll-in: the magazine rises after the text */
+.hpmag-book__rise {
+  position: relative;
+  perspective: 2200px;
+  opacity: 0;
+  transform: translateY(56px);
+  transition: opacity 0.9s ease 0.5s, transform 1.15s var(--hpmag-ease-out) 0.5s;
+}
+.hpmag--in .hpmag-book__rise {
+  opacity: 1;
+  transform: none;
+}
+
+/* subtle depth: slight tilt, settles flatter on hover */
+.hpmag-book__tilt {
+  position: relative;
+  aspect-ratio: var(--hpmag-ratio);
+  transform-style: preserve-3d;
+  transform: rotateY(-7deg) rotateX(1.5deg);
+  transform-origin: 32% 50%;
+  transition: transform 0.7s var(--hpmag-ease-out);
+}
+
+/* page block peeking out behind the cover */
+.hpmag-book__tilt::before,
+.hpmag-book__tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 3px 7px 7px 3px;
+  background: var(--hpmag-surface);
+  border: 1px solid var(--hpmag-line-strong);
+}
+.hpmag-book__tilt::before { transform: translate3d(7px, 5px, -3px); }
+.hpmag-book__tilt::after { transform: translate3d(13px, 10px, -6px); opacity: 0.75; }
+
+.hpmag-book__leaf {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* never crops the page */
+  border-radius: 3px 7px 7px 3px;
+  background: var(--hpmag-surface);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.hpmag-book__leaf--base {
+  z-index: 1;
+  box-shadow:
+    0 34px 60px -26px rgba(var(--hpmag-shadow-rgb), 0.55),
+    0 10px 22px -10px rgba(var(--hpmag-shadow-rgb), 0.35);
+}
+.hpmag-book__leaf--flip {
+  z-index: 3;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* shadow cast on the page underneath while a page turns */
+.hpmag-book__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 3px 7px 7px 3px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.05) 55%, transparent);
+}
+
+/* spine crease + soft sheen */
+.hpmag-book__finish {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: 3px 7px 7px 3px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0.07) 3.5%, transparent 8%),
+    linear-gradient(90deg, transparent 4.2%, rgba(255, 255, 255, 0.22) 4.6%, transparent 5.4%),
+    linear-gradient(118deg, rgba(255, 255, 255, 0.14), transparent 38%);
+}
+
+/* soft floor shadow — appears after the magazine settles */
+.hpmag-book__floor {
+  position: absolute;
+  left: 8%;
+  right: 0;
+  bottom: -30px;
+  height: 36px;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(var(--hpmag-shadow-rgb), 0.42), transparent);
+  filter: blur(9px);
+  opacity: 0;
+  transition: opacity 0.9s ease 1.15s, transform 0.6s var(--hpmag-ease-out);
+}
+.hpmag--in .hpmag-book__floor {
+  opacity: 1;
+}
+
+/* click target that opens the reader */
+.hpmag-book__hit {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  cursor: zoom-in;
+  touch-action: pan-y;
+}
+.hpmag-book__hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(8, 14, 23, 0.78);
+  color: #fff;
+  font: 500 0.72rem/1 var(--hpmag-font-body);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+.hpmag-book__hint svg {
+  width: 14px;
+  height: 14px;
+}
+.hpmag-book:has(.hpmag-book__hit:focus-visible) .hpmag-book__hint {
+  opacity: 1;
+  transform: none;
+}
+
+/* desktop hover: very subtle elevation */
+@media (hover: hover) {
+  .hpmag-book:hover .hpmag-book__tilt {
+    transform: rotateY(-3deg) rotateX(0.5deg) translateY(-8px) scale(1.012);
+  }
+  .hpmag-book:hover .hpmag-book__floor {
+    transform: scale(0.93);
+  }
+  .hpmag-book:hover .hpmag-book__hint {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- page turn (durations must match TURN_MS / TURN_FAST_MS in the .jsx) ---------- */
+.hpmag-book__leaf--turn-next {
+  animation: hpmag-book-turn-next 0.7s cubic-bezier(0.55, 0.05, 0.25, 1) both;
+}
+.hpmag-book__leaf--turn-prev {
+  animation: hpmag-book-turn-prev 0.7s cubic-bezier(0.55, 0.05, 0.25, 1) both;
+}
+.hpmag-book__shade--on {
+  animation: hpmag-book-shade 0.7s ease-in-out;
+}
+.hpmag-book__tilt--fast .hpmag-book__leaf--turn-next,
+.hpmag-book__tilt--fast .hpmag-book__leaf--turn-prev,
+.hpmag-book__tilt--fast .hpmag-book__shade--on {
+  animation-duration: 0.52s;
+}
+@keyframes hpmag-book-turn-next {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-100deg); }
+}
+@keyframes hpmag-book-turn-prev {
+  from { transform: rotateY(-100deg); }
+  to { transform: rotateY(0deg); }
+}
+@keyframes hpmag-book-shade {
+  0% { opacity: 0; }
+  50% { opacity: 0.35; }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  .hpmag-book__tilt { transform: rotateY(-4deg) rotateX(1deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hpmag-book__rise,
+  .hpmag-book__floor {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hpmag-book__tilt,
+  .hpmag-book__hint { transition: none; }
+  .hpmag-book__leaf--turn-next,
+  .hpmag-book__leaf--turn-prev,
+  .hpmag-book__shade--on { animation: none; }
+}
