@@ -65,20 +65,9 @@ const navLinks = [
    SETTINGS
 ========================================================= */
 
-/*
- * Navbar remains visible for 2 seconds after scrolling stops.
- */
 const NAVBAR_DISPLAY_TIME = 2000;
-
-/*
- * Consider the page "at the top" until this amount.
- */
 const TOP_POSITION = 40;
-
-/*
- * Small scroll difference to avoid unnecessary updates.
- */
-const SCROLL_DISTANCE = 2;
+const SCROLL_THRESHOLD = 2;
 
 /* =========================================================
    NAVBAR
@@ -89,25 +78,18 @@ export default function Navbar() {
 
   const hideTimer = useRef(null);
   const scrollFrame = useRef(null);
-  const previousScroll = useRef(0);
+  const lastScrollY = useRef(0);
   const mobileOpenRef = useRef(false);
+  const navbarHoverRef = useRef(false);
 
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  /* =======================================================
-     KEEP MOBILE STATE IN REF
-  ======================================================= */
-
-  useEffect(() => {
-    mobileOpenRef.current = mobileOpen;
-  }, [mobileOpen]);
-
-  /* =======================================================
-     CLEAR HIDE TIMER
-  ======================================================= */
+  /* =========================================================
+     CLEAR TIMER
+  ========================================================= */
 
   const clearNavbarTimer = useCallback(() => {
     if (hideTimer.current !== null) {
@@ -116,98 +98,154 @@ export default function Navbar() {
     }
   }, []);
 
-  /* =======================================================
-     SHOW NAVBAR
-     
-     Called ONLY from scrolling / direct navbar actions.
-  ======================================================= */
+  /* =========================================================
+     HIDE NAVBAR
+  ========================================================= */
 
-  const showNavbar = useCallback(() => {
+  const hideNavbar = useCallback(() => {
+    clearNavbarTimer();
+
+    if (
+      window.scrollY > TOP_POSITION &&
+      !mobileOpenRef.current &&
+      !navbarHoverRef.current
+    ) {
+      setIsVisible(false);
+    }
+  }, [clearNavbarTimer]);
+
+  /* =========================================================
+     SHOW NAVBAR FOR 2 SECONDS
+  ========================================================= */
+
+  const showNavbarTemporarily = useCallback(() => {
     clearNavbarTimer();
 
     setIsVisible(true);
 
-    const scrollY = window.scrollY;
-
-    /*
-     * At the top:
-     * keep navbar permanently visible.
-     */
     if (
-      scrollY <= TOP_POSITION ||
-      mobileOpenRef.current
+      window.scrollY <= TOP_POSITION ||
+      mobileOpenRef.current ||
+      navbarHoverRef.current
     ) {
       return;
     }
 
-    /*
-     * Start a fresh 2-second countdown.
-     */
     hideTimer.current = window.setTimeout(() => {
       if (
+        window.scrollY > TOP_POSITION &&
         !mobileOpenRef.current &&
-        window.scrollY > TOP_POSITION
+        !navbarHoverRef.current
       ) {
         setIsVisible(false);
       }
     }, NAVBAR_DISPLAY_TIME);
   }, [clearNavbarTimer]);
 
-  /* =======================================================
+  /* =========================================================
+     NAVBAR HOVER
+  ========================================================= */
+
+  const handleNavbarMouseEnter = useCallback(() => {
+    navbarHoverRef.current = true;
+
+    clearNavbarTimer();
+    setIsVisible(true);
+  }, [clearNavbarTimer]);
+
+  const handleNavbarMouseLeave = useCallback(() => {
+    navbarHoverRef.current = false;
+
+    /*
+      If page is already scrolled,
+      hide immediately after mouse leaves.
+    */
+    if (
+      window.scrollY > TOP_POSITION &&
+      !mobileOpenRef.current
+    ) {
+      hideNavbar();
+    }
+  }, [hideNavbar]);
+
+  /* =========================================================
      SCROLL HANDLER
-========================================================= */
+  ========================================================= */
 
   useEffect(() => {
-    let lastScroll = window.scrollY;
-
-    previousScroll.current = lastScroll;
+    lastScrollY.current = window.scrollY;
 
     const processScroll = () => {
       scrollFrame.current = null;
 
-      const currentScroll = window.scrollY;
+      const currentScrollY = window.scrollY;
+      const previousScrollY = lastScrollY.current;
 
-      setIsScrolled(currentScroll > 20);
+      setIsScrolled(currentScrollY > 20);
 
-      /*
-       * Always visible near the top.
-       */
-      if (currentScroll <= TOP_POSITION) {
+      /* -----------------------------------------------
+         AT TOP
+      ------------------------------------------------ */
+
+      if (currentScrollY <= TOP_POSITION) {
         clearNavbarTimer();
         setIsVisible(true);
 
-        previousScroll.current = currentScroll;
-        lastScroll = currentScroll;
-
+        lastScrollY.current = currentScrollY;
         return;
       }
 
-      /*
-       * Keep navbar visible while mobile menu is open.
-       */
+      /* -----------------------------------------------
+         MOBILE MENU OPEN
+      ------------------------------------------------ */
+
       if (mobileOpenRef.current) {
         clearNavbarTimer();
         setIsVisible(true);
 
-        previousScroll.current = currentScroll;
-        lastScroll = currentScroll;
-
+        lastScrollY.current = currentScrollY;
         return;
       }
 
-      /*
-       * Detect meaningful movement.
-       */
-      const distance = Math.abs(
-        currentScroll - lastScroll
-      );
+      /* -----------------------------------------------
+         IGNORE TINY MOVEMENTS
+      ------------------------------------------------ */
 
-      if (distance >= SCROLL_DISTANCE) {
-        showNavbar();
-        lastScroll = currentScroll;
+      const difference = currentScrollY - previousScrollY;
+
+      if (Math.abs(difference) < SCROLL_THRESHOLD) {
+        return;
       }
 
-      previousScroll.current = currentScroll;
+      /* -----------------------------------------------
+         SCROLL DOWN
+         → HIDE IMMEDIATELY
+      ------------------------------------------------ */
+
+      if (difference > 0) {
+        clearNavbarTimer();
+
+        if (!navbarHoverRef.current) {
+          setIsVisible(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      /* -----------------------------------------------
+         SCROLL UP
+         → SHOW FOR 2 SECONDS
+      ------------------------------------------------ */
+
+      if (difference < 0) {
+        showNavbarTemporarily();
+
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      lastScrollY.current = currentScrollY;
     };
 
     const handleScroll = () => {
@@ -216,117 +254,78 @@ export default function Navbar() {
       }
 
       scrollFrame.current =
-        window.requestAnimationFrame(
-          processScroll
-        );
+        window.requestAnimationFrame(processScroll);
     };
 
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      {
-        passive: true,
-      }
-    );
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
-    window.addEventListener(
-      "resize",
-      handleScroll
-    );
+    window.addEventListener("resize", handleScroll);
 
-    /*
-     * Initial state.
-     */
     processScroll();
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-
-      window.removeEventListener(
-        "resize",
-        handleScroll
-      );
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
 
       clearNavbarTimer();
 
-      if (
-        scrollFrame.current !== null
-      ) {
-        window.cancelAnimationFrame(
-          scrollFrame.current
-        );
-
+      if (scrollFrame.current !== null) {
+        window.cancelAnimationFrame(scrollFrame.current);
         scrollFrame.current = null;
       }
     };
-  }, [
-    clearNavbarTimer,
-    showNavbar,
-  ]);
+  }, [clearNavbarTimer, showNavbarTemporarily]);
 
-  /* =======================================================
+  /* =========================================================
      PAGE CHANGE
-======================================================= */
+  ========================================================= */
 
   useEffect(() => {
+    clearNavbarTimer();
+
     setServicesOpen(false);
     setMobileOpen(false);
-
-    mobileOpenRef.current = false;
-
-    clearNavbarTimer();
     setIsVisible(true);
 
-    /*
-     * Preserve your existing page-reset behavior.
-     */
+    mobileOpenRef.current = false;
+    navbarHoverRef.current = false;
+
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
 
-    /*
-     * At the top, keep navbar visible.
-     * If the smooth scroll ends below the top,
-     * normal scroll logic handles the 2-second timer.
-     */
     return () => {
       clearNavbarTimer();
     };
-  }, [
-    location.pathname,
-    clearNavbarTimer,
-  ]);
+  }, [location.pathname, clearNavbarTimer]);
 
-  /* =======================================================
+  /* =========================================================
      BODY LOCK
-======================================================= */
+  ========================================================= */
 
   useEffect(() => {
+    mobileOpenRef.current = mobileOpen;
+
     if (mobileOpen) {
-      document.body.classList.add(
-        "nav-open"
-      );
+      document.body.classList.add("nav-open");
+      clearNavbarTimer();
+      setIsVisible(true);
     } else {
-      document.body.classList.remove(
-        "nav-open"
-      );
+      document.body.classList.remove("nav-open");
     }
 
     return () => {
-      document.body.classList.remove(
-        "nav-open"
-      );
+      document.body.classList.remove("nav-open");
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, clearNavbarTimer]);
 
-  /* =======================================================
+  /* =========================================================
      ACTIVE ROUTE
-======================================================= */
+  ========================================================= */
 
   const isActive = useCallback(
     (link) => {
@@ -334,79 +333,82 @@ export default function Navbar() {
         return (
           location.pathname === link.path ||
           link.dropdown.some(
-            (item) =>
-              location.pathname ===
-              item.path
+            (item) => location.pathname === item.path
           )
         );
       }
 
-      return (
-        location.pathname ===
-        link.path
-      );
+      return location.pathname === link.path;
     },
     [location.pathname]
   );
 
-  /* =======================================================
-     MOBILE TOGGLE
-======================================================= */
+  /* =========================================================
+     MOBILE MENU
+  ========================================================= */
 
   const toggleMobileMenu = () => {
     clearNavbarTimer();
 
+    const nextState = !mobileOpen;
+
+    setMobileOpen(nextState);
+    mobileOpenRef.current = nextState;
     setIsVisible(true);
 
-    setMobileOpen(
-      (previous) => !previous
-    );
+    if (!nextState && window.scrollY > TOP_POSITION) {
+      hideNavbar();
+    }
   };
 
-  /* =======================================================
+  /* =========================================================
+     NORMAL NAVIGATION CLICK
+  ========================================================= */
+
+  const handleNavigationClick = () => {
+    clearNavbarTimer();
+
+    setServicesOpen(false);
+    setMobileOpen(false);
+
+    mobileOpenRef.current = false;
+
+    setIsVisible(true);
+  };
+
+  /* =========================================================
      RENDER
-======================================================= */
+  ========================================================= */
 
   return (
     <header
       className={`
         glass-header
         ${isScrolled ? "scrolled" : ""}
-        ${
-          isVisible
-            ? "header-visible"
-            : "header-hidden"
-        }
+        ${isVisible ? "header-visible" : "header-hidden"}
       `}
+      onMouseEnter={handleNavbarMouseEnter}
+      onMouseLeave={handleNavbarMouseLeave}
     >
-      {/* =================================================
-          NAVBAR INNER
-      ================================================= */}
+      {/* =====================================================
+          NAVBAR
+      ===================================================== */}
 
       <div className="glass-navbar-inner">
 
-        {/* =================================================
+        {/* ===================================================
             LOGO
-        ================================================= */}
+        =================================================== */}
 
         <Link
           to="/"
           className="glass-logo"
           aria-label="ProJenius Home"
-          onClick={() => {
-            clearNavbarTimer();
-
-            setServicesOpen(false);
-            setMobileOpen(false);
-
-            mobileOpenRef.current = false;
-
-            setIsVisible(true);
-          }}
+          onClick={handleNavigationClick}
         >
           <span className="glass-logo-mark">
             <img
-              src="/images/pj_logo.jpeg"
+              src="src/assets/images/pj_logo.jpeg"
               alt="ProJenius"
               className="logo-icon-crop"
             />
@@ -421,9 +423,9 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* =================================================
+        {/* ===================================================
             DESKTOP NAVIGATION
-        ================================================= */}
+        =================================================== */}
 
         <nav
           className="glass-nav-links"
@@ -431,9 +433,9 @@ export default function Navbar() {
         >
           {navLinks.map((link) => {
 
-            /* ===============================================
-               SERVICES
-            =============================================== */
+            /* -----------------------------------------------
+               DROPDOWN
+            ------------------------------------------------ */
 
             if (link.dropdown) {
               return (
@@ -442,11 +444,7 @@ export default function Navbar() {
                   className={`
                     glass-nav-item
                     has-dropdown
-                    ${
-                      isActive(link)
-                        ? "active"
-                        : ""
-                    }
+                    ${isActive(link) ? "active" : ""}
                   `}
                   onMouseEnter={() =>
                     setServicesOpen(true)
@@ -457,21 +455,15 @@ export default function Navbar() {
                 >
                   <button
                     type="button"
-                    className="
-                      glass-nav-link
-                      glass-nav-button
-                    "
+                    className="glass-nav-link glass-nav-button"
                     onClick={() => {
                       setServicesOpen(
-                        (previous) =>
-                          !previous
+                        (previous) => !previous
                       );
 
-                      showNavbar();
+                      setIsVisible(true);
                     }}
-                    aria-expanded={
-                      servicesOpen
-                    }
+                    aria-expanded={servicesOpen}
                   >
                     <span>
                       {link.label}
@@ -480,100 +472,63 @@ export default function Navbar() {
                     <ChevronDown
                       size={15}
                       className={
-                        servicesOpen
-                          ? "rotate"
-                          : ""
+                        servicesOpen ? "rotate" : ""
                       }
                     />
                   </button>
 
                   {servicesOpen && (
                     <div
-                      className="
-                        glass-dropdown
-                      "
+                      className="glass-dropdown"
                       onMouseEnter={() =>
-                        setServicesOpen(
-                          true
-                        )
+                        setServicesOpen(true)
                       }
                       onMouseLeave={() =>
-                        setServicesOpen(
-                          false
-                        )
+                        setServicesOpen(false)
                       }
                     >
-                      {link.dropdown.map(
-                        (item) => (
-                          <Link
-                            key={item.path}
-                            to={item.path}
-                            className={`
-                              glass-dropdown-item
-                              ${
-                                location.pathname ===
-                                item.path
-                                  ? "active"
-                                  : ""
-                              }
-                            `}
-                            onClick={() => {
-                              setServicesOpen(
-                                false
-                              );
-
-                              clearNavbarTimer();
-
-                              setIsVisible(
-                                true
-                              );
-                            }}
-                          >
-                            {item.label}
-                          </Link>
-                        )
-                      )}
+                      {link.dropdown.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className={`
+                            glass-dropdown-item
+                            ${
+                              location.pathname === item.path
+                                ? "active"
+                                : ""
+                            }
+                          `}
+                          onClick={() => {
+                            setServicesOpen(false);
+                            handleNavigationClick();
+                          }}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>
               );
             }
 
-            /* ===============================================
-               NORMAL NAVIGATION ITEM
-            =============================================== */
+            /* -----------------------------------------------
+               NORMAL LINK
+            ------------------------------------------------ */
 
             return (
               <div
                 key={link.path}
                 className={`
                   glass-nav-item
-                  ${
-                    isActive(link)
-                      ? "active"
-                      : ""
-                  }
+                  ${isActive(link) ? "active" : ""}
                 `}
               >
                 <Link
                   to={link.path}
                   className="glass-nav-link"
-                  onClick={() => {
-                    clearNavbarTimer();
-
-                    setServicesOpen(
-                      false
-                    );
-
-                    setMobileOpen(
-                      false
-                    );
-
-                    mobileOpenRef.current =
-                      false;
-
-                    setIsVisible(true);
-                  }}
+                  onClick={handleNavigationClick}
                 >
                   {link.label}
                 </Link>
@@ -582,9 +537,9 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* =================================================
-            MOBILE MENU BUTTON
-        ================================================= */}
+        {/* ===================================================
+            MOBILE BUTTON
+        =================================================== */}
 
         <button
           type="button"
@@ -601,20 +556,18 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* =================================================
-          MOBILE NAVIGATION
-      ================================================= */}
+      {/* =====================================================
+          MOBILE MENU
+      ===================================================== */}
 
       {mobileOpen && (
         <div className="glass-mobile-drawer">
-          <nav
-            aria-label="Mobile Navigation"
-          >
+          <nav aria-label="Mobile Navigation">
             {navLinks.map((link) => {
 
-              /* =============================================
+              /* ---------------------------------------------
                  MOBILE SERVICES
-              ============================================= */
+              --------------------------------------------- */
 
               if (link.dropdown) {
                 return (
@@ -627,20 +580,14 @@ export default function Navbar() {
                       className={`
                         glass-mobile-link
                         glass-mobile-toggle
-                        ${
-                          servicesOpen
-                            ? "open"
-                            : ""
-                        }
+                        ${servicesOpen ? "open" : ""}
                       `}
                       onClick={() => {
                         clearNavbarTimer();
-
                         setIsVisible(true);
 
                         setServicesOpen(
-                          (previous) =>
-                            !previous
+                          (previous) => !previous
                         );
                       }}
                     >
@@ -648,62 +595,46 @@ export default function Navbar() {
                         {link.label}
                       </span>
 
-                      <ChevronDown
-                        size={16}
-                      />
+                      <ChevronDown size={16} />
                     </button>
 
                     {servicesOpen && (
                       <div className="glass-mobile-sub">
-                        {link.dropdown.map(
-                          (item) => (
-                            <Link
-                              key={item.path}
-                              to={item.path}
-                              className={`
-                                glass-mobile-link
-                                sub
-                                ${
-                                  location.pathname ===
-                                  item.path
-                                    ? "active"
-                                    : ""
-                                }
-                              `}
-                              onClick={() => {
-                                setServicesOpen(
-                                  false
-                                );
-
-                                setMobileOpen(
-                                  false
-                                );
-
-                                mobileOpenRef.current =
-                                  false;
-
-                                clearNavbarTimer();
-
-                                setIsVisible(
-                                  true
-                                );
-                              }}
-                            >
-                              {
-                                item.label
+                        {link.dropdown.map((item) => (
+                          <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`
+                              glass-mobile-link
+                              sub
+                              ${
+                                location.pathname === item.path
+                                  ? "active"
+                                  : ""
                               }
-                            </Link>
-                          )
-                        )}
+                            `}
+                            onClick={() => {
+                              setServicesOpen(false);
+                              setMobileOpen(false);
+
+                              mobileOpenRef.current = false;
+
+                              clearNavbarTimer();
+                              setIsVisible(true);
+                            }}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
                       </div>
                     )}
                   </div>
                 );
               }
 
-              /* =============================================
+              /* ---------------------------------------------
                  MOBILE NORMAL LINK
-              ============================================= */
+              --------------------------------------------- */
 
               return (
                 <Link
@@ -711,26 +642,16 @@ export default function Navbar() {
                   to={link.path}
                   className={`
                     glass-mobile-link
-                    ${
-                      isActive(link)
-                        ? "active"
-                        : ""
-                    }
+                    ${isActive(link) ? "active" : ""}
                   `}
                   onClick={() => {
-                    setMobileOpen(
-                      false
-                    );
+                    setMobileOpen(false);
 
-                    mobileOpenRef.current =
-                      false;
+                    mobileOpenRef.current = false;
 
-                    setServicesOpen(
-                      false
-                    );
+                    setServicesOpen(false);
 
                     clearNavbarTimer();
-
                     setIsVisible(true);
                   }}
                 >

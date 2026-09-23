@@ -40,9 +40,9 @@ import CareerGuidance from "./pages/CareerGuidance";
 ========================================================= */
 
 import Workshop from "./pages/Workshop";
-import Startup from "./pages/Startup";
 import JoinOurTeam from "./pages/JoinOurTeam";
 import ContactPage from "./pages/ContactPage";
+import StartupSupportPage from "./pages/StartupSupportPage";
 
 /* =========================================================
    APP
@@ -156,7 +156,7 @@ export default function App() {
 
                 <Route
                     path="/startup"
-                    element={<Startup />}
+                    element={<StartupSupportPage />}
                 />
 
                 <Route

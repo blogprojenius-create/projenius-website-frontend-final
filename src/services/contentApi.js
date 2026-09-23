@@ -1,78 +1,160 @@
-const API_BASE_URL =
+const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL ||
-  "http://localhost:5000";
+  "http://localhost:5000"
+).replace(/\/+$/, "");
 
 /* =========================================================
-   RESPONSE
+   CONFIG
 ========================================================= */
 
-async function parseApiResponse(
-  response
+const REQUEST_TIMEOUT = 12000;
+const MAX_RETRIES = 2;
+const RETRY_DELAY = 700;
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function buildUrl(path, query = "") {
+  const cleanPath = path.startsWith("/")
+    ? path
+    : `/${path}`;
+
+  const cleanQuery = query
+    ? query.startsWith("?")
+      ? query
+      : `?${query}`
+    : "";
+
+  return `${API_BASE_URL}${cleanPath}${cleanQuery}`;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) =>
+    setTimeout(resolve, ms)
+  );
+}
+
+/* =========================================================
+   FETCH WITH RETRY
+========================================================= */
+
+async function fetchWithRetry(
+  url,
+  options = {},
+  retries = MAX_RETRIES
 ) {
-  const type =
-    response.headers.get(
-      "content-type"
-    ) || "";
+  let lastError;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, REQUEST_TIMEOUT);
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      lastError = error;
+
+      /*
+       * Retry only for temporary network/backend failures.
+       */
+      if (attempt < retries) {
+        await sleep(
+          RETRY_DELAY * (attempt + 1)
+        );
+      }
+    }
+  }
+
+  throw lastError;
+}
+
+/* =========================================================
+   RESPONSE PARSER
+========================================================= */
+
+async function parseApiResponse(response) {
+  const contentType =
+    response.headers.get("content-type") || "";
 
   if (
-    type.includes(
-      "application/json"
-    )
+    contentType.includes("application/json")
   ) {
-    const data =
-      await response.json();
+    const data = await response.json();
 
     if (!response.ok) {
       throw new Error(
         data?.error ||
           data?.message ||
-          "Request failed."
+          `Request failed with status ${response.status}.`
       );
     }
 
     return data;
   }
 
-  const text =
-    await response.text();
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      text ||
+        `Request failed with status ${response.status}.`
+    );
+  }
 
   throw new Error(
     text ||
-      `Server returned ${response.status}.`
+      "Unexpected server response."
   );
 }
 
 /* =========================================================
-   MEDIA
+   MEDIA URL
 ========================================================= */
 
-export function mediaUrl(
-  value
-) {
-  if (!value) return "";
-
-  if (
-    value.startsWith(
-      "data:"
-    ) ||
-    value.startsWith(
-      "http://"
-    ) ||
-    value.startsWith(
-      "https://"
-    ) ||
-    value.startsWith(
-      "blob:"
-    )
-  ) {
-    return value;
+export function mediaUrl(value) {
+  if (!value) {
+    return "";
   }
 
+  const stringValue = String(value).trim();
+
+  if (!stringValue) {
+    return "";
+  }
+
+  /*
+   * Already absolute / browser-managed URL
+   */
+  if (
+    stringValue.startsWith("data:") ||
+    stringValue.startsWith("http://") ||
+    stringValue.startsWith("https://") ||
+    stringValue.startsWith("blob:")
+  ) {
+    return stringValue;
+  }
+
+  /*
+   * Relative backend media path
+   */
   return `${API_BASE_URL}${
-    value.startsWith("/")
+    stringValue.startsWith("/")
       ? ""
       : "/"
-  }${value}`;
+  }${stringValue}`;
 }
 
 /* =========================================================
@@ -82,21 +164,22 @@ export function mediaUrl(
 export async function getCourses(
   query = ""
 ) {
-  const response =
-    await fetch(
-      `${API_BASE_URL}/api/courses${query}`,
-      {
-        method: "GET",
-        headers: {
-          Accept:
-            "application/json",
-        },
-      }
-    );
-
-  return parseApiResponse(
-    response
+  const url = buildUrl(
+    "/api/courses",
+    query || "?limit=100"
   );
+
+  const response = await fetchWithRetry(
+    url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  );
+
+  return parseApiResponse(response);
 }
 
 export async function getCourse(
@@ -108,23 +191,23 @@ export async function getCourse(
     );
   }
 
-  const response =
-    await fetch(
-      `${API_BASE_URL}/api/courses/${encodeURIComponent(
-        identifier
-      )}`,
-      {
-        method: "GET",
-        headers: {
-          Accept:
-            "application/json",
-        },
-      }
-    );
-
-  return parseApiResponse(
-    response
+  const url = buildUrl(
+    `/api/courses/${encodeURIComponent(
+      identifier
+    )}`
   );
+
+  const response = await fetchWithRetry(
+    url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  );
+
+  return parseApiResponse(response);
 }
 
 /* =========================================================
@@ -134,37 +217,31 @@ export async function getCourse(
 export async function getNews(
   query = ""
 ) {
-  const finalQuery = query
-    ? query.startsWith("?")
-      ? query
-      : `?${query}`
-    : "?limit=50";
+  const url = buildUrl(
+    "/api/news",
+    query || "?limit=50"
+  );
 
-  const response =
-    await fetch(
-      `${API_BASE_URL}/api/news${finalQuery}`,
-      {
-        method: "GET",
-        headers: {
-          Accept:
-            "application/json",
-        },
-      }
-    );
+  const response = await fetchWithRetry(
+    url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  );
 
   const data =
-    await parseApiResponse(
-      response
-    );
+    await parseApiResponse(response);
 
   /*
-   * Backend response:
+   * Supports:
+   * []
    *
+   * OR:
    * {
-   *   items: [],
-   *   page: 1,
-   *   total: 0,
-   *   totalPages: 1
+   *   items: []
    * }
    */
 
@@ -173,11 +250,21 @@ export async function getNews(
   }
 
   if (
-    Array.isArray(
-      data?.items
-    )
+    Array.isArray(data?.items)
   ) {
     return data.items;
+  }
+
+  if (
+    Array.isArray(data?.news)
+  ) {
+    return data.news;
+  }
+
+  if (
+    Array.isArray(data?.data)
+  ) {
+    return data.data;
   }
 
   return [];
@@ -196,28 +283,34 @@ export async function getNewsItem(
     );
   }
 
-  const response =
-    await fetch(
-      `${API_BASE_URL}/api/news/${encodeURIComponent(
-        identifier
-      )}`,
-      {
-        method: "GET",
-        headers: {
-          Accept:
-            "application/json",
-        },
-      }
-    );
-
-  return parseApiResponse(
-    response
+  const url = buildUrl(
+    `/api/news/${encodeURIComponent(
+      identifier
+    )}`
   );
+
+  const response = await fetchWithRetry(
+    url,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  );
+
+  return parseApiResponse(response);
 }
 
 /* =========================================================
-   COMPATIBILITY
+   COMPATIBILITY ALIAS
 ========================================================= */
 
 export const getNewsBySlug =
   getNewsItem;
+
+/* =========================================================
+   OPTIONAL: EXPORT API BASE URL
+========================================================= */
+
+export { API_BASE_URL };

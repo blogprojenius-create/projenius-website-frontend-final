@@ -25,25 +25,35 @@
   right: 0;
 
   width: 100%;
-  padding: 0;
+
+  /* Floating navbar spacing */
+  padding: 32px 0 0;
 
   z-index: 1000;
+
+  /*
+    Keep pointer-events on the navbar itself,
+    not the full header area.
+  */
   pointer-events: none;
+
+  box-sizing: border-box;
 }
 
 
 /* =========================================================
-   NAVBAR CONTAINER
+   MAIN NAVBAR
 ========================================================= */
 
 .glass-navbar-inner {
   position: relative;
 
-  width: min(1245px, calc(100% - 170px));
-  min-height: 82px;
+  width: min(1280px, calc(100% - 80px));
+
+  min-height: 72px;
 
   margin: 0 auto;
-  padding: 0 50px;
+  padding: 0 30px;
 
   display: flex;
   align-items: center;
@@ -53,9 +63,13 @@
   background: rgba(8, 17, 32, 0.96);
 
   border: 1px solid rgba(255, 255, 255, 0.04);
+
   border-bottom: 5px solid #35CEFF;
 
-  border-radius: 0 0 38px 38px;
+  /*
+    Floating pill shape
+  */
+  border-radius: 999px;
 
   box-shadow:
     0 15px 35px rgba(0, 0, 0, 0.28);
@@ -82,23 +96,26 @@
   margin: 0;
   padding: 0;
 
-  text-decoration: none;
-
   gap: 7px;
 
-  white-space: nowrap;
   height: 54px;
+
+  white-space: nowrap;
+
+  text-decoration: none;
 }
 
 
-/* Logo Circle */
+/* =========================================================
+   LOGO CIRCLE
+========================================================= */
 
 .glass-logo-mark {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
-
-  position: relative;
 
   width: 44px;
   height: 44px;
@@ -123,7 +140,9 @@
 }
 
 
-/* Logo Image */
+/* =========================================================
+   LOGO IMAGE
+========================================================= */
 
 .glass-logo-mark .logo-icon-crop {
   display: block;
@@ -149,7 +168,9 @@
 }
 
 
-/* Pro */
+/* =========================================================
+   LOGO - PRO
+========================================================= */
 
 .logo-pro {
   color: #ffffff !important;
@@ -170,10 +191,12 @@
 }
 
 
-/* Jenius */
+/* =========================================================
+   LOGO - JENIUS
+========================================================= */
 
 .logo-jenius {
-  color:  #35CEFF !important;
+  color: #35CEFF !important;
 
   font-family:
     "Segoe UI Black",
@@ -213,7 +236,9 @@
 }
 
 
-/* Individual Nav Item */
+/* =========================================================
+   NAV ITEM
+========================================================= */
 
 .glass-nav-item {
   position: relative;
@@ -221,7 +246,7 @@
   display: flex;
   align-items: center;
 
-  min-height: 82px;
+  min-height: 72px;
 
   margin: 0;
   padding: 0;
@@ -229,8 +254,7 @@
 
 
 /* =========================================================
-   COMMON NAV LINK STYLE
-   Home / About / Services / Workshop / etc.
+   NAV LINK
 ========================================================= */
 
 .glass-nav-link {
@@ -299,8 +323,7 @@
 
 
 /* =========================================================
-   COMMON BLUE UNDERLINE
-   SAME FOR HOME / ABOUT / SERVICES / ALL
+   NAV UNDERLINE
 ========================================================= */
 
 .glass-nav-link::after {
@@ -309,14 +332,14 @@
   position: absolute;
 
   left: 50%;
-  bottom: 2px;
+  bottom: 8px;
 
   width: 68%;
   height: 3px;
 
   border-radius: 999px;
 
-  background:  #35CEFF;
+  background: #35CEFF;
 
   transform:
     translateX(-50%)
@@ -329,7 +352,9 @@
 }
 
 
-/* Hover + Active */
+/* =========================================================
+   NAV UNDERLINE ACTIVE / HOVER
+========================================================= */
 
 .glass-nav-link:hover::after,
 .glass-nav-item.active .glass-nav-link::after {
@@ -341,7 +366,6 @@
 
 /* =========================================================
    SERVICES DROPDOWN
-   SAME VISUAL LANGUAGE AS NAVBAR
 ========================================================= */
 
 .glass-dropdown {
@@ -378,8 +402,7 @@
 
 
 /* =========================================================
-   DROPDOWN ITEMS
-   EXACT SAME TEXT STYLE AS HOME / ABOUT
+   DROPDOWN ITEM
 ========================================================= */
 
 .glass-dropdown-item {
@@ -423,7 +446,6 @@
 
 /* =========================================================
    DROPDOWN HOVER
-   NO DIFFERENT BLUE BOX
 ========================================================= */
 
 .glass-dropdown-item:hover {
@@ -447,8 +469,7 @@
 
 
 /* =========================================================
-   DROPDOWN BLUE UNDERLINE
-   SAME AS HOME / ABOUT
+   DROPDOWN UNDERLINE
 ========================================================= */
 
 .glass-dropdown-item::after {
@@ -464,14 +485,12 @@
 
   border-radius: 999px;
 
-  background:  #35CEFF;
+  background: #35CEFF;
 
   transition:
     width 0.25s ease;
 }
 
-
-/* Hover + Active underline */
 
 .glass-dropdown-item:hover::after,
 .glass-dropdown-item.active::after {
@@ -518,7 +537,7 @@
 .glass-mobile-drawer {
   position: fixed;
 
-  top: 94px;
+  top: 76px;
 
   left: 12px;
   right: 12px;
@@ -526,7 +545,7 @@
   width: auto;
 
   max-height:
-    calc(100dvh - 106px);
+    calc(100dvh - 88px);
 
   overflow-y: auto;
 
@@ -573,8 +592,7 @@
 
 
 /* =========================================================
-   MOBILE LINKS
-   SAME STYLE FOR EVERY LINK
+   MOBILE LINK
 ========================================================= */
 
 .glass-mobile-link {
@@ -617,7 +635,7 @@
 
 
 /* =========================================================
-   MOBILE LINK HOVER / ACTIVE
+   MOBILE HOVER / ACTIVE
 ========================================================= */
 
 .glass-mobile-link:hover,
@@ -629,7 +647,7 @@
 
 
 /* =========================================================
-   MOBILE BLUE UNDERLINE
+   MOBILE UNDERLINE
 ========================================================= */
 
 .glass-mobile-link::after {
@@ -645,7 +663,7 @@
 
   border-radius: 999px;
 
-  background:  #35CEFF;
+  background: #35CEFF;
 
   transition:
     width 0.25s ease;
@@ -668,6 +686,7 @@
   color: #BBBBBB !important;
 }
 
+
 .glass-mobile-toggle.open {
   color: #ffffff !important;
 }
@@ -686,7 +705,6 @@
 
 /* =========================================================
    MOBILE SUB LINKS
-   SAME STYLE AS MAIN LINKS
 ========================================================= */
 
 .glass-mobile-link.sub {
@@ -706,7 +724,9 @@
 }
 
 
-/* Sub Hover / Active */
+/* =========================================================
+   MOBILE SUB HOVER / ACTIVE
+========================================================= */
 
 .glass-mobile-link.sub:hover,
 .glass-mobile-link.sub.active {
@@ -716,11 +736,14 @@
 }
 
 
-/* Sub underline */
+/* =========================================================
+   MOBILE SUB UNDERLINE
+========================================================= */
 
 .glass-mobile-link.sub::after {
   left: 28px;
 }
+
 
 .glass-mobile-link.sub:hover::after,
 .glass-mobile-link.sub.active::after {
@@ -729,7 +752,7 @@
 
 
 /* =========================================================
-   HEADER ANIMATION
+   HEADER SHOW
 ========================================================= */
 
 .header-visible {
@@ -738,13 +761,14 @@
   transform: translateY(0);
 
   transition:
-    opacity 0.5s
-      cubic-bezier(0.22, 1, 0.36, 1),
-
-    transform 0.5s
-      cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+
+/* =========================================================
+   HEADER HIDE
+========================================================= */
 
 .header-hidden {
   opacity: 0 !important;
@@ -762,15 +786,25 @@
 
 @media (max-width: 1150px) {
 
+  .glass-header {
+    padding-top: 24px;
+  }
+
   .glass-navbar-inner {
-    width:
-      calc(100% - 40px);
+    width: calc(100% - 40px);
+
+    min-height: 58px;
 
     padding: 0 28px;
 
     gap: 18px;
+
+    border-radius: 999px;
   }
 
+  .glass-nav-item {
+    min-height: 58px;
+  }
 
   .glass-logo-mark {
     width: 45px;
@@ -782,17 +816,14 @@
     flex-basis: 45px;
   }
 
-
   .logo-pro,
   .logo-jenius {
     font-size: 30px !important;
   }
 
-
   .glass-nav-links {
     gap: 3px;
   }
-
 
   .glass-nav-link {
     font-size: 15px;
@@ -801,11 +832,9 @@
     padding-right: 7px;
   }
 
-
-  /* Dropdown remains same style */
-
   .glass-dropdown-item {
     font-size: 15px;
+
     font-weight: 700;
   }
 }
@@ -817,16 +846,18 @@
 
 @media (max-width: 980px) {
 
-  .glass-navbar-inner {
-    min-height: 72px;
+  .glass-header {
+    padding-top: 18px;
+  }
 
-    width:
-      calc(100% - 24px);
+  .glass-navbar-inner {
+    min-height: 58px;
+
+    width: calc(100% - 24px);
 
     padding: 0 16px;
 
-    border-radius:
-      0 0 28px 28px;
+    border-radius: 999px;
 
     display: flex;
 
@@ -836,11 +867,9 @@
     gap: 0;
   }
 
-
   .glass-nav-links {
     display: none;
   }
-
 
   .glass-logo {
     margin: 0;
@@ -853,7 +882,6 @@
     align-items: center;
   }
 
-
   .glass-logo-mark {
     width: 40px;
     height: 40px;
@@ -864,12 +892,10 @@
     flex-basis: 40px;
   }
 
-
   .logo-pro,
   .logo-jenius {
     font-size: 28px !important;
   }
-
 
   .glass-hamburger {
     display: flex;
@@ -883,25 +909,25 @@
     height: 44px;
   }
 
-
-  /*
-     IMPORTANT:
-     Desktop dropdown hidden.
-     Mobile uses the same styled submenu.
-  */
-
   .glass-dropdown {
     display: none;
   }
-
 
   .glass-mobile-link {
     font-size: 17px;
   }
 
-
   .glass-mobile-link.sub {
     font-size: 16px;
+  }
+
+  /*
+    Mobile drawer starts below
+    the floating pill.
+  */
+
+  .glass-mobile-drawer {
+    top: 76px;
   }
 }
 
@@ -912,26 +938,26 @@
 
 @media (max-width: 560px) {
 
-  .glass-navbar-inner {
-    min-height: 66px;
+  .glass-header {
+    padding-top: 14px;
+  }
 
-    width:
-      calc(100% - 16px);
+  .glass-navbar-inner {
+    min-height: 54px;
+
+    width: calc(100% - 16px);
 
     padding: 0 12px;
 
     border-bottom-width: 4px;
 
-    border-radius:
-      0 0 22px 22px;
+    border-radius: 999px;
   }
-
 
   .glass-logo {
     margin: 0;
     padding: 0;
   }
-
 
   .glass-logo-mark {
     width: 36px;
@@ -945,14 +971,12 @@
     border-width: 1.5px;
   }
 
-
   .logo-pro,
   .logo-jenius {
     font-size: 24px !important;
 
     letter-spacing: -0.8px;
   }
-
 
   .glass-hamburger {
     width: 42px;
@@ -964,24 +988,21 @@
     margin-right: 0;
   }
 
-
   .glass-mobile-drawer {
-    top: 78px;
+    top: 70px;
 
     left: 8px;
     right: 8px;
 
     max-height:
-      calc(100dvh - 88px);
+      calc(100dvh - 80px);
   }
-
 
   .glass-mobile-link {
     min-height: 50px;
 
     font-size: 16px;
   }
-
 
   .glass-mobile-link.sub {
     min-height: 46px;
@@ -990,7 +1011,6 @@
 
     padding-left: 24px;
   }
-
 
   .glass-mobile-link.sub::after {
     left: 24px;
@@ -1004,10 +1024,17 @@
 
 @media (max-width: 380px) {
 
-  .glass-navbar-inner {
-    padding: 0 10px;
+  .glass-header {
+    padding-top: 12px;
   }
 
+  .glass-navbar-inner {
+    min-height: 50px;
+
+    padding: 0 10px;
+
+    border-radius: 999px;
+  }
 
   .glass-logo-mark {
     width: 33px;
@@ -1019,14 +1046,12 @@
     flex-basis: 33px;
   }
 
-
   .logo-pro,
   .logo-jenius {
     font-size: 22px !important;
 
     letter-spacing: -0.7px;
   }
-
 
   .glass-hamburger {
     width: 40px;
@@ -1037,11 +1062,21 @@
     margin-left: auto;
     margin-right: 0;
   }
+
+  .glass-mobile-drawer {
+    top: 64px;
+
+    left: 6px;
+    right: 6px;
+
+    max-height:
+      calc(100dvh - 72px);
+  }
 }
 
 
 /* =========================================================
-   BODY LOCK WHEN MOBILE MENU OPEN
+   BODY LOCK
 ========================================================= */
 
 body.nav-open {
