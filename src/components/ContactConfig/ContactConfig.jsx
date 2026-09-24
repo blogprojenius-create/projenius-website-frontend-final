@@ -11,7 +11,7 @@ export const CONTACT_CONFIG = {
   // state (no fake success). Receives multipart/form-data:
   //   payload    -> JSON string (built by buildPayload in ContactSmartForm.jsx)
   //   attachment -> optional file
-  endpoint: null,
+  endpoint: `${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"}/api/contact`,
   timeoutMs: 25000,
   maxFileMB: 5,
 
@@ -33,7 +33,21 @@ export const CONTACT_CONFIG = {
       "https://maps.app.goo.gl/HvpbcZaJhUyh6Bhm9",
   },
 };
+/* ==========================================================================
+   EmailJS
+   ========================================================================== */
 
+export const EMAILJS_CONFIG = {
+  serviceId: "service_z16d4s2",
+
+  adminTemplateId: "template_8pa3m69",
+
+  userTemplateId: "template_tyrxtpq",
+
+  publicKey: "GlKARJgJpVd5y7KUO",
+
+  adminEmail: "teamprojenius@gmail.com",
+};
 /* ----- Shared option lists -------------------------------------------- */
 const AREAS = [
   "AI / ML",

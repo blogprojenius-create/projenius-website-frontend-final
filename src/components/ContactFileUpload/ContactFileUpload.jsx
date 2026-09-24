@@ -7,14 +7,20 @@ import "./ContactFileUpload.css";
    FILE SIZE FORMATTER
 ========================================================= */
 
-export const formatFileSize = (bytes) =>
-  bytes < 1024 * 1024
-    ? `${Math.max(1, Math.round(bytes / 1024))} KB`
-    : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+export const formatFileSize = (bytes = 0) => {
+  if (bytes < 1024 * 1024) {
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  }
+
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+};
 
 
 /* =========================================================
    CONTACT FILE UPLOAD
+   - Keeps the selected File object in parent state
+   - Does NOT upload directly
+   - Parent form sends it to backend on submit
 ========================================================= */
 
 export default function ContactFileUpload({
@@ -31,43 +37,85 @@ export default function ContactFileUpload({
   const hintId = `${id}-hint`;
   const errId = `${id}-err`;
 
-  /* =======================================================
-     SELECT FILE
-  ======================================================= */
+  /* -------------------------------------------------------
+     Select / clear file
+  ------------------------------------------------------- */
 
-  const pick = (picked) => {
-    onSelect(field.id, picked || null);
+  const pick = (pickedFile) => {
+    onSelect(field.id, pickedFile || null);
   };
 
 
-  /* =======================================================
-     NORMAL FILE SELECTION
-  ======================================================= */
+  /* -------------------------------------------------------
+     File input
+  ------------------------------------------------------- */
 
-  const handleInput = (e) => {
-    pick(e.target.files && e.target.files[0]);
+  const handleInput = (event) => {
+    const selectedFile = event.target.files?.[0] || null;
+
+    pick(selectedFile);
 
     /*
-      Reset the input so the same file can be selected again
-      after removing it.
+      Do NOT clear event.target.value here.
+
+      The selected File needs to remain available until
+      ContactSmartForm submits the FormData.
     */
-    e.target.value = "";
   };
 
 
-  /* =======================================================
-     DRAG & DROP
-  ======================================================= */
+  /* -------------------------------------------------------
+     Drag & Drop
+  ------------------------------------------------------- */
 
-  const handleDrop = (e) => {
-    e.preventDefault();
+  const handleDragEnter = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setDragging(true);
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setDragging(true);
+  };
+
+  const handleDragLeave = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setDragging(false);
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     setDragging(false);
 
-    if (
-      e.dataTransfer.files &&
-      e.dataTransfer.files[0]
-    ) {
-      pick(e.dataTransfer.files[0]);
+    const droppedFile = event.dataTransfer.files?.[0] || null;
+
+    if (droppedFile) {
+      pick(droppedFile);
+    }
+  };
+
+
+  /* -------------------------------------------------------
+     Remove selected file
+  ------------------------------------------------------- */
+
+  const handleRemove = () => {
+    pick(null);
+
+    /*
+      Reset the actual input so the same file can be selected
+      again after removing it.
+    */
+    if (inputRef.current) {
+      inputRef.current.value = "";
     }
   };
 
@@ -79,9 +127,9 @@ export default function ContactFileUpload({
       }`}
     >
 
-      {/* ===================================================
+      {/* =====================================================
           LABEL
-      =================================================== */}
+      ===================================================== */}
 
       <span
         className="pjct-upload__label"
@@ -91,9 +139,9 @@ export default function ContactFileUpload({
       </span>
 
 
-      {/* ===================================================
+      {/* =====================================================
           UPLOAD ZONE
-      =================================================== */}
+      ===================================================== */}
 
       <div
         className={`pjct-upload__zone${
@@ -101,30 +149,19 @@ export default function ContactFileUpload({
             ? " pjct-upload__zone--drag"
             : ""
         }`}
-        onDragEnter={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
+
+        {/* Hidden file input */}
 
         <input
           ref={inputRef}
           className="pjct-upload__input"
           id={id}
-
-          /*
-            IMPORTANT:
-            EmailJS sendForm() uses the input name
-            to identify the uploaded file.
-          */
           name={field.id}
-
           type="file"
           accept={field.accept}
           data-pjct-field={field.id}
@@ -135,6 +172,9 @@ export default function ContactFileUpload({
           onChange={handleInput}
         />
 
+
+        {/* Choose file button */}
+
         <label
           className="pjct-upload__button"
           htmlFor={id}
@@ -143,15 +183,19 @@ export default function ContactFileUpload({
           Choose file
         </label>
 
+
+        {/* Drag text */}
+
         <span className="pjct-upload__text">
           or drag and drop it here
         </span>
+
       </div>
 
 
-      {/* ===================================================
+      {/* =====================================================
           FILE HINT
-      =================================================== */}
+      ===================================================== */}
 
       <p
         className="pjct-upload__hint"
@@ -162,9 +206,9 @@ export default function ContactFileUpload({
       </p>
 
 
-      {/* ===================================================
+      {/* =====================================================
           SELECTED FILE
-      =================================================== */}
+      ===================================================== */}
 
       {file && (
         <div className="pjct-upload__file">
@@ -182,7 +226,7 @@ export default function ContactFileUpload({
           <button
             type="button"
             className="pjct-upload__remove"
-            onClick={() => pick(null)}
+            onClick={handleRemove}
             aria-label={`Remove ${file.name}`}
           >
             <ContactIcon
@@ -198,9 +242,9 @@ export default function ContactFileUpload({
       )}
 
 
-      {/* ===================================================
+      {/* =====================================================
           ERROR
-      =================================================== */}
+      ===================================================== */}
 
       <ContactFieldError
         id={errId}
