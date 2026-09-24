@@ -408,7 +408,7 @@ export default function Navbar() {
         >
           <span className="glass-logo-mark">
             <img
-              src="src/assets/images/pj_logo.jpeg"
+              src="src/assets/images/favicon.ico"
               alt="ProJenius"
               className="logo-icon-crop"
             />

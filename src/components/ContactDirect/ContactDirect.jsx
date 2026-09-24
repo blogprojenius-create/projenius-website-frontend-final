@@ -118,7 +118,7 @@ export default function ContactDirect() {
       description:
         "Chat with the ProJenius team",
       value:
-        "Message us on WhatsApp",
+        "+91 89254 50473",
       href: cleanWhatsApp(
         contact.whatsapp
       )
