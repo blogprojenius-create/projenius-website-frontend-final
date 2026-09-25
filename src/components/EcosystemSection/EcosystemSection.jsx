@@ -93,7 +93,7 @@ const ecosystemItems = [
 ];
 
 /* =========================================================
-   DESKTOP NETWORK CONFIGURATION
+   NETWORK CONFIGURATION
 ========================================================= */
 
 const CENTER_X = 500;
@@ -107,12 +107,8 @@ const networkNodes = ecosystemItems.map((item, index) => {
   return {
     ...item,
     index: index + 1,
-    x2:
-      CENTER_X +
-      NETWORK_RADIUS * Math.cos(radians),
-    y2:
-      CENTER_Y +
-      NETWORK_RADIUS * Math.sin(radians),
+    x2: CENTER_X + NETWORK_RADIUS * Math.cos(radians),
+    y2: CENTER_Y + NETWORK_RADIUS * Math.sin(radians),
     duration: 3.8,
     delay: index * 0.35,
   };
@@ -187,6 +183,8 @@ function EcosystemNode({ item }) {
       className={`eco-node eco-node-${item.position}`}
       tabIndex="0"
     >
+      {/* NODE ICON */}
+
       <div className="eco-node-card">
         <Icon
           className="eco-node-icon"
@@ -196,11 +194,14 @@ function EcosystemNode({ item }) {
         />
       </div>
 
+      {/* NODE TITLE */}
+
       <span className="eco-node-label">
         {item.title}
       </span>
 
-      {/* Desktop hover content */}
+      {/* DESKTOP HOVER DESCRIPTION */}
+
       <div className="eco-node-description">
         <strong>{item.title}</strong>
 
@@ -233,12 +234,15 @@ export default function EcosystemSection() {
           </span>
 
           <h2 id="ecosystem-title">
+
             <span className="ecosystem-heading-white">
               A Connected
             </span>{" "}
+
             <span className="ecosystem-heading-blue">
               Innovation Network
             </span>
+
           </h2>
 
           <p className="ecosystem-heading-description">
@@ -250,10 +254,12 @@ export default function EcosystemSection() {
         </header>
 
         {/* =================================================
-            DESKTOP NETWORK
+            NETWORK
         ================================================= */}
 
         <div className="ecosystem-network">
+
+          {/* SVG NETWORK */}
 
           <svg
             className="ecosystem-lines"
@@ -261,6 +267,7 @@ export default function EcosystemSection() {
             preserveAspectRatio="xMidYMid meet"
             aria-hidden="true"
           >
+
             {networkNodes.map((node) => (
               <NetworkLine
                 key={`line-${node.index}`}
@@ -279,13 +286,16 @@ export default function EcosystemSection() {
                 delay={node.delay}
               />
             ))}
+
           </svg>
 
-          {/* CENTER LOGO */}
+          {/* =================================================
+              CENTER CORE
+          ================================================= */}
 
           <div
             className="ecosystem-core"
-            aria-label="ProJenius ecosystem"
+            aria-label="Projenius ecosystem"
           >
             <div className="ecosystem-core-glow">
 
@@ -297,7 +307,7 @@ export default function EcosystemSection() {
                     src={logo}
                     alt="ProJenius"
                     className="ecosystem-company-logo"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                   />
 
@@ -308,7 +318,9 @@ export default function EcosystemSection() {
             </div>
           </div>
 
-          {/* DESKTOP NODES */}
+          {/* =================================================
+              ECOSYSTEM NODES
+          ================================================= */}
 
           {networkNodes.map((item) => (
             <EcosystemNode
@@ -316,70 +328,6 @@ export default function EcosystemSection() {
               item={item}
             />
           ))}
-
-        </div>
-
-        {/* =================================================
-            MOBILE ECOSYSTEM
-        ================================================= */}
-
-        <div className="ecosystem-mobile">
-
-          {/* MOBILE CENTER */}
-
-          <div className="ecosystem-mobile-core">
-
-            <div className="ecosystem-mobile-logo-ring">
-
-              <div className="ecosystem-mobile-logo">
-
-                <img
-                  src={logo}
-                  alt="ProJenius"
-                  loading="lazy"
-                  decoding="async"
-                />
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* MOBILE ITEMS */}
-
-          <div className="ecosystem-mobile-grid">
-
-            {ecosystemItems.map(
-              ({
-                id,
-                title,
-                Icon,
-              }) => (
-                <article
-                  className="ecosystem-mobile-item"
-                  key={id}
-                >
-
-                  <div className="ecosystem-mobile-icon">
-
-                    <Icon
-                      size={23}
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    />
-
-                  </div>
-
-                  <span>
-                    {title}
-                  </span>
-
-                </article>
-              )
-            )}
-
-          </div>
 
         </div>
 
