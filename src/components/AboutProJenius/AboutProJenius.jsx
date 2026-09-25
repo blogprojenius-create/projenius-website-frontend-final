@@ -156,26 +156,17 @@ export default function AboutProJenius() {
 
             {/* OUTER RING */}
             <div
-              className="
-                about-projenius-ring
-                about-projenius-ring-outer
-              "
+              className="about-projenius-ring about-projenius-ring-outer"
             />
 
             {/* MIDDLE RING */}
             <div
-              className="
-                about-projenius-ring
-                about-projenius-ring-middle
-              "
+              className="about-projenius-ring about-projenius-ring-middle"
             />
 
             {/* INNER RING */}
             <div
-              className="
-                about-projenius-ring
-                about-projenius-ring-inner
-              "
+              className="about-projenius-ring about-projenius-ring-inner"
             />
 
             {/* CENTER GLOW */}
@@ -183,6 +174,7 @@ export default function AboutProJenius() {
 
             {/* CENTER LOGO */}
             <div className="about-projenius-center">
+
               <div className="about-projenius-logo-circle">
 
                 <img
@@ -194,6 +186,7 @@ export default function AboutProJenius() {
                 />
 
               </div>
+
             </div>
 
             {/* ORBIT LABELS */}
