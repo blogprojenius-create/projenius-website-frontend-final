@@ -48,7 +48,9 @@ export default function ContactSection() {
           setVisible(true);
 
           if (animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current);
+            cancelAnimationFrame(
+              animationFrameRef.current
+            );
           }
 
           setCounts(stats.map(() => 0));
@@ -57,7 +59,8 @@ export default function ContactSection() {
           const startTime = performance.now();
 
           const animateCounters = (currentTime) => {
-            const elapsed = currentTime - startTime;
+            const elapsed =
+              currentTime - startTime;
 
             const progress = Math.min(
               elapsed / duration,
@@ -82,7 +85,9 @@ export default function ContactSection() {
                 );
             } else {
               setCounts(
-                stats.map((stat) => stat.value)
+                stats.map(
+                  (stat) => stat.value
+                )
               );
 
               animationFrameRef.current = null;
@@ -218,35 +223,31 @@ export default function ContactSection() {
 
         <div className="contact-stats">
 
-          <div className="contact-stats-track">
+          {stats.map((stat, index) => (
+            <React.Fragment key={stat.label}>
 
-            {stats.map((stat, index) => (
-              <React.Fragment key={stat.label}>
+              <div className="contact-stat">
 
-                <div className="contact-stat">
+                <strong>
+                  {counts[index]}
+                  {stat.suffix}
+                </strong>
 
-                  <strong>
-                    {counts[index]}
-                    {stat.suffix}
-                  </strong>
+                <span>
+                  {stat.label}
+                </span>
 
-                  <span>
-                    {stat.label}
-                  </span>
+              </div>
 
-                </div>
+              {index < stats.length - 1 && (
+                <div
+                  className="contact-stat-divider"
+                  aria-hidden="true"
+                />
+              )}
 
-                {index < stats.length - 1 && (
-                  <div
-                    className="contact-stat-divider"
-                    aria-hidden="true"
-                  />
-                )}
-
-              </React.Fragment>
-            ))}
-
-          </div>
+            </React.Fragment>
+          ))}
 
         </div>
 
