@@ -2,6 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 
+//LOGO
+import NavLogo from "../assets/images/pj_logo.jpeg";
+
 import "./Navbar.css";
 
 /* =========================================================
@@ -408,7 +411,7 @@ export default function Navbar() {
         >
           <span className="glass-logo-mark">
             <img
-              src="src/assets/images/favicon.ico"
+              src={NavLogo}
               alt="ProJenius"
               className="logo-icon-crop"
             />

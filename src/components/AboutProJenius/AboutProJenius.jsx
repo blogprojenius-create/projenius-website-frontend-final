@@ -183,7 +183,7 @@ export default function AboutProJenius() {
               <div className="about-projenius-logo-circle">
 
                 <img
-                  src="assets/images/logo.png"
+                  src="../assets/images/logo.png"
                   alt="ProJenius"
                   className="about-projenius-logo"
                   loading="lazy"

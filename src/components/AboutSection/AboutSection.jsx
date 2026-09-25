@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AboutSection.css";
-
+import aboutOne from "../assets/images/about-main-image.png";
+import aboutSecond from "../assets/images/about-main-image.png";
 /* =========================================================
    ICONS
    No external icon library required
@@ -251,7 +252,7 @@ export default function AboutSection() {
 
                         <div className="about-main-image">
                             <img
-                                src="/images/about-main-image.png"
+                                src={aboutOne}
                                 alt="Team working on innovation"
                                 loading="lazy"
                             />
@@ -262,7 +263,7 @@ export default function AboutSection() {
 
                         <div className="about-small-image">
                             <img
-                                src="/images/software-developement-training.png"
+                                src={aboutSecond}
                                 alt="Software development training session"
                                 loading="lazy"
                             />
