@@ -10,6 +10,7 @@ import {
   Rocket,
   GraduationCap,
 } from "lucide-react";
+import logo from "../../assets/images/logo.png";
 import "./EcosystemSection.css";
 
 /* =========================================================
@@ -93,15 +94,6 @@ const ecosystemItems = [
 
 /* =========================================================
    NETWORK CONFIGURATION
-
-   Center:
-   500 / 300
-
-   Radius:
-   260
-
-   9 points distributed evenly around the center.
-   This keeps every line exactly the same length.
 ========================================================= */
 
 const CENTER_X = 500;
@@ -142,7 +134,13 @@ function NetworkLine({ x2, y2 }) {
    MOVING DOT
 ========================================================= */
 
-function MovingDot({ x2, y2, index, duration, delay }) {
+function MovingDot({
+  x2,
+  y2,
+  index,
+  duration,
+  delay,
+}) {
   const pathId = `eco-motion-path-${index}`;
 
   return (
@@ -185,7 +183,7 @@ function EcosystemNode({ item }) {
       className={`eco-node eco-node-${item.position}`}
       tabIndex="0"
     >
-      {/* CARD */}
+      {/* NODE ICON */}
 
       <div className="eco-node-card">
         <Icon
@@ -196,13 +194,13 @@ function EcosystemNode({ item }) {
         />
       </div>
 
-      {/* TITLE */}
+      {/* NODE TITLE */}
 
       <span className="eco-node-label">
         {item.title}
       </span>
 
-      {/* HOVER DESCRIPTION */}
+      {/* DESKTOP HOVER DESCRIPTION */}
 
       <div className="eco-node-description">
         <strong>{item.title}</strong>
@@ -225,9 +223,9 @@ export default function EcosystemSection() {
     >
       <div className="ecosystem-container">
 
-        {/* =====================================================
+        {/* =================================================
             HEADING
-        ===================================================== */}
+        ================================================= */}
 
         <header className="ecosystem-heading">
 
@@ -236,30 +234,32 @@ export default function EcosystemSection() {
           </span>
 
           <h2 id="ecosystem-title">
+
             <span className="ecosystem-heading-white">
               A Connected
             </span>{" "}
+
             <span className="ecosystem-heading-blue">
               Innovation Network
             </span>
+
           </h2>
 
           <p className="ecosystem-heading-description">
-            Every part of our ecosystem works together — technology,
-            product, and people connected by a shared drive to innovate.
+            Every part of our ecosystem works together —
+            technology, product, and people connected by
+            a shared drive to innovate.
           </p>
 
         </header>
 
-        {/* =====================================================
+        {/* =================================================
             NETWORK
-        ===================================================== */}
+        ================================================= */}
 
         <div className="ecosystem-network">
 
-          {/* ===================================================
-              SVG NETWORK
-          =================================================== */}
+          {/* SVG NETWORK */}
 
           <svg
             className="ecosystem-lines"
@@ -268,8 +268,6 @@ export default function EcosystemSection() {
             aria-hidden="true"
           >
 
-            {/* NETWORK LINES */}
-
             {networkNodes.map((node) => (
               <NetworkLine
                 key={`line-${node.index}`}
@@ -277,8 +275,6 @@ export default function EcosystemSection() {
                 y2={node.y2}
               />
             ))}
-
-            {/* MOVING DOTS */}
 
             {networkNodes.map((node) => (
               <MovingDot
@@ -293,9 +289,9 @@ export default function EcosystemSection() {
 
           </svg>
 
-          {/* ===================================================
+          {/* =================================================
               CENTER CORE
-          =================================================== */}
+          ================================================= */}
 
           <div
             className="ecosystem-core"
@@ -308,8 +304,8 @@ export default function EcosystemSection() {
                 <div className="ecosystem-core-circle">
 
                   <img
-                    src="/images/logo.png"
-                    alt="Projenius"
+                    src={logo}
+                    alt="ProJenius"
                     className="ecosystem-company-logo"
                     loading="eager"
                     decoding="async"
@@ -322,9 +318,9 @@ export default function EcosystemSection() {
             </div>
           </div>
 
-          {/* ===================================================
+          {/* =================================================
               ECOSYSTEM NODES
-          =================================================== */}
+          ================================================= */}
 
           {networkNodes.map((item) => (
             <EcosystemNode
