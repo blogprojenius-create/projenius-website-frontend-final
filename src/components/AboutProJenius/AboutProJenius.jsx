@@ -5,7 +5,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import "./AboutProJenius.css";
-
+import aboutLogo from "../../assets/images/logo.png";
 /* =========================================================
    ORBIT ITEMS
 ========================================================= */
@@ -183,7 +183,7 @@ export default function AboutProJenius() {
               <div className="about-projenius-logo-circle">
 
                 <img
-                  src="assets/images/logo.png"
+                  src={aboutLogo}
                   alt="ProJenius"
                   className="about-projenius-logo"
                   loading="lazy"

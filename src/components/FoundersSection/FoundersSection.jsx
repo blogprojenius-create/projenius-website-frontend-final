@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import "./FoundersSection.css";
 
+import Leader from "../../assets/images/team-member-1.webp";
+import Founder from "../../assets/images/team-member-1.webp";
+import CoFounder from "../../assets/images/team-member-2.webp";
+
 /* =========================================================
    SOCIAL ICONS
 ========================================================= */
@@ -77,15 +81,7 @@ function SocialIcons() {
 }
 
 /* =========================================================
-   REVEAL ANIMATION HOOK
-
-   Animation now replays every time the element
-   enters the viewport.
-
-   IMPORTANT:
-   We intentionally DO NOT use observer.unobserve()
-   because the animation needs to work again whenever
-   the user comes back to this page/section.
+   REVEAL HOOK
 ========================================================= */
 
 function useReveal(className = "is-visible") {
@@ -96,8 +92,6 @@ function useReveal(className = "is-visible") {
 
     if (!element) return;
 
-    /* Prevent animation problems if IntersectionObserver
-       is unavailable in the browser. */
     if (!("IntersectionObserver" in window)) {
       element.classList.add(className);
 
@@ -109,12 +103,8 @@ function useReveal(className = "is-visible") {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          /* ENTER VIEW */
           element.classList.add(className);
         } else {
-          /* LEAVE VIEW
-             Remove the class so the animation can
-             start again the next time it enters. */
           element.classList.remove(className);
         }
       },
@@ -153,10 +143,12 @@ function FounderCard({
       ref={cardRef}
       className="founder-card"
     >
-
-      {/* TEXT CONTENT */}
+      {/* =================================================
+          TEXT
+      ================================================= */}
 
       <div className="founder-text-content">
+
         <h3 className="founder-name">
           {name}
         </h3>
@@ -168,27 +160,32 @@ function FounderCard({
         <p className="founder-bio">
           {bio}
         </p>
+
       </div>
 
-      {/* IMAGE */}
+
+      {/* =================================================
+          IMAGE
+      ================================================= */}
 
       <div className="founder-image-wrapper">
 
-        <div className="founder-image-shape" />
+        <div
+          className="founder-image-shape"
+          aria-hidden="true"
+        />
 
         <img
           src={image}
           alt={imageAlt}
           className="founder-image"
           loading="lazy"
+          decoding="async"
         />
-
-        {/* SHOWS ONLY ON CARD HOVER */}
 
         <SocialIcons />
 
       </div>
-
     </article>
   );
 }
@@ -205,8 +202,9 @@ function LeaderCard() {
       ref={cardRef}
       className="leader-card"
     >
-
-      {/* TEXT */}
+      {/* =================================================
+          TEXT
+      ================================================= */}
 
       <div className="leader-info">
 
@@ -226,20 +224,26 @@ function LeaderCard() {
 
       </div>
 
-      {/* IMAGE */}
+
+      {/* =================================================
+          IMAGE
+      ================================================= */}
 
       <div className="leader-image">
 
-        <div className="leader-image-shape" />
+        <div
+          className="leader-image-shape"
+          aria-hidden="true"
+        />
 
         <img
-          src="/images/team-member-1.webp"
+          src={Leader}
           alt="Dr. D. Vasudevan"
           loading="lazy"
+          decoding="async"
         />
 
       </div>
-
     </article>
   );
 }
@@ -253,7 +257,7 @@ export default function CombinedLeadershipPage() {
     <div className="founders-leadership-page">
 
       {/* =====================================================
-          FOUNDERS SECTION
+          FOUNDERS
       ===================================================== */}
 
       <section className="founders-section">
@@ -280,7 +284,7 @@ export default function CombinedLeadershipPage() {
             name="Karthick Ganesh"
             role="Founder & CEO"
             bio="A passionate leader focused on empowering the next generation of innovators with a strong vision for academic and practical excellence."
-            image="/images/team-member-1.webp"
+            image={Founder}
             imageAlt="Karthick Ganesh"
             animationClass="founder-card-visible"
           />
@@ -289,14 +293,14 @@ export default function CombinedLeadershipPage() {
             name="Harshini"
             role="CTO & Co-Founder"
             bio="A visionary mentor promoting entrepreneurship and innovation, supporting students from exploration to impactful execution."
-            image="/images/team-member-2.webp"
+            image={CoFounder}
             imageAlt="Harshini"
             animationClass="founder-card-visible"
           />
 
         </div>
-
       </section>
+
 
       {/* =====================================================
           ACADEMIC LEADERSHIP

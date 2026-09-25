@@ -7,6 +7,9 @@ import "./TrainingSection.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import workshop1 from "../../assets/images/iot-workshop.png"
+import gallery1 from "../../assets/images/gallery-1.webp"
+
 export default function TrainingSection() {
   const [imgIndex1, setImgIndex1] = useState(0);
   const [imgIndex2, setImgIndex2] = useState(0);
@@ -18,8 +21,8 @@ export default function TrainingSection() {
   ========================================================= */
 
   const imgPool1 = [
-    "/images/iot-workshop.png",
-    "/images/gallery-1.webp",
+    {workshop1},
+    {gallery1},
     "/images/gallery-2.webp",
   ];
 

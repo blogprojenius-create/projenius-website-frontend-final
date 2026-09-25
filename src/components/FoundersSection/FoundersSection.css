@@ -7,22 +7,25 @@
   overflow: hidden;
 }
 
+
 /* =========================================================
    FOUNDERS SECTION
 ========================================================= */
 
 .founders-section {
   width: 100%;
-  padding-top: 70px;
-  padding-bottom: 50px;
+  padding: 70px 24px 50px;
+
   background: linear-gradient(
     135deg,
     #f8fcff 0%,
     #eef9ff 50%,
     #f7fcff 100%
   );
+
   text-align: center;
 }
+
 
 /* =========================================================
    SECTION TAG
@@ -30,6 +33,7 @@
 
 .section-tag {
   display: inline-block;
+
   padding: 8px 20px;
   margin-bottom: 20px;
 
@@ -37,13 +41,17 @@
   border-radius: 25px;
 
   background: rgba(53, 206, 255, 0.08);
+
   color: #159bd2;
 
   font-size: 0.9rem;
   font-weight: 600;
+
   letter-spacing: 0.5px;
+
   text-transform: uppercase;
 }
+
 
 /* =========================================================
    MAIN TITLE
@@ -56,12 +64,14 @@
 
   font-size: 3rem;
   font-weight: 800;
+
   line-height: 1.2;
 }
 
 .founders-highlight {
   color: #159bd2;
 }
+
 
 /* =========================================================
    DESCRIPTION
@@ -78,12 +88,14 @@
   line-height: 1.6;
 }
 
+
 /* =========================================================
-   CARDS CONTAINER
+   FOUNDERS CARDS CONTAINER
 ========================================================= */
 
 .founders-cards-container {
   display: flex;
+
   justify-content: center;
   align-items: stretch;
 
@@ -91,6 +103,7 @@
 
   width: 100%;
 }
+
 
 /* =========================================================
    FOUNDER CARD
@@ -100,7 +113,9 @@
   position: relative;
 
   display: flex;
+
   flex-direction: row;
+
   align-items: stretch;
   justify-content: space-between;
 
@@ -117,17 +132,17 @@
   border: 1px solid #d7eefa;
   border-radius: 15px;
 
-  box-shadow: 0 8px 25px rgba(31, 111, 150, 0.08);
+  box-shadow:
+    0 8px 25px rgba(31, 111, 150, 0.08);
 
   text-align: left;
-
-  opacity: 1;
 
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
     border-color 0.35s ease;
 }
+
 
 /* =========================================================
    CARD HOVER
@@ -138,15 +153,18 @@
 
   border-color: #35ceff;
 
-  box-shadow: 0 16px 35px rgba(53, 206, 255, 0.16);
+  box-shadow:
+    0 16px 35px rgba(53, 206, 255, 0.16);
 }
 
+
 /* =========================================================
-   TEXT
+   FOUNDER TEXT
 ========================================================= */
 
 .founder-text-content {
   position: relative;
+
   z-index: 2;
 
   flex: 1;
@@ -156,12 +174,15 @@
   margin-right: 0;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
 }
 
+
 /* =========================================================
-   NAME
+   FOUNDER NAME
 ========================================================= */
 
 .founder-name {
@@ -175,8 +196,9 @@
   line-height: 1.15;
 }
 
+
 /* =========================================================
-   ROLE
+   FOUNDER ROLE
 ========================================================= */
 
 .founder-role {
@@ -199,8 +221,9 @@
   font-weight: 500;
 }
 
+
 /* =========================================================
-   BIO
+   FOUNDER BIO
 ========================================================= */
 
 .founder-bio {
@@ -209,12 +232,13 @@
   color: #667085;
 
   font-size: 1rem;
+
   line-height: 1.6;
 }
 
+
 /* =========================================================
-   IMAGE AREA
-   SAME HEIGHT AS CARD
+   FOUNDER IMAGE
 ========================================================= */
 
 .founder-image-wrapper {
@@ -230,6 +254,7 @@
   background: #101828;
 }
 
+
 /* =========================================================
    DIAGONAL BLUE SHAPE
 ========================================================= */
@@ -237,8 +262,7 @@
 .founder-image-shape {
   position: absolute;
 
-  top: 0;
-  right: 0;
+  inset: 0;
 
   width: 100%;
   height: 100%;
@@ -252,8 +276,9 @@
   z-index: 1;
 }
 
+
 /* =========================================================
-   IMAGE
+   FOUNDER IMAGE
 ========================================================= */
 
 .founder-image {
@@ -267,15 +292,14 @@
   height: 100%;
 
   object-fit: cover;
-
   object-position: center;
 
   display: block;
 }
 
+
 /* =========================================================
    SOCIAL ICONS
-   HIDDEN BY DEFAULT
 ========================================================= */
 
 .founder-social-icons {
@@ -287,6 +311,7 @@
   z-index: 5;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -299,6 +324,7 @@
   background: rgba(16, 24, 40, 0.72);
 
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   transform: translate(-50%, 15px);
 
@@ -311,16 +337,19 @@
     visibility 0.25s ease;
 }
 
+
 /* =========================================================
-   SHOW SOCIAL ICONS WHEN CARD IS HOVERED
+   SHOW SOCIAL ICONS ON HOVER
 ========================================================= */
 
 .founder-card:hover .founder-social-icons {
   opacity: 1;
+
   visibility: visible;
 
   transform: translate(-50%, 0);
 }
+
 
 /* =========================================================
    SOCIAL ICON
@@ -328,6 +357,7 @@
 
 .founder-social-icon {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -360,9 +390,9 @@
   display: block;
 }
 
+
 /* =========================================================
-   SCROLL ANIMATION
-   TEXT = BOTTOM TO TOP
+   DESKTOP REVEAL
 ========================================================= */
 
 .founder-card .founder-text-content {
@@ -375,10 +405,6 @@
     transform 0.75s ease;
 }
 
-/* =========================================================
-   SCROLL ANIMATION
-   IMAGE = RIGHT TO LEFT
-========================================================= */
 
 .founder-card .founder-image-wrapper {
   opacity: 0;
@@ -390,21 +416,22 @@
     transform 0.8s ease;
 }
 
-/* =========================================================
-   WHEN CARD ENTERS VIEW
-========================================================= */
 
-.founder-card.founder-card-visible .founder-text-content {
+.founder-card.founder-card-visible
+.founder-text-content {
   opacity: 1;
 
   transform: translateY(0);
 }
 
-.founder-card.founder-card-visible .founder-image-wrapper {
+
+.founder-card.founder-card-visible
+.founder-image-wrapper {
   opacity: 1;
 
   transform: translateX(0);
 }
+
 
 /* =========================================================
    ACADEMIC LEADERSHIP
@@ -413,7 +440,7 @@
 .leadership-section-container {
   width: 100%;
 
-  padding: 4rem 1rem;
+  padding: 4rem 24px;
 
   background: linear-gradient(
     135deg,
@@ -427,16 +454,20 @@
   text-align: center;
 }
 
+
 .academic-leadership {
   margin-top: 10px;
+
   margin-bottom: 4rem;
 
   font-size: 22px;
 }
 
+
 .academic-leadership h2 {
   margin: 0;
 }
+
 
 /* =========================================================
    TITLE HIGHLIGHT
@@ -445,6 +476,7 @@
 .title-highlight {
   color: #159bd2;
 }
+
 
 /* =========================================================
    LEADER CARD CONTAINER
@@ -457,6 +489,7 @@
 
   margin-top: 2rem;
 }
+
 
 /* =========================================================
    LEADER CARD
@@ -484,11 +517,10 @@
 
   border-radius: 15px;
 
-  box-shadow: 0 8px 25px rgba(31, 111, 150, 0.08);
+  box-shadow:
+    0 8px 25px rgba(31, 111, 150, 0.08);
 
   text-align: left;
-
-  opacity: 1;
 
   transition:
     transform 0.35s ease,
@@ -496,13 +528,16 @@
     border-color 0.35s ease;
 }
 
+
 .leader-card:hover {
   transform: translateY(-6px);
 
   border-color: #35ceff;
 
-  box-shadow: 0 16px 35px rgba(53, 206, 255, 0.16);
+  box-shadow:
+    0 16px 35px rgba(53, 206, 255, 0.16);
 }
+
 
 /* =========================================================
    LEADER INFO
@@ -512,11 +547,14 @@
   flex: 1;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
 
   padding: 30px 20px 30px 30px;
 }
+
 
 .leader-info h3 {
   margin: 0 0 8px;
@@ -524,8 +562,10 @@
   color: #101828;
 
   font-size: 1.8rem;
+
   font-weight: 800;
 }
+
 
 .leader-info .role {
   display: inline-block;
@@ -537,6 +577,7 @@
   padding: 5px 15px;
 
   border: 1px solid #bdeaff;
+
   border-radius: 20px;
 
   background: #eefaff;
@@ -544,8 +585,10 @@
   color: #159bd2;
 
   font-size: 1rem;
+
   font-weight: 500;
 }
+
 
 .leader-info .description {
   margin: 0;
@@ -557,6 +600,7 @@
   line-height: 1.6;
 }
 
+
 /* =========================================================
    LEADER IMAGE
 ========================================================= */
@@ -567,12 +611,14 @@
   flex: 0 0 42%;
 
   min-width: 42%;
+
   min-height: 290px;
 
   overflow: hidden;
 
   background: #101828;
 }
+
 
 .leader-image-shape {
   position: absolute;
@@ -587,6 +633,7 @@
     #35ceff 27% 100%
   );
 }
+
 
 .leader-image img {
   position: absolute;
@@ -603,8 +650,9 @@
   display: block;
 }
 
+
 /* =========================================================
-   LEADER SCROLL ANIMATION
+   LEADER REVEAL
 ========================================================= */
 
 .leader-card .leader-info {
@@ -617,6 +665,7 @@
     transform 0.75s ease;
 }
 
+
 .leader-card .leader-image {
   opacity: 0;
 
@@ -627,11 +676,13 @@
     transform 0.8s ease;
 }
 
+
 .leader-card.leader-card-visible .leader-info {
   opacity: 1;
 
   transform: translateY(0);
 }
+
 
 .leader-card.leader-card-visible .leader-image {
   opacity: 1;
@@ -639,11 +690,18 @@
   transform: translateX(0);
 }
 
+
 /* =========================================================
    TABLET
 ========================================================= */
 
 @media (max-width: 1024px) {
+
+  .founders-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .founder-card,
   .leader-card {
     max-width: 500px;
@@ -660,20 +718,30 @@
   }
 }
 
+
 /* =========================================================
    MOBILE
+   IMPORTANT:
+   IMAGE IS NEVER HIDDEN ON MOBILE
 ========================================================= */
 
 @media (max-width: 768px) {
+
   .founders-section,
   .leadership-section-container {
     padding: 50px 15px;
   }
 
+
+  /* =====================================================
+     SECTION TITLE
+  ===================================================== */
+
   .section-title,
   .section h2 {
     font-size: 2rem;
   }
+
 
   .section-description {
     margin-bottom: 40px;
@@ -681,68 +749,451 @@
     font-size: 1rem;
   }
 
+
+  /* =====================================================
+     FOUNDERS CONTAINER
+  ===================================================== */
+
   .founders-cards-container {
+    display: flex;
+
     flex-direction: column;
 
     align-items: center;
 
     gap: 30px;
+
+    width: 100%;
   }
+
+
+  /* =====================================================
+     MOBILE CARD
+  ===================================================== */
 
   .founder-card,
   .leader-card {
+    display: flex;
+
     flex-direction: column;
 
     width: 100%;
+
     max-width: 400px;
 
-    min-height: auto;
+    min-height: 0;
+
+    height: auto;
+
+    overflow: hidden;
+
+    border-radius: 15px;
   }
 
-  .founder-text-content,
-  .leader-info {
-    order: 2;
 
-    padding: 25px;
-
-    text-align: center;
-  }
-
-  .founder-role,
-  .leader-info .role {
-    margin-left: auto;
-    margin-right: auto;
-  }
+  /* =====================================================
+     MOBILE IMAGE
+     FIRST
+  ===================================================== */
 
   .founder-image-wrapper,
   .leader-image {
     order: 1;
 
+    position: relative;
+
     width: 100%;
+
     min-width: 100%;
 
+    max-width: 100%;
+
     height: 260px;
+
     min-height: 260px;
 
-    flex: none;
+    max-height: 260px;
+
+    flex: 0 0 260px;
+
+    overflow: hidden;
+
+    /*
+      CRITICAL:
+      Do not inherit desktop hidden state.
+    */
+
+    opacity: 1 !important;
+
+    transform: none !important;
+
+    visibility: visible;
+
+    display: block;
   }
+
+
+  /* =====================================================
+     MOBILE IMAGE
+  ===================================================== */
+
+  .founder-image,
+  .leader-image img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    min-width: 100%;
+
+    min-height: 100%;
+
+    max-width: none;
+
+    max-height: none;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    opacity: 1;
+
+    visibility: visible;
+  }
+
+
+  /* =====================================================
+     BLUE SHAPE
+  ===================================================== */
+
+  .founder-image-shape,
+  .leader-image-shape {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 1;
+  }
+
+
+  /* =====================================================
+     TEXT
+     SECOND
+  ===================================================== */
+
+  .founder-text-content,
+  .leader-info {
+    order: 2;
+
+    width: 100%;
+
+    flex: none;
+
+    padding: 25px;
+
+    text-align: center;
+
+    opacity: 1;
+
+    transform: none;
+  }
+
+
+  /* =====================================================
+     NAME
+  ===================================================== */
 
   .founder-name,
   .leader-info h3 {
     font-size: 1.4rem;
+
+    line-height: 1.2;
+
+    margin-bottom: 8px;
   }
+
+
+  /* =====================================================
+     ROLE
+  ===================================================== */
+
+  .founder-role,
+  .leader-info .role {
+    display: inline-block;
+
+    margin-left: auto;
+
+    margin-right: auto;
+  }
+
+
+  /* =====================================================
+     BIO
+  ===================================================== */
 
   .founder-bio,
   .leader-info .description {
     font-size: 0.9rem;
+
+    line-height: 1.6;
+  }
+
+
+  /* =====================================================
+     SOCIAL ICONS
+     Always available on mobile
+     because there is no hover.
+  ===================================================== */
+
+  .founder-social-icons {
+    left: 50%;
+
+    bottom: 12px;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateX(-50%);
+
+    pointer-events: auto;
+  }
+
+
+  /* =====================================================
+     LEADER CONTAINER
+  ===================================================== */
+
+  .leader-card-container {
+    width: 100%;
+
+    margin-top: 2rem;
+  }
+
+
+  /* =====================================================
+     LEADER CARD
+  ===================================================== */
+
+  .leader-card {
+    max-width: 400px;
+  }
+
+
+  /*
+     Override desktop reveal animation completely
+     on mobile.
+  */
+
+  .leader-card .leader-info,
+  .leader-card .leader-image {
+    opacity: 1 !important;
+
+    transform: none !important;
+
+    visibility: visible;
   }
 }
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .founders-section,
+  .leadership-section-container {
+    padding: 42px 12px;
+  }
+
+
+  .section-tag {
+    padding: 7px 15px;
+
+    margin-bottom: 16px;
+
+    font-size: 0.75rem;
+  }
+
+
+  .section-title,
+  .section h2 {
+    font-size: 1.75rem;
+
+    line-height: 1.2;
+  }
+
+
+  .section-description {
+    margin-bottom: 32px;
+
+    font-size: 0.9rem;
+
+    line-height: 1.55;
+  }
+
+
+  /* =====================================================
+     CARD
+  ===================================================== */
+
+  .founder-card,
+  .leader-card {
+    width: 100%;
+
+    max-width: 100%;
+
+    border-radius: 15px;
+  }
+
+
+  /* =====================================================
+     IMAGE
+  ===================================================== */
+
+  .founder-image-wrapper,
+  .leader-image {
+    width: 100%;
+
+    min-width: 100%;
+
+    height: 240px;
+
+    min-height: 240px;
+
+    max-height: 240px;
+
+    flex-basis: 240px;
+
+    opacity: 1 !important;
+
+    transform: none !important;
+  }
+
+
+  .founder-image,
+  .leader-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+  }
+
+
+  /* =====================================================
+     TEXT
+  ===================================================== */
+
+  .founder-text-content,
+  .leader-info {
+    padding: 22px 18px 24px;
+
+    opacity: 1 !important;
+
+    transform: none !important;
+  }
+
+
+  .founder-name,
+  .leader-info h3 {
+    font-size: 1.3rem;
+  }
+
+
+  .founder-role,
+  .leader-info .role {
+    margin-bottom: 15px;
+
+    font-size: 0.85rem;
+
+    padding: 5px 12px;
+  }
+
+
+  .founder-bio,
+  .leader-info .description {
+    font-size: 0.85rem;
+
+    line-height: 1.55;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .founders-section,
+  .leadership-section-container {
+    padding-left: 10px;
+
+    padding-right: 10px;
+  }
+
+
+  .section-title,
+  .section h2 {
+    font-size: 1.6rem;
+  }
+
+
+  .section-description {
+    font-size: 0.85rem;
+  }
+
+
+  .founder-image-wrapper,
+  .leader-image {
+    height: 220px;
+
+    min-height: 220px;
+
+    max-height: 220px;
+
+    flex-basis: 220px;
+  }
+
+
+  .founder-text-content,
+  .leader-info {
+    padding: 20px 15px 22px;
+  }
+
+
+  .founder-name,
+  .leader-info h3 {
+    font-size: 1.2rem;
+  }
+
+
+  .founder-bio,
+  .leader-info .description {
+    font-size: 0.82rem;
+  }
+}
+
 
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   .founder-card,
   .leader-card,
   .founder-card .founder-text-content,
@@ -750,14 +1201,20 @@
   .leader-card .leader-info,
   .leader-card .leader-image,
   .founder-social-icons {
-    transition: none;
-    transform: none;
+    transition: none !important;
+
+    animation: none !important;
   }
+
 
   .founder-card .founder-text-content,
   .founder-card .founder-image-wrapper,
   .leader-card .leader-info,
   .leader-card .leader-image {
-    opacity: 1;
+    opacity: 1 !important;
+
+    transform: none !important;
+
+    visibility: visible !important;
   }
 }

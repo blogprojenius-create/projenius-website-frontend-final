@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./HeroSection.css";
-
+import banner from "../../assets/images/projenius-banner.webp";
+import bannerOne from "../../assets/images/projenius-banner-1.webp";
 /* =========================================================
    HERO SLIDES
    ========================================================= */
 
 const slides = [
     {
-        bg: "/images/projenius-banner.webp",
-        thumb: "/images/projenius-banner.webp",
+        bg: {banner},
+        thumb: {banner},
     },
     {
-        bg: "/images/projenius-banner-1.webp",
-        thumb: "/images/projenius-banner-1.webp",
+        bg: {bannerOne},
+        thumb: {bannerOne},
     },
     {
-        bg: "/images/projenius-banner.webp",
-        thumb: "/images/projenius-banner.webp",
+        bg: {banner},
+        thumb: {banner},
     },
     {
-        bg: "/images/projenius-banner-1.webp",
-        thumb: "/images/projenius-banner-1.webp",
+        bg: {bannerOne},
+        thumb: {bannerOne},
     },
     {
-        bg: "/images/projenius-banner.webp",
-        thumb: "/images/projenius-banner.webp",
+        bg: {banner},
+        thumb: {banner},
     },
     {
-        bg: "/images/projenius-banner-1.webp",
-        thumb: "/images/projenius-banner-1.webp",
+        bg: {bannerOne},
+        thumb: {bannerOne},
     },
 ];
 
@@ -334,7 +335,7 @@ export default function HeroSection() {
                                 aria-label="Show next image"
                             >
                                 <img
-                                    src={activeImage.thumb}
+                                    src={banner}
                                     alt="Projenius technology"
                                     draggable="false"
                                 />
@@ -356,7 +357,7 @@ export default function HeroSection() {
                                 aria-label="Show next image"
                             >
                                 <img
-                                    src={secondImage.thumb}
+                                    src={bannerOne}
                                     alt="Projenius technology"
                                     draggable="false"
                                 />
@@ -378,7 +379,7 @@ export default function HeroSection() {
                                 aria-label="Show next image"
                             >
                                 <img
-                                    src={thirdImage.thumb}
+                                    src={banner}
                                     alt="Projenius technology"
                                     draggable="false"
                                 />

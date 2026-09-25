@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./HomeTeamSection.css";
-
+import showcaseImage from "../../assets/images/projenius-banner-4.webp";
 const stats = [
   {
     value: 156,
@@ -181,7 +181,7 @@ export default function ContactSection() {
         <div className="contact-showcase-card">
 
           <img
-            src="/images/projenius-banner-4.webp"
+            src={showcaseImage}
             alt="ProJenius team working together"
             className="contact-showcase-image"
             loading="lazy"
