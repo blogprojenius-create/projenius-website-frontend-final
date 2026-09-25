@@ -94,10 +94,7 @@ function useReveal(className = "is-visible") {
 
     if (!("IntersectionObserver" in window)) {
       element.classList.add(className);
-
-      return () => {
-        element.classList.remove(className);
-      };
+      return;
     }
 
     const observer = new IntersectionObserver(
@@ -143,30 +140,8 @@ function FounderCard({
       ref={cardRef}
       className="founder-card"
     >
-      {/* =================================================
-          TEXT
-      ================================================= */}
 
-      <div className="founder-text-content">
-
-        <h3 className="founder-name">
-          {name}
-        </h3>
-
-        <p className="founder-role">
-          {role}
-        </p>
-
-        <p className="founder-bio">
-          {bio}
-        </p>
-
-      </div>
-
-
-      {/* =================================================
-          IMAGE
-      ================================================= */}
+      {/* IMAGE */}
 
       <div className="founder-image-wrapper">
 
@@ -186,6 +161,26 @@ function FounderCard({
         <SocialIcons />
 
       </div>
+
+
+      {/* TEXT */}
+
+      <div className="founder-text-content">
+
+        <h3 className="founder-name">
+          {name}
+        </h3>
+
+        <p className="founder-role">
+          {role}
+        </p>
+
+        <p className="founder-bio">
+          {bio}
+        </p>
+
+      </div>
+
     </article>
   );
 }
@@ -202,9 +197,27 @@ function LeaderCard() {
       ref={cardRef}
       className="leader-card"
     >
-      {/* =================================================
-          TEXT
-      ================================================= */}
+
+      {/* IMAGE */}
+
+      <div className="leader-image">
+
+        <div
+          className="leader-image-shape"
+          aria-hidden="true"
+        />
+
+        <img
+          src={Leader}
+          alt="Dr. D. Vasudevan"
+          loading="lazy"
+          decoding="async"
+        />
+
+      </div>
+
+
+      {/* TEXT */}
 
       <div className="leader-info">
 
@@ -224,26 +237,6 @@ function LeaderCard() {
 
       </div>
 
-
-      {/* =================================================
-          IMAGE
-      ================================================= */}
-
-      <div className="leader-image">
-
-        <div
-          className="leader-image-shape"
-          aria-hidden="true"
-        />
-
-        <img
-          src={Leader}
-          alt="Dr. D. Vasudevan"
-          loading="lazy"
-          decoding="async"
-        />
-
-      </div>
     </article>
   );
 }
@@ -299,6 +292,7 @@ export default function CombinedLeadershipPage() {
           />
 
         </div>
+
       </section>
 
 

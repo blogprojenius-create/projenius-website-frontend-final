@@ -1,10 +1,18 @@
 /* =========================================================
-   FOUNDERS + LEADERSHIP
+   GLOBAL
 ========================================================= */
 
 .founders-leadership-page {
   width: 100%;
-  overflow: hidden;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.founders-leadership-page *,
+.founders-leadership-page *::before,
+.founders-leadership-page *::after {
+  box-sizing: border-box;
 }
 
 
@@ -14,7 +22,7 @@
 
 .founders-section {
   width: 100%;
-  padding: 70px 24px 50px;
+  padding: 70px 24px 55px;
 
   background: linear-gradient(
     135deg,
@@ -28,7 +36,7 @@
 
 
 /* =========================================================
-   SECTION TAG
+   TAG
 ========================================================= */
 
 .section-tag {
@@ -48,13 +56,12 @@
   font-weight: 600;
 
   letter-spacing: 0.5px;
-
   text-transform: uppercase;
 }
 
 
 /* =========================================================
-   MAIN TITLE
+   TITLE
 ========================================================= */
 
 .section-title {
@@ -68,7 +75,8 @@
   line-height: 1.2;
 }
 
-.founders-highlight {
+.founders-highlight,
+.title-highlight {
   color: #159bd2;
 }
 
@@ -78,6 +86,7 @@
 ========================================================= */
 
 .section-description {
+  width: 100%;
   max-width: 800px;
 
   margin: 0 auto 60px;
@@ -90,7 +99,7 @@
 
 
 /* =========================================================
-   FOUNDERS CARDS CONTAINER
+   FOUNDERS CONTAINER
 ========================================================= */
 
 .founders-cards-container {
@@ -102,6 +111,9 @@
   gap: 30px;
 
   width: 100%;
+  max-width: 1140px;
+
+  margin: 0 auto;
 }
 
 
@@ -116,13 +128,10 @@
 
   flex-direction: row;
 
-  align-items: stretch;
-  justify-content: space-between;
-
   width: 100%;
   max-width: 550px;
-  min-width: 0;
 
+  min-width: 0;
   min-height: 290px;
 
   overflow: hidden;
@@ -143,11 +152,6 @@
     border-color 0.35s ease;
 }
 
-
-/* =========================================================
-   CARD HOVER
-========================================================= */
-
 .founder-card:hover {
   transform: translateY(-6px);
 
@@ -159,31 +163,87 @@
 
 
 /* =========================================================
-   FOUNDER TEXT
+   FOUNDER IMAGE
 ========================================================= */
 
-.founder-text-content {
+.founder-image-wrapper {
   position: relative;
 
-  z-index: 2;
+  flex: 0 0 42%;
 
-  flex: 1;
+  width: 42%;
+  min-width: 42%;
+  min-height: 290px;
 
-  padding: 30px 20px 30px 30px;
+  overflow: hidden;
 
-  margin-right: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
+  background: #101828;
 }
 
 
 /* =========================================================
-   FOUNDER NAME
+   IMAGE SHAPE
 ========================================================= */
+
+.founder-image-shape {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+
+  background: linear-gradient(
+    135deg,
+    transparent 0 27%,
+    #35ceff 27% 100%
+  );
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.founder-image {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* =========================================================
+   FOUNDER TEXT
+========================================================= */
+
+.founder-text-content {
+  order: 2;
+
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 30px;
+}
 
 .founder-name {
   margin: 0 0 8px;
@@ -195,11 +255,6 @@
 
   line-height: 1.15;
 }
-
-
-/* =========================================================
-   FOUNDER ROLE
-========================================================= */
 
 .founder-role {
   display: inline-block;
@@ -221,11 +276,6 @@
   font-weight: 500;
 }
 
-
-/* =========================================================
-   FOUNDER BIO
-========================================================= */
-
 .founder-bio {
   margin: 0;
 
@@ -234,67 +284,6 @@
   font-size: 1rem;
 
   line-height: 1.6;
-}
-
-
-/* =========================================================
-   FOUNDER IMAGE
-========================================================= */
-
-.founder-image-wrapper {
-  position: relative;
-
-  flex: 0 0 42%;
-
-  min-width: 42%;
-  min-height: 290px;
-
-  overflow: hidden;
-
-  background: #101828;
-}
-
-
-/* =========================================================
-   DIAGONAL BLUE SHAPE
-========================================================= */
-
-.founder-image-shape {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background: linear-gradient(
-    135deg,
-    transparent 0 27%,
-    #35ceff 27% 100%
-  );
-
-  z-index: 1;
-}
-
-
-/* =========================================================
-   FOUNDER IMAGE
-========================================================= */
-
-.founder-image {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 2;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  object-position: center;
-
-  display: block;
 }
 
 
@@ -337,23 +326,12 @@
     visibility 0.25s ease;
 }
 
-
-/* =========================================================
-   SHOW SOCIAL ICONS ON HOVER
-========================================================= */
-
 .founder-card:hover .founder-social-icons {
   opacity: 1;
-
   visibility: visible;
 
   transform: translate(-50%, 0);
 }
-
-
-/* =========================================================
-   SOCIAL ICON
-========================================================= */
 
 .founder-social-icon {
   display: flex;
@@ -366,9 +344,9 @@
 
   color: #ffffff;
 
-  cursor: pointer;
-
   border-radius: 50%;
+
+  cursor: pointer;
 
   transition:
     background-color 0.2s ease,
@@ -382,29 +360,18 @@
 }
 
 .founder-social-icon svg {
+  display: block;
+
   width: 15px;
   height: 15px;
 
   fill: currentColor;
-
-  display: block;
 }
 
 
 /* =========================================================
    DESKTOP REVEAL
 ========================================================= */
-
-.founder-card .founder-text-content {
-  opacity: 0;
-
-  transform: translateY(45px);
-
-  transition:
-    opacity 0.75s ease,
-    transform 0.75s ease;
-}
-
 
 .founder-card .founder-image-wrapper {
   opacity: 0;
@@ -416,20 +383,28 @@
     transform 0.8s ease;
 }
 
+.founder-card .founder-text-content {
+  opacity: 0;
 
-.founder-card.founder-card-visible
-.founder-text-content {
-  opacity: 1;
+  transform: translateY(45px);
 
-  transform: translateY(0);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
 }
-
 
 .founder-card.founder-card-visible
 .founder-image-wrapper {
   opacity: 1;
 
   transform: translateX(0);
+}
+
+.founder-card.founder-card-visible
+.founder-text-content {
+  opacity: 1;
+
+  transform: translateY(0);
 }
 
 
@@ -440,7 +415,7 @@
 .leadership-section-container {
   width: 100%;
 
-  padding: 4rem 24px;
+  padding: 60px 24px;
 
   background: linear-gradient(
     135deg,
@@ -449,45 +424,19 @@
     #f7fcff 100%
   );
 
-  color: #101828;
-
   text-align: center;
 }
 
-
 .academic-leadership {
-  margin-top: 10px;
-
-  margin-bottom: 4rem;
-
-  font-size: 22px;
+  width: 100%;
 }
-
 
 .academic-leadership h2 {
   margin: 0;
-}
 
+  color: #101828;
 
-/* =========================================================
-   TITLE HIGHLIGHT
-========================================================= */
-
-.title-highlight {
-  color: #159bd2;
-}
-
-
-/* =========================================================
-   LEADER CARD CONTAINER
-========================================================= */
-
-.leader-card-container {
-  display: flex;
-
-  justify-content: center;
-
-  margin-top: 2rem;
+  font-size: 2rem;
 }
 
 
@@ -495,18 +444,27 @@
    LEADER CARD
 ========================================================= */
 
+.leader-card-container {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+
+  margin-top: 30px;
+}
+
 .leader-card {
+  position: relative;
+
   display: flex;
 
   flex-direction: row;
 
-  align-items: stretch;
-
-  justify-content: space-between;
-
   width: 100%;
   max-width: 550px;
 
+  min-width: 0;
   min-height: 290px;
 
   overflow: hidden;
@@ -514,7 +472,6 @@
   background: #ffffff;
 
   border: 1px solid #d7eefa;
-
   border-radius: 15px;
 
   box-shadow:
@@ -528,7 +485,6 @@
     border-color 0.35s ease;
 }
 
-
 .leader-card:hover {
   transform: translateY(-6px);
 
@@ -536,68 +492,6 @@
 
   box-shadow:
     0 16px 35px rgba(53, 206, 255, 0.16);
-}
-
-
-/* =========================================================
-   LEADER INFO
-========================================================= */
-
-.leader-info {
-  flex: 1;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  padding: 30px 20px 30px 30px;
-}
-
-
-.leader-info h3 {
-  margin: 0 0 8px;
-
-  color: #101828;
-
-  font-size: 1.8rem;
-
-  font-weight: 800;
-}
-
-
-.leader-info .role {
-  display: inline-block;
-
-  width: fit-content;
-
-  margin: 0 0 20px;
-
-  padding: 5px 15px;
-
-  border: 1px solid #bdeaff;
-
-  border-radius: 20px;
-
-  background: #eefaff;
-
-  color: #159bd2;
-
-  font-size: 1rem;
-
-  font-weight: 500;
-}
-
-
-.leader-info .description {
-  margin: 0;
-
-  color: #667085;
-
-  font-size: 1rem;
-
-  line-height: 1.6;
 }
 
 
@@ -610,15 +504,14 @@
 
   flex: 0 0 42%;
 
+  width: 42%;
   min-width: 42%;
-
   min-height: 290px;
 
   overflow: hidden;
 
   background: #101828;
 }
-
 
 .leader-image-shape {
   position: absolute;
@@ -634,7 +527,6 @@
   );
 }
 
-
 .leader-image img {
   position: absolute;
 
@@ -642,29 +534,77 @@
 
   z-index: 2;
 
+  display: block;
+
   width: 100%;
   height: 100%;
 
   object-fit: cover;
+  object-position: center;
 
-  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* =========================================================
+   LEADER INFO
+========================================================= */
+
+.leader-info {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 30px;
+}
+
+.leader-info h3 {
+  margin: 0 0 8px;
+
+  color: #101828;
+
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.leader-info .role {
+  display: inline-block;
+
+  width: fit-content;
+
+  margin: 0 0 20px;
+
+  padding: 5px 15px;
+
+  border: 1px solid #bdeaff;
+  border-radius: 20px;
+
+  background: #eefaff;
+
+  color: #159bd2;
+
+  font-size: 1rem;
+}
+
+.leader-info .description {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 1rem;
+
+  line-height: 1.6;
 }
 
 
 /* =========================================================
    LEADER REVEAL
 ========================================================= */
-
-.leader-card .leader-info {
-  opacity: 0;
-
-  transform: translateY(45px);
-
-  transition:
-    opacity 0.75s ease,
-    transform 0.75s ease;
-}
-
 
 .leader-card .leader-image {
   opacity: 0;
@@ -676,18 +616,26 @@
     transform 0.8s ease;
 }
 
+.leader-card .leader-info {
+  opacity: 0;
 
-.leader-card.leader-card-visible .leader-info {
-  opacity: 1;
+  transform: translateY(45px);
 
-  transform: translateY(0);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
 }
-
 
 .leader-card.leader-card-visible .leader-image {
   opacity: 1;
 
   transform: translateX(0);
+}
+
+.leader-card.leader-card-visible .leader-info {
+  opacity: 1;
+
+  transform: translateY(0);
 }
 
 
@@ -702,6 +650,10 @@
     padding-right: 20px;
   }
 
+  .founders-cards-container {
+    gap: 20px;
+  }
+
   .founder-card,
   .leader-card {
     max-width: 500px;
@@ -709,49 +661,82 @@
 
   .founder-name,
   .leader-info h3 {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
   }
 
   .founder-text-content,
   .leader-info {
-    padding: 25px 15px 25px 25px;
+    padding: 24px;
   }
 }
 
 
 /* =========================================================
    MOBILE
-   IMPORTANT:
-   IMAGE IS NEVER HIDDEN ON MOBILE
 ========================================================= */
 
 @media (max-width: 768px) {
 
-  .founders-section,
+  .founders-section {
+    width: 100%;
+
+    padding: 42px 14px 45px;
+  }
+
   .leadership-section-container {
-    padding: 50px 15px;
+    width: 100%;
+
+    padding: 45px 14px;
   }
 
 
   /* =====================================================
-     SECTION TITLE
+     TAG
   ===================================================== */
 
-  .section-title,
-  .section h2 {
-    font-size: 2rem;
-  }
+  .section-tag {
+    padding: 7px 16px;
 
+    margin-bottom: 16px;
 
-  .section-description {
-    margin-bottom: 40px;
+    font-size: 0.72rem;
 
-    font-size: 1rem;
+    letter-spacing: 0.4px;
   }
 
 
   /* =====================================================
-     FOUNDERS CONTAINER
+     TITLE
+  ===================================================== */
+
+  .section-title {
+    margin-bottom: 15px;
+
+    font-size: 2rem;
+
+    line-height: 1.15;
+  }
+
+
+  /* =====================================================
+     DESCRIPTION
+  ===================================================== */
+
+  .section-description {
+    width: 100%;
+
+    max-width: 360px;
+
+    margin: 0 auto 35px;
+
+    font-size: 0.9rem;
+
+    line-height: 1.55;
+  }
+
+
+  /* =====================================================
+     CARDS
   ===================================================== */
 
   .founders-cards-container {
@@ -761,105 +746,86 @@
 
     align-items: center;
 
-    gap: 30px;
+    gap: 24px;
 
     width: 100%;
+
+    max-width: 390px;
+
+    margin: 0 auto;
   }
 
 
   /* =====================================================
-     MOBILE CARD
+     FOUNDER CARD
   ===================================================== */
 
-  .founder-card,
-  .leader-card {
+  .founder-card {
     display: flex;
 
     flex-direction: column;
 
     width: 100%;
+    max-width: 390px;
 
-    max-width: 400px;
-
+    min-width: 0;
     min-height: 0;
 
-    height: auto;
+    margin: 0;
+
+    border-radius: 14px;
 
     overflow: hidden;
 
-    border-radius: 15px;
+    transform: none;
   }
 
 
   /* =====================================================
-     MOBILE IMAGE
-     FIRST
+     SMALLER MOBILE IMAGE
   ===================================================== */
 
-  .founder-image-wrapper,
-  .leader-image {
+  .founder-image-wrapper {
     order: 1;
 
     position: relative;
 
     width: 100%;
-
     min-width: 100%;
-
     max-width: 100%;
 
-    height: 260px;
+    height: 180px;
+    min-height: 180px;
+    max-height: 180px;
 
-    min-height: 260px;
-
-    max-height: 260px;
-
-    flex: 0 0 260px;
+    flex: 0 0 180px;
 
     overflow: hidden;
 
-    /*
-      CRITICAL:
-      Do not inherit desktop hidden state.
-    */
-
     opacity: 1 !important;
-
-    transform: none !important;
 
     visibility: visible;
 
-    display: block;
+    transform: none !important;
   }
 
 
-  /* =====================================================
-     MOBILE IMAGE
-  ===================================================== */
-
-  .founder-image,
-  .leader-image img {
+  .founder-image {
     position: absolute;
 
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 
-    min-width: 100%;
-
-    min-height: 100%;
-
-    max-width: none;
-
-    max-height: none;
-
-    display: block;
+    min-width: 0;
+    min-height: 0;
 
     object-fit: cover;
 
     object-position: center;
+
+    display: block;
 
     opacity: 1;
 
@@ -868,17 +834,15 @@
 
 
   /* =====================================================
-     BLUE SHAPE
+     IMAGE SHAPE
   ===================================================== */
 
-  .founder-image-shape,
-  .leader-image-shape {
+  .founder-image-shape {
     position: absolute;
 
     inset: 0;
 
     width: 100%;
-
     height: 100%;
 
     z-index: 1;
@@ -886,78 +850,19 @@
 
 
   /* =====================================================
-     TEXT
-     SECOND
-  ===================================================== */
-
-  .founder-text-content,
-  .leader-info {
-    order: 2;
-
-    width: 100%;
-
-    flex: none;
-
-    padding: 25px;
-
-    text-align: center;
-
-    opacity: 1;
-
-    transform: none;
-  }
-
-
-  /* =====================================================
-     NAME
-  ===================================================== */
-
-  .founder-name,
-  .leader-info h3 {
-    font-size: 1.4rem;
-
-    line-height: 1.2;
-
-    margin-bottom: 8px;
-  }
-
-
-  /* =====================================================
-     ROLE
-  ===================================================== */
-
-  .founder-role,
-  .leader-info .role {
-    display: inline-block;
-
-    margin-left: auto;
-
-    margin-right: auto;
-  }
-
-
-  /* =====================================================
-     BIO
-  ===================================================== */
-
-  .founder-bio,
-  .leader-info .description {
-    font-size: 0.9rem;
-
-    line-height: 1.6;
-  }
-
-
-  /* =====================================================
-     SOCIAL ICONS
-     Always available on mobile
-     because there is no hover.
+     SOCIAL BAR
   ===================================================== */
 
   .founder-social-icons {
     left: 50%;
 
-    bottom: 12px;
+    bottom: 10px;
+
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    border-radius: 18px;
 
     opacity: 1;
 
@@ -965,18 +870,112 @@
 
     transform: translateX(-50%);
 
-    pointer-events: auto;
+    white-space: nowrap;
+  }
+
+  .founder-social-icon {
+    width: 23px;
+    height: 23px;
+  }
+
+  .founder-social-icon svg {
+    width: 14px;
+    height: 14px;
   }
 
 
   /* =====================================================
-     LEADER CONTAINER
+     TEXT
   ===================================================== */
+
+  .founder-text-content {
+    order: 2;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 20px 18px 22px;
+
+    text-align: center;
+
+    opacity: 1 !important;
+
+    visibility: visible;
+
+    transform: none !important;
+  }
+
+
+  /* =====================================================
+     NAME
+  ===================================================== */
+
+  .founder-name {
+    width: 100%;
+
+    margin: 0 0 8px;
+
+    font-size: 1.35rem;
+
+    line-height: 1.2;
+
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+  }
+
+
+  /* =====================================================
+     ROLE
+  ===================================================== */
+
+  .founder-role {
+    margin: 0 auto 14px;
+
+    padding: 5px 12px;
+
+    font-size: 0.78rem;
+
+    line-height: 1.2;
+  }
+
+
+  /* =====================================================
+     BIO
+  ===================================================== */
+
+  .founder-bio {
+    width: 100%;
+
+    max-width: 330px;
+
+    margin: 0 auto;
+
+    font-size: 0.82rem;
+
+    line-height: 1.55;
+
+    overflow-wrap: anywhere;
+  }
+
+
+  /* =====================================================
+     LEADERSHIP
+  ===================================================== */
+
+  .academic-leadership h2 {
+    font-size: 1.75rem;
+
+    line-height: 1.2;
+  }
+
 
   .leader-card-container {
     width: 100%;
 
-    margin-top: 2rem;
+    max-width: 390px;
+
+    margin: 25px auto 0;
   }
 
 
@@ -985,22 +984,120 @@
   ===================================================== */
 
   .leader-card {
-    max-width: 400px;
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 390px;
+
+    min-width: 0;
+    min-height: 0;
+
+    border-radius: 14px;
+
+    overflow: hidden;
   }
 
 
-  /*
-     Override desktop reveal animation completely
-     on mobile.
-  */
+  /* =====================================================
+     LEADER IMAGE
+  ===================================================== */
 
-  .leader-card .leader-info,
-  .leader-card .leader-image {
+  .leader-image {
+    order: 1;
+
+    position: relative;
+
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+
+    height: 180px;
+    min-height: 180px;
+    max-height: 180px;
+
+    flex: 0 0 180px;
+
+    overflow: hidden;
+
     opacity: 1 !important;
 
+    visibility: visible;
+
     transform: none !important;
+  }
+
+  .leader-image img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    display: block;
+
+    opacity: 1;
 
     visibility: visible;
+  }
+
+
+  /* =====================================================
+     LEADER TEXT
+  ===================================================== */
+
+  .leader-info {
+    order: 2;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 20px 18px 22px;
+
+    text-align: center;
+
+    opacity: 1 !important;
+
+    visibility: visible;
+
+    transform: none !important;
+  }
+
+  .leader-info h3 {
+    margin-bottom: 8px;
+
+    font-size: 1.3rem;
+  }
+
+  .leader-info .role {
+    margin: 0 auto 14px;
+
+    padding: 5px 12px;
+
+    font-size: 0.8rem;
+  }
+
+  .leader-info .description {
+    width: 100%;
+
+    max-width: 330px;
+
+    margin: 0 auto;
+
+    font-size: 0.82rem;
+
+    line-height: 1.55;
+
+    overflow-wrap: anywhere;
   }
 }
 
@@ -1011,129 +1108,90 @@
 
 @media (max-width: 480px) {
 
-  .founders-section,
+  .founders-section {
+    padding: 35px 12px 40px;
+  }
+
   .leadership-section-container {
-    padding: 42px 12px;
+    padding: 40px 12px;
   }
 
 
-  .section-tag {
-    padding: 7px 15px;
-
-    margin-bottom: 16px;
-
-    font-size: 0.75rem;
-  }
-
-
-  .section-title,
-  .section h2 {
+  .section-title {
     font-size: 1.75rem;
-
-    line-height: 1.2;
   }
 
 
   .section-description {
-    margin-bottom: 32px;
+    max-width: 330px;
 
-    font-size: 0.9rem;
+    margin-bottom: 30px;
 
-    line-height: 1.55;
+    font-size: 0.86rem;
   }
 
 
-  /* =====================================================
-     CARD
-  ===================================================== */
+  .founders-cards-container,
+  .leader-card-container {
+    max-width: 360px;
+  }
+
 
   .founder-card,
   .leader-card {
-    width: 100%;
+    max-width: 360px;
 
-    max-width: 100%;
-
-    border-radius: 15px;
+    border-radius: 13px;
   }
 
 
   /* =====================================================
-     IMAGE
+     EVEN SMALLER IMAGE
   ===================================================== */
 
   .founder-image-wrapper,
   .leader-image {
-    width: 100%;
+    height: 170px;
+    min-height: 170px;
+    max-height: 170px;
 
-    min-width: 100%;
-
-    height: 240px;
-
-    min-height: 240px;
-
-    max-height: 240px;
-
-    flex-basis: 240px;
-
-    opacity: 1 !important;
-
-    transform: none !important;
+    flex-basis: 170px;
   }
 
-
-  .founder-image,
-  .leader-image img {
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    object-position: center;
-  }
-
-
-  /* =====================================================
-     TEXT
-  ===================================================== */
 
   .founder-text-content,
   .leader-info {
-    padding: 22px 18px 24px;
-
-    opacity: 1 !important;
-
-    transform: none !important;
+    padding: 18px 15px 20px;
   }
 
 
   .founder-name,
   .leader-info h3 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 
 
   .founder-role,
   .leader-info .role {
-    margin-bottom: 15px;
+    font-size: 0.75rem;
 
-    font-size: 0.85rem;
-
-    padding: 5px 12px;
+    padding: 5px 11px;
   }
 
 
   .founder-bio,
   .leader-info .description {
-    font-size: 0.85rem;
+    max-width: 310px;
 
-    line-height: 1.55;
+    font-size: 0.78rem;
+
+    line-height: 1.5;
   }
 }
 
 
 /* =========================================================
-   VERY SMALL MOBILE
+   VERY SMALL DEVICES
 ========================================================= */
 
 @media (max-width: 360px) {
@@ -1141,49 +1199,57 @@
   .founders-section,
   .leadership-section-container {
     padding-left: 10px;
-
     padding-right: 10px;
   }
 
 
-  .section-title,
-  .section h2 {
+  .section-title {
     font-size: 1.6rem;
   }
 
 
   .section-description {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+  }
+
+
+  .founders-cards-container,
+  .leader-card-container {
+    max-width: 330px;
+  }
+
+
+  .founder-card,
+  .leader-card {
+    max-width: 330px;
   }
 
 
   .founder-image-wrapper,
   .leader-image {
-    height: 220px;
+    height: 155px;
+    min-height: 155px;
+    max-height: 155px;
 
-    min-height: 220px;
-
-    max-height: 220px;
-
-    flex-basis: 220px;
+    flex-basis: 155px;
   }
 
 
   .founder-text-content,
   .leader-info {
-    padding: 20px 15px 22px;
+    padding: 17px 13px 19px;
   }
 
 
   .founder-name,
   .leader-info h3 {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
 
   .founder-bio,
   .leader-info .description {
-    font-size: 0.82rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -1196,25 +1262,24 @@
 
   .founder-card,
   .leader-card,
-  .founder-card .founder-text-content,
-  .founder-card .founder-image-wrapper,
-  .leader-card .leader-info,
-  .leader-card .leader-image,
+  .founder-image-wrapper,
+  .founder-text-content,
+  .leader-image,
+  .leader-info,
   .founder-social-icons {
     transition: none !important;
 
     animation: none !important;
   }
 
-
-  .founder-card .founder-text-content,
-  .founder-card .founder-image-wrapper,
-  .leader-card .leader-info,
-  .leader-card .leader-image {
+  .founder-image-wrapper,
+  .founder-text-content,
+  .leader-image,
+  .leader-info {
     opacity: 1 !important;
 
-    transform: none !important;
-
     visibility: visible !important;
+
+    transform: none !important;
   }
 }
