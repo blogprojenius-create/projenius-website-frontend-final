@@ -82,7 +82,7 @@ const InternshipAbout = () => {
             <div className="internship-about-container">
 
                 {/* =================================================
-                    LEFT CONTENT
+                    CONTENT
                 ================================================= */}
 
                 <div className="internship-about-content">
@@ -148,7 +148,7 @@ const InternshipAbout = () => {
                 </div>
 
                 {/* =================================================
-                    RIGHT INFORMATION CARDS
+                    INFORMATION CARDS
                 ================================================= */}
 
                 <div
@@ -162,7 +162,7 @@ const InternshipAbout = () => {
                                 className="internship-about-card"
                                 style={{
                                     "--internship-card-delay":
-                                        `${index * 0.15}s`,
+                                        `${index * 0.12}s`,
                                 }}
                             >
 
@@ -176,7 +176,6 @@ const InternshipAbout = () => {
 
                                 <div className="internship-about-card-content">
                                     <h3>{title}</h3>
-
                                     <p>{value}</p>
                                 </div>
 
