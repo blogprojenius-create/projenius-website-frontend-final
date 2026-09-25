@@ -1,11 +1,8 @@
 import React from "react";
-import {
-  Sparkles,
-  ArrowDown,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import "./AboutProJenius.css";
 import aboutLogo from "../../assets/images/logo.png";
+
 /* =========================================================
    ORBIT ITEMS
 ========================================================= */
@@ -148,38 +145,44 @@ export default function AboutProJenius() {
         </div>
 
         {/* =================================================
-            RIGHT VISUAL
+            RIGHT ORBIT VISUAL
         ================================================= */}
 
         <div
           className="about-projenius-visual"
           aria-hidden="true"
         >
-
           <div className="about-projenius-orbit">
 
-            {/* =============================================
-                OUTER RINGS
-            ============================================= */}
+            {/* OUTER RING */}
+            <div
+              className="
+                about-projenius-ring
+                about-projenius-ring-outer
+              "
+            />
 
-            <div className="about-projenius-ring about-projenius-ring-outer" />
+            {/* MIDDLE RING */}
+            <div
+              className="
+                about-projenius-ring
+                about-projenius-ring-middle
+              "
+            />
 
-            <div className="about-projenius-ring about-projenius-ring-middle" />
+            {/* INNER RING */}
+            <div
+              className="
+                about-projenius-ring
+                about-projenius-ring-inner
+              "
+            />
 
-            <div className="about-projenius-ring about-projenius-ring-inner" />
-
-            {/* =============================================
-                CENTER GLOW
-            ============================================= */}
-
+            {/* CENTER GLOW */}
             <div className="about-projenius-center-glow" />
 
-            {/* =============================================
-                CENTER LOGO CIRCLE
-            ============================================= */}
-
+            {/* CENTER LOGO */}
             <div className="about-projenius-center">
-
               <div className="about-projenius-logo-circle">
 
                 <img
@@ -191,13 +194,9 @@ export default function AboutProJenius() {
                 />
 
               </div>
-
             </div>
 
-            {/* =============================================
-                ORBIT LABELS
-            ============================================= */}
-
+            {/* ORBIT LABELS */}
             {orbitItems.map((item) => (
               <OrbitLabel
                 key={item.id}
@@ -207,8 +206,8 @@ export default function AboutProJenius() {
             ))}
 
           </div>
-
         </div>
+
       </div>
     </section>
   );
