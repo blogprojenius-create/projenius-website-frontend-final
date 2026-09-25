@@ -40,7 +40,6 @@ const internshipDetails = [
     },
 ];
 
-
 /* =========================================================
    COMPONENT
 ========================================================= */
@@ -50,7 +49,7 @@ const InternshipAbout = () => {
     const [animationKey, setAnimationKey] = useState(0);
 
     /* =======================================================
-       REPLAY ANIMATION EVERY TIME SECTION ENTERS VIEW
+       REPLAY CARD ANIMATION WHEN SECTION ENTERS VIEW
     ======================================================= */
 
     useEffect(() => {
@@ -125,8 +124,8 @@ const InternshipAbout = () => {
                             <span>Start Your Journey</span>
 
                             <ArrowRight
-                                size={19}
-                                strokeWidth={2.4}
+                                size={18}
+                                strokeWidth={2.3}
                                 aria-hidden="true"
                             />
                         </a>
@@ -139,7 +138,7 @@ const InternshipAbout = () => {
                             <span>Download Syllabus</span>
 
                             <Download
-                                size={17}
+                                size={16}
                                 strokeWidth={2}
                                 aria-hidden="true"
                             />
@@ -147,7 +146,6 @@ const InternshipAbout = () => {
 
                     </div>
                 </div>
-
 
                 {/* =================================================
                     RIGHT INFORMATION CARDS
