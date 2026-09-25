@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AboutSection.css";
-import aboutOne from "../assets/images/about-main-image.png";
-import aboutSecond from "../assets/images/about-main-image.png";
+import aboutOne from "../../assets/images/about-main-image.png";
+import aboutSecond from "../../assets/images/about-main-image.png";
 /* =========================================================
    ICONS
    No external icon library required

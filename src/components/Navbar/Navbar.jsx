@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 
 //LOGO
-import NavLogo from "../assets/images/pj_logo.jpeg";
+import NavLogo from "../../assets/images/pj_logo.jpeg";
 
 import "./Navbar.css";
 
