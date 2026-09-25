@@ -26,12 +26,12 @@ const stats = [
 
 export default function ContactSection() {
   const sectionRef = useRef(null);
+  const animationFrameRef = useRef(null);
+
   const [visible, setVisible] = useState(false);
   const [counts, setCounts] = useState(
     stats.map(() => 0)
   );
-
-  const hasAnimated = useRef(false);
 
   /* =====================================================
      SECTION REVEAL + COUNTER
@@ -42,74 +42,64 @@ export default function ContactSection() {
 
     if (!section) return;
 
-    let animationFrame = null;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
 
-          /* Cancel any previous animation */
-          if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
+          if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
           }
 
-          /* Reset numbers */
           setCounts(stats.map(() => 0));
 
           const duration = 5000;
           const startTime = performance.now();
 
           const animateCounters = (currentTime) => {
-            const elapsed =
-              currentTime - startTime;
+            const elapsed = currentTime - startTime;
 
             const progress = Math.min(
               elapsed / duration,
               1
             );
 
-            /* Smooth continuous movement */
             const easedProgress =
               1 - Math.pow(1 - progress, 3);
 
             setCounts(
               stats.map((stat) =>
                 Math.floor(
-                  stat.value *
-                  easedProgress
+                  stat.value * easedProgress
                 )
               )
             );
 
             if (progress < 1) {
-              animationFrame =
+              animationFrameRef.current =
                 requestAnimationFrame(
                   animateCounters
                 );
             } else {
-              /* Make sure final values are exact */
               setCounts(
-                stats.map(
-                  (stat) => stat.value
-                )
+                stats.map((stat) => stat.value)
               );
+
+              animationFrameRef.current = null;
             }
           };
 
-          animationFrame =
+          animationFrameRef.current =
             requestAnimationFrame(
               animateCounters
             );
         } else {
-          /*
-           * Section left viewport.
-           * Cancel current animation so that
-           * the next entry starts from zero.
-           */
-          if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
-            animationFrame = null;
+          if (animationFrameRef.current) {
+            cancelAnimationFrame(
+              animationFrameRef.current
+            );
+
+            animationFrameRef.current = null;
           }
 
           setVisible(false);
@@ -125,8 +115,10 @@ export default function ContactSection() {
     return () => {
       observer.disconnect();
 
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(
+          animationFrameRef.current
+        );
       }
     };
   }, []);
@@ -146,14 +138,15 @@ export default function ContactSection() {
   return (
     <section
       ref={sectionRef}
-      className={`contact-hero-section ${visible ? "contact-visible" : ""
-        }`}
+      className={`contact-hero-section ${
+        visible ? "contact-visible" : ""
+      }`}
     >
       <div className="contact-hero-container">
 
         {/* =================================================
-                    HEADER
-                ================================================= */}
+            HEADER
+        ================================================= */}
 
         <div className="contact-hero-heading">
 
@@ -177,8 +170,8 @@ export default function ContactSection() {
 
 
         {/* =================================================
-                    SHOWCASE CARD
-                ================================================= */}
+            SHOWCASE CARD
+        ================================================= */}
 
         <div className="contact-showcase-card">
 
@@ -208,6 +201,7 @@ export default function ContactSection() {
               onClick={openWhatsApp}
             >
               <span>Let's Talk</span>
+
               <span aria-hidden="true">
                 →
               </span>
@@ -219,39 +213,40 @@ export default function ContactSection() {
 
 
         {/* =================================================
-                    STATS
-                ================================================= */}
+            STATS
+        ================================================= */}
 
         <div className="contact-stats">
 
-          {stats.map((stat, index) => (
-            <React.Fragment
-              key={stat.label}
-            >
+          <div className="contact-stats-track">
 
-              <div className="contact-stat">
+            {stats.map((stat, index) => (
+              <React.Fragment key={stat.label}>
 
-                <strong>
-                  {counts[index]}
-                  {stat.suffix}
-                </strong>
+                <div className="contact-stat">
 
-                <span>
-                  {stat.label}
-                </span>
+                  <strong>
+                    {counts[index]}
+                    {stat.suffix}
+                  </strong>
 
-              </div>
+                  <span>
+                    {stat.label}
+                  </span>
 
-              {index <
-                stats.length - 1 && (
+                </div>
+
+                {index < stats.length - 1 && (
                   <div
                     className="contact-stat-divider"
                     aria-hidden="true"
                   />
                 )}
 
-            </React.Fragment>
-          ))}
+              </React.Fragment>
+            ))}
+
+          </div>
 
         </div>
 
