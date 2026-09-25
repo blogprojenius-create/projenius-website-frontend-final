@@ -49,31 +49,19 @@ function SocialIcons() {
       className="founder-social-icons"
       aria-label="Social media links"
     >
-      <span
-        className="founder-social-icon"
-        aria-label="Facebook"
-      >
+      <span className="founder-social-icon" aria-label="Facebook">
         <FacebookIcon />
       </span>
 
-      <span
-        className="founder-social-icon"
-        aria-label="X"
-      >
+      <span className="founder-social-icon" aria-label="X">
         <XIcon />
       </span>
 
-      <span
-        className="founder-social-icon"
-        aria-label="LinkedIn"
-      >
+      <span className="founder-social-icon" aria-label="LinkedIn">
         <LinkedinIcon />
       </span>
 
-      <span
-        className="founder-social-icon"
-        aria-label="Instagram"
-      >
+      <span className="founder-social-icon" aria-label="Instagram">
         <InstagramIcon />
       </span>
     </div>
@@ -84,7 +72,7 @@ function SocialIcons() {
    REVEAL HOOK
 ========================================================= */
 
-function useReveal(className = "is-visible") {
+function useReveal(className) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -94,7 +82,10 @@ function useReveal(className = "is-visible") {
 
     if (!("IntersectionObserver" in window)) {
       element.classList.add(className);
-      return;
+
+      return () => {
+        element.classList.remove(className);
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -131,20 +122,17 @@ function FounderCard({
   bio,
   image,
   imageAlt,
-  animationClass = "founder-card-visible",
 }) {
-  const cardRef = useReveal(animationClass);
+  const cardRef = useReveal("founder-card-visible");
 
   return (
     <article
       ref={cardRef}
       className="founder-card"
     >
-
       {/* IMAGE */}
 
       <div className="founder-image-wrapper">
-
         <div
           className="founder-image-shape"
           aria-hidden="true"
@@ -159,14 +147,11 @@ function FounderCard({
         />
 
         <SocialIcons />
-
       </div>
 
-
-      {/* TEXT */}
+      {/* CONTENT */}
 
       <div className="founder-text-content">
-
         <h3 className="founder-name">
           {name}
         </h3>
@@ -178,9 +163,7 @@ function FounderCard({
         <p className="founder-bio">
           {bio}
         </p>
-
       </div>
-
     </article>
   );
 }
@@ -197,11 +180,9 @@ function LeaderCard() {
       ref={cardRef}
       className="leader-card"
     >
-
       {/* IMAGE */}
 
       <div className="leader-image">
-
         <div
           className="leader-image-shape"
           aria-hidden="true"
@@ -213,14 +194,11 @@ function LeaderCard() {
           loading="lazy"
           decoding="async"
         />
-
       </div>
 
-
-      {/* TEXT */}
+      {/* CONTENT */}
 
       <div className="leader-info">
-
         <h3>
           Dr.D.Vasudevan
         </h3>
@@ -234,9 +212,7 @@ function LeaderCard() {
           research, and real-world learning to empower students and
           drive institutional excellence.
         </p>
-
       </div>
-
     </article>
   );
 }
@@ -279,7 +255,6 @@ export default function CombinedLeadershipPage() {
             bio="A passionate leader focused on empowering the next generation of innovators with a strong vision for academic and practical excellence."
             image={Founder}
             imageAlt="Karthick Ganesh"
-            animationClass="founder-card-visible"
           />
 
           <FounderCard
@@ -288,13 +263,11 @@ export default function CombinedLeadershipPage() {
             bio="A visionary mentor promoting entrepreneurship and innovation, supporting students from exploration to impactful execution."
             image={CoFounder}
             imageAlt="Harshini"
-            animationClass="founder-card-visible"
           />
 
         </div>
 
       </section>
-
 
       {/* =====================================================
           ACADEMIC LEADERSHIP
@@ -302,7 +275,7 @@ export default function CombinedLeadershipPage() {
 
       <section className="leadership-section-container">
 
-        <div className="section academic-leadership">
+        <div className="academic-leadership">
 
           <h2>
             Academic{" "}
