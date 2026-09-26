@@ -49,24 +49,37 @@ function SocialIcons() {
       className="founder-social-icons"
       aria-label="Social media links"
     >
-      <span className="founder-social-icon" aria-label="Facebook">
+      <span
+        className="founder-social-icon"
+        aria-label="Facebook"
+      >
         <FacebookIcon />
       </span>
 
-      <span className="founder-social-icon" aria-label="X">
+      <span
+        className="founder-social-icon"
+        aria-label="X"
+      >
         <XIcon />
       </span>
 
-      <span className="founder-social-icon" aria-label="LinkedIn">
+      <span
+        className="founder-social-icon"
+        aria-label="LinkedIn"
+      >
         <LinkedinIcon />
       </span>
 
-      <span className="founder-social-icon" aria-label="Instagram">
+      <span
+        className="founder-social-icon"
+        aria-label="Instagram"
+      >
         <InstagramIcon />
       </span>
     </div>
   );
 }
+
 
 /* =========================================================
    REVEAL HOOK
@@ -112,6 +125,7 @@ function useReveal(className) {
   return ref;
 }
 
+
 /* =========================================================
    FOUNDER CARD
 ========================================================= */
@@ -130,28 +144,35 @@ function FounderCard({
       ref={cardRef}
       className="founder-card"
     >
-      {/* IMAGE */}
+      {/* IMAGE AREA */}
 
-      <div className="founder-image-wrapper">
-        <div
-          className="founder-image-shape"
-          aria-hidden="true"
-        />
+      <div className="founder-image-column">
 
-        <img
-          src={image}
-          alt={imageAlt}
-          className="founder-image"
-          loading="lazy"
-          decoding="async"
-        />
+        <div className="founder-image-wrapper">
+          <div
+            className="founder-image-shape"
+            aria-hidden="true"
+          />
 
+          <img
+            src={image}
+            alt={imageAlt}
+            className="founder-image"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        {/* SOCIAL ICONS */}
         <SocialIcons />
+
       </div>
+
 
       {/* CONTENT */}
 
       <div className="founder-text-content">
+
         <h3 className="founder-name">
           {name}
         </h3>
@@ -163,10 +184,12 @@ function FounderCard({
         <p className="founder-bio">
           {bio}
         </p>
+
       </div>
     </article>
   );
 }
+
 
 /* =========================================================
    ACADEMIC LEADER CARD
@@ -180,25 +203,32 @@ function LeaderCard() {
       ref={cardRef}
       className="leader-card"
     >
-      {/* IMAGE */}
 
-      <div className="leader-image">
-        <div
-          className="leader-image-shape"
-          aria-hidden="true"
-        />
+      {/* IMAGE AREA */}
 
-        <img
-          src={Leader}
-          alt="Dr. D. Vasudevan"
-          loading="lazy"
-          decoding="async"
-        />
+      <div className="leader-image-column">
+
+        <div className="leader-image">
+          <div
+            className="leader-image-shape"
+            aria-hidden="true"
+          />
+
+          <img
+            src={Leader}
+            alt="Dr. D. Vasudevan"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
       </div>
+
 
       {/* CONTENT */}
 
       <div className="leader-info">
+
         <h3>
           Dr.D.Vasudevan
         </h3>
@@ -212,10 +242,13 @@ function LeaderCard() {
           research, and real-world learning to empower students and
           drive institutional excellence.
         </p>
+
       </div>
+
     </article>
   );
 }
+
 
 /* =========================================================
    MAIN COMPONENT
@@ -247,6 +280,7 @@ export default function CombinedLeadershipPage() {
           of innovators and entrepreneurs.
         </p>
 
+
         <div className="founders-cards-container">
 
           <FounderCard
@@ -269,6 +303,7 @@ export default function CombinedLeadershipPage() {
 
       </section>
 
+
       {/* =====================================================
           ACADEMIC LEADERSHIP
       ===================================================== */}
@@ -284,8 +319,11 @@ export default function CombinedLeadershipPage() {
             </span>
           </h2>
 
+
           <div className="leader-card-container">
+
             <LeaderCard />
+
           </div>
 
         </div>

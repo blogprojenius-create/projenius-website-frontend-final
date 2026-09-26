@@ -1,140 +1,668 @@
-import { useEffect, useRef, useState } from 'react';
-import { PATHS } from './StartupSupportData.js';
-import { pad } from './StartupSupportUtils.js';
-import { useInView } from './StartupSupportHooks.js';
-import './StartupSupportPaths.css';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-/* StartupSupportPaths — "Your Idea Determines the Path."
-   A branching diagram: the connecting lines are measured and drawn with
-   real DOM coordinates so they always meet the idea box and the chosen option. */
+import { PATHS } from "./StartupSupportData.js";
+import { pad } from "./StartupSupportUtils.js";
+import { useInView } from "./StartupSupportHooks.js";
+import "./StartupSupportPaths.css";
+
+const AUTO_DELAY = 5000;
+
+/* =========================================================
+   STARTUP SUPPORT PATHS
+========================================================= */
+
 function StartupSupportPaths() {
   const sectionRef = useRef(null);
-  const inView = useInView(sectionRef, { threshold: 0.1 });
   const stageRef = useRef(null);
   const ideaRef = useRef(null);
-  const optRefs = useRef([]);
-  const [svgBox, setSvgBox] = useState({ w: 0, h: 0 });
-  const [lineDs, setLineDs] = useState([]);
+  const optionRefs = useRef([]);
+
+  const timerRef = useRef(null);
+  const hoverRef = useRef(false);
+
   const [active, setActive] = useState(0);
+  const [lineDs, setLineDs] = useState([]);
+  const [svgSize, setSvgSize] = useState({
+    width: 0,
+    height: 0,
+  });
+
   const [playKey, setPlayKey] = useState(0);
   const [litUpTo, setLitUpTo] = useState(-1);
 
-  const layout = () => {
-    const stage = stageRef.current, idea = ideaRef.current;
-    if (!stage || !idea) return;
-    const sr = stage.getBoundingClientRect();
-    const ir = idea.getBoundingClientRect();
-    setSvgBox({ w: sr.width, h: sr.height });
-    const x1 = ir.right - sr.left, y1 = ir.top + ir.height / 2 - sr.top;
-    const ds = optRefs.current.map((o) => {
-      if (!o) return '';
-      const r = o.getBoundingClientRect();
-      const x2 = r.left - sr.left, y2 = r.top + r.height / 2 - sr.top;
-      const dx = (x2 - x1) * 0.55;
-      return `M${x1} ${y1} C${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
-    });
-    setLineDs(ds);
-  };
+  const inView = useInView(sectionRef, {
+    threshold: 0.1,
+  });
 
-  useEffect(() => {
-    layout();
-    const onResize = () => layout();
-    window.addEventListener('resize', onResize);
-    const ro = new ResizeObserver(layout);
-    if (stageRef.current) ro.observe(stageRef.current);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
-    return () => { window.removeEventListener('resize', onResize); ro.disconnect(); };
+  /* =========================================================
+     LINE CALCULATION
+  ========================================================= */
+
+  const calculateLines = useCallback(() => {
+    const stage = stageRef.current;
+    const idea = ideaRef.current;
+
+    if (!stage || !idea) {
+      return;
+    }
+
+    const stageRect =
+      stage.getBoundingClientRect();
+
+    const ideaRect =
+      idea.getBoundingClientRect();
+
+    setSvgSize({
+      width: stageRect.width,
+      height: stageRect.height,
+    });
+
+    const isMobile =
+      window.innerWidth <= 767;
+
+    /* =======================================================
+       MOBILE
+       
+       Idea is centered above list.
+       Lines stay outside the content area.
+    ======================================================= */
+
+    if (isMobile) {
+      const startX =
+        ideaRect.right -
+        stageRect.left -
+        10;
+
+      const startY =
+        ideaRect.bottom -
+        stageRect.top;
+
+      const paths =
+        optionRefs.current.map(
+          (option) => {
+            if (!option) {
+              return "";
+            }
+
+            const rect =
+              option.getBoundingClientRect();
+
+            const endX =
+              rect.right -
+              stageRect.left -
+              8;
+
+            const endY =
+              rect.top +
+              rect.height / 2 -
+              stageRect.top;
+
+            const outerX =
+              stageRect.width - 14;
+
+            return `
+              M ${startX} ${startY}
+              C
+                ${outerX} ${startY + 10},
+                ${outerX} ${endY},
+                ${endX} ${endY}
+            `;
+          }
+        );
+
+      setLineDs(paths);
+
+      return;
+    }
+
+    /* =======================================================
+       DESKTOP / TABLET
+       
+       Idea is left.
+       Paths fan toward the right.
+    ======================================================= */
+
+    const startX =
+      ideaRect.right -
+      stageRect.left;
+
+    const startY =
+      ideaRect.top +
+      ideaRect.height / 2 -
+      stageRect.top;
+
+    const paths =
+      optionRefs.current.map(
+        (option) => {
+          if (!option) {
+            return "";
+          }
+
+          const rect =
+            option.getBoundingClientRect();
+
+          const endX =
+            rect.left -
+            stageRect.left;
+
+          const endY =
+            rect.top +
+            rect.height / 2 -
+            stageRect.top;
+
+          const distance =
+            endX - startX;
+
+          const curve =
+            Math.max(
+              45,
+              distance * 0.48
+            );
+
+          return `
+            M ${startX} ${startY}
+            C
+              ${startX + curve} ${startY},
+              ${endX - curve} ${endY},
+              ${endX} ${endY}
+          `;
+        }
+      );
+
+    setLineDs(paths);
   }, []);
 
-  /* Stagger the route nodes/connectors/labels on as they "play". */
+  /* =========================================================
+     RESIZE / INITIAL CALCULATION
+  ========================================================= */
+
   useEffect(() => {
-    setLitUpTo(-1);
-    const steps = PATHS[active].steps.length;
-    const timers = [];
-    for (let i = 0; i < steps; i++) {
-      timers.push(setTimeout(() => setLitUpTo(i), i * 280 + 60));
+    let resizeFrame = null;
+
+    const update = () => {
+      if (resizeFrame) {
+        cancelAnimationFrame(resizeFrame);
+      }
+
+      resizeFrame = requestAnimationFrame(
+        calculateLines
+      );
+    };
+
+    update();
+
+    window.addEventListener(
+      "resize",
+      update
+    );
+
+    const observer =
+      typeof ResizeObserver !==
+      "undefined"
+        ? new ResizeObserver(update)
+        : null;
+
+    if (
+      stageRef.current &&
+      observer
+    ) {
+      observer.observe(
+        stageRef.current
+      );
     }
-    return () => timers.forEach(clearTimeout);
+
+    if (
+      document.fonts &&
+      document.fonts.ready
+    ) {
+      document.fonts.ready.then(update);
+    }
+
+    return () => {
+      if (resizeFrame) {
+        cancelAnimationFrame(
+          resizeFrame
+        );
+      }
+
+      window.removeEventListener(
+        "resize",
+        update
+      );
+
+      observer?.disconnect();
+    };
+  }, [calculateLines]);
+
+  /* =========================================================
+     EXAMPLE JOURNEY ANIMATION
+  ========================================================= */
+
+  useEffect(() => {
+    const currentPath =
+      PATHS[active];
+
+    if (!currentPath) {
+      return;
+    }
+
+    setLitUpTo(-1);
+
+    const timers = [];
+
+    currentPath.steps.forEach(
+      (_, index) => {
+        timers.push(
+          setTimeout(
+            () => {
+              setLitUpTo(index);
+            },
+            index * 280 + 60
+          )
+        );
+      }
+    );
+
+    return () => {
+      timers.forEach(clearTimeout);
+    };
   }, [active, playKey]);
 
-  const select = (i) => {
-    if (i === active) return;
-    setActive(i);
-    setPlayKey((k) => k + 1);
+  /* =========================================================
+     TIMER
+  ========================================================= */
+
+  const clearAutoTimer =
+    useCallback(() => {
+      if (timerRef.current) {
+        clearTimeout(
+          timerRef.current
+        );
+
+        timerRef.current = null;
+      }
+    }, []);
+
+  const startAutoTimer =
+    useCallback(() => {
+      clearAutoTimer();
+
+      if (
+        hoverRef.current ||
+        !PATHS.length
+      ) {
+        return;
+      }
+
+      timerRef.current =
+        setTimeout(() => {
+          if (hoverRef.current) {
+            return;
+          }
+
+          setActive((current) =>
+            current >=
+            PATHS.length - 1
+              ? 0
+              : current + 1
+          );
+
+          setPlayKey(
+            (key) => key + 1
+          );
+        }, AUTO_DELAY);
+    }, [clearAutoTimer]);
+
+  /* =========================================================
+     START AUTO PLAY WHEN IN VIEW
+  ========================================================= */
+
+  useEffect(() => {
+    if (!inView) {
+      return;
+    }
+
+    startAutoTimer();
+
+    return () => {
+      clearAutoTimer();
+    };
+  }, [
+    inView,
+    active,
+    startAutoTimer,
+    clearAutoTimer,
+  ]);
+
+  /* =========================================================
+     HOVER
+  ========================================================= */
+
+  const handleMouseEnter = (index) => {
+    hoverRef.current = true;
+
+    clearAutoTimer();
+
+    setActive(index);
+
+    setPlayKey(
+      (key) => key + 1
+    );
   };
 
-  const p = PATHS[active];
+  const handleMouseLeave = () => {
+    hoverRef.current = false;
+
+    /*
+      After release, wait a full 5 seconds,
+      then move to the NEXT path.
+    */
+    startAutoTimer();
+  };
+
+  /* =========================================================
+     CLICK
+  ========================================================= */
+
+  const handleClick = (index) => {
+    setActive(index);
+
+    setPlayKey(
+      (key) => key + 1
+    );
+
+    /*
+      If not hovering, restart the
+      5-second countdown.
+    */
+    if (!hoverRef.current) {
+      startAutoTimer();
+    }
+  };
+
+  /* =========================================================
+     CURRENT PATH
+  ========================================================= */
+
+  const currentPath =
+    PATHS[active];
+
+  if (!currentPath) {
+    return null;
+  }
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
 
   return (
-    <section className="ssp-section ssp-section--light" id="ssp-paths" aria-labelledby="ssp-paths-heading" ref={sectionRef}>
+    <section
+      className="ssp-section ssp-section--light"
+      id="ssp-paths"
+      aria-labelledby="ssp-paths-heading"
+      ref={sectionRef}
+    >
       <div className="ssp-wrap">
-        <div className={`ssp-section-head ssp-reveal${inView ? ' ssp-reveal--in' : ''}`}>
-          <p className="ssp-eyebrow">Technology pathways</p>
-          <h2 className="ssp-title" id="ssp-paths-heading">Your Idea Determines the Path.</h2>
-          <p className="ssp-lede">Different ideas require different combinations of technology, validation and support. Pick a direction to see an example route.</p>
+
+        {/* ===================================================
+            HEADER
+        =================================================== */}
+
+        <div
+          className={`ssp-section-head ssp-reveal${
+            inView
+              ? " ssp-reveal--in"
+              : ""
+          }`}
+        >
+          <p className="ssp-eyebrow">
+            Technology pathways
+          </p>
+
+          <h2
+            className="ssp-title"
+            id="ssp-paths-heading"
+          >
+            Your Idea Determines the Path.
+          </h2>
+
+          <p className="ssp-lede">
+            Different ideas require different
+            combinations of technology, validation
+            and support. Pick a direction to see
+            an example route.
+          </p>
         </div>
 
-        <div className={`ssp-paths-wrap ssp-reveal${inView ? ' ssp-reveal--in' : ''}`}>
-          <div className="ssp-paths-stage" ref={stageRef}>
-            <div className="ssp-paths-idea" ref={ideaRef}>
-              <strong>YOUR IDEA</strong>
-              <small>Where every path begins</small>
+        {/* ===================================================
+            PATH MAP
+        =================================================== */}
+
+        <div
+          className={`ssp-paths-wrap ssp-reveal${
+            inView
+              ? " ssp-reveal--in"
+              : ""
+          }`}
+        >
+
+          <div
+            className="ssp-paths-stage"
+            ref={stageRef}
+          >
+
+            {/* =================================================
+                YOUR IDEA
+            ================================================= */}
+
+            <div
+              className="ssp-paths-idea"
+              ref={ideaRef}
+            >
+              <strong>
+                YOUR IDEA
+              </strong>
+
+              <small>
+                Where every path begins
+              </small>
             </div>
 
-            <svg className="ssp-paths-lines" viewBox={`0 0 ${svgBox.w || 1} ${svgBox.h || 1}`} aria-hidden="true">
-              {PATHS.map((path, i) => (
-                <path
-                  key={path.key}
-                  className={`ssp-paths-line${i === active ? ' ssp-paths-line--on' : ''}`}
-                  d={lineDs[i] || ''}
-                  stroke={i === active ? '#3FD8F0' : undefined}
-                />
-              ))}
+            {/* =================================================
+                CONNECTOR LINES
+            ================================================= */}
+
+            <svg
+              className="ssp-paths-lines"
+              viewBox={`0 0 ${
+                svgSize.width || 1
+              } ${
+                svgSize.height || 1
+              }`}
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              {PATHS.map(
+                (path, index) => (
+                  <path
+                    key={path.key}
+                    className={`ssp-paths-line${
+                      index === active
+                        ? " ssp-paths-line--on"
+                        : ""
+                    }`}
+                    d={
+                      lineDs[index] || ""
+                    }
+                  />
+                )
+              )}
             </svg>
 
-            <div className="ssp-paths-opts" role="group" aria-label="Choose a technology path">
-              {PATHS.map((path, i) => (
-                <button
-                  key={path.key}
-                  ref={(el) => { optRefs.current[i] = el; }}
-                  className={`ssp-paths-opt${i === active ? ' ssp-paths-opt--active' : ''}`}
-                  type="button"
-                  aria-pressed={i === active}
-                  onClick={() => select(i)}
-                >
-                  <span className="ssp-paths-opt-n">{pad(i + 1)}</span>
-                  <span>
-                    <span className="ssp-paths-opt-k">{path.key}</span>
-                    <span className="ssp-paths-opt-s">{path.sub}</span>
-                  </span>
-                  <span className="ssp-paths-opt-arrow" aria-hidden="true">→</span>
-                </button>
-              ))}
+            {/* =================================================
+                PATH OPTIONS
+            ================================================= */}
+
+            <div
+              className="ssp-paths-opts"
+              role="group"
+              aria-label="Choose a technology path"
+            >
+              {PATHS.map(
+                (path, index) => {
+                  const isActive =
+                    index === active;
+
+                  return (
+                    <button
+                      key={path.key}
+                      type="button"
+                      ref={(element) => {
+                        optionRefs.current[
+                          index
+                        ] = element;
+                      }}
+                      className={`ssp-paths-opt${
+                        isActive
+                          ? " ssp-paths-opt--active"
+                          : ""
+                      }`}
+                      aria-pressed={
+                        isActive
+                      }
+                      onMouseEnter={() =>
+                        handleMouseEnter(
+                          index
+                        )
+                      }
+                      onMouseLeave={
+                        handleMouseLeave
+                      }
+                      onClick={() =>
+                        handleClick(
+                          index
+                        )
+                      }
+                    >
+
+                      <span className="ssp-paths-opt-n">
+                        {pad(index + 1)}
+                      </span>
+
+                      <span className="ssp-paths-opt-content">
+                        <span className="ssp-paths-opt-k">
+                          {path.key}
+                        </span>
+
+                        <span className="ssp-paths-opt-s">
+                          {path.sub}
+                        </span>
+                      </span>
+
+                      <span
+                        className="ssp-paths-opt-arrow"
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+
+                    </button>
+                  );
+                }
+              )}
             </div>
           </div>
 
-          <div className="ssp-paths-route" aria-live="polite">
+          {/* ===================================================
+              EXAMPLE JOURNEY
+          =================================================== */}
+
+          <div
+            className="ssp-paths-route"
+            aria-live="polite"
+          >
             <div className="ssp-paths-route-head">
+
               <div>
-                <p className="ssp-mini-label">Example journey</p>
-                <h3>{p.key}</h3>
+                <p className="ssp-mini-label">
+                  Example journey
+                </p>
+
+                <h3>
+                  {currentPath.key}
+                </h3>
               </div>
-              <p>{p.note}</p>
+
+              <p>
+                {currentPath.note}
+              </p>
+
             </div>
 
-            <ol className="ssp-paths-route-list" aria-label={`${p.key} example journey`} key={playKey}>
-              {p.steps.map((step, i) => {
-                const isLast = i === p.steps.length - 1;
-                const on = i <= litUpTo;
-                return (
-                  <li key={step} className={`ssp-paths-route-item${isLast ? ' ssp-paths-route-item--last' : ''}`}>
-                    <span className={`ssp-paths-route-node${on ? ' ssp-paths-route-node--on' : ''}`} />
-                    {!isLast && <span className={`ssp-paths-route-connector${i < litUpTo ? ' ssp-paths-route-connector--on' : ''}`} />}
-                    <span className="ssp-paths-route-num">{pad(i + 1)}</span>
-                    <span className={`ssp-paths-route-text${on ? ' ssp-paths-route-text--on' : ''}`}>{step}</span>
-                  </li>
-                );
-              })}
+            <ol
+              className="ssp-paths-route-list"
+              aria-label={`${currentPath.key} example journey`}
+              key={playKey}
+            >
+              {currentPath.steps.map(
+                (step, index) => {
+                  const isLast =
+                    index ===
+                    currentPath.steps.length -
+                      1;
+
+                  const isOn =
+                    index <= litUpTo;
+
+                  return (
+                    <li
+                      key={step}
+                      className={`ssp-paths-route-item${
+                        isLast
+                          ? " ssp-paths-route-item--last"
+                          : ""
+                      }`}
+                    >
+                      <span
+                        className={`ssp-paths-route-node${
+                          isOn
+                            ? " ssp-paths-route-node--on"
+                            : ""
+                        }`}
+                      />
+
+                      {!isLast && (
+                        <span
+                          className={`ssp-paths-route-connector${
+                            index < litUpTo
+                              ? " ssp-paths-route-connector--on"
+                              : ""
+                          }`}
+                        />
+                      )}
+
+                      <span className="ssp-paths-route-num">
+                        {pad(index + 1)}
+                      </span>
+
+                      <span
+                        className={`ssp-paths-route-text${
+                          isOn
+                            ? " ssp-paths-route-text--on"
+                            : ""
+                        }`}
+                      >
+                        {step}
+                      </span>
+                    </li>
+                  );
+                }
+              )}
             </ol>
           </div>
         </div>

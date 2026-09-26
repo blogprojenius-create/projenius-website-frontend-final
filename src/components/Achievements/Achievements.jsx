@@ -6,128 +6,147 @@ import "./Achievements.css";
 ========================================================= */
 
 const achievementImages = [
-    {
-        id: 1,
-        src: "/images/gallery-1.webp",
-        alt: "Achievement recognition event",
-    },
-    {
-        id: 2,
-        src: "/images/gallery-2.webp",
-        alt: "Achievement award presentation",
-    },
-    {
-        id: 3,
-        src: "/images/gallery-3.webp",
-        alt: "Achievement ceremony",
-    },
-    {
-        id: 4,
-        src: "/images/gallery-4.webp",
-        alt: "Team achievement event",
-    },
-    {
-        id: 5,
-        src: "/images/gallery-5.webp",
-        alt: "Team recognition event",
-    },
-    {
-        id: 6,
-        src: "/images/gallery-6.webp",
-        alt: "Award recognition event",
-    },
-    {
-        id: 7,
-        src: "/images/gallery-5.webp",
-        alt: "Team celebration",
-    },
+  {
+    id: 1,
+    src: "/images/gallery-1.webp",
+    alt: "Achievement recognition event",
+  },
+  {
+    id: 2,
+    src: "/images/gallery-2.webp",
+    alt: "Achievement award presentation",
+  },
+  {
+    id: 3,
+    src: "/images/gallery-3.webp",
+    alt: "Achievement ceremony",
+  },
+  {
+    id: 4,
+    src: "/images/gallery-4.webp",
+    alt: "Team achievement event",
+  },
+  {
+    id: 5,
+    src: "/images/gallery-5.webp",
+    alt: "Team recognition event",
+  },
+  {
+    id: 6,
+    src: "/images/gallery-6.webp",
+    alt: "Award recognition event",
+  },
+  {
+    id: 7,
+    src: "/images/gallery-5.webp",
+    alt: "Team celebration",
+  },
 ];
 
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
 const Achievements = () => {
-    const sectionRef = useRef(null);
-    const [animationKey, setAnimationKey] = useState(0);
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        const section = sectionRef.current;
+  useEffect(() => {
+    const section = sectionRef.current;
 
-        if (!section) return;
+    if (!section) return;
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setAnimationKey((previous) => previous + 1);
-                }
-            },
-            {
-                threshold: 0.25,
-            }
-        );
+    if (!("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return;
+    }
 
-        observer.observe(section);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+      }
+    );
 
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
+    observer.observe(section);
 
-    return (
-        <section
-            ref={sectionRef}
-            className="achievements-section"
-            aria-labelledby="achievements-title"
-        >
-            <div className="achievements-container">
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
-                {/* =================================================
+  return (
+    <section
+      ref={sectionRef}
+      className={`achievements-section ${
+        isVisible ? "achievements-visible" : ""
+      }`}
+      aria-labelledby="achievements-title"
+    >
+      <div className="achievements-container">
+
+        {/* =================================================
             HEADER
         ================================================= */}
 
-                <header className="achievements-header">
-                    <span className="achievements-label">
-                        ACHIEVEMENTS
-                    </span>
+        <header className="achievements-header">
 
-                    <h2 id="achievements-title">
-                        Awards & <span>Recognition</span>
-                    </h2>
+          <span className="achievements-label">
+            ACHIEVEMENTS
+          </span>
 
-                    <p>
-                        Celebrating achievements, innovation, creativity, and
-                        milestones that showcase our passion for technology,
-                        design, and impactful digital solutions.
-                    </p>
-                </header>
+          <h2 id="achievements-title">
+            Awards &{" "}
+            <span>Recognition</span>
+          </h2>
 
-                {/* =================================================
-            IMAGE GRID
+          <div
+            className="achievements-heading-line"
+            aria-hidden="true"
+          />
+
+          <p>
+            Celebrating achievements, innovation, creativity, and
+            milestones that showcase our passion for technology,
+            design, and impactful digital solutions.
+          </p>
+
+        </header>
+
+        {/* =================================================
+            IMAGE GALLERY
         ================================================= */}
 
-                <div
-                    key={animationKey}
-                    className="achievements-grid"
-                >
-                    {achievementImages.map((image, index) => (
-                        <figure
-                            key={image.id}
-                            className={`achievement-card achievement-card-${index + 1}`}
-                            style={{
-                                "--achievement-delay": `${index * 0.25}s`,
-                            }}
-                        >
-                            <img
-                                src={image.src}
-                                alt={image.alt}
-                                className="achievement-image"
-                                loading={index < 3 ? "eager" : "lazy"}
-                                decoding="async"
-                            />
-                        </figure>
-                    ))}
-                </div>
+        <div className="achievements-grid">
 
-            </div>
-        </section>
-    );
+          {achievementImages.map((image, index) => (
+            <figure
+              key={image.id}
+              className={`achievement-card achievement-card-${index + 1}`}
+              style={{
+                "--achievement-delay": `${index * 0.08}s`,
+              }}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="achievement-image"
+                loading={index < 3 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </figure>
+          ))}
+
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default Achievements;
