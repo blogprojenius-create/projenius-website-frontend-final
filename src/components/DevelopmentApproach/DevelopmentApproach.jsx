@@ -1,28 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./DevelopmentApproach.css";
-
 import DevelopmentEyebrow from "../DevelopmentEyebrow/DevelopmentEyebrow";
-
-/* =========================================================
-   SETTINGS
-========================================================= */
 
 const AUTO_HOVER_DELAY = 5000;
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-function usePjdevInView(threshold = 0.15) {
+function usePjdevInView(threshold = 0.1) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
-
-    if (!element) {
-      return undefined;
-    }
+    if (!element) return undefined;
 
     if (typeof IntersectionObserver === "undefined") {
       setInView(true);
@@ -31,10 +19,9 @@ function usePjdevInView(threshold = 0.15) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
+        if (!entry.isIntersecting) return;
+        setInView(true);
+        observer.disconnect();
       },
       {
         threshold,
@@ -43,16 +30,11 @@ function usePjdevInView(threshold = 0.15) {
     );
 
     observer.observe(element);
-
     return () => observer.disconnect();
   }, [threshold]);
 
   return [ref, inView];
 }
-
-/* =========================================================
-   APPROACH BLOCKS
-========================================================= */
 
 const BLOCKS = [
   {
@@ -65,36 +47,30 @@ const BLOCKS = [
       "How the solution supports the business",
     ],
   },
-
   {
     num: "02",
     title: "User need",
-    question:
-      "Who will use the solution and what should their experience be?",
+    question: "Who will use the solution and what should their experience be?",
     points: [
       "Who the users really are",
       "What they need to get done",
       "Where the experience should feel effortless",
     ],
   },
-
   {
     num: "03",
     title: "Business constraints",
-    question:
-      "Budget, timeline, resources and existing systems.",
+    question: "Budget, timeline, resources and existing systems.",
     points: [
       "Budget and delivery timeline",
       "Team and resources available",
       "Systems you already rely on",
     ],
   },
-
   {
     num: "04",
     title: "Future growth",
-    question:
-      "How should the solution evolve as the business grows?",
+    question: "How should the solution evolve as the business grows?",
     points: [
       "New features and more users over time",
       "Integrations you may need later",
@@ -103,128 +79,54 @@ const BLOCKS = [
   },
 ];
 
-/* =========================================================
-   JOURNEY DATA
-========================================================= */
-
 const FLOW = [
-  {
-    title: "Requirement",
-    sub: "What you bring us",
-  },
-  {
-    title: "Understanding",
-    sub: "Goals, users, constraints",
-  },
-  {
-    title: "Strategy",
-    sub: "The approach that fits",
-  },
-  {
-    title: "Right solution",
-    sub: "Shaped around your need",
-  },
+  { title: "Requirement", sub: "What you bring us" },
+  { title: "Understanding", sub: "Goals, users, constraints" },
+  { title: "Strategy", sub: "The approach that fits" },
+  { title: "Right solution", sub: "Shaped around your need" },
 ];
 
-/* =========================================================
-   COMPONENT
-========================================================= */
+const isDesktop = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(min-width: 901px)").matches;
 
 export default function DevelopmentApproach() {
   const [active, setActive] = useState(0);
-  const [ref, inView] = usePjdevInView(0.1);
-
+  const [ref, inView] = usePjdevInView();
   const autoHoverRef = useRef(null);
   const userHoverRef = useRef(false);
 
-  /* =======================================================
-     MOVE TO NEXT CARD
-  ======================================================= */
-
   const activateNext = useCallback(() => {
-    setActive((current) => {
-      return (current + 1) % BLOCKS.length;
-    });
+    setActive((current) => (current + 1) % BLOCKS.length);
   }, []);
 
-  /* =======================================================
-     AUTO HOVER
-     
-     Every 5 seconds the next card becomes active.
-  ======================================================= */
-
   useEffect(() => {
-    if (!inView) {
-      return undefined;
-    }
+    if (!inView) return undefined;
 
-    autoHoverRef.current =
-      window.setInterval(() => {
-        /*
-         * Do not fight the user's mouse interaction.
-         */
-        if (userHoverRef.current) {
-          return;
-        }
-
-        activateNext();
-      }, AUTO_HOVER_DELAY);
+    autoHoverRef.current = window.setInterval(() => {
+      if (!userHoverRef.current) activateNext();
+    }, AUTO_HOVER_DELAY);
 
     return () => {
       if (autoHoverRef.current !== null) {
-        window.clearInterval(
-          autoHoverRef.current
-        );
-
+        window.clearInterval(autoHoverRef.current);
         autoHoverRef.current = null;
       }
     };
   }, [inView, activateNext]);
 
-  /* =======================================================
-     MANUAL HOVER
-  ======================================================= */
-
   const handleCardEnter = (index, event) => {
-    if (
-      event.pointerType === "mouse" &&
-      window.matchMedia(
-        "(min-width: 901px)"
-      ).matches
-    ) {
-      userHoverRef.current = true;
-      setActive(index);
-    }
+    if (!isDesktop() || event.pointerType !== "mouse") return;
+    userHoverRef.current = true;
+    setActive(index);
   };
-
-  /* =======================================================
-     MOUSE LEAVE
-  ======================================================= */
 
   const handleCardLeave = () => {
     userHoverRef.current = false;
   };
 
-  /* =======================================================
-     CLICK
-  ======================================================= */
-
-  const handleCardClick = (index) => {
-    setActive(index);
-  };
-
-  /* =======================================================
-     FLOW CLICK / HOVER
-  ======================================================= */
-
   const handleFlowHover = (index) => {
-    if (
-      window.matchMedia(
-        "(min-width: 901px)"
-      ).matches
-    ) {
-      setActive(index);
-    }
+    if (isDesktop()) setActive(index);
   };
 
   return (
@@ -232,118 +134,58 @@ export default function DevelopmentApproach() {
       id="pjdev-approach"
       ref={ref}
       className={`pjdev-approach pjdev-theme-dark${
-        inView
-          ? " pjdev-approach--in"
-          : ""
+        inView ? " pjdev-approach--in" : ""
       }`}
       aria-labelledby="pjdev-approach-title"
     >
       <div className="pjdev-approach__wrap">
-
-        {/* =================================================
-            EYEBROW
-        ================================================= */}
-
         <div className="pjdev-approach__rv">
-          <DevelopmentEyebrow>
-            Our approach
-          </DevelopmentEyebrow>
+          <DevelopmentEyebrow>Our approach</DevelopmentEyebrow>
         </div>
-
-        {/* =================================================
-            TITLE
-        ================================================= */}
 
         <h2
           id="pjdev-approach-title"
-          className="
-            pjdev-approach__title
-            pjdev-approach__rv
-            pjdev-approach__rv--d1
-          "
+          className="pjdev-approach__title pjdev-approach__rv pjdev-approach__rv--d1"
         >
           We Don't Start With Technology.
         </h2>
 
-        {/* =================================================
-            MAIN CLAIM
-        ================================================= */}
-
-        <p
-          className="
-            pjdev-approach__claim
-            pjdev-approach__rv
-            pjdev-approach__rv--d2
-          "
-        >
+        <p className="pjdev-approach__claim pjdev-approach__rv pjdev-approach__rv--d2">
           We Start With the Problem.
         </p>
 
-        {/* =================================================
-            DESCRIPTION
-        ================================================= */}
-
-        <p
-          className="
-            pjdev-approach__lead
-            pjdev-approach__rv
-            pjdev-approach__rv--d3
-          "
-        >
-          Before choosing a platform, architecture or
-          development approach, we understand what you
-          are trying to achieve, who you are building for
+        <p className="pjdev-approach__lead pjdev-approach__rv pjdev-approach__rv--d3">
+          Before choosing a platform, architecture or development approach, we
+          understand what you are trying to achieve, who you are building for
           and what constraints matter.
         </p>
 
-        {/* =================================================
-            APPROACH CARDS
-        ================================================= */}
-
         <div
-          className="
-            pjdev-approach__blocks
-            pjdev-approach__rv
-            pjdev-approach__rv--d3
-          "
+          className="pjdev-approach__blocks pjdev-approach__rv pjdev-approach__rv--d3"
           onPointerLeave={handleCardLeave}
         >
           {BLOCKS.map((block, index) => {
-            const isActive =
-              active === index;
+            const isActive = active === index;
 
             return (
               <article
                 key={block.num}
                 className={`pjdev-approach__block${
-                  isActive
-                    ? " pjdev-approach__block--active"
-                    : ""
+                  isActive ? " pjdev-approach__block--active" : ""
                 }`}
-                onPointerEnter={(event) =>
-                  handleCardEnter(
-                    index,
-                    event
-                  )
-                }
+                onPointerEnter={(event) => handleCardEnter(index, event)}
               >
                 <button
                   type="button"
                   className="pjdev-approach__block-head"
                   aria-expanded={isActive}
                   aria-controls={`pjdev-approach-panel-${index}`}
-                  onClick={() =>
-                    handleCardClick(index)
-                  }
+                  onClick={() => setActive(index)}
                 >
-                  <span className="pjdev-approach__block-num">
-                    {block.num}
-                  </span>
-
+                  <span className="pjdev-approach__block-num">{block.num}</span>
                   <span className="pjdev-approach__block-title">
                     {block.title}
                   </span>
-
                   <span className="pjdev-approach__block-q">
                     {block.question}
                   </span>
@@ -354,13 +196,9 @@ export default function DevelopmentApproach() {
                   className="pjdev-approach__panel"
                 >
                   <ul className="pjdev-approach__points">
-                    {block.points.map(
-                      (point) => (
-                        <li key={point}>
-                          {point}
-                        </li>
-                      )
-                    )}
+                    {block.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
                   </ul>
                 </div>
               </article>
@@ -368,83 +206,45 @@ export default function DevelopmentApproach() {
           })}
         </div>
 
-        {/* =================================================
-            REQUIREMENT → RIGHT SOLUTION
-        ================================================= */}
-
         <div className="pjdev-approach__band">
-
           <p className="pjdev-approach__band-caption">
-            Every project moves along the same path,
-            from what you asked for to what you actually need.
+            Every project moves along the same path, from what you asked for to
+            what you actually need.
           </p>
 
           <div
             className="pjdev-approach__flow"
             aria-label="From requirement to the right solution"
           >
-
-            {/* =================================================
-                CONNECTING LINE
-            ================================================= */}
-
-            <div
-              className="pjdev-approach__flow-line"
-              aria-hidden="true"
-            >
+            <div className="pjdev-approach__flow-line" aria-hidden="true">
               <span
                 className="pjdev-approach__flow-progress"
                 style={{
-                  width: `${
-                    (active /
-                      (FLOW.length - 1)) *
-                    100
-                  }%`,
+                  width: `${(active / (FLOW.length - 1)) * 100}%`,
                 }}
               />
             </div>
 
-            {/* =================================================
-                FLOW STEPS
-            ================================================= */}
-
             {FLOW.map((item, index) => {
-              const isActive =
-                active === index;
+              const isActive = active === index;
 
               return (
                 <button
                   key={item.title}
                   type="button"
                   className={`pjdev-approach__flow-step${
-                    isActive
-                      ? " pjdev-approach__flow-step--active"
-                      : ""
+                    isActive ? " pjdev-approach__flow-step--active" : ""
                   }`}
-                  onClick={() =>
-                    setActive(index)
-                  }
-                  onMouseEnter={() =>
-                    handleFlowHover(index)
-                  }
+                  onClick={() => setActive(index)}
+                  onMouseEnter={() => handleFlowHover(index)}
                 >
-                  {/* NODE */}
-
                   <span className="pjdev-approach__flow-node">
                     <span />
                   </span>
-
-                  {/* TITLE */}
-
                   <span className="pjdev-approach__flow-title">
                     {item.title}
                   </span>
-
-                  {/* SUBTITLE */}
-
-                  <span className="pjdev-approach__flow-sub">
-                    {item.sub}
-                  </span>
+                  <span className="pjdev-approach__flow-sub">{item.sub}</span>
                 </button>
               );
             })}

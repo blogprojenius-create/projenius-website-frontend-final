@@ -403,29 +403,21 @@ export default function Navbar() {
             LOGO
         =================================================== */}
 
-        <Link
-          to="/"
-          className="glass-logo"
-          aria-label="ProJenius Home"
-          onClick={handleNavigationClick}
-        >
+        <a href="/" 
+        className="glass-logo" 
+        aria-label="ProJenius Home" 
+        onClick={(event) => {
+          event.preventDefault();
+          // Always perform a full browser refresh, 
+          // even when already on the Home page. 
+          window.location.href = "/";
+        }} >
           <span className="glass-logo-mark">
-            <img
-              src={NavLogo}
-              alt="ProJenius"
-              className="logo-icon-crop"
-            />
+            <img src={NavLogo} alt="ProJenius" className="logo-icon-crop" />
           </span>
-
-          <span className="logo-pro">
-            Pro
-          </span>
-
-          <span className="logo-jenius">
-            Jenius
-          </span>
-        </Link>
-
+          <span className="logo-pro"> Pro </span>
+          <span className="logo-jenius"> Jenius </span>
+        </a>
         {/* ===================================================
             DESKTOP NAVIGATION
         =================================================== */}
@@ -496,10 +488,9 @@ export default function Navbar() {
                           to={item.path}
                           className={`
                             glass-dropdown-item
-                            ${
-                              location.pathname === item.path
-                                ? "active"
-                                : ""
+                            ${location.pathname === item.path
+                              ? "active"
+                              : ""
                             }
                           `}
                           onClick={() => {
@@ -610,10 +601,9 @@ export default function Navbar() {
                             className={`
                               glass-mobile-link
                               sub
-                              ${
-                                location.pathname === item.path
-                                  ? "active"
-                                  : ""
+                              ${location.pathname === item.path
+                                ? "active"
+                                : ""
                               }
                             `}
                             onClick={() => {

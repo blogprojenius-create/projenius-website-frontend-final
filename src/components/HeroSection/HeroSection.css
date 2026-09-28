@@ -3,7 +3,6 @@
    JSX STRUCTURE UNCHANGED
    ========================================================= */
 
-
 /* =========================================================
    POPPINS
    ========================================================= */
@@ -42,31 +41,26 @@ body {
    ========================================================= */
 
 .hero-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 0;
+    position: relative;
 
     width: 100%;
-    max-width: 100%;
-
-    height: 100vh;
     height: 100svh;
-    height: 100dvh;
-
-    min-height: 0;
+    min-height: 100svh;
+    max-height: 100svh;
 
     margin: 0;
     padding: 0;
 
     overflow: hidden;
 
-    background: #091120;
-
-    font-family: "Poppins", sans-serif;
-
-    isolation: isolate;
+    box-sizing: border-box;
 }
 
+.hero-wrapper *,
+.hero-wrapper *::before,
+.hero-wrapper *::after {
+    box-sizing: border-box;
+}
 
 /* =========================================================
    BACKGROUND IMAGE
@@ -223,20 +217,18 @@ body {
    ========================================================= */
 
 .hero-inner {
-    position: relative;
-
-    z-index: 5;
+     position: relative;
 
     width: 100%;
     height: 100%;
 
-    max-width: 1240px;
+    margin: 0;
+    padding: 0;
 
-    margin: 0 auto;
+    display: flex;
+    align-items: center;
 
-    padding: 0 30px;
-
-    min-width: 0;
+    overflow: hidden;
 }
 
 
@@ -250,17 +242,13 @@ body {
     width: 100%;
     height: 100%;
 
-    display: grid;
+    margin: 0;
+    padding: 0;
 
-    grid-template-columns:
-        minmax(0, 1fr)
-        330px;
-
+    display: flex;
     align-items: center;
 
-    column-gap: 35px;
-
-    min-width: 0;
+    overflow: hidden;
 }
 
 
@@ -270,17 +258,49 @@ body {
 
 .hero-text {
     position: relative;
+    z-index: 5;
 
-    z-index: 30;
-
-    width: 100%;
-    max-width: 850px;
-
-    min-width: 0;
-
-    transform: translateY(-5px);
+    margin: 0;
 }
 
+.smart-solutions {
+    display: inline-flex;
+    align-items: baseline;
+
+    white-space: nowrap;
+
+    /*
+     * Keeps the heading from jumping horizontally
+     * while the letters are being typed.
+     */
+    min-width: 14ch;
+}
+
+/* =========================================================
+   TYPING CURSOR
+========================================================= */
+
+.typing-cursor {
+    display: inline-block;
+
+    width: 3px;
+    height: 0.82em;
+
+    margin-left: 5px;
+
+    vertical-align: -0.05em;
+
+    background: #35CEFF;
+
+    border-radius: 2px;
+
+    animation: typingCursorBlink 0.75s steps(1, end) infinite;
+
+    /*
+     * Prevent cursor from affecting layout.
+     */
+    flex: 0 0 auto;
+}
 
 /* =========================================================
    SUBHEADING
@@ -686,9 +706,11 @@ body {
     bottom: 0;
 
     width: 100%;
-    height: 85px;
 
-    z-index: 20;
+    margin: 0;
+    padding: 0;
+
+    z-index: 10;
 
     pointer-events: none;
 }
@@ -845,20 +867,49 @@ body {
     }
 }
 
+/* =========================================================
+   CURSOR BLINK
+========================================================= */
+
+@keyframes typingCursorBlink {
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    46%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   HERO BACKGROUND — NEVER CREATE EXTRA HEIGHT
+========================================================= */
+
+.hero-background,
+.hero-overlay,
+.hero-particles {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
 
 /* =========================================================
    VISUAL ENTRANCE
    ========================================================= */
 
 .hero-visual {
-    opacity: 0;
+     position: relative;
+    z-index: 4;
 
-    animation:
-        heroVisualIn
-        0.9s
-        cubic-bezier(.22, 1, .36, 1)
-        0.25s
-        both;
+    margin: 0;
 }
 
 
@@ -986,20 +1037,10 @@ body {
    ========================================================= */
 
 @media (max-width: 991px) {
-    .hero-inner {
-        height: 100%;
-
-        padding:
-            0 28px;
-    }
-
+    .hero-inner,
     .hero-content {
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
         height: 100%;
+        min-height: 0;
     }
 
     .hero-text {
@@ -1009,6 +1050,15 @@ body {
         text-align: center;
 
         transform: translateY(-10px);
+    }
+
+    .smart-solutions {
+        min-width: 0;
+    }
+
+    .typing-cursor {
+        width: 2px;
+        margin-left: 4px;
     }
 
     .subheading {
@@ -1053,6 +1103,14 @@ body {
 
     .hero-visual {
         display: none;
+    }
+
+    .hero-wrapper {
+        height: 100svh;
+        min-height: 100svh;
+        max-height: 100svh;
+
+        overflow: hidden;
     }
 }
 
@@ -1193,6 +1251,16 @@ body {
     .hero-buttons .btn-content {
         font-size: 14px;
     }
+    .hero-wrapper {
+        height: 100svh;
+        min-height: 100svh;
+        max-height: 100svh;
+    }
+
+    .typing-cursor {
+        width: 2px;
+        margin-left: 3px;
+    }
 }
 
 
@@ -1254,5 +1322,9 @@ body {
     .hero-visual {
         opacity: 1;
         transform: none;
+    }
+    .typing-cursor {
+        animation: none;
+        opacity: 1;
     }
 }

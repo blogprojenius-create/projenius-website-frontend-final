@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ProjectSection.css";
 
+import projectImage1 from "../../assets/images/Helminth Real Poster.jpeg";
+import projectImage2 from "../../assets/images/Helminth_poster_website_card.png";
 /* =========================================================
    PROJECT DATA
    ========================================================= */
@@ -12,7 +14,7 @@ const projects = [
     description:
       "Scientific poster on helminth egg detection in dog samples highlighting diagnosis and zoonotic risks worldwide.",
     rating: 5,
-    image: "/images/project-image-1.webp",
+    image: projectImage1,
   },
   {
     title: "AI-Powered Water Health Monitoring",
@@ -20,7 +22,7 @@ const projects = [
     description:
       "Powerful monitoring platform designed to improve water quality analysis and real-time environmental tracking.",
     rating: 4,
-    image: "/images/project-image-2.webp",
+    image: projectImage2,
   },
   {
     title: "Road Hazard Detection",

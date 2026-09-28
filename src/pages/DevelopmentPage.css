@@ -94,3 +94,142 @@
 }
 
 .pjdev-page__main { display: block; }
+
+/* =========================================================
+   DEVELOPMENT PAGE
+   ALTERNATING BLUE / WHITE SECTIONS
+========================================================= */
+
+.development-page {
+  --dev-blue: #0B1628;
+  --dev-white: #FFFFFF;
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  background: var(--dev-blue);
+}
+
+
+/* =========================================================
+   SECTION WRAPPER
+========================================================= */
+
+.development-section {
+  position: relative;
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   BLUE SECTION
+========================================================= */
+
+.development-section--blue {
+  background: var(--dev-blue);
+  color: #FFFFFF;
+}
+
+
+/* =========================================================
+   WHITE SECTION
+========================================================= */
+
+.development-section--white {
+  background: var(--dev-white);
+  color: #0A1633;
+}
+
+
+/* =========================================================
+   IMPORTANT
+   Let the PAGE wrapper control the section background
+========================================================= */
+
+.development-section--blue > * {
+  background-color: var(--dev-blue) !important;
+}
+
+.development-section--white > * {
+  background-color: var(--dev-white) !important;
+}
+
+
+/* =========================================================
+   DARK THEME OVERRIDE
+   Child components currently use .pjdev-theme-dark
+========================================================= */
+
+.development-section--white .pjdev-theme-dark {
+  background-color: var(--dev-white) !important;
+
+  --pjdev-bg: var(--dev-white);
+  --pjdev-surface: var(--dev-white);
+  --pjdev-card: #F7F9FC;
+
+  --pjdev-ink: #0A1633;
+  --pjdev-dink: #0A1633;
+
+  --pjdev-muted: #4A5776;
+  --pjdev-dmuted: #4A5776;
+
+  --pjdev-line: #DAE2EF;
+  --pjdev-line-strong: #C3CFE4;
+}
+
+
+/* =========================================================
+   BLUE THEME OVERRIDE
+========================================================= */
+
+.development-section--blue .pjdev-theme-dark {
+  background-color: var(--dev-blue) !important;
+
+  --pjdev-bg: var(--dev-blue);
+  --pjdev-surface: var(--dev-blue);
+
+  --pjdev-ink: #EAF0FF;
+  --pjdev-dink: #EAF0FF;
+
+  --pjdev-muted: #9AA9CB;
+  --pjdev-dmuted: #9AA9CB;
+
+  --pjdev-line: rgba(150, 180, 255, 0.16);
+  --pjdev-line-strong: rgba(170, 195, 255, 0.34);
+}
+
+
+/* =========================================================
+   WHITE SECTION - COMMON TEXT OVERRIDES
+   Only changes elements that inherit the page text.
+========================================================= */
+
+.development-section--white .pjdev-theme-dark {
+  color: #0A1633;
+}
+
+
+/* =========================================================
+   KEEP SVG / DECORATIVE LAYERS INSIDE THEIR SECTION
+========================================================= */
+
+.development-section {
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .development-section {
+    width: 100%;
+  }
+}

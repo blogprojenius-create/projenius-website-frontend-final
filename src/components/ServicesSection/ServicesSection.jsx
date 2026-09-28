@@ -7,30 +7,40 @@ export default function ServicesSection() {
     const services = [
         {
             title: "Web Development",
+            description:
+                "Build fast, responsive and scalable websites tailored to your business goals and user needs.",
             image:
                 "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
             title: "Digital Marketing",
+            description:
+                "Grow your digital presence with targeted strategies that improve reach, engagement and conversions.",
             image:
                 "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
             title: "UI / UX Design",
+            description:
+                "Create clear, intuitive and engaging interfaces that make every user interaction simple and effective.",
             image:
                 "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
             title: "Mobile App Development",
+            description:
+                "Develop reliable and user-friendly mobile applications designed for performance, scale and everyday use.",
             image:
                 "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
             title: "AI & IoT Solutions",
+            description:
+                "Build smart connected solutions using AI and IoT to automate processes, improve decisions and unlock new possibilities.",
             image:
                 "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
@@ -154,7 +164,6 @@ export default function ServicesSection() {
                         className="svc-sub"
                         id="sub-heading"
                     >
-
                         Our Services
                     </span>
 
@@ -174,11 +183,11 @@ export default function ServicesSection() {
                         aria-hidden="true"
                     />
 
-                    <p className="svc-para">
-                        Innovative services in AI, IoT,
-                        web, mobile apps, design, training,
-                        and smart product development
-                        solutions.
+                    <p
+                        className="svc-para"
+                        key={activeIndex}
+                    >
+                        {services[activeIndex].description}
                     </p>
 
                     <a

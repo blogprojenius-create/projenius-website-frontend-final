@@ -116,6 +116,8 @@ const clamp = (value, min, max) =>
 ========================================================= */
 
 export default function DevelopmentProcess() {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
   const railRef = useRef(null);
   const fillRef = useRef(null);
   const frameRef = useRef(null);
@@ -264,26 +266,75 @@ export default function DevelopmentProcess() {
     };
   }, [requestUpdate]);
 
+  /* =======================================================
+     HEADER HEIGHT SYNC
+     The heading remains in its original position and stays
+     above the scrolling process content. The stage panel uses
+     this measured height as its sticky offset.
+  ======================================================= */
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const header = headerRef.current;
+
+    if (!section || !header) {
+      return undefined;
+    }
+
+    const updateHeaderHeight = () => {
+      section.style.setProperty(
+        "--process-header-height",
+        `${header.offsetHeight}px`
+      );
+
+      requestUpdate();
+    };
+
+    updateHeaderHeight();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateHeaderHeight);
+
+      return () => {
+        window.removeEventListener("resize", updateHeaderHeight);
+      };
+    }
+
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(header);
+
+    return () => observer.disconnect();
+  }, [requestUpdate]);
+
   const currentStage =
     STAGES[active];
 
   return (
     <section
       id="pjdev-process"
+      ref={sectionRef}
       className="pjdev-process pjdev-theme-dark"
       aria-labelledby="pjdev-process-title"
     >
       <div className="pjdev-process__wrap">
 
         {/* =================================================
-            SECTION HEADER
+            STICKY SECTION HEADING
+            Kept in the original top position. Its opaque
+            background creates a clean boundary so scrolling
+            stage content can never show through the heading.
         ================================================= */}
 
-        <DevelopmentSectionHead
-          id="pjdev-process-title"
-          title="How We Turn a Requirement Into Reality."
-          text="A structured journey from the first conversation to a working digital product."
-        />
+        <div
+          ref={headerRef}
+          className="pjdev-process__header-sticky"
+        >
+          <DevelopmentSectionHead
+            id="pjdev-process-title"
+            title="How We Turn a Requirement Into Reality."
+            text="A structured journey from the first conversation to a working digital product."
+          />
+        </div>
 
         {/* =================================================
             PROCESS LAYOUT
@@ -292,44 +343,42 @@ export default function DevelopmentProcess() {
         <div className="pjdev-process__layout">
 
           {/* ===============================================
-              LEFT STICKY CONTENT
+              LEFT STICKY STAGE PANEL
           =============================================== */}
 
           <aside
             className="pjdev-process__side"
             aria-live="polite"
           >
+            <div className="pjdev-process__current">
 
-            {/* BIG NUMBER */}
+              {/* BIG NUMBER */}
+              <div
+                key={currentStage.n}
+                className="pjdev-process__num"
+              >
+                {currentStage.n}
+              </div>
 
-            <div
-              key={currentStage.n}
-              className="pjdev-process__num"
-            >
-              {currentStage.n}
-            </div>
+              {/* STAGE TITLE */}
+              <div
+                key={`word-${currentStage.n}`}
+                className="pjdev-process__word"
+              >
+                {currentStage.title}
+              </div>
 
-            {/* STAGE TITLE */}
+              {/* STAGE COUNT */}
+              <div className="pjdev-process__count">
+                Stage {active + 1} of {STAGES.length}
+              </div>
 
-            <div
-              key={`word-${currentStage.n}`}
-              className="pjdev-process__word"
-            >
-              {currentStage.title}
-            </div>
-
-            {/* STAGE COUNT */}
-
-            <div className="pjdev-process__count">
-              Stage {active + 1} of{" "}
-              {STAGES.length}
-            </div>
-
-            {/* PROGRESS TICKS */}
-
-            <div className="pjdev-process__ticks">
-              {STAGES.map(
-                (stage, index) => (
+              {/* PROGRESS TICKS */}
+              <div
+                className="pjdev-process__ticks"
+                aria-hidden="true"
+              >
+                {STAGES.map((stage, index) => (
                   <i
                     key={stage.n}
                     className={[
@@ -344,8 +393,9 @@ export default function DevelopmentProcess() {
                       .filter(Boolean)
                       .join(" ")}
                   />
-                )
-              )}
+                ))}
+              </div>
+
             </div>
           </aside>
 
@@ -353,72 +403,58 @@ export default function DevelopmentProcess() {
               RIGHT-SIDE PROCESS
           =============================================== */}
 
-          <div
-            ref={railRef}
-            className="pjdev-process__rail"
-          >
+          <div className="pjdev-process__content">
 
-            {/* =============================================
-                PROCESS LINE
-            ============================================= */}
-
-            <svg
-              className="pjdev-process__railsvg"
-              width="4"
-              aria-hidden="true"
-              focusable="false"
+            <div
+              ref={railRef}
+              className="pjdev-process__rail"
             >
-              {/* Background line */}
 
-              <line
-                className="pjdev-process__railtrack"
-                x1="2"
-                y1="0"
-                x2="2"
-                y2="100%"
-              />
+              {/* =============================================
+                  PROCESS LINE
+              ============================================= */}
 
-              {/* Scroll-progress line */}
+              <svg
+                className="pjdev-process__railsvg"
+                width="4"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <line
+                  className="pjdev-process__railtrack"
+                  x1="2"
+                  y1="0"
+                  x2="2"
+                  y2="100%"
+                />
 
-              <line
-                ref={fillRef}
-                className="pjdev-process__railfill"
-                x1="2"
-                y1="0"
-                x2="2"
-                y2="100%"
-                pathLength="1"
-                strokeDasharray="1"
-                strokeDashoffset="1"
-              />
-            </svg>
+                <line
+                  ref={fillRef}
+                  className="pjdev-process__railfill"
+                  x1="2"
+                  y1="0"
+                  x2="2"
+                  y2="100%"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset="1"
+                />
+              </svg>
 
-            {/* =============================================
-                STAGES
-            ============================================= */}
+              {/* =============================================
+                  STAGES
+              ============================================= */}
 
-            <ol className="pjdev-process__stages">
-
-              {STAGES.map(
-                (stage, index) => {
-
+              <ol className="pjdev-process__stages">
+                {STAGES.map((stage, index) => {
                   let state = "";
 
-                  if (
-                    index === active
-                  ) {
-                    state =
-                      " pjdev-process__stage--active";
-                  } else if (
-                    index < active
-                  ) {
-                    state =
-                      " pjdev-process__stage--done";
-                  } else if (
-                    index === active + 1
-                  ) {
-                    state =
-                      " pjdev-process__stage--next";
+                  if (index === active) {
+                    state = " pjdev-process__stage--active";
+                  } else if (index < active) {
+                    state = " pjdev-process__stage--done";
+                  } else if (index === active + 1) {
+                    state = " pjdev-process__stage--next";
                   }
 
                   return (
@@ -426,71 +462,48 @@ export default function DevelopmentProcess() {
                       key={stage.n}
                       className={`pjdev-process__stage${state}`}
                     >
-
-                      {/* STAGE NUMBER */}
-
                       <span className="pjdev-process__stage-n">
                         {stage.n}
                       </span>
-
-                      {/* STAGE TITLE */}
 
                       <h3 className="pjdev-process__stage-title">
                         {stage.title}
                       </h3>
 
-                      {/* STAGE DESCRIPTION */}
-
                       <span className="pjdev-process__stage-verb">
-                        <b>
-                          {stage.verb}
-                        </b>{" "}
+                        <b>{stage.verb}</b>{" "}
                         {stage.note}
                       </span>
 
-                      {/* STAGE DETAILS */}
-
                       <div className="pjdev-process__stage-body">
-
                         {stage.chips ? (
                           <ul className="pjdev-process__chips">
-                            {stage.chips.map(
-                              (chip) => (
-                                <li key={chip}>
-                                  {chip}
-                                </li>
-                              )
-                            )}
+                            {stage.chips.map((chip) => (
+                              <li key={chip}>{chip}</li>
+                            ))}
                           </ul>
                         ) : (
-                          <p>
-                            {stage.text}
-                          </p>
+                          <p>{stage.text}</p>
                         )}
-
                       </div>
                     </li>
                   );
-                }
-              )}
+                })}
+              </ol>
+            </div>
 
-            </ol>
+            <p className="pjdev-process__loop">
+              <DevelopmentIcon name="loop" />
+
+              <span>
+                And then the journey continues:
+                new requirements, new opportunities,
+                new growth.
+              </span>
+            </p>
+
           </div>
         </div>
-
-        {/* =================================================
-            LOOP MESSAGE
-        ================================================= */}
-
-        <p className="pjdev-process__loop">
-          <DevelopmentIcon name="loop" />
-
-          <span>
-            And then the journey continues:
-            new requirements, new opportunities,
-            new growth.
-          </span>
-        </p>
 
       </div>
     </section>

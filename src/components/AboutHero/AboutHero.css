@@ -1,0 +1,1366 @@
+/* =========================================================
+   ABOUT HERO
+   Hero-style layout
+   Full viewport
+   ========================================================= */
+
+.about-hero {
+    --about-blue: #35ceff;
+    --about-blue-soft: rgba(53, 206, 255, 0.18);
+    --about-white: #f7f9fc;
+    --about-bg: #020b18;
+    --about-bg-deep: #010711;
+
+    position: relative;
+
+    width: 100%;
+    height: 100svh;
+    min-height: 680px;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: var(--about-bg);
+    color: var(--about-white);
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   BOX SIZING
+   ========================================================= */
+
+.about-hero *,
+.about-hero *::before,
+.about-hero *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+   ========================================================= */
+
+.about-hero-grid {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -10;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            rgba(53, 206, 255, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(53, 206, 255, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            135deg,
+            #061426 0%,
+            #020a15 48%,
+            #010711 100%
+        );
+
+    background-size:
+        78px 78px,
+        78px 78px,
+        auto;
+}
+
+
+/* =========================================================
+   DARK OVERLAY
+   ========================================================= */
+
+.about-hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: -9;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(2, 10, 21, 0.15),
+            rgba(2, 10, 21, 0.45)
+        );
+}
+
+
+/* =========================================================
+   BLUE BACKGROUND GLOW
+   ========================================================= */
+
+.about-hero::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: -8;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 76% 48%,
+            rgba(53, 206, 255, 0.12),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 5% 15%,
+            rgba(53, 206, 255, 0.07),
+            transparent 28%
+        );
+}
+
+
+/* =========================================================
+   EXTRA GLOW
+   ========================================================= */
+
+.about-hero-glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -7;
+}
+
+
+.about-hero-glow-left {
+    width: 520px;
+    height: 520px;
+
+    left: -280px;
+    top: -220px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(42, 74, 125, 0.22),
+            transparent 68%
+        );
+}
+
+
+.about-hero-glow-right {
+    width: 650px;
+    height: 650px;
+
+    right: -210px;
+    top: 80px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 174, 245, 0.08),
+            transparent 68%
+        );
+}
+
+
+/* =========================================================
+   HERO INNER
+   IMPORTANT:
+   Navbar is above this content.
+   Content intentionally starts lower.
+   ========================================================= */
+
+.about-hero-inner {
+    position: relative;
+
+    z-index: 5;
+
+    width: min(1380px, calc(100% - 80px));
+    height: 100%;
+
+    margin: 0 auto;
+
+    padding-top: 145px;
+    padding-bottom: 95px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 54%)
+        minmax(420px, 46%);
+
+    align-items: center;
+
+    column-gap: 10px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.about-hero-content {
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+    max-width: 700px;
+
+    align-self: center;
+
+    padding-bottom: 20px;
+}
+
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.about-hero-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 25px;
+
+    color: var(--about-blue);
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    line-height: 1;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.about-hero-title {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+
+    max-width: 620px;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: clamp(
+        58px,
+        5.25vw,
+        82px
+    );
+
+    font-weight: 800;
+
+    line-height: 0.94;
+
+    letter-spacing: -3px;
+}
+
+
+/* =========================================================
+   TITLE COLORS
+   ========================================================= */
+
+.about-hero-title-white {
+    display: block;
+
+    color: var(--about-white);
+}
+
+
+.about-hero-title-blue {
+    display: block;
+
+    color: var(--about-blue);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.about-hero-description {
+    max-width: 650px;
+
+    margin: 30px 0 0;
+
+    color: rgba(247, 249, 252, 0.74);
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.about-hero-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 28px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.about-hero-primary-btn,
+.about-hero-secondary-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 50px;
+
+    padding: 0 22px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.about-hero-primary-btn {
+    color: #03101b;
+
+    background: var(--about-blue);
+
+    border: 1px solid var(--about-blue);
+
+    box-shadow:
+        0 10px 28px rgba(53, 206, 255, 0.18);
+}
+
+
+.about-hero-secondary-btn {
+    color: var(--about-white);
+
+    background: rgba(4, 16, 30, 0.3);
+
+    border: 1px solid rgba(53, 206, 255, 0.45);
+}
+
+
+.about-hero-primary-btn:hover,
+.about-hero-secondary-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+.about-hero-primary-btn:hover {
+    box-shadow:
+        0 14px 35px rgba(53, 206, 255, 0.28);
+}
+
+
+.about-hero-secondary-btn:hover {
+    background: rgba(53, 206, 255, 0.08);
+
+    border-color: var(--about-blue);
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+   Smaller than previous version
+   ========================================================= */
+
+.about-hero-visual {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   ORBIT CONTAINER
+   Desktop:
+   approximately 470px
+   ========================================================= */
+
+.about-hero-orbit {
+    position: relative;
+
+    width: min(470px, 100%);
+    aspect-ratio: 1 / 1;
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   ONLY TWO RINGS
+   ========================================================= */
+
+.about-hero-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.about-hero-ring-outer {
+    width: 100%;
+    height: 100%;
+
+    border:
+        1px solid rgba(
+            53,
+            206,
+            255,
+            0.16
+        );
+}
+
+
+.about-hero-ring-inner {
+    width: 67%;
+    height: 67%;
+
+    border:
+        1px solid rgba(
+            53,
+            206,
+            255,
+            0.24
+        );
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(53, 206, 255, 0.05),
+            transparent 68%
+        );
+}
+
+
+/* =========================================================
+   CENTER GLOW
+   ========================================================= */
+
+.about-hero-center-glow {
+    position: absolute;
+
+    width: 245px;
+    height: 245px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(53, 206, 255, 0.18) 0%,
+            rgba(53, 206, 255, 0.08) 32%,
+            transparent 70%
+        );
+
+    filter: blur(5px);
+}
+
+
+/* =========================================================
+   CENTER
+   ========================================================= */
+
+.about-hero-center {
+    position: relative;
+
+    width: 118px;
+    height: 118px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 5;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(8, 35, 54, 0.96),
+            rgba(2, 12, 22, 0.98)
+        );
+
+    border:
+        1px solid rgba(
+            53,
+            206,
+            255,
+            0.45
+        );
+
+    box-shadow:
+        0 0 35px rgba(53, 206, 255, 0.16),
+        inset 0 0 25px rgba(53, 206, 255, 0.06);
+}
+
+
+/* =========================================================
+   LOGO CIRCLE
+   ========================================================= */
+
+.about-hero-logo-circle {
+    width: 76px;
+    height: 76px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border:
+        1px solid rgba(
+            53,
+            206,
+            255,
+            0.65
+        );
+
+    box-shadow:
+        0 0 18px rgba(53, 206, 255, 0.2);
+}
+
+
+.about-hero-logo {
+    width: 57px;
+    height: 57px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================================
+   ORBIT LABEL
+   ========================================================= */
+
+.about-hero-orbit-label {
+    position: absolute;
+
+    z-index: 8;
+
+    min-width: 88px;
+    height: 39px;
+
+    padding: 0 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(
+            53,
+            206,
+            255,
+            0.22
+        );
+
+    border-radius: 12px;
+
+    background:
+        rgba(3, 14, 27, 0.86);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+
+    color:
+        rgba(232, 240, 247, 0.72);
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    letter-spacing: 0.8px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ORBIT POSITIONS
+   470px orbit
+   ========================================================= */
+
+.about-hero-orbit-top {
+    left: 50%;
+    top: -1px;
+
+    transform: translate(-50%, -50%);
+}
+
+
+.about-hero-orbit-top-right {
+    right: 6%;
+    top: 15%;
+
+    transform: translate(0, -50%);
+}
+
+
+.about-hero-orbit-right {
+    right: -6%;
+    top: 50%;
+
+    transform: translate(0, -50%);
+}
+
+
+.about-hero-orbit-bottom-right {
+    right: 6%;
+    bottom: 15%;
+
+    transform: translate(0, 50%);
+}
+
+
+.about-hero-orbit-bottom {
+    left: 50%;
+    bottom: -1px;
+
+    transform: translate(-50%, 50%);
+}
+
+
+.about-hero-orbit-bottom-left {
+    left: 6%;
+    bottom: 15%;
+
+    transform: translate(0, 50%);
+}
+
+
+.about-hero-orbit-left {
+    left: -6%;
+    top: 50%;
+
+    transform: translate(0, -50%);
+}
+
+
+.about-hero-orbit-top-left {
+    left: 6%;
+    top: 15%;
+
+    transform: translate(0, -50%);
+}
+
+
+/* =========================================================
+   ZIG-ZAG TRANSITION
+   ========================================================= */
+
+.about-hero-zigzag {
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: 100%;
+
+    pointer-events: none;
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   BLUE BORDER / EDGE
+   ========================================================= */
+
+.about-hero-zigzag-blue {
+    height: 76px;
+
+    background: var(--about-blue);
+
+    clip-path: polygon(
+        0 32%,
+        8% 76%,
+        17% 16%,
+        100% 57%,
+        100% 100%,
+        0 100%
+    );
+}
+
+
+/* =========================================================
+   WHITE LOWER AREA
+   ========================================================= */
+
+.about-hero-zigzag-white {
+    height: 68px;
+
+    background: #ffffff;
+
+    bottom: -1px;
+
+    clip-path: polygon(
+        0 37%,
+        8% 80%,
+        17% 21%,
+        100% 62%,
+        100% 100%,
+        0 100%
+    );
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+    .about-hero-inner {
+        width: min(
+            1380px,
+            calc(100% - 120px)
+        );
+
+        grid-template-columns:
+            minmax(0, 55%)
+            minmax(470px, 45%);
+    }
+
+    .about-hero-content {
+        padding-left: 0;
+    }
+
+    .about-hero-title {
+        font-size: 78px;
+    }
+
+    .about-hero-orbit {
+        width: 500px;
+    }
+
+    .about-hero-center {
+        width: 124px;
+        height: 124px;
+    }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (max-width: 1199px) and (min-width: 992px) {
+
+    .about-hero {
+        min-height: 650px;
+    }
+
+    .about-hero-inner {
+        width: calc(100% - 60px);
+
+        padding-top: 135px;
+        padding-bottom: 80px;
+
+        grid-template-columns:
+            minmax(0, 55%)
+            minmax(380px, 45%);
+    }
+
+    .about-hero-title {
+        font-size: 60px;
+
+        letter-spacing: -2.5px;
+    }
+
+    .about-hero-description {
+        max-width: 570px;
+
+        font-size: 16px;
+    }
+
+    .about-hero-orbit {
+        width: 400px;
+    }
+
+    .about-hero-center {
+        width: 105px;
+        height: 105px;
+    }
+
+    .about-hero-logo-circle {
+        width: 68px;
+        height: 68px;
+    }
+
+    .about-hero-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .about-hero-center-glow {
+        width: 220px;
+        height: 220px;
+    }
+
+    .about-hero-orbit-label {
+        min-width: 78px;
+        height: 34px;
+
+        font-size: 8px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .about-hero {
+        height: auto;
+
+        min-height: 100svh;
+
+        overflow: hidden;
+    }
+
+    .about-hero-inner {
+        width: 100%;
+
+        min-height: 100svh;
+
+        height: auto;
+
+        padding:
+            135px
+            30px
+            105px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: flex-start;
+
+        gap: 35px;
+    }
+
+    .about-hero-content {
+        width: 100%;
+        max-width: 700px;
+
+        text-align: center;
+
+        padding-bottom: 0;
+    }
+
+    .about-hero-eyebrow {
+        margin-bottom: 18px;
+    }
+
+    .about-hero-title {
+        max-width: 650px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        font-size: clamp(
+            46px,
+            7vw,
+            64px
+        );
+
+        line-height: 0.98;
+    }
+
+    .about-hero-description {
+        max-width: 620px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        font-size: 16px;
+    }
+
+    .about-hero-actions {
+        justify-content: center;
+    }
+
+    .about-hero-visual {
+        width: 100%;
+
+        height: 400px;
+
+        flex: 0 0 400px;
+    }
+
+    .about-hero-orbit {
+        width: 360px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .about-hero {
+        min-height: auto;
+
+        height: auto;
+    }
+
+    .about-hero-inner {
+        min-height: auto;
+
+        padding:
+            120px
+            20px
+            85px;
+
+        gap: 30px;
+    }
+
+    .about-hero-eyebrow {
+        margin-bottom: 15px;
+
+        font-size: 11px;
+
+        letter-spacing: 3px;
+    }
+
+    .about-hero-title {
+        font-size: clamp(
+            42px,
+            12vw,
+            56px
+        );
+
+        line-height: 0.98;
+
+        letter-spacing: -2px;
+    }
+
+    .about-hero-description {
+        margin-top: 23px;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+    .about-hero-actions {
+        flex-wrap: wrap;
+
+        gap: 9px;
+
+        margin-top: 23px;
+    }
+
+    .about-hero-primary-btn,
+    .about-hero-secondary-btn {
+        min-height: 45px;
+
+        padding: 0 17px;
+
+        font-size: 12px;
+    }
+
+    .about-hero-visual {
+        height: 330px;
+
+        flex-basis: 330px;
+    }
+
+    .about-hero-orbit {
+        width: 285px;
+    }
+
+    .about-hero-ring-outer {
+        width: 100%;
+        height: 100%;
+    }
+
+    .about-hero-ring-inner {
+        width: 66%;
+        height: 66%;
+    }
+
+    .about-hero-center {
+        width: 78px;
+        height: 78px;
+    }
+
+    .about-hero-logo-circle {
+        width: 53px;
+        height: 53px;
+    }
+
+    .about-hero-logo {
+        width: 39px;
+        height: 39px;
+    }
+
+    .about-hero-center-glow {
+        width: 175px;
+        height: 175px;
+    }
+
+    .about-hero-orbit-label {
+        min-width: 62px;
+        height: 27px;
+
+        padding: 0 7px;
+
+        border-radius: 8px;
+
+        font-size: 6.5px;
+
+        letter-spacing: 0.45px;
+    }
+
+    .about-hero-orbit-top {
+        top: 0;
+    }
+
+    .about-hero-orbit-top-right {
+        right: 1%;
+        top: 14%;
+    }
+
+    .about-hero-orbit-right {
+        right: -5%;
+    }
+
+    .about-hero-orbit-bottom-right {
+        right: 1%;
+        bottom: 14%;
+    }
+
+    .about-hero-orbit-bottom {
+        bottom: 0;
+    }
+
+    .about-hero-orbit-bottom-left {
+        left: 1%;
+        bottom: 14%;
+    }
+
+    .about-hero-orbit-left {
+        left: -5%;
+    }
+
+    .about-hero-orbit-top-left {
+        left: 1%;
+        top: 14%;
+    }
+
+    .about-hero-zigzag-blue {
+        height: 58px;
+    }
+
+    .about-hero-zigzag-white {
+        height: 51px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .about-hero-inner {
+        padding:
+            112px
+            16px
+            75px;
+    }
+
+    .about-hero-title {
+        font-size: 40px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .about-hero-description {
+        font-size: 13px;
+    }
+
+    .about-hero-actions {
+        gap: 7px;
+    }
+
+    .about-hero-primary-btn,
+    .about-hero-secondary-btn {
+        min-height: 42px;
+
+        padding: 0 14px;
+
+        font-size: 11px;
+    }
+
+    .about-hero-visual {
+        height: 300px;
+
+        flex-basis: 300px;
+    }
+
+    .about-hero-orbit {
+        width: 250px;
+    }
+
+    .about-hero-center {
+        width: 70px;
+        height: 70px;
+    }
+
+    .about-hero-logo-circle {
+        width: 47px;
+        height: 47px;
+    }
+
+    .about-hero-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .about-hero-orbit-label {
+        min-width: 55px;
+        height: 25px;
+
+        font-size: 5.8px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-hero *,
+    .about-hero::before,
+    .about-hero::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   ABOUT HERO — TRUE LEFT EDGE ALIGNMENT
+   ========================================================= */
+
+.about-projenius-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Keep the hero full width */
+.about-projenius-inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.about-projenius-content {
+    position: relative;
+
+    /* FORCE LEFT POSITION */
+    margin-left: 0 !important;
+    padding-left: 20px !important;
+
+    /* Remove any inherited centering */
+    left: 0 !important;
+    transform: none !important;
+
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   DESKTOP — MOVE CONTENT VERY CLOSE TO LEFT EDGE
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+    .about-projenius-inner {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        display: grid;
+        grid-template-columns: 48% 52%;
+        align-items: center;
+    }
+
+    .about-projenius-content {
+        width: 100%;
+        max-width: 680px;
+
+        margin-left: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+
+        justify-self: start;
+    }
+
+    .about-projenius-visual {
+        width: 100%;
+        justify-self: center;
+    }
+}
+
+/* =========================================================
+   769px – 1199px
+   ========================================================= */
+
+@media (min-width: 769px) and (max-width: 1199px) {
+
+    .about-projenius-inner {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        grid-template-columns: 50% 50%;
+    }
+
+    .about-projenius-content {
+        padding-left: 24px !important;
+        padding-right: 15px !important;
+
+        margin-left: 0 !important;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .about-projenius-inner {
+        width: 100%;
+        padding: 0 !important;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-projenius-content {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+
+        margin-left: 0 !important;
+    }
+
+    .about-projenius-visual {
+        width: 100%;
+    }
+}

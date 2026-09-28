@@ -231,45 +231,85 @@
 }
 
 /* =========================================================
+   STICKY SECTION HEADING
+   The heading stays at its original top position. Its full-width
+   background acts as a visual mask so the process rail never
+   appears through or underneath the heading area.
+========================================================= */
+
+.pjdev-process__header-sticky {
+  position: sticky;
+
+  top:
+    calc(
+      var(--pjdev-header-h, 0px) +
+      var(--pjdev-subnav-h, 0px)
+    );
+
+  z-index: 30;
+
+  width: 100%;
+
+  margin: 0;
+
+  padding: 0 0 28px;
+
+  background: var(--process-bg);
+
+  isolation: isolate;
+}
+
+.pjdev-process__header-sticky .pjdevhead {
+  margin: 0;
+  max-width: 850px;
+}
+
+/* =========================================================
    MAIN LAYOUT
 ========================================================= */
 
 .pjdev-process__layout {
   position: relative;
 
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
-    minmax(260px, 0.8fr)
-    1.4fr;
+    minmax(360px, 0.82fr)
+    minmax(0, 1.38fr);
+
+  align-items: start;
 
   gap:
-    clamp(
-      24px,
-      5vw,
-      90px
-    );
+    clamp(32px, 5vw, 88px);
 
-  margin-top:
-    72px;
+  margin-top: 48px;
 }
 
 /* =========================================================
-   STICKY LEFT PANEL
+   STICKY LEFT STAGE PANEL
+   It stays below the sticky heading instead of competing with it.
 ========================================================= */
 
 .pjdev-process__side {
   position: sticky;
 
   top:
-    120px;
+    calc(
+      var(--pjdev-header-h, 0px) +
+      var(--pjdev-subnav-h, 0px) +
+      var(--process-header-height, 0px) +
+      28px
+    );
 
-  align-self:
-    start;
+  align-self: start;
 
-  height:
-    max-content;
+  height: max-content;
+  min-width: 0;
+  z-index: 20;
+}
+
+.pjdev-process__content {
+  min-width: 0;
 }
 
 /* =========================================================
@@ -997,17 +1037,24 @@
       );
   }
 
-  .pjdev-process__layout {
-    grid-template-columns:
-      1fr;
+  .pjdev-process__header-sticky .pjdevhead {
+    max-width: 820px;
+  }
 
-    gap:
-      0;
+  /* Keep the heading in place, but simplify the process content
+     on smaller screens. */
+  .pjdev-process__layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 36px;
   }
 
   .pjdev-process__side {
-    display:
-      none;
+    display: none;
+  }
+
+  .pjdev-process__content {
+    padding-top: 0;
   }
 
   .pjdev-process__rail {
@@ -1059,8 +1106,12 @@
   }
 
   .pjdev-process__layout {
-    margin-top:
-      52px;
+    margin-top: 28px;
+    gap: 0;
+  }
+
+  .pjdev-process__header-sticky {
+    padding-bottom: 20px;
   }
 
   .pjdev-process__rail {
@@ -1112,6 +1163,26 @@
 
     font-size:
       0.88rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE STICKY-CONTENT REFINEMENT
+========================================================= */
+
+@media (max-width: 600px) {
+  .pjdev-process__header-sticky .pjdevhead {
+    max-width:
+      100%;
+  }
+
+  .pjdev-process__num {
+    font-size:
+      clamp(
+        6rem,
+        25vw,
+        8.5rem
+      );
   }
 }
 
@@ -1177,6 +1248,11 @@
   .pjdev-process__loop {
     padding-left:
       35px;
+  }
+
+  .pjdev-process__header-sticky {
+    padding-bottom:
+      16px;
   }
 }
 

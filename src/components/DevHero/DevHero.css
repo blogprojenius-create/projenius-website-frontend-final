@@ -1,0 +1,1057 @@
+/* =========================================================
+   DEV HERO
+   ========================================================= */
+
+.devhero {
+  --dev-bg: #071326;
+  --dev-bg-dark: #06101f;
+
+  --dev-white: #f7f9ff;
+  --dev-text: #aab6ca;
+
+  --dev-blue: #1769ff;
+  --dev-cyan: #35ceff;
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      180deg,
+      #08162c 0%,
+      #071326 55%,
+      #061224 100%
+    );
+
+  color: var(--dev-white);
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.devhero__background {
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(53, 206, 255, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(53, 206, 255, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 56px 56px;
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.devhero__container {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(1200px, calc(100% - 80px));
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  padding-top: 128px;
+  padding-bottom: 72px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+}
+
+
+/* =========================================================
+   CONTENT GRID
+   ========================================================= */
+
+.devhero__content {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.08fr)
+    minmax(400px, 0.92fr);
+
+  align-items: center;
+
+  column-gap: 30px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LEFT COPY
+   ========================================================= */
+
+.devhero__copy {
+  position: relative;
+
+  z-index: 6;
+
+  min-width: 0;
+
+  max-width: 690px;
+}
+
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.devhero__eyebrow {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 20px;
+
+  color: #b7c1d3;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+
+  line-height: 1;
+}
+
+
+.devhero__eyebrow-dot {
+  width: 9px;
+  height: 9px;
+
+  flex: 0 0 9px;
+
+  border-radius: 50%;
+
+  background: var(--dev-cyan);
+
+  box-shadow:
+    0 0 0 4px rgba(53, 206, 255, 0.08),
+    0 0 14px rgba(53, 206, 255, 0.55);
+}
+
+
+/* =========================================================
+   MAIN HEADING
+   ========================================================= */
+
+.devhero__title {
+  margin: 0;
+
+  max-width: 680px;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: clamp(48px, 4.15vw, 68px);
+
+  font-weight: 900;
+
+  letter-spacing: -3.2px;
+
+  line-height: 0.97;
+
+  color: var(--dev-white);
+
+  text-wrap: balance;
+}
+
+
+/* Every line is controlled separately */
+
+.devhero__white-line,
+.devhero__gradient-line {
+  display: block;
+
+  width: 100%;
+}
+
+
+/* White heading */
+
+.devhero__white-line {
+  color: #f7f9ff;
+}
+
+
+/*
+   This prevents:
+   "to"
+   "Digital Products."
+
+   and keeps it as:
+
+   "to Digital Products."
+*/
+
+.devhero__product-line {
+  white-space: nowrap;
+}
+
+
+/* Blue gradient starts only here */
+
+.devhero__gradient-line {
+  color: var(--dev-blue);
+
+  background:
+    linear-gradient(
+      90deg,
+      #1769ff 0%,
+      #238cff 48%,
+      #22c9e5 100%
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.devhero__description {
+  max-width: 630px;
+
+  margin: 30px 0 0;
+
+  color: var(--dev-text);
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 17px;
+
+  font-weight: 500;
+
+  line-height: 1.65;
+
+  letter-spacing: -0.15px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.devhero__actions {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 27px;
+}
+
+
+/* Common button */
+
+.devhero__button {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 18px;
+
+  min-height: 50px;
+
+  padding: 0 21px;
+
+  border-radius: 28px;
+
+  box-sizing: border-box;
+
+  text-decoration: none;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Primary */
+
+.devhero__button--primary {
+  min-width: 176px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1769ff 0%,
+      #268eff 100%
+    );
+
+  border: 1px solid transparent;
+
+  box-shadow:
+    0 10px 28px rgba(23, 105, 255, 0.22);
+}
+
+
+.devhero__button--primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 32px rgba(23, 105, 255, 0.32);
+}
+
+
+/* Secondary */
+
+.devhero__button--secondary {
+  min-width: 220px;
+
+  color: #e6edf8;
+
+  background: rgba(7, 19, 38, 0.3);
+
+  border: 1px solid rgba(83, 133, 190, 0.34);
+}
+
+
+.devhero__button--secondary:hover {
+  transform: translateY(-2px);
+
+  color: #ffffff;
+
+  border-color: rgba(53, 206, 255, 0.65);
+
+  background: rgba(53, 206, 255, 0.06);
+}
+
+
+/*
+   IMPORTANT:
+   No underline, no pseudo-element,
+   no unwanted text below buttons.
+*/
+
+.devhero__button::before,
+.devhero__button::after {
+  display: none !important;
+
+  content: none !important;
+}
+
+
+.devhero__button-arrow {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  text-decoration: none !important;
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+   ========================================================= */
+
+.devhero__visual {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 570px;
+
+  height: 590px;
+
+  margin-left: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 3;
+}
+
+
+.devhero__svg {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   SVG PATH
+   ========================================================= */
+
+.devhero__path {
+  fill: none;
+
+  stroke-width: 2.6;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+  filter:
+    drop-shadow(
+      0 0 5px rgba(23, 105, 255, 0.38)
+    );
+}
+
+
+.devhero__loop {
+  fill: none;
+
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+
+  opacity: 0.8;
+
+  filter:
+    drop-shadow(
+      0 0 4px rgba(53, 206, 255, 0.18)
+    );
+}
+
+
+.devhero__loop-arrow {
+  fill: #35ceff;
+
+  opacity: 0.75;
+}
+
+
+/* =========================================================
+   CONNECTION LINES
+   ========================================================= */
+
+.devhero__tie {
+  fill: none;
+
+  stroke: rgba(42, 111, 174, 0.35);
+
+  stroke-width: 1;
+
+  stroke-dasharray: 3 5;
+
+  opacity: 0.7;
+
+  animation:
+    devheroTie 1.4s ease both;
+}
+
+
+@keyframes devheroTie {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.7;
+  }
+}
+
+
+/* =========================================================
+   NODES
+   ========================================================= */
+
+.devhero__ring {
+  fill: #071326;
+
+  stroke-width: 2.3;
+}
+
+
+.devhero__label {
+  fill: #c6d0df;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.1px;
+}
+
+
+.devhero__label--first {
+  fill: #f2f6fc;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   FIRST NODE PULSE
+   ========================================================= */
+
+.devhero__pulse {
+  fill: none;
+
+  stroke: rgba(35, 139, 255, 0.28);
+
+  stroke-width: 1.5;
+
+  transform-origin: 270px 60px;
+
+  animation:
+    devheroPulse 2.4s ease-out infinite;
+}
+
+
+.devhero__pulse--second {
+  animation-delay: 1.2s;
+}
+
+
+@keyframes devheroPulse {
+  0% {
+    opacity: 0.8;
+
+    transform: scale(0.8);
+  }
+
+  70% {
+    opacity: 0;
+
+    transform: scale(1.8);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: scale(1.8);
+  }
+}
+
+
+/* =========================================================
+   MOVING PACKET
+   ========================================================= */
+
+.devhero__packet {
+  fill: #35ceff;
+
+  filter:
+    drop-shadow(
+      0 0 7px rgba(53, 206, 255, 0.9)
+    );
+}
+
+
+/* =========================================================
+   SATELLITE CHIPS
+   ========================================================= */
+
+.devhero__sat {
+  opacity: 0;
+
+  animation:
+    devheroSatellite 0.8s ease forwards;
+}
+
+
+@keyframes devheroSatellite {
+  from {
+    opacity: 0;
+
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+
+.devhero__chip {
+  fill: rgba(10, 28, 54, 0.78);
+
+  stroke: rgba(73, 132, 192, 0.42);
+
+  stroke-width: 1;
+}
+
+
+.devhero__chip-text {
+  fill: #c7d2e2;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   CLEAN BOTTOM EDGE
+   ========================================================= */
+
+.devhero__bottom-edge {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  height: 27px;
+
+  z-index: 20;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+
+/* Thin cyan accent */
+
+.devhero__bottom-blue {
+  position: absolute;
+
+  left: 0;
+  bottom: 17px;
+
+  width: 100%;
+
+  height: 3px;
+
+  background: #35ceff;
+
+  clip-path: polygon(
+    0 0,
+    8% 100%,
+    17% 0,
+    100% 55%,
+    100% 100%,
+    0 100%
+  );
+}
+
+
+/* Small white bottom shape */
+
+.devhero__bottom-white {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  height: 17px;
+
+  background: #ffffff;
+
+  clip-path: polygon(
+    0 0,
+    8% 75%,
+    17% 0,
+    100% 50%,
+    100% 100%,
+    0 100%
+  );
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .devhero__container {
+    width: min(
+      100% - 56px,
+      1000px
+    );
+
+    padding-top: 120px;
+    padding-bottom: 65px;
+  }
+
+
+  .devhero__content {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(350px, 0.85fr);
+
+    column-gap: 15px;
+  }
+
+
+  .devhero__title {
+    font-size: clamp(
+      42px,
+      5vw,
+      58px
+    );
+
+    letter-spacing: -2.7px;
+  }
+
+
+  .devhero__description {
+    font-size: 16px;
+
+    max-width: 570px;
+  }
+
+
+  .devhero__visual {
+    height: 540px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .devhero {
+    min-height: auto;
+  }
+
+
+  .devhero__container {
+    min-height: auto;
+
+    width: min(
+      100% - 44px,
+      760px
+    );
+
+    padding-top: 125px;
+
+    padding-bottom: 75px;
+  }
+
+
+  .devhero__content {
+    grid-template-columns: 1fr;
+
+    row-gap: 25px;
+  }
+
+
+  .devhero__copy {
+    max-width: 720px;
+  }
+
+
+  .devhero__visual {
+    width: min(
+      100%,
+      600px
+    );
+
+    height: 470px;
+
+    margin: 0 auto;
+  }
+
+
+  .devhero__title {
+    max-width: 720px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .devhero {
+    min-height: 100svh;
+  }
+
+
+  .devhero__container {
+    width: calc(100% - 32px);
+
+    padding-top: 105px;
+
+    padding-bottom: 65px;
+  }
+
+
+  .devhero__content {
+    row-gap: 5px;
+  }
+
+
+  .devhero__eyebrow {
+    margin-bottom: 15px;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+  }
+
+
+  .devhero__eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    flex-basis: 7px;
+  }
+
+
+  .devhero__title {
+    max-width: 100%;
+
+    font-size: clamp(
+      35px,
+      10.5vw,
+      48px
+    );
+
+    line-height: 1;
+
+    letter-spacing: -1.9px;
+  }
+
+
+  /*
+     On very small screens the browser should
+     be allowed to wrap naturally rather than
+     overflowing horizontally.
+  */
+
+  .devhero__product-line {
+    white-space: normal;
+  }
+
+
+  .devhero__description {
+    margin-top: 22px;
+
+    font-size: 14px;
+
+    line-height: 1.55;
+  }
+
+
+  .devhero__actions {
+    margin-top: 22px;
+
+    gap: 10px;
+  }
+
+
+  .devhero__button {
+    min-height: 46px;
+
+    padding: 0 17px;
+
+    font-size: 13px;
+
+    gap: 12px;
+  }
+
+
+  .devhero__button--primary {
+    min-width: 155px;
+  }
+
+
+  .devhero__button--secondary {
+    min-width: 190px;
+  }
+
+
+  .devhero__visual {
+    height: 340px;
+
+    margin-top: 5px;
+  }
+
+
+  .devhero__label {
+    font-size: 11px;
+  }
+
+
+  .devhero__label--first {
+    font-size: 12px;
+  }
+
+
+  .devhero__chip-text {
+    font-size: 9px;
+  }
+
+
+  .devhero__bottom-edge {
+    height: 22px;
+  }
+
+
+  .devhero__bottom-blue {
+    bottom: 14px;
+
+    height: 3px;
+  }
+
+
+  .devhero__bottom-white {
+    height: 14px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .devhero__container {
+    width: calc(100% - 24px);
+
+    padding-top: 98px;
+  }
+
+
+  .devhero__title {
+    font-size: 34px;
+
+    letter-spacing: -1.6px;
+  }
+
+
+  .devhero__description {
+    font-size: 13.5px;
+  }
+
+
+  .devhero__actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .devhero__button {
+    width: 100%;
+  }
+
+
+  .devhero__visual {
+    height: 300px;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .devhero__tie,
+  .devhero__sat,
+  .devhero__pulse,
+  .devhero__button {
+    animation: none !important;
+
+    transition: none !important;
+  }
+
+}
