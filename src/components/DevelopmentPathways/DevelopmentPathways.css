@@ -1493,3 +1493,172 @@
       none;
   }
 }
+
+/* =========================================================
+   WHITE BACKGROUND + BLUE / BLACK TEXT THEME
+   Keeps existing layout, spacing, animation and positioning.
+========================================================= */
+
+.pjdev-pathways {
+  --pathways-bg: #FFFFFF;
+  --pathways-card: #FFFFFF;
+  --pathways-card-soft: #F8FAFC;
+
+  --pathways-white: #111111;
+  --pathways-white-soft: #111111;
+
+  --pathways-muted: #4A5568;
+  --pathways-muted-soft: #5F6B7A;
+
+  --pathways-blue: #1599D6;
+  --pathways-blue-soft: #35CEFF;
+
+  --pathways-cyan: #1599D6;
+  --pathways-border: #D8E3EC;
+  --pathways-border-soft: #E5ECF2;
+  --pathways-border-active: #1599D6;
+
+  background: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+/* Section heading */
+.pjdev-pathways .pjdevhead__title {
+  color: #1599D6 !important;
+}
+
+.pjdev-pathways .pjdevhead__text {
+  color: #111111 !important;
+}
+
+/* Cards */
+.pjdev-pathways__card--new,
+.pjdev-pathways__card--improve {
+  background: #FFFFFF !important;
+  border-color: #D8E3EC !important;
+  box-shadow:
+    0 14px 35px rgba(21, 153, 214, 0.10);
+}
+
+/* Existing hover */
+.pjdev-pathways__card--improve:hover,
+.pjdev-pathways__card--new:hover {
+  border-color: #1599D6 !important;
+  box-shadow:
+    0 18px 42px rgba(21, 153, 214, 0.16);
+}
+
+/* Card kicker */
+.pjdev-pathways__kicker {
+  color: #111111 !important;
+}
+
+/* Alternate card title colors */
+.pjdev-pathways__card:nth-child(1) .pjdev-pathways__card-title {
+  color: #1599D6 !important;
+}
+
+.pjdev-pathways__card:nth-child(2) .pjdev-pathways__card-title {
+  color: #111111 !important;
+}
+
+/* Tags */
+.pjdev-pathways__tags li {
+  color: #111111 !important;
+  border-color: #C9D8E4 !important;
+  background: #F8FAFC !important;
+}
+
+/* Tag hover/active emphasis */
+.pjdev-pathways__tags li:hover {
+  color: #1599D6 !important;
+  border-color: #1599D6 !important;
+  background: #FFFFFF !important;
+}
+
+/* Improvement steps */
+.pjdev-pathways__step {
+  color: #111111 !important;
+  border-color: #C9D8E4 !important;
+  background: #FFFFFF !important;
+}
+
+.pjdev-pathways__step--lit {
+  color: #1599D6 !important;
+  border-color: #1599D6 !important;
+  background: rgba(21, 153, 214, 0.06) !important;
+}
+
+.pjdev-pathways__step--complete {
+  color: #FFFFFF !important;
+  border-color: #1599D6 !important;
+  background: #1599D6 !important;
+}
+
+/* Blank visual */
+.pjdev-pathways__blank {
+  color: #1599D6 !important;
+  border-color: rgba(21, 153, 214, 0.35) !important;
+  background: rgba(21, 153, 214, 0.025) !important;
+}
+
+.pjdev-pathways__blank i {
+  color: #1599D6 !important;
+  background: rgba(21, 153, 214, 0.10) !important;
+}
+
+/* Buttons */
+.pjdev-pathways .pjdevbtn--primary {
+  background: #1599D6 !important;
+  color: #FFFFFF !important;
+  border-color: #1599D6 !important;
+  box-shadow: 0 10px 25px rgba(21, 153, 214, 0.22);
+}
+
+.pjdev-pathways .pjdevbtn--primary:hover {
+  background: #1599D6 !important;
+}
+
+.pjdev-pathways .pjdevbtn--light {
+  background: #111111 !important;
+  color: #FFFFFF !important;
+  border-color: #111111 !important;
+}
+
+.pjdev-pathways .pjdevbtn--light:hover {
+  background: #1599D6 !important;
+  color: #FFFFFF !important;
+}
+
+/* Merge area */
+.pjdev-pathways__merge-labels {
+  color: #111111 !important;
+}
+
+.pjdev-pathways__merge-or {
+  color: #687386 !important;
+}
+
+.pjdev-pathways__merge-pill {
+  background: #111111 !important;
+  color: #FFFFFF !important;
+  border-color: #1599D6 !important;
+}
+
+.pjdev-pathways__merge-pill span:first-child {
+  background: #1599D6 !important;
+  box-shadow: 0 0 0 5px rgba(21, 153, 214, 0.16);
+}
+
+/* Responsive keeps the same white/blue/black theme */
+@media (max-width: 980px) {
+  .pjdev-pathways {
+    background: #FFFFFF !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pjdev-pathways {
+    scroll-behavior: auto;
+  }
+}
