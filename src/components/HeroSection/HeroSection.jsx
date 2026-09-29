@@ -5,39 +5,37 @@ import banner from "../../assets/images/projenius-banner.webp";
 import bannerOne from "../../assets/images/projenius-banner-1.webp";
 
 /* =========================================================
-   HERO SLIDES
-========================================================= */
+   HERO DATA
+   ========================================================= */
 
-const slides = [
+const HERO_SLIDES = [
     {
-        bg: banner,
-        thumb: banner,
+        id: 0,
+        image: banner,
+        title: "Businesses & Organizations",
     },
     {
-        bg: bannerOne,
-        thumb: bannerOne,
+        id: 1,
+        image: bannerOne,
+        title: "Startups & Institutions",
     },
     {
-        bg: banner,
-        thumb: banner,
-    },
-    {
-        bg: bannerOne,
-        thumb: bannerOne,
-    },
-    {
-        bg: banner,
-        thumb: banner,
-    },
-    {
-        bg: bannerOne,
-        thumb: bannerOne,
+        id: 2,
+        image: banner,
+        title: "Innovators & Entrepreneurs",
     },
 ];
 
 /* =========================================================
+   CONFIG
+   ========================================================= */
+
+const SLIDE_DURATION = 5000;
+const TYPING_SPEED = 95;
+
+/* =========================================================
    PARTICLES
-========================================================= */
+   ========================================================= */
 
 const PARTICLES = [
     {
@@ -85,19 +83,20 @@ const PARTICLES = [
 ];
 
 /* =========================================================
-   MOBILE DOT INDICATORS
-========================================================= */
+   DOT INDICATORS
+   ========================================================= */
 
-function DotIndicators({ total, active, onDotClick }) {
+function DotIndicators({ active, onDotClick }) {
     return (
         <div className="hero-dot-indicators">
-            {Array.from({ length: total }).map((_, index) => (
+            {HERO_SLIDES.map((slide, index) => (
                 <button
-                    key={index}
+                    key={slide.id}
                     type="button"
-                    className={`hero-slide-dot ${index === active ? "active" : ""
-                        }`}
-                    aria-label={`Go to slide ${index + 1}`}
+                    className={`hero-slide-dot ${
+                        index === active ? "active" : ""
+                    }`}
+                    aria-label={`Show ${slide.title}`}
                     onClick={() => onDotClick(index)}
                 />
             ))}
@@ -107,130 +106,127 @@ function DotIndicators({ total, active, onDotClick }) {
 
 /* =========================================================
    HERO SECTION
-========================================================= */
+   ========================================================= */
 
 export default function HeroSection() {
     const [activeSlide, setActiveSlide] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
-
-    /* =====================================================
-       SMART SOLUTIONS TYPING
-    ===================================================== */
-
     const [typedText, setTypedText] = useState("");
 
     const heroRef = useRef(null);
     const typingTimerRef = useRef(null);
     const typingRunRef = useRef(0);
 
-    const SMART_SOLUTIONS_TEXT = "Smart Solutions";
+    const activeHero = HERO_SLIDES[activeSlide];
 
-    /*
-     * Typing configuration
-     */
-    const TYPING_START_DELAY = 350;
-    const TYPING_SPEED = 170;
+    /* =====================================================
+       CLEAR TYPING
+       ===================================================== */
 
-    /* =========================================================
-   CLEAR TYPING ANIMATION
-========================================================= */
-
-    const clearTypingAnimation = () => {
+    const clearTyping = () => {
         if (typingTimerRef.current) {
             clearTimeout(typingTimerRef.current);
             typingTimerRef.current = null;
         }
 
-        /*
-         * Invalidates any currently running typing sequence.
-         */
         typingRunRef.current += 1;
     };
 
-    const startTypingAnimation = () => {
-    clearTypingAnimation();
+    /* =====================================================
+       TYPE CURRENT SLIDE TITLE
+       ===================================================== */
 
-    const currentRun = typingRunRef.current;
+    const startTyping = (text) => {
+        clearTyping();
 
-    /*
-     * Always start from the beginning.
-     */
-    setTypedText("");
+        const currentRun = typingRunRef.current;
 
-    let characterIndex = 0;
+        setTypedText("");
 
-    const typeNextCharacter = () => {
-        /*
-         * Stop if this animation is no longer active.
-         */
-        if (currentRun !== typingRunRef.current) {
-            return;
-        }
+        let characterIndex = 0;
 
-        /*
-         * Finished typing.
-         */
-        if (
-            characterIndex >=
-            SMART_SOLUTIONS_TEXT.length
-        ) {
-            typingTimerRef.current = null;
-            return;
-        }
+        const typeNextCharacter = () => {
+            if (currentRun !== typingRunRef.current) {
+                return;
+            }
 
-        characterIndex += 1;
+            if (characterIndex >= text.length) {
+                typingTimerRef.current = null;
+                return;
+            }
 
-        setTypedText(
-            SMART_SOLUTIONS_TEXT.slice(
-                0,
-                characterIndex
-            )
-        );
+            characterIndex += 1;
 
-        /*
-         * Schedule the next character.
-         */
-        typingTimerRef.current = setTimeout(
-            typeNextCharacter,
-            TYPING_SPEED
-        );
+            setTypedText(text.slice(0, characterIndex));
+
+            typingTimerRef.current = setTimeout(
+                typeNextCharacter,
+                TYPING_SPEED
+            );
+        };
+
+        typeNextCharacter();
     };
 
-    /*
-     * Small pause before typing begins.
-     * This makes the animation feel intentional
-     * instead of appearing immediately.
-     */
-    typingTimerRef.current = setTimeout(
-        typeNextCharacter,
-        TYPING_START_DELAY
-    );
-};
+    /* =====================================================
+       START TYPING WHEN SLIDE CHANGES
+       ===================================================== */
 
-   
+    useEffect(() => {
+        startTyping(activeHero.title);
+
+        return () => {
+            clearTyping();
+        };
+    }, [activeSlide]);
 
     /* =====================================================
-       HERO VISIBILITY OBSERVER
-       Typing restarts whenever section enters viewport
-    ===================================================== */
+       AUTO SLIDE
+       
+       Every 5 seconds:
+       1. Current image stays active for 5 sec
+       2. Next image becomes top image
+       3. Background changes
+       4. Text starts typing again
+       ===================================================== */
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveSlide((current) => {
+                return (current + 1) % HERO_SLIDES.length;
+            });
+        }, SLIDE_DURATION);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    /* =====================================================
+       PRELOAD IMAGES
+       ===================================================== */
+
+    useEffect(() => {
+        HERO_SLIDES.forEach((slide) => {
+            const image = new Image();
+            image.src = slide.image;
+        });
+    }, []);
+
+    /* =====================================================
+       HERO VISIBILITY
+       ===================================================== */
 
     useEffect(() => {
         const heroElement = heroRef.current;
 
-        if (!heroElement) return;
+        if (!heroElement) {
+            return;
+        }
 
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
-                    startTypingAnimation();
+                if (!entry.isIntersecting) {
+                    clearTyping();
                 } else {
-                    /* Reset when leaving the section */
-                    if (typingTimerRef.current) {
-                        clearInterval(typingTimerRef.current);
-                        typingTimerRef.current = null;
-                    }
-
-                    setTypedText("");
+                    startTyping(activeHero.title);
                 }
             },
             {
@@ -242,118 +238,72 @@ export default function HeroSection() {
 
         return () => {
             observer.disconnect();
-
-            if (typingTimerRef.current) {
-                clearInterval(typingTimerRef.current);
-                typingTimerRef.current = null;
-            }
+            clearTyping();
         };
-    }, []);
-
-    /* =====================================================
-       RESPONSIVE CHECK
-    ===================================================== */
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia(
-            "(max-width: 991px)"
-        );
-
-        const handleChange = () => {
-            setIsMobile(mediaQuery.matches);
-        };
-
-        handleChange();
-
-        mediaQuery.addEventListener("change", handleChange);
-
-        return () => {
-            mediaQuery.removeEventListener(
-                "change",
-                handleChange
-            );
-        };
-    }, []);
-
-    /* =====================================================
-       PRELOAD ALL IMAGES
-    ===================================================== */
-
-    useEffect(() => {
-        slides.forEach((slide) => {
-            const backgroundImage = new Image();
-            backgroundImage.src = slide.bg;
-
-            const thumbnailImage = new Image();
-            thumbnailImage.src = slide.thumb;
-        });
-    }, []);
-
-    /* =====================================================
-       CONTINUOUS AUTO ROTATION
-    ===================================================== */
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveSlide(
-                (previousSlide) =>
-                    (previousSlide + 1) % slides.length
-            );
-        }, 3800);
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
+    }, [activeHero.title]);
 
     /* =====================================================
        MANUAL SLIDE CHANGE
-    ===================================================== */
+       ===================================================== */
 
     const handleSlideChange = (index) => {
+        if (index === activeSlide) {
+            startTyping(HERO_SLIDES[index].title);
+            return;
+        }
+
         setActiveSlide(index);
     };
 
     /* =====================================================
-       CIRCULAR SLIDE INDEX
-    ===================================================== */
+       CIRCULAR IMAGE POSITIONS
+       
+       Position 0 = active/top image
+       Position 1 = next image
+       Position 2 = third image
+       ===================================================== */
 
-    const getSlideIndex = (position) => {
-        return (activeSlide + position) % slides.length;
+    const getSlide = (position) => {
+        return HERO_SLIDES[
+            (activeSlide + position) % HERO_SLIDES.length
+        ];
     };
 
-    const activeImage = slides[getSlideIndex(0)];
+    const topImage = getSlide(0);
+    const secondImage = getSlide(1);
+    const thirdImage = getSlide(2);
 
     /* =====================================================
        JSX
-    ===================================================== */
+       ===================================================== */
 
     return (
         <section
             ref={heroRef}
             className="hero-wrapper"
         >
-            {/* =============================================
-                BACKGROUND IMAGE
-            ============================================= */}
+            {/* =================================================
+                BACKGROUND
+                ALWAYS MATCHES TOP / ACTIVE IMAGE
+            ================================================= */}
 
             <div
-                key={activeSlide}
+                key={`background-${activeSlide}`}
                 className="hero-background"
                 style={{
-                    backgroundImage: `url(${activeImage.bg})`,
+                    backgroundImage: `url(${activeHero.image})`,
                 }}
             />
 
-            {/* =============================================
-                DARK OVERLAY
-            ============================================= */}
+            {/* =================================================
+                OVERLAY
+            ================================================= */}
 
             <div className="hero-overlay" />
 
-            {/* =============================================
-                DECORATIVE PARTICLES
-            ============================================= */}
+            {/* =================================================
+                PARTICLES
+            ================================================= */}
 
             <div className="hero-particles">
                 {PARTICLES.map((particle, index) => (
@@ -374,38 +324,38 @@ export default function HeroSection() {
                 ))}
             </div>
 
-            {/* =============================================
-                MAIN HERO CONTENT
-            ============================================= */}
+            {/* =================================================
+                MAIN CONTENT
+            ================================================= */}
 
             <div className="hero-inner">
                 <div className="hero-content">
 
-                    {/* =====================================
-                        LEFT CONTENT
-                    ===================================== */}
+                    {/* =================================================
+                        LEFT SIDE
+                    ================================================= */}
 
                     <div className="hero-text">
 
-                        <h3
-                            className="subheading"
-                            data-aos="fade-up"
-                        >
+                        {/* TOP STATIC HEADING */}
+
+                        <h3 className="subheading">
                             We Design, Develop &amp; Deliver
                             Impactful Technology
                         </h3>
 
-                        {/* =================================
-                            MAIN HEADING
-                        ================================= */}
+                        {/* MAIN DYNAMIC HEADING */}
 
-                        <h1
-                            className="heading"
-                            data-aos="fade-up"
-                            data-aos-delay="100"
-                        >
-                            <span className="hero-heading-line hero-heading-line-1">
-                                Building{" "}
+                        <h1 className="heading">
+
+                            <span className="hero-heading-line">
+                                Technology Solutions for
+                            </span>
+
+                            <span
+                                key={activeSlide}
+                                className="hero-heading-line hero-dynamic-line"
+                            >
                                 <span className="smart-solutions">
                                     {typedText}
                                     <span
@@ -415,101 +365,104 @@ export default function HeroSection() {
                                 </span>
                             </span>
 
-                            <span className="hero-heading-line hero-heading-line-2">
-                                with AI, IoT &amp; Innovation
-                            </span>
                         </h1>
 
-                        {/* =================================
-                            DESCRIPTION
-                        ================================= */}
+                        {/* DESCRIPTION */}
 
-                        <p
-                            className="description"
-                            data-aos="fade-up"
-                            data-aos-delay="200"
-                        >
-                            ProJenius is a technology-driven
-                            startup focused on building
-                            innovative solutions in AI, IoT,
-                            Software Development, and Product
-                            Engineering.
+                        <p className="description">
+                            ProJenius is a technology solutions and
+                            innovation company offering web development,
+                            mobile app development, software solutions,
+                            AI/ML development, IoT solutions, product
+                            engineering, and 3D design. We help businesses,
+                            startups, institutions, and organizations turn
+                            ideas into practical, scalable technology
+                            solutions.
                         </p>
 
-                        {/* =================================
-                            MOBILE DOTS
-                        ================================= */}
+                        {/* MOBILE DOTS */}
 
-                        {isMobile && (
+                        <div className="hero-mobile-dots">
                             <DotIndicators
-                                total={slides.length}
                                 active={activeSlide}
                                 onDotClick={handleSlideChange}
                             />
-                        )}
+                        </div>
                     </div>
 
-                    {/* =====================================
-                        RIGHT SIDE — IMAGE ROTATION
-                    ===================================== */}
+                    {/* =================================================
+                        RIGHT SIDE
+                    ================================================= */}
 
                     <div className="hero-visual">
 
                         <div className="thumb-wrapper">
 
-                            {/* ACTIVE IMAGE */}
+                            {/* =================================================
+                                TOP / ACTIVE IMAGE
+                            ================================================= */}
 
                             <button
                                 type="button"
                                 className="thumb-slot thumb-slot-main"
                                 onClick={() =>
                                     handleSlideChange(
-                                        getSlideIndex(1)
+                                        (activeSlide + 1) %
+                                            HERO_SLIDES.length
                                     )
                                 }
-                                aria-label="Show next image"
+                                aria-label={`Current slide: ${topImage.title}`}
                             >
                                 <img
-                                    src={banner}
-                                    alt="Projenius technology"
+                                    key={`top-${topImage.id}`}
+                                    src={topImage.image}
+                                    alt={topImage.title}
                                     draggable="false"
                                 />
                             </button>
 
-                            {/* SECOND IMAGE */}
+                            {/* =================================================
+                                SECOND IMAGE
+                            ================================================= */}
 
                             <button
                                 type="button"
                                 className="thumb-slot thumb-slot-second"
                                 onClick={() =>
                                     handleSlideChange(
-                                        getSlideIndex(1)
+                                        (activeSlide + 1) %
+                                            HERO_SLIDES.length
                                     )
                                 }
-                                aria-label="Show next image"
+                                aria-label={`Show ${secondImage.title}`}
                             >
                                 <img
-                                    src={bannerOne}
-                                    alt="Projenius technology"
+                                    key={`second-${secondImage.id}`}
+                                    src={secondImage.image}
+                                    alt={secondImage.title}
                                     draggable="false"
                                 />
                             </button>
 
-                            {/* THIRD IMAGE */}
+                            {/* =================================================
+                                THIRD IMAGE
+                            ================================================= */}
 
                             <button
                                 type="button"
                                 className="thumb-slot thumb-slot-third"
                                 onClick={() =>
                                     handleSlideChange(
-                                        getSlideIndex(2)
+                                        (activeSlide + 2) %
+                                            HERO_SLIDES.length
                                     )
                                 }
-                                aria-label="Show next image"
+                                aria-label={`Show ${thirdImage.title}`}
                             >
                                 <img
-                                    src={banner}
-                                    alt="Projenius technology"
+                                    key={`third-${thirdImage.id}`}
+                                    src={thirdImage.image}
+                                    alt={thirdImage.title}
                                     draggable="false"
                                 />
                             </button>
@@ -520,9 +473,9 @@ export default function HeroSection() {
                 </div>
             </div>
 
-            {/* =============================================
+            {/* =================================================
                 BOTTOM ZIG-ZAG
-            ============================================= */}
+            ================================================= */}
 
             <div className="hero-zigzag">
                 <div className="hero-zigzag-cyan" />
