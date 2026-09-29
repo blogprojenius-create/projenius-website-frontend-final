@@ -12,6 +12,7 @@ export default function ServicesSection() {
             image:
                 "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
+            txt: "Software Development",
         },
         {
             title: "HARDWARE DEVELOPMENT",
@@ -20,6 +21,7 @@ export default function ServicesSection() {
             image:
                 "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
+            txt: "Hardware Development",
         },
         {
             title: "WORKSHOPS & TRAINING",
@@ -28,6 +30,7 @@ export default function ServicesSection() {
             image:
                 "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
+            txt: "Workshops & Training",
         },
         {
             title: "STARTUP SUPPORT",
@@ -36,6 +39,7 @@ export default function ServicesSection() {
             image:
                 "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
+            txt: "Startup Support",
         },
         {
             title: "EDUTECH",
@@ -44,6 +48,7 @@ export default function ServicesSection() {
             image:
                 "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
+            txt: "EduTech",
         },
     ];
 
@@ -51,7 +56,7 @@ export default function ServicesSection() {
 
     useEffect(() => {
         /* ---------------------------------------------------------
-           PREVENT PARENT CONTAINERS FROM HIDING THE CARDS
+           KEEP EXISTING CARD VISIBILITY BEHAVIOR
            --------------------------------------------------------- */
 
         let el = cardRefs.current[0];
@@ -98,32 +103,33 @@ export default function ServicesSection() {
         });
 
         /* ---------------------------------------------------------
-           ACTIVE CARD ON SCROLL
+           ACTIVE SERVICE ON SCROLL
            --------------------------------------------------------- */
 
         const handleScroll = () => {
             const scrollPos =
-                window.scrollY +
-                window.innerHeight * 0.45;
+                window.scrollY + window.innerHeight * 0.45;
 
             let currentActive = 0;
 
             cardRefs.current.forEach((card, index) => {
                 if (!card) return;
 
-                const rect =
-                    card.getBoundingClientRect();
+                const rect = card.getBoundingClientRect();
 
                 const absoluteTop =
-                    window.scrollY +
-                    rect.top;
+                    window.scrollY + rect.top;
 
                 if (scrollPos >= absoluteTop) {
                     currentActive = index;
                 }
             });
 
-            setActiveIndex(currentActive);
+            setActiveIndex((previousIndex) =>
+                previousIndex === currentActive
+                    ? previousIndex
+                    : currentActive
+            );
         };
 
         window.addEventListener(
@@ -148,6 +154,8 @@ export default function ServicesSection() {
         };
     }, []);
 
+    const activeService = services[activeIndex];
+
     return (
         <>
             <div className="svc-spacer-top" />
@@ -167,14 +175,19 @@ export default function ServicesSection() {
                         Our Services
                     </span>
 
+                    {/* ONLY THIS CONTENT CHANGES ON SCROLL */}
                     <h2
                         className="svc-title"
                         id="title"
                     >
-                        Smart Solutions for{" "}
+                        Technology Solutions for
+                        <br />
 
-                        <span className="svc-title-accent">
-                            Modern Digital Needs
+                        <span
+                            className="svc-title-accent"
+                            key={`title-${activeIndex}`}
+                        >
+                            {activeService.txt}
                         </span>
                     </h2>
 
@@ -185,29 +198,28 @@ export default function ServicesSection() {
 
                     <p
                         className="svc-para"
-                        key={activeIndex}
+                        key={`para-${activeIndex}`}
                     >
-                        {services[activeIndex].description}
+                        {activeService.description}
                     </p>
 
                     <a
-                        href={services[activeIndex].link}
+                        href={activeService.link}
                         className="btn svc-main-btn"
                     >
                         <span
                             className="svc-btn-content"
-                            key={activeIndex}
+                            key={`button-${activeIndex}`}
                         >
-                            Explore{" "}
-                            {services[activeIndex].title}
+                            Explore {activeService.txt}
                         </span>
                     </a>
 
                 </div>
 
-
                 {/* =================================================
                     RIGHT SERVICE CARDS
+                    IMAGE / CARD ANIMATION UNCHANGED
                    ================================================= */}
 
                 <div className="svc-right">
