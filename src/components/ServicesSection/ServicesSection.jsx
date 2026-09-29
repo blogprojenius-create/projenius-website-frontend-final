@@ -197,7 +197,7 @@ export default function ServicesSection() {
                     />
 
                     <p
-                        className="svc-para"
+                        className="svc-para svc-dynamic-para"
                         key={`para-${activeIndex}`}
                     >
                         {activeService.description}
