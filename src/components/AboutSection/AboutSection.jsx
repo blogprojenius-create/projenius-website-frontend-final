@@ -150,24 +150,24 @@ function AnimatedNumber({ end, suffix = "", start }) {
 
 const features = [
     {
-        title: "Software & AI Solutions",
-        description: "Custom platforms powered by AI",
+        title: "Software Development",
+        description: "Web, apps & software",
         icon: <CodeIcon />,
     },
     {
-        title: "Smart IoT Products",
-        description: "Connected devices that scale",
+        title: "Smart IoT Solutions",
+        description: "IoT & embedded systems",
         icon: <IoTIcon />,
     },
     {
-        title: "Training & Mentorship",
-        description: "Hands-on workshops for teams",
-        icon: <TrainingIcon />,
+        title: "Product Development",
+        description: "Prototypes & 3D design",
+        icon:  <ImpactIcon />,
     },
     {
-        title: "Real-World Impact",
-        description: "Technology that solves problems",
-        icon: <ImpactIcon />,
+        title: "Training & Mentorship",
+        description: "Courses, intern & workshop",
+        icon: <TrainingIcon />,
     },
 ];
 
@@ -219,8 +219,8 @@ export default function AboutSection() {
                 </div>
 
                 <h2 className="about-title">
-                    Innovating Ideas Into{" "}
-                    <span>Smart Solutions</span>
+                    Building Technology{" "}
+                    <span>Solutions</span>
                 </h2>
 
                 <div className="about-title-line">
@@ -228,9 +228,7 @@ export default function AboutSection() {
                 </div>
 
                 <p className="about-description">
-                    We blend technology, creativity, and deep industry
-                    expertise to build products that drive real business
-                    impact.
+                    We build practical technology solutions across software, hardware, IoT, and product development for businesses, institutions, startups, and organizations.
                 </p>
             </div>
 
@@ -276,7 +274,7 @@ export default function AboutSection() {
                             <div className="about-stat">
                                 <div className="about-stat-number">
                                     <AnimatedNumber
-                                        end={2062}
+                                        end={1000}
                                         suffix="+"
                                         start={visible}
                                     />
@@ -290,7 +288,7 @@ export default function AboutSection() {
                             <div className="about-stat">
                                 <div className="about-stat-number">
                                     <AnimatedNumber
-                                        end={141}
+                                        end={30}
                                         suffix="+"
                                         start={visible}
                                     />
@@ -304,7 +302,7 @@ export default function AboutSection() {
                             <div className="about-stat">
                                 <div className="about-stat-number">
                                     <AnimatedNumber
-                                        end={5}
+                                        end={2}
                                         suffix="+"
                                         start={visible}
                                     />

@@ -6,41 +6,41 @@ export default function ServicesSection() {
 
     const services = [
         {
-            title: "Web Development",
+            title: "SOFTWARE DEVELOPMENT",
             description:
-                "Build fast, responsive and scalable websites tailored to your business goals and user needs.",
+                "Websites, mobile apps, and custom software built for businesses and organizations.",
             image:
                 "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
-            title: "Digital Marketing",
+            title: "HARDWARE DEVELOPMENT",
             description:
-                "Grow your digital presence with targeted strategies that improve reach, engagement and conversions.",
+                "IoT, embedded systems, automation, and electronic solutions built for real-world applications.",
             image:
                 "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
-            title: "UI / UX Design",
+            title: "WORKSHOPS & TRAINING",
             description:
-                "Create clear, intuitive and engaging interfaces that make every user interaction simple and effective.",
+                "Practical workshops and technology training for students, teams, and institutions.",
             image:
                 "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
-            title: "Mobile App Development",
+            title: "STARTUP SUPPORT",
             description:
-                "Develop reliable and user-friendly mobile applications designed for performance, scale and everyday use.",
+                "Technology, product development, and guidance to help startups build and grow.",
             image:
                 "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
         },
         {
-            title: "AI & IoT Solutions",
+            title: "EDUTECH",
             description:
-                "Build smart connected solutions using AI and IoT to automate processes, improve decisions and unlock new possibilities.",
+                "Courses, internships, learning programs, and academic technology support.",
             image:
                 "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
             link: "/services",
