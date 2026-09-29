@@ -4,43 +4,70 @@ import "./ProductSection.css";
 import gnut from "../../assets/images/GNut.webp";
 import iotkit from "../../assets/images/IoT Kit.webp";
 import edutech from "../../assets/images/EduTech.webp";
+
 /* =========================================================
    PRODUCT DATA
-   ========================================================= */
+========================================================= */
 
 const AI_PRODUCT_URL = "https://your-ai-website-url.com";
-// Replace the above URL with your actual AI website URL.
 
-const tabsData = [
+const products = [
     {
-        title: "AI-Powered Nut Sorting & Grading System",
+        animationText: "Smarter Agriculture",
+        title: "Groundnut-to-Peanut Processing, Sorting & Grading Machine",
         image: gnut,
         description:
-            "Creative marketing strategies to improve online visibility.",
+            "A complete groundnut-to-peanut processing solution that breaks the groundnut shell, separates and collects dust for by-product use, sorts peanuts by quality, grades them by size, measures weight, predicts oil potential, and supports export-quality testing.",
         icon: "AI",
         action: "redirect",
+        features: [
+            "Shell Breaking",
+            "Dust Separation",
+            "AI Sorting",
+            "Size Grading",
+            "Oil Prediction",
+            "Export Testing",
+        ],
     },
     {
-        title: "IoT Kit",
+        animationText: "Connected Solutions",
+        title: "ProJenius IoT Learning Kit",
         image: iotkit,
         description:
-            "Smart AI-powered systems for automation and business growth.",
+            "Hands-on IoT kits that help students and learners understand sensors, electronics, microcontrollers, connectivity, and automation by building real working projects from hardware to software.",
         icon: "IoT",
         action: "coming-soon",
+        features: [
+            "Sensors",
+            "ESP32 & Arduino",
+            "IoT",
+            "Automation",
+            "Embedded Systems",
+            "Hands-On Projects",
+        ],
     },
     {
-        title: "EduTech Platform",
+        animationText: "Digital Learning",
+        title: "ProJenius EduTech & Learning Platform",
         image: edutech,
         description:
-            "Modern responsive websites with premium UI and smooth performance.",
+            "A practical learning platform offering technical courses, internships, workshops, projects, and skill-based training to help students learn technology by building and applying it in real-world situations.",
         icon: "Edu",
         action: "coming-soon",
+        features: [
+            "Online Courses",
+            "Technical Training",
+            "Projects",
+            "Internships",
+            "Workshops",
+            "Skill Development",
+        ],
     },
 ];
 
 /* =========================================================
    ICONS
-   ========================================================= */
+========================================================= */
 
 function ProductIcon({ type }) {
     if (type === "AI") {
@@ -107,16 +134,18 @@ function ProductIcon({ type }) {
 
 /* =========================================================
    PRODUCT SECTION
-   ========================================================= */
+========================================================= */
 
 const ProductSection = () => {
     const sectionRef = useRef(null);
+    const intervalRef = useRef(null);
 
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [visible, setVisible] = useState(false);
     const [showComingSoon, setShowComingSoon] = useState(false);
+    const [isChanging, setIsChanging] = useState(false);
 
-    const activeProduct = tabsData[activeTab];
+    const activeProduct = products[activeIndex];
 
     /* =====================================================
        SECTION VISIBILITY
@@ -125,7 +154,7 @@ const ProductSection = () => {
     useEffect(() => {
         const section = sectionRef.current;
 
-        if (!section) return;
+        if (!section) return undefined;
 
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -143,11 +172,39 @@ const ProductSection = () => {
     }, []);
 
     /* =====================================================
-       CLOSE POPUP WITH ESC
+       AUTO PRODUCT CHANGE - EVERY 5 SECONDS
     ===================================================== */
 
     useEffect(() => {
-        if (!showComingSoon) return;
+        if (!visible || showComingSoon) return undefined;
+
+        intervalRef.current = window.setInterval(() => {
+            setIsChanging(true);
+
+            window.setTimeout(() => {
+                setActiveIndex((current) => {
+                    return (current + 1) % products.length;
+                });
+
+                setIsChanging(false);
+            }, 280);
+        }, 5000);
+
+        return () => {
+            window.clearInterval(intervalRef.current);
+
+            if (intervalRef.current) {
+                window.clearTimeout(intervalRef.current);
+            }
+        };
+    }, [visible, showComingSoon]);
+
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
+
+    useEffect(() => {
+        if (!showComingSoon) return undefined;
 
         const handleEscape = (event) => {
             if (event.key === "Escape") {
@@ -163,15 +220,22 @@ const ProductSection = () => {
     }, [showComingSoon]);
 
     /* =====================================================
-       HANDLE PRODUCT CHANGE
+       CHANGE PRODUCT
     ===================================================== */
 
-    const handleProductChange = (index) => {
-        setActiveTab(index);
+    const changeProduct = (index) => {
+        if (index === activeIndex) return;
+
+        setIsChanging(true);
+
+        window.setTimeout(() => {
+            setActiveIndex(index);
+            setIsChanging(false);
+        }, 280);
     };
 
     /* =====================================================
-       HANDLE EXPLORE BUTTON
+       EXPLORE
     ===================================================== */
 
     const handleExplore = () => {
@@ -200,8 +264,9 @@ const ProductSection = () => {
         <>
             <section
                 ref={sectionRef}
-                className={`tabs-section ${visible ? "product-visible" : ""
-                    }`}
+                className={`tabs-section ${
+                    visible ? "product-visible" : ""
+                }`}
             >
                 <div className="product-container">
 
@@ -215,9 +280,14 @@ const ProductSection = () => {
                         </span>
 
                         <h2 className="product-title">
-                            Innovative Products for{" "}
-                            <span className="product-title-accent">
-                                Smart Future
+                            Technology Products Built for{" "}
+                            <span
+                                className={`product-title-animation ${
+                                    isChanging ? "changing" : ""
+                                }`}
+                                key={activeProduct.animationText}
+                            >
+                                {activeProduct.animationText}
                             </span>
                         </h2>
 
@@ -229,8 +299,9 @@ const ProductSection = () => {
                         </div>
 
                         <p className="product-heading-description">
-                            Explore our range of innovative solutions
-                            designed to empower your business.
+                            Explore our technology products designed to
+                            solve real-world problems, connect people,
+                            and create smarter ways to learn and work.
                         </p>
                     </div>
 
@@ -243,34 +314,37 @@ const ProductSection = () => {
                         role="tablist"
                         aria-label="Products"
                     >
-                        {tabsData.map((tab, index) => {
-                            const isActive = activeTab === index;
+                        {products.map((product, index) => {
+                            const isActive = activeIndex === index;
 
                             return (
                                 <button
-                                    key={tab.title}
+                                    key={product.title}
                                     type="button"
                                     role="tab"
-                                    className={`tab-btn ${isActive ? "active" : ""
-                                        }`}
+                                    className={`tab-btn ${
+                                        isActive ? "active" : ""
+                                    }`}
                                     aria-selected={isActive}
                                     aria-controls={`product-panel-${index}`}
                                     onMouseEnter={() =>
-                                        handleProductChange(index)
+                                        changeProduct(index)
                                     }
                                     onFocus={() =>
-                                        handleProductChange(index)
+                                        changeProduct(index)
                                     }
                                     onClick={() =>
-                                        handleProductChange(index)
+                                        changeProduct(index)
                                     }
                                 >
                                     <span className="tab-icon">
-                                        <ProductIcon type={tab.icon} />
+                                        <ProductIcon
+                                            type={product.icon}
+                                        />
                                     </span>
 
                                     <span className="tab-label">
-                                        {tab.title}
+                                        {product.animationText}
                                     </span>
 
                                     <span
@@ -289,10 +363,12 @@ const ProductSection = () => {
                     ================================================= */}
 
                     <div
-                        id={`product-panel-${activeTab}`}
-                        className="tabs-content"
-                        key={activeProduct.title}
+                        id={`product-panel-${activeIndex}`}
+                        className={`tabs-content ${
+                            isChanging ? "product-changing" : ""
+                        }`}
                         role="tabpanel"
+                        key={activeProduct.title}
                     >
                         {/* IMAGE */}
 
@@ -301,7 +377,7 @@ const ProductSection = () => {
                                 src={activeProduct.image}
                                 alt={activeProduct.title}
                                 loading={
-                                    activeTab === 0
+                                    activeIndex === 0
                                         ? "eager"
                                         : "lazy"
                                 }
@@ -317,12 +393,37 @@ const ProductSection = () => {
 
                         <div className="tabs-text">
                             <span className="product-content-label">
-                                {activeProduct.icon}
+                                <ProductIcon
+                                    type={activeProduct.icon}
+                                />
+
+                                <span>
+                                    {activeProduct.animationText}
+                                </span>
                             </span>
 
                             <h2>{activeProduct.title}</h2>
 
                             <p>{activeProduct.description}</p>
+
+                            {/* KEY FEATURES */}
+
+                            <div className="product-features">
+                                <h3>Key Features</h3>
+
+                                <div className="feature-list">
+                                    {activeProduct.features.map(
+                                        (feature) => (
+                                            <span
+                                                className="feature-item"
+                                                key={feature}
+                                            >
+                                                {feature}
+                                            </span>
+                                        )
+                                    )}
+                                </div>
+                            </div>
 
                             <button
                                 type="button"
@@ -358,7 +459,9 @@ const ProductSection = () => {
                 >
                     <div
                         className="product-popup"
-                        onClick={(event) => event.stopPropagation()}
+                        onClick={(event) =>
+                            event.stopPropagation()
+                        }
                     >
                         <button
                             type="button"
@@ -370,7 +473,9 @@ const ProductSection = () => {
                         </button>
 
                         <div className="product-popup-icon">
-                            <ProductIcon type={activeProduct.icon} />
+                            <ProductIcon
+                                type={activeProduct.icon}
+                            />
                         </div>
 
                         <h3 id="coming-soon-title">
@@ -378,7 +483,7 @@ const ProductSection = () => {
                         </h3>
 
                         <p>
-                            We will launch the website soon.....
+                            We will launch the website soon.
                         </p>
 
                         <button

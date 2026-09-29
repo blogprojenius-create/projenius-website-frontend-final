@@ -3,8 +3,7 @@
    Clean / Responsive / Optimized
    ========================================================= */
 
-@import url(
-    "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
 );
 
 
@@ -123,23 +122,109 @@
     color: #080d16;
 
     font-size: clamp(40px, 4.5vw, 64px);
-
-    /*
-     * Reduced line-height without changing font size.
-     */
-    line-height: 1.02;
+    line-height: 1.05;
 
     font-weight: 800;
     letter-spacing: -2px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     opacity: 0;
     transform: translateY(12px);
+}
+
+.about-title-static {
+    display: block;
+
+    color: #080d16 !important;
+
+    white-space: nowrap;
 }
 
 .about-title span {
     color: #1599D6;
 }
 
+.about-title-window {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    height: 1.05em;
+
+    overflow: hidden;
+
+    /* Prevent any sub-pixel text leakage */
+    clip-path: inset(0);
+}
+
+.about-title-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    will-change: transform;
+
+    animation:
+        aboutTitleScroll
+        10s
+        cubic-bezier(0.65, 0, 0.35, 1)
+        infinite;
+}
+
+.about-title-track>span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    /* Important: every text is exactly the viewport height */
+    flex: 0 0 100%;
+
+    color: #1599D6;
+
+    white-space: nowrap;
+}
+
+@keyframes aboutTitleScroll {
+
+    /* Software & AI Solutions */
+    0%,
+    18% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    /* IoT & Embedded Systems */
+    25%,
+    43% {
+        transform: translate3d(0, -100%, 0);
+    }
+
+    /* Product Development */
+    50%,
+    68% {
+        transform: translate3d(0, -200%, 0);
+    }
+
+    /* Technology Training */
+    75%,
+    93% {
+        transform: translate3d(0, -300%, 0);
+    }
+
+    /* Duplicate Software & AI Solutions */
+    100% {
+        transform: translate3d(0, -400%, 0);
+    }
+}
 
 /* =========================================================
    TITLE LINE
@@ -223,8 +308,7 @@
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+        minmax(0, 1fr) minmax(0, 1fr);
 
     /*
      * Preserve the same two-column alignment
@@ -735,73 +819,42 @@
 
 .about-visible .about-tag {
     animation:
-        aboutFadeUp
-        0.55s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        forwards;
+        aboutFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .about-visible .about-title {
     animation:
-        aboutFadeUp
-        0.65s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.06s
-        forwards;
+        aboutFadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;
 }
 
 .about-visible .about-title-line {
     animation:
-        aboutLineReveal
-        0.55s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.12s
-        forwards;
+        aboutLineReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
 }
 
 .about-visible .about-description {
     animation:
-        aboutFadeUp
-        0.65s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.16s
-        forwards;
+        aboutFadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.16s forwards;
 }
 
 .about-visible .about-left {
     animation:
-        aboutFadeRight
-        0.75s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.22s
-        forwards;
+        aboutFadeRight 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
 }
 
 .about-visible .about-right {
     animation:
-        aboutFadeLeft
-        0.75s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.25s
-        forwards;
+        aboutFadeLeft 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
 }
 
 .about-visible .about-stats {
     animation:
-        aboutFadeUp
-        0.65s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.45s
-        forwards;
+        aboutFadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
 }
 
 .about-visible .about-feature-card {
     animation:
-        aboutCardReveal
-        0.55s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        var(--card-delay)
-        forwards;
+        aboutCardReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay) forwards;
 }
 
 
@@ -1086,6 +1139,7 @@
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
     .about-section *,
     .about-section *::before,
     .about-section *::after {

@@ -5,48 +5,52 @@ import projectImage1 from "../../assets/images/Helminth Real Poster.jpeg";
 import projectImage2 from "../../assets/images/Helminth_poster_website_card.png";
 /* =========================================================
    PROJECT DATA
-   ========================================================= */
+========================================================= */
+/* =========================================================
+   TECHNOLOGY SOLUTIONS ANIMATION TEXT
+========================================================= */
+
+const animatedSolutions = [
+  "Software Development",
+  "IoT & Automation",
+  "AI & Machine Learning",
+  "Hardware & Embedded Systems",
+  "Product Development",
+  "Startup Support",
+];
 
 const projects = [
   {
-    title: "Helminth Egg Detection Poster",
-    subtitle: "Medical Conference Poster",
+    title: "AI-Based Water Quality Monitoring System",
+    subtitle: "IoT & AI",
     description:
-      "Scientific poster on helminth egg detection in dog samples highlighting diagnosis and zoonotic risks worldwide.",
+      "IoT and AI-based system for monitoring water quality parameters, detecting changes, and supporting real-time environmental monitoring.",
     rating: 5,
     image: projectImage1,
   },
   {
-    title: "AI-Powered Water Health Monitoring",
-    subtitle: "Software",
+    title: "Smart Waste Management System",
+    subtitle: "IoT & Automation",
     description:
-      "Powerful monitoring platform designed to improve water quality analysis and real-time environmental tracking.",
-    rating: 4,
+      "IoT-enabled waste segregation and monitoring system designed to improve waste classification, collection, and resource management.",
+    rating: 5,
     image: projectImage2,
   },
   {
-    title: "Road Hazard Detection",
-    subtitle: "Software",
-    description:
-      "AI-based accident detection system with instant emergency GPS alerts and real-time response tracking.",
-    rating: 5,
-    image: "/images/project-image-3.webp",
-  },
-  {
-    title: "Smart Waste Management",
-    subtitle: "Software",
-    description:
-      "Smart waste segregation system using sensors for automatic wet and dry waste classification.",
-    rating: 4,
-    image: "/images/project-image-4.webp",
-  },
-  {
     title: "Autonomous Follower Robot",
-    subtitle: "Hardware",
+    subtitle: "Hardware & Embedded Systems",
     description:
-      "Intelligent follower robot with obstacle avoidance for smart logistics and automated material transportation.",
+      "Embedded robotics solution designed for autonomous following, obstacle detection, and smart material transportation.",
     rating: 5,
     image: "/images/project-image-5.webp",
+  },
+  {
+    title: "AI-Based Road Hazard Detection System",
+    subtitle: "Road Safety & IoT",
+    description:
+      "Smart road safety system that detects hazards and accidents, provides location-based alerts, and supports faster emergency response.",
+    rating: 5,
+    image: "/images/project-image-3.webp",
   },
 ];
 
@@ -60,8 +64,24 @@ export default function ProjectSection() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [solutionIndex, setSolutionIndex] = useState(0);
 
+  /* =======================================================
+   TECHNOLOGY SOLUTION TEXT ROTATION
+   ======================================================= */
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setSolutionIndex(
+        (current) =>
+          (current + 1) % animatedSolutions.length
+      );
+    }, 4500);
+
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, []);
   /* =======================================================
      SECTION SCROLL ANIMATION
      ======================================================= */
@@ -168,12 +188,12 @@ export default function ProjectSection() {
   };
 
 
+
   return (
     <section
       ref={sectionRef}
-      className={`project-section ${
-        isVisible ? "project-visible" : ""
-      }`}
+      className={`project-section ${isVisible ? "project-visible" : ""
+        }`}
     >
 
       <div className="project-container">
@@ -191,8 +211,10 @@ export default function ProjectSection() {
 
 
           <h2 className="project-title">
-            Work{" "}
-            <span>Showcase</span>
+            Our Technology Solutions in{" "}
+            <span key={solutionIndex}>
+              {animatedSolutions[solutionIndex]}
+            </span>
           </h2>
 
 
@@ -205,10 +227,11 @@ export default function ProjectSection() {
 
 
           <p className="project-description">
-            We create powerful digital experiences with
-            modern design, innovative strategies and
-            professional development solutions.
+            Explore our technology projects across software,
+            IoT, AI, hardware, and embedded systems, developed
+            to address real-world business and industry needs.
           </p>
+
 
         </div>
 
@@ -348,7 +371,7 @@ export default function ProjectSection() {
                                 key={starIndex}
                                 className={
                                   starIndex <
-                                  project.rating
+                                    project.rating
                                     ? "filled"
                                     : ""
                                 }
@@ -429,11 +452,10 @@ export default function ProjectSection() {
                 key={project.title}
                 type="button"
                 role="tab"
-                className={`project-dot ${
-                  index === activeIndex
-                    ? "active"
-                    : ""
-                }`}
+                className={`project-dot ${index === activeIndex
+                  ? "active"
+                  : ""
+                  }`}
                 aria-label={`Go to ${project.title}`}
                 aria-selected={
                   index === activeIndex

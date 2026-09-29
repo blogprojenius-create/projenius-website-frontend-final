@@ -7,8 +7,8 @@ import "./TrainingSection.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import workshop1 from "../../assets/images/iot-workshop.png"
-import gallery1 from "../../assets/images/gallery-1.webp"
+import workshop1 from "../../assets/images/iot-workshop.png";
+import gallery1 from "../../assets/images/gallery-1.webp";
 
 export default function TrainingSection() {
   const [imgIndex1, setImgIndex1] = useState(0);
@@ -16,13 +16,27 @@ export default function TrainingSection() {
   const [imgIndex3, setImgIndex3] = useState(0);
   const [imgIndex4, setImgIndex4] = useState(0);
 
+  const [trainingTextIndex, setTrainingTextIndex] = useState(0);
+
+  /* =========================================================
+     ANIMATED TRAINING TEXT
+  ========================================================= */
+
+  const trainingTexts = [
+    "Practical Learning",
+    "Hands-On Training",
+    "Industry Internships",
+    "Technology Workshops",
+    "Career Development",
+  ];
+
   /* =========================================================
      IMAGE POOLS
   ========================================================= */
 
   const imgPool1 = [
-    {workshop1},
-    {gallery1},
+    workshop1,
+    gallery1,
     "/images/gallery-2.webp",
   ];
 
@@ -45,7 +59,7 @@ export default function TrainingSection() {
   ];
 
   /* =========================================================
-     AOS + IMAGE AUTO ROTATION
+     AOS + IMAGE AUTO ROTATION + TEXT ROTATION
   ========================================================= */
 
   useEffect(() => {
@@ -58,14 +72,31 @@ export default function TrainingSection() {
 
     const timers = [];
 
-    /* FIRST IMAGE */
+    /* =======================================================
+       ANIMATED HEADING TEXT
+       Changes every 5 seconds
+    ======================================================= */
+
+    const trainingTextTimer = setInterval(() => {
+      setTrainingTextIndex((prev) => {
+        return (prev + 1) % trainingTexts.length;
+      });
+    }, 5000);
+
+    /* =======================================================
+       FIRST IMAGE
+    ======================================================= */
+
     timers.push(
       setInterval(() => {
         setImgIndex1((prev) => prev + 1);
       }, 6000)
     );
 
-    /* SECOND IMAGE */
+    /* =======================================================
+       SECOND IMAGE
+    ======================================================= */
+
     const timeout1 = setTimeout(() => {
       timers.push(
         setInterval(() => {
@@ -74,7 +105,10 @@ export default function TrainingSection() {
       );
     }, 1500);
 
-    /* THIRD IMAGE */
+    /* =======================================================
+       THIRD IMAGE
+    ======================================================= */
+
     const timeout2 = setTimeout(() => {
       timers.push(
         setInterval(() => {
@@ -83,7 +117,10 @@ export default function TrainingSection() {
       );
     }, 3000);
 
-    /* FOURTH IMAGE */
+    /* =======================================================
+       FOURTH IMAGE
+    ======================================================= */
+
     const timeout3 = setTimeout(() => {
       timers.push(
         setInterval(() => {
@@ -93,6 +130,8 @@ export default function TrainingSection() {
     }, 4500);
 
     return () => {
+      clearInterval(trainingTextTimer);
+
       timers.forEach(clearInterval);
 
       clearTimeout(timeout1);
@@ -124,7 +163,9 @@ export default function TrainingSection() {
           </span>
 
 
-          {/* MAIN TITLE */}
+          {/* =================================================
+              MAIN TITLE
+          ================================================= */}
 
           <h2
             className="train-section-title"
@@ -132,9 +173,35 @@ export default function TrainingSection() {
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            Industry-Focused{" "}
-            <span className="training-title-accent">
-              Training &amp; Workshops
+            <span className="training-title-static">
+              Build Skills Through
+            </span>
+
+            <span className="training-animated-title-wrapper">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={trainingTextIndex}
+                  className="training-title-accent"
+                  initial={{
+                    opacity: 0,
+                    y: 18,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -18,
+                  }}
+                  transition={{
+                    duration: 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {trainingTexts[trainingTextIndex]}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </h2>
 

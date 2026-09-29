@@ -1,6 +1,6 @@
 /* =========================================================
    PROJENIUS - TRAINING SECTION
-   Optimized / Responsive / About-Style Heading
+   Optimized / Responsive / Animated Training Heading
 ========================================================= */
 
 .training-section {
@@ -30,10 +30,7 @@
 ========================================================= */
 
 .training-section .container {
-    width: min(
-        1240px,
-        100%
-    );
+    width: min(1240px, 100%);
 
     margin: 0 auto;
     padding: 0;
@@ -42,7 +39,6 @@
 
 /* =========================================================
    HEADER
-   SAME VISUAL STYLE AS ABOUT SECTION
 ========================================================= */
 
 .training-heading {
@@ -65,7 +61,6 @@
 
 /* =========================================================
    SUB HEADING
-   DOT REMOVED
 ========================================================= */
 
 .training-section .training-sub-heading {
@@ -82,13 +77,7 @@
     border: 1px solid #1599D6;
     border-radius: 999px;
 
-    background:
-        rgba(
-            53,
-            206,
-            255,
-            0.06
-        );
+    background: rgba(53, 206, 255, 0.06);
 
     color: #1599D6;
 
@@ -105,7 +94,7 @@
 
 
 /* =========================================================
-   COMPLETELY REMOVE DOT
+   REMOVE DOT
 ========================================================= */
 
 .training-section .training-sub-dot {
@@ -115,13 +104,20 @@
 
 /* =========================================================
    MAIN TITLE
-   SAME AS ABOUT
 ========================================================= */
 
 .training-section .train-section-title {
     position: relative;
 
-    display: inline-block;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    column-gap: 12px;
+    row-gap: 5px;
 
     margin: 7px 0 0;
     padding: 0 0 20px;
@@ -130,12 +126,7 @@
 
     font-family: "Poppins", sans-serif;
 
-    font-size:
-        clamp(
-            40px,
-            4.5vw,
-            64px
-        );
+    font-size: clamp(40px, 4.5vw, 64px);
 
     line-height: 1.02;
 
@@ -144,31 +135,71 @@
     letter-spacing: -2px;
 
     text-align: center;
+}
+
+
+/* =========================================================
+   STATIC TITLE
+   BUILD SKILLS THROUGH
+========================================================= */
+
+.training-section .training-title-static {
+    color: #080d16;
+
+    font-family: "Poppins", sans-serif;
+
+    font-weight: 800;
 
     white-space: nowrap;
 }
 
 
 /* =========================================================
-   BLUE TITLE
+   ANIMATED TITLE WRAPPER
+   FIXED HEIGHT PREVENTS OLD TEXT FROM SHOWING
 ========================================================= */
 
-.training-section
-.training-title-accent {
+.training-section .training-animated-title-wrapper {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    min-width: 390px;
+    height: 1.08em;
+
+    overflow: hidden;
+
+    vertical-align: middle;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   BLUE ANIMATED TITLE
+========================================================= */
+
+.training-section .training-title-accent {
+    display: block;
+
     color: #1599D6;
 
     font-family: "Poppins", sans-serif;
 
     font-weight: 800;
+
+    white-space: nowrap;
 }
 
 
 /* =========================================================
-   ABOUT-STYLE TITLE LINE
+   TITLE LINE
 ========================================================= */
 
-.training-section
-.train-section-title::after {
+.training-section .train-section-title::after {
     content: "";
 
     position: absolute;
@@ -193,18 +224,34 @@
 
     box-shadow:
         0 0 12px
-        rgba(
-            21,
-            159,
-            227,
-            0.3
-        );
+        rgba(21, 159, 227, 0.3);
 
     animation:
         trainingTitleLine
         2.5s
         ease-in-out
         infinite;
+}
+
+
+/* =========================================================
+   TITLE LINE ANIMATION
+========================================================= */
+
+@keyframes trainingTitleLine {
+
+    0%,
+    100% {
+        transform:
+            translateX(-50%)
+            scaleX(0.85);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            scaleX(1.1);
+    }
 }
 
 
@@ -297,12 +344,7 @@
 
     box-shadow:
         0 15px 38px
-        rgba(
-            11,
-            19,
-            40,
-            0.12
-        );
+        rgba(11, 19, 40, 0.12);
 
     transform: translateZ(0);
 
@@ -330,19 +372,12 @@
 
     box-shadow:
         0 24px 52px
-        rgba(
-            11,
-            19,
-            40,
-            0.18
-        );
+        rgba(11, 19, 40, 0.18);
 }
 
 
 /* =========================================================
    IMAGE
-   IMPORTANT:
-   IMAGE IS NOT FORCED TO FOLLOW CARD HEIGHT
 ========================================================= */
 
 .training-section
@@ -362,10 +397,6 @@
 
     max-width: none !important;
 
-    /*
-       Keeps image filling the card while
-       preserving its natural proportions.
-    */
     object-fit: cover !important;
 
     object-position: center !important;
@@ -417,41 +448,24 @@ img {
     background:
         linear-gradient(
             180deg,
-            rgba(
-                11,
-                19,
-                40,
-                0
-            ) 20%,
-
-            rgba(
-                11,
-                19,
-                40,
-                0.04
-            ) 45%,
-
-            rgba(
-                11,
-                19,
-                40,
-                0.62
-            ) 100%
+            rgba(11, 19, 40, 0) 20%,
+            rgba(11, 19, 40, 0.04) 45%,
+            rgba(11, 19, 40, 0.62) 100%
         );
 }
 
 
 /* =========================================================
    CARD HEIGHT
-   MUCH TALLER
+   INCREASED IMAGE AREA
 ========================================================= */
 
 .training-section .big-card {
-    height: 520px;
+    height: 600px;
 }
 
 .training-section .small-card {
-    height: 250px;
+    height: 290px;
 }
 
 
@@ -477,12 +491,7 @@ img {
 
     border:
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.9
-        );
+        rgba(255, 255, 255, 0.9);
 
     border-left:
         4px solid #159FE3;
@@ -490,21 +499,11 @@ img {
     border-radius: 15px;
 
     background:
-        rgba(
-            255,
-            255,
-            255,
-            0.96
-        );
+        rgba(255, 255, 255, 0.96);
 
     box-shadow:
         0 10px 30px
-        rgba(
-            0,
-            0,
-            0,
-            0.16
-        );
+        rgba(0, 0, 0, 0.16);
 
     backdrop-filter:
         blur(10px);
@@ -530,12 +529,7 @@ img {
 
     box-shadow:
         0 16px 40px
-        rgba(
-            0,
-            0,
-            0,
-            0.2
-        );
+        rgba(0, 0, 0, 0.2);
 }
 
 
@@ -626,16 +620,14 @@ h4 {
     }
 
 
-    /*
-       EXTRA TALL CARDS
-    */
+    /* LARGER IMAGES */
 
     .training-section .big-card {
-        height: 560px;
+        height: 650px;
     }
 
     .training-section .small-card {
-        height: 265px;
+        height: 315px;
     }
 }
 
@@ -663,7 +655,12 @@ h4 {
     .train-section-title {
         font-size: 46px;
 
-        white-space: normal;
+        column-gap: 10px;
+    }
+
+    .training-section
+    .training-animated-title-wrapper {
+        min-width: 300px;
     }
 
     .training-section .row {
@@ -676,16 +673,14 @@ h4 {
     }
 
 
-    /*
-       BOTH CARD TYPES TALLER
-    */
+    /* INCREASED TABLET IMAGE SIZE */
 
     .training-section .big-card {
-        height: 430px;
+        height: 500px;
     }
 
     .training-section .small-card {
-        height: 220px;
+        height: 250px;
     }
 
 
@@ -745,6 +740,16 @@ h4 {
     .train-section-title {
         width: 100%;
 
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 3px;
+
         font-size:
             clamp(
                 30px,
@@ -756,13 +761,37 @@ h4 {
 
         letter-spacing: -1px;
 
-        white-space: normal;
-
         padding-bottom: 17px;
     }
 
 
-    /* ABOUT-STYLE LINE */
+    .training-section
+    .training-title-static {
+        white-space: normal;
+    }
+
+
+    .training-section
+    .training-animated-title-wrapper {
+        width: 100%;
+
+        min-width: 0;
+
+        height: 1.1em;
+
+        justify-content: center;
+
+        text-align: center;
+    }
+
+
+    .training-section
+    .training-title-accent {
+        white-space: nowrap;
+    }
+
+
+    /* TITLE LINE */
 
     .training-section
     .train-section-title::after {
@@ -789,17 +818,14 @@ h4 {
     }
 
 
-    /*
-       ALL FOUR CARDS GET
-       THE SAME LARGE HEIGHT
-    */
+    /* LARGER MOBILE IMAGES */
 
     .training-section
     .big-card,
 
     .training-section
     .small-card {
-        height: 380px;
+        height: 430px;
 
         border-radius: 21px;
     }
@@ -876,6 +902,20 @@ h4 {
 
 
     .training-section
+    .training-animated-title-wrapper {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    .training-section
+    .training-title-accent {
+        white-space: nowrap;
+    }
+
+
+    .training-section
     .train-section-title::after {
         width: 62px;
         height: 4px;
@@ -892,17 +932,14 @@ h4 {
     }
 
 
-    /*
-       KEEP IMAGES LARGE
-       WITHOUT SHRINKING
-    */
+    /* LARGER SMALL MOBILE IMAGES */
 
     .training-section
     .big-card,
 
     .training-section
     .small-card {
-        height: 350px;
+        height: 400px;
 
         border-radius: 19px;
     }
@@ -961,7 +998,7 @@ h4 {
 
     .training-section
     .small-card {
-        height: 325px;
+        height: 370px;
     }
 
 
@@ -1000,7 +1037,10 @@ h4 {
     .training-card img,
 
     .training-section
-    .training-content {
+    .training-content,
+
+    .training-section
+    .training-title-accent {
         animation: none !important;
         transition: none !important;
     }

@@ -1,7 +1,7 @@
 /* =========================================================
    PROJENIUS - PRODUCT SECTION
-   Optimized / Responsive / Popup / Product Actions
-   ========================================================= */
+   Technology Products
+========================================================= */
 
 .tabs-section,
 .tabs-section *,
@@ -12,7 +12,7 @@
 
 /* =========================================================
    MAIN SECTION
-   ========================================================= */
+========================================================= */
 
 .tabs-section {
     position: relative;
@@ -20,11 +20,7 @@
     margin: 0;
     padding: 25px 6% 95px;
     background: #ffffff;
-    font-family:
-        "Poppins",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
     overflow: hidden;
 }
 
@@ -36,7 +32,7 @@
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 .product-heading {
     width: 100%;
@@ -44,11 +40,11 @@
     text-align: center;
 
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px);
 
     transition:
-        opacity 0.6s ease,
-        transform 0.6s cubic-bezier(.22, 1, .36, 1);
+        opacity 0.7s ease,
+        transform 0.7s cubic-bezier(.22, 1, .36, 1);
 }
 
 .product-visible .product-heading {
@@ -61,7 +57,7 @@
     align-items: center;
     justify-content: center;
 
-    margin: 0 0 8px;
+    margin: 0 0 9px;
     padding: 8px 16px;
 
     border: 1px solid rgba(21, 159, 227, .25);
@@ -79,27 +75,46 @@
     box-shadow: 0 6px 18px rgba(21, 159, 227, .06);
 }
 
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
 .product-title {
     margin: 5px 0 0;
 
-    color: #080d16;
+    color: #000000;
 
     font-size: clamp(40px, 4.5vw, 64px);
-    line-height: 1.02;
+    line-height: 1.04;
     font-weight: 800;
     letter-spacing: -2px;
 }
 
-.product-title-accent {
+.product-title-animation {
+    display: inline-block;
+
     color: #159fe3;
     font-weight: 900;
+
+    min-width: 1px;
+
+    animation:
+        productTextEnter
+        .65s
+        cubic-bezier(.22, 1, .36, 1)
+        both;
+}
+
+.product-title-animation.changing {
+    opacity: 0;
+    transform: translateY(12px);
 }
 
 .product-title-line {
     width: 78px;
     height: 5px;
 
-    margin: 7px auto 5px;
+    margin: 8px auto 5px;
 
     border-radius: 999px;
     background: #159fe3;
@@ -127,9 +142,10 @@
 
 .product-heading-description {
     width: min(850px, 100%);
-    margin: 3px auto 0;
+    margin: 5px auto 0;
 
     color: #687386;
+
     font-size: 18px;
     font-weight: 500;
     line-height: 1.5;
@@ -138,7 +154,7 @@
 
 /* =========================================================
    PRODUCT TABS
-   ========================================================= */
+========================================================= */
 
 .tabs-header {
     display: flex;
@@ -183,12 +199,7 @@
     background: #f7f9fa;
     color: #263746;
 
-    font-family:
-        "Poppins",
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.25;
@@ -294,8 +305,8 @@
 }
 
 /* =========================================================
-   PRODUCT CONTENT CARD
-   ========================================================= */
+   PRODUCT CONTENT
+========================================================= */
 
 .tabs-content {
     position: relative;
@@ -326,10 +337,11 @@
     box-shadow:
         0 22px 55px rgba(6, 20, 45, .10);
 
-    overflow: visible;
+    overflow: hidden;
 
     animation:
-        productContentReveal .55s
+        productContentReveal
+        .65s
         cubic-bezier(.22, 1, .36, 1)
         both;
 }
@@ -354,6 +366,14 @@
     z-index: 0;
 }
 
+.tabs-content.product-changing {
+    animation:
+        productContentExit
+        .28s
+        ease
+        both;
+}
+
 .tabs-image,
 .tabs-text {
     position: relative;
@@ -362,7 +382,7 @@
 
 /* =========================================================
    PRODUCT IMAGE
-   ========================================================= */
+========================================================= */
 
 .tabs-image {
     position: relative;
@@ -380,7 +400,8 @@
     cursor: pointer;
 
     animation:
-        productImageIn .75s
+        productImageIn
+        .75s
         cubic-bezier(.22, 1, .36, 1)
         both;
 
@@ -414,7 +435,7 @@
 
 /* =========================================================
    IMAGE SHINE
-   ========================================================= */
+========================================================= */
 
 .product-image-shine {
     position: absolute;
@@ -446,7 +467,7 @@
 
 /* =========================================================
    PRODUCT TEXT
-   ========================================================= */
+========================================================= */
 
 .tabs-text {
     width: 100%;
@@ -455,7 +476,8 @@
     transform: translateX(25px);
 
     animation:
-        productTextIn .75s
+        productTextIn
+        .75s
         cubic-bezier(.22, 1, .36, 1)
         .08s
         both;
@@ -465,9 +487,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 7px;
 
-    margin-bottom: 9px;
-    padding: 6px 11px;
+    margin-bottom: 10px;
+    padding: 7px 12px;
 
     border-radius: 999px;
 
@@ -477,6 +500,11 @@
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .5px;
+}
+
+.product-content-label svg {
+    width: 15px;
+    height: 15px;
 }
 
 .tabs-text h2 {
@@ -509,12 +537,77 @@
 
     font-size: 16px;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.55;
+}
+
+/* =========================================================
+   KEY FEATURES
+========================================================= */
+
+.product-features {
+    margin: 0 0 22px;
+}
+
+.product-features h3 {
+    margin: 0 0 10px;
+
+    color: #06142d;
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.feature-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.feature-item {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 11px;
+
+    border: 1px solid rgba(21, 159, 227, .16);
+    border-radius: 999px;
+
+    background: #ffffff;
+    color: #526174;
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        box-shadow .25s ease;
+}
+
+.feature-item::before {
+    content: "✓";
+
+    margin-right: 6px;
+
+    color: #159fe3;
+    font-weight: 800;
+}
+
+.feature-item:hover {
+    transform: translateY(-2px);
+
+    border-color: #159fe3;
+    color: #159fe3;
+
+    box-shadow:
+        0 6px 16px rgba(21, 159, 227, .10);
 }
 
 /* =========================================================
    EXPLORE BUTTON
-   ========================================================= */
+========================================================= */
 
 .explore-btn {
     display: inline-flex;
@@ -573,8 +666,8 @@
 }
 
 /* =========================================================
-   COMING SOON POPUP
-   ========================================================= */
+   POPUP
+========================================================= */
 
 .product-popup-overlay {
     position: fixed;
@@ -593,7 +686,11 @@
     backdrop-filter: blur(7px);
     -webkit-backdrop-filter: blur(7px);
 
-    animation: popupOverlayIn .25s ease both;
+    animation:
+        popupOverlayIn
+        .25s
+        ease
+        both;
 }
 
 .product-popup {
@@ -614,7 +711,8 @@
         0 30px 80px rgba(0, 0, 0, .22);
 
     animation:
-        popupCardIn .4s
+        popupCardIn
+        .4s
         cubic-bezier(.22, 1, .36, 1)
         both;
 }
@@ -748,12 +846,26 @@
 
 /* =========================================================
    ANIMATIONS
-   ========================================================= */
+========================================================= */
+
+@keyframes productTextEnter {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
 
 @keyframes productContentReveal {
     from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(14px);
     }
 
     to {
@@ -762,15 +874,27 @@
     }
 }
 
+@keyframes productContentExit {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
 @keyframes productImageIn {
     from {
         opacity: 0;
-        transform: translateX(-45px) rotateY(-8deg);
+        transform: translateX(-45px) scale(.97);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0) rotateY(0);
+        transform: translateX(0) scale(1);
     }
 }
 
@@ -810,12 +934,11 @@
 
 /* =========================================================
    LAPTOP
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 1100px) {
     .tabs-section {
-        padding:
-            22px 5% 85px;
+        padding: 22px 5% 85px;
     }
 
     .tabs-content {
@@ -831,9 +954,7 @@
     }
 
     .tab-btn {
-        padding:
-            12px 34px 12px 14px;
-
+        padding: 12px 34px 12px 14px;
         font-size: 13px;
     }
 
@@ -844,12 +965,11 @@
 
 /* =========================================================
    TABLET
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 900px) {
     .tabs-section {
-        padding:
-            20px 5% 75px;
+        padding: 20px 5% 75px;
     }
 
     .product-heading {
@@ -878,6 +998,10 @@
         margin-right: auto;
     }
 
+    .feature-list {
+        justify-content: center;
+    }
+
     .explore-btn {
         margin-left: auto;
         margin-right: auto;
@@ -886,12 +1010,11 @@
 
 /* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 600px) {
     .tabs-section {
-        padding:
-            18px 18px 65px;
+        padding: 18px 18px 65px;
     }
 
     .product-heading {
@@ -906,8 +1029,13 @@
 
     .product-title {
         font-size: 34px;
-        line-height: 1.05;
-        letter-spacing: -.3px;
+        line-height: 1.1;
+        letter-spacing: -.5px;
+    }
+
+    .product-title-animation {
+        display: block;
+        min-height: 38px;
     }
 
     .product-title-line {
@@ -932,8 +1060,7 @@
         width: 100%;
         min-height: 52px;
 
-        padding:
-            10px 42px 10px 14px;
+        padding: 10px 42px 10px 14px;
 
         font-size: 13px;
         border-radius: 10px;
@@ -970,7 +1097,24 @@
     .tabs-text p {
         margin-bottom: 18px;
         font-size: 14px;
-        line-height: 1.5;
+        line-height: 1.55;
+    }
+
+    .product-features {
+        margin-bottom: 19px;
+    }
+
+    .product-features h3 {
+        font-size: 15px;
+    }
+
+    .feature-list {
+        gap: 7px;
+    }
+
+    .feature-item {
+        padding: 6px 9px;
+        font-size: 11px;
     }
 
     .explore-btn {
@@ -979,12 +1123,8 @@
         font-size: 13px;
     }
 
-    /* Popup */
-
     .product-popup {
-        padding:
-            38px 22px 28px;
-
+        padding: 38px 22px 28px;
         border-radius: 20px;
     }
 
@@ -999,16 +1139,19 @@
 
 /* =========================================================
    SMALL MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 380px) {
     .tabs-section {
-        padding:
-            16px 14px 60px;
+        padding: 16px 14px 60px;
     }
 
     .product-title {
         font-size: 30px;
+    }
+
+    .product-title-animation {
+        min-height: 34px;
     }
 
     .product-heading-description {
@@ -1031,11 +1174,15 @@
     .tabs-text p {
         font-size: 13px;
     }
+
+    .feature-item {
+        font-size: 10px;
+    }
 }
 
 /* =========================================================
    TOUCH DEVICES
-   ========================================================= */
+========================================================= */
 
 @media (hover: none) {
     .tab-btn:hover {
@@ -1057,14 +1204,20 @@
     .product-image-shine {
         display: none;
     }
+
+    .feature-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* =========================================================
    REDUCED MOTION
-   ========================================================= */
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
     .product-heading,
+    .product-title-animation,
     .product-title-line,
     .tabs-header,
     .tabs-content,
@@ -1086,6 +1239,12 @@
     .tabs-text {
         opacity: 1;
         transform: none;
+    }
+
+    .product-title-animation {
+        opacity: 1;
+        transform: none;
+        filter: none;
     }
 
     .product-title-line {

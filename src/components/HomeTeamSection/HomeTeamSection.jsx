@@ -1,26 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./HomeTeamSection.css";
+
 import showcaseImage from "../../assets/images/projenius-banner-4.webp";
+
+/* =====================================================
+   ANIMATED SERVICE TEXT
+===================================================== */
+
+const animatedServices = [
+  "Web & Mobile Development",
+  "Custom Software Solutions",
+  "AI & ML Solutions",
+  "IoT & Hardware Solutions",
+  "Product Development",
+  "Training & Workshops",
+  "Startup & Academic Support",
+];
+
+/* =====================================================
+   STATS
+===================================================== */
+
 const stats = [
   {
-    value: 156,
-    suffix: "K",
-    label: "PROJECT COMPLETE",
+    value: 1000,
+    suffix: "+",
+    label: "CLIENTS & LEARNERS SERVED",
   },
   {
-    value: 556,
-    suffix: "K",
-    label: "CLIENTS SATISFACTION",
+    value: 30,
+    suffix: "+",
+    label: "PROJECTS & SOLUTIONS DELIVERED",
   },
   {
-    value: 234,
-    suffix: "K",
-    label: "ENVATO MARKET",
+    value: 5,
+    suffix: "+",
+    label: "SERVICE AREAS",
   },
   {
-    value: 348,
-    suffix: "K",
-    label: "MOBILE APPS",
+    value: 2,
+    suffix: "+",
+    label: "YEARS OF EXPERIENCE",
   },
 ];
 
@@ -29,12 +50,29 @@ export default function ContactSection() {
   const animationFrameRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
-  const [counts, setCounts] = useState(
+  const [serviceIndex, setServiceIndex] = useState(0);
+
+  const [counts, setCounts] = useState(() =>
     stats.map(() => 0)
   );
 
   /* =====================================================
-     SECTION REVEAL + COUNTER
+     SERVICE TEXT ROTATION
+     Every 5 seconds
+  ===================================================== */
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setServiceIndex(
+        (prev) => (prev + 1) % animatedServices.length
+      );
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  /* =====================================================
+     SECTION REVEAL + COUNTERS
   ===================================================== */
 
   useEffect(() => {
@@ -42,63 +80,63 @@ export default function ContactSection() {
 
     if (!section) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
+    const startCounters = () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
 
-          if (animationFrameRef.current) {
-            cancelAnimationFrame(
-              animationFrameRef.current
-            );
-          }
+      setCounts(stats.map(() => 0));
 
-          setCounts(stats.map(() => 0));
+      const duration = 5000;
+      const startTime = performance.now();
 
-          const duration = 5000;
-          const startTime = performance.now();
+      const animateCounters = (currentTime) => {
+        const elapsed = currentTime - startTime;
 
-          const animateCounters = (currentTime) => {
-            const elapsed =
-              currentTime - startTime;
+        const progress = Math.min(
+          elapsed / duration,
+          1
+        );
 
-            const progress = Math.min(
-              elapsed / duration,
-              1
-            );
+        const easedProgress =
+          1 - Math.pow(1 - progress, 3);
 
-            const easedProgress =
-              1 - Math.pow(1 - progress, 3);
+        setCounts(
+          stats.map((stat) =>
+            Math.floor(
+              stat.value * easedProgress
+            )
+          )
+        );
 
-            setCounts(
-              stats.map((stat) =>
-                Math.floor(
-                  stat.value * easedProgress
-                )
-              )
-            );
-
-            if (progress < 1) {
-              animationFrameRef.current =
-                requestAnimationFrame(
-                  animateCounters
-                );
-            } else {
-              setCounts(
-                stats.map(
-                  (stat) => stat.value
-                )
-              );
-
-              animationFrameRef.current = null;
-            }
-          };
-
+        if (progress < 1) {
           animationFrameRef.current =
             requestAnimationFrame(
               animateCounters
             );
         } else {
+          setCounts(
+            stats.map((stat) => stat.value)
+          );
+
+          animationFrameRef.current = null;
+        }
+      };
+
+      animationFrameRef.current =
+        requestAnimationFrame(
+          animateCounters
+        );
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          startCounters();
+        } else {
+          setVisible(false);
+
           if (animationFrameRef.current) {
             cancelAnimationFrame(
               animationFrameRef.current
@@ -106,8 +144,6 @@ export default function ContactSection() {
 
             animationFrameRef.current = null;
           }
-
-          setVisible(false);
         }
       },
       {
@@ -124,21 +160,11 @@ export default function ContactSection() {
         cancelAnimationFrame(
           animationFrameRef.current
         );
+
+        animationFrameRef.current = null;
       }
     };
   }, []);
-
-  /* =====================================================
-     WHATSAPP
-  ===================================================== */
-
-  const openWhatsApp = () => {
-    window.open(
-      "https://wa.me/918925450473?text=Hi%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20ProJenius.",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
 
   return (
     <section
@@ -156,12 +182,28 @@ export default function ContactSection() {
         <div className="contact-hero-heading">
 
           <span className="contact-hero-label">
-            LET'S GET STARTED
+            LET'S BUILD TOGETHER
           </span>
 
           <h2 className="contact-hero-title">
-            Want to{" "}
-            <span>Work Together</span>
+
+            {/* WHITE STATIC TEXT */}
+
+            <span className="contact-title-static">
+              Build Your Next
+            </span>
+
+            {/* BLUE ANIMATED TEXT */}
+
+            <span className="contact-title-animation-wrapper">
+              <span
+                key={serviceIndex}
+                className="contact-title-animated"
+              >
+                {animatedServices[serviceIndex]}
+              </span>
+            </span>
+
           </h2>
 
           <div
@@ -173,7 +215,6 @@ export default function ContactSection() {
 
         </div>
 
-
         {/* =================================================
             SHOWCASE CARD
         ================================================= */}
@@ -182,7 +223,7 @@ export default function ContactSection() {
 
           <img
             src={showcaseImage}
-            alt="ProJenius team working together"
+            alt="ProJenius creative technology showcase"
             className="contact-showcase-image"
             loading="lazy"
           />
@@ -195,27 +236,22 @@ export default function ContactSection() {
           <div className="contact-showcase-content">
 
             <h3>
-              Build A Creative
-              <br />
-              Showcase Website.
+              Have an Idea?
             </h3>
 
-            <button
-              type="button"
-              className="contact-talk-btn"
-              onClick={openWhatsApp}
-            >
-              <span>Let's Talk</span>
+            {/* REAL BUTTON */}
 
-              <span aria-hidden="true">
-                →
-              </span>
-            </button>
+            <Link
+              to="/contact"
+              className="contact-talk-btn"
+              aria-label="Let's Build It"
+            >
+              Let's Build It.
+            </Link>
 
           </div>
 
         </div>
-
 
         {/* =================================================
             STATS

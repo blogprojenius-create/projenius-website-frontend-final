@@ -162,7 +162,7 @@ const features = [
     {
         title: "Product Development",
         description: "Prototypes & 3D design",
-        icon:  <ImpactIcon />,
+        icon: <ImpactIcon />,
     },
     {
         title: "Training & Mentorship",
@@ -205,9 +205,8 @@ export default function AboutSection() {
     return (
         <section
             ref={sectionRef}
-            className={`about-section ${
-                visible ? "about-visible" : ""
-            }`}
+            className={`about-section ${visible ? "about-visible" : ""
+                }`}
         >
             {/* =================================================
                 HEADER
@@ -219,8 +218,21 @@ export default function AboutSection() {
                 </div>
 
                 <h2 className="about-title">
-                    Building Technology{" "}
-                    <span>Solutions</span>
+                    <span className="about-title-static">
+                        Building Technology Solutions
+                    </span>
+
+                    <span className="about-title-window">
+                        <span className="about-title-track">
+                            <span>Software &amp; AI Solutions</span>
+                            <span>IoT &amp; Embedded Systems</span>
+                            <span>Product Development</span>
+                            <span>Technology Training</span>
+
+                            {/* Duplicate first item for seamless looping */}
+                            <span>Software &amp; AI Solutions</span>
+                        </span>
+                    </span>
                 </h2>
 
                 <div className="about-title-line">
