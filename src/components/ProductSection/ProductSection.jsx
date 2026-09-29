@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ProductSection.css";
 
+import gnut from "../../assets/images/GNut.webp";
+import iotkit from "../../assets/images/IoT Kit.webp";
+import edutech from "../../assets/images/EduTech.webp";
 /* =========================================================
    PRODUCT DATA
    ========================================================= */
@@ -11,8 +14,7 @@ const AI_PRODUCT_URL = "https://your-ai-website-url.com";
 const tabsData = [
     {
         title: "AI-Powered Nut Sorting & Grading System",
-        image:
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
+        image: gnut,
         description:
             "Creative marketing strategies to improve online visibility.",
         icon: "AI",
@@ -20,8 +22,7 @@ const tabsData = [
     },
     {
         title: "IoT Kit",
-        image:
-            "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
+        image: iotkit,
         description:
             "Smart AI-powered systems for automation and business growth.",
         icon: "IoT",
@@ -29,8 +30,7 @@ const tabsData = [
     },
     {
         title: "EduTech Platform",
-        image:
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+        image: edutech,
         description:
             "Modern responsive websites with premium UI and smooth performance.",
         icon: "Edu",
@@ -200,9 +200,8 @@ const ProductSection = () => {
         <>
             <section
                 ref={sectionRef}
-                className={`tabs-section ${
-                    visible ? "product-visible" : ""
-                }`}
+                className={`tabs-section ${visible ? "product-visible" : ""
+                    }`}
             >
                 <div className="product-container">
 
@@ -252,9 +251,8 @@ const ProductSection = () => {
                                     key={tab.title}
                                     type="button"
                                     role="tab"
-                                    className={`tab-btn ${
-                                        isActive ? "active" : ""
-                                    }`}
+                                    className={`tab-btn ${isActive ? "active" : ""
+                                        }`}
                                     aria-selected={isActive}
                                     aria-controls={`product-panel-${index}`}
                                     onMouseEnter={() =>
